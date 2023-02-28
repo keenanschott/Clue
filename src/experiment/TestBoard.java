@@ -3,18 +3,17 @@ import java.util.*;
 
 public class TestBoard {
 
-    public TestBoard() {
+    public TestBoard() { // empty constructor as prescribed
     }
 
-    public void calcTargets(TestBoardCell startCell, int pathLength) {
+    public void calcTargets(TestBoardCell startCell, int pathLength) { // function stub
     }
 
     public TestBoardCell getCell(int row, int col) {
-        return new TestBoardCell(0, 0);
+        return new TestBoardCell(0, 0); // returns the cell at the given parameters
     }
 
     public Set<TestBoardCell> getTargets() {
-        Set<TestBoardCell> testCell = new HashSet<TestBoardCell>();
-        return testCell;
+        return new HashSet<TestBoardCell>(); // gets targets last created by calcTargets()
     }
 }
