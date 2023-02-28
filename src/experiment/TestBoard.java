@@ -2,6 +2,11 @@ package experiment;
 import java.util.*;
 
 public class TestBoard {
+	private TestBoardCell[][] grid;
+	private Set<TestBoardCell> targets;
+	private Set<TestBoardCell> visited;
+	final static int COLS = 4;
+	final static int ROWS = 4;
 
     public TestBoard() { // empty constructor as prescribed
     }

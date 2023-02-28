@@ -2,26 +2,24 @@ package experiment;
 import java.util.*;
 
 public class TestBoardCell {
-        private int row; // row and column identifiers for each cell
-        private int col;
-        private Set<TestBoardCell> adjacencyList; // adjacency list for a given cell
-        private boolean isRoom; // boolean statuses for a given cell
-        private boolean isOccupied;
+        private int row, col; // row and column identifiers for each cell
+        private Set<TestBoardCell> adjList; // adjacency list for a given cell
+        private boolean isRoom, isOccupied; // boolean statuses for a given cell
         
         public TestBoardCell(int testRow, int testCol) {
                 row = testRow; // test row and column
                 col = testCol;
-                adjacencyList = new HashSet<TestBoardCell>(); // allocate space
+                adjList = new HashSet<TestBoardCell>(); // allocate space
                 isRoom = false; // set booleans to false for now
                 isOccupied = false;
         }
 
         public void addAdjacency(TestBoardCell cell) {
-                adjacencyList.add(cell); // add cell to adjacency list
+                adjList.add(cell); // add cell to adjacency list
         }
 
         public Set<TestBoardCell> getAdjList() {
-                return adjacencyList; // get adjacency list
+                return adjList; // get adjacency list
         }
 
         public boolean isRoom() {
