@@ -37,7 +37,6 @@ public class BoardTestsExp {
     	TestBoardCell cell = board.getCell(0,0); // observed cell at (0, 0)
         board.calcTargets(cell, 2); // roll a 2
         Set<TestBoardCell> targets = board.getTargets();
-        System.out.println(targets);
         Assert.assertEquals(3, targets.size()); 
         Assert.assertTrue(targets.contains(board.getCell(0, 2))); // cells two moves away
         Assert.assertTrue(targets.contains(board.getCell(1, 1)));

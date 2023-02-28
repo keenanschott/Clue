@@ -55,6 +55,7 @@ public class TestBoard {
     			visited.remove(adjCell);
     		}
     	}
+    	visited.remove(startCell);
     }
 
     public TestBoardCell getCell(int row, int col) {
