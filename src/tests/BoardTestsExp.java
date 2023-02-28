@@ -41,7 +41,20 @@ public class BoardTestsExp {
         Assert.assertTrue(targets.contains(board.getCell(1, 2)));
         Assert.assertTrue(targets.contains(board.getCell(0, 3)));
         Assert.assertTrue(targets.contains(board.getCell(1, 0)));
-        
         }
+    
+    @Test
+    public void testTargetsRoom() {
+    	board.getCell(0, 2).setOccupied(true);
+    	board.getCell(1, 3).setOccupied(true);
+    	board.getCell(0, 3).setOccupied(true);
+    	TestBoardCell cell = board.getCell(0, 1);
+    	board.calcTargets(cell, 3);
+    	Set<TestBoardCell> targets = board.getTargets();
+    	Assert.assertEquals(3, targets.size());
+    	Assert.assertTrue(targets.contains(board.getCell(0, 2)));
+    	Assert.assertTrue(targets.contains(board.getCell(1, 3)));
+    	Assert.assertTrue(targets.contains(board.getCell(0, 3)));
+    }
 
 }
