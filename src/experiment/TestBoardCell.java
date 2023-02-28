@@ -2,40 +2,44 @@ package experiment;
 import java.util.*;
 
 public class TestBoardCell {
-        private int row;
-        private int col;
-        private Set<TestBoardCell> adjacencyList;
-        private boolean isRoom;
-        private boolean occupied;
+        private int row, col; // row and column identifiers for each cell
+        private Set<TestBoardCell> adjList; // adjacency list for a given cell
+        private boolean isRoom, isOccupied; // boolean statuses for a given cell
         
         public TestBoardCell(int testRow, int testCol) {
-                row = testRow;
+                row = testRow; // test row and column
                 col = testCol;
-                adjacencyList = new HashSet<TestBoardCell>();
-                isRoom = false;
+                adjList = new HashSet<TestBoardCell>(); // allocate space
+                isRoom = false; // set booleans to false for now
+                isOccupied = false;
         }
 
-        public void addAdjacency(TestBoardCell cell) {
-                adjacencyList.add(cell);
+        @Override
+		public String toString() {
+			return "TestBoardCell [row=" + row + ", col=" + col + "]";
+		}
+
+		public void addAdjacency(TestBoardCell cell) {
+                adjList.add(cell); // add cell to adjacency list
         }
 
         public Set<TestBoardCell> getAdjList() {
-                return adjacencyList;
+                return adjList; // get adjacency list
         }
 
-        public boolean isRoom() {
-                return isRoom;
+        public boolean getRoom() {
+                return isRoom; // get isRoom
         }
 
         public void setRoom(boolean roomStatus) {
-                isRoom = roomStatus;
+                isRoom = roomStatus; // set isRoom
         }
 
         public void setOccupied(boolean occupation) {
-                occupied = occupation;
+                isOccupied = occupation; // set isOccupied
         }
 
         public boolean getOccupied() {
-                return occupied;
+                return isOccupied; // get isOccupied
         }
 }
