@@ -1,1 +1,5 @@
-/tests/
+*.class
+.project
+.classpath
+.settings/
+.metadata
