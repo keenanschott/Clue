@@ -2,11 +2,12 @@ package experiment;
 import java.util.*;
 
 public class TestBoardCell {
-        int row;
-        int col;
-        Set<TestBoardCell> adjacencyList;
-        boolean isRoom;
-        boolean occupied;
+        private int row;
+        private int col;
+        private Set<TestBoardCell> adjacencyList;
+        private boolean isRoom;
+        private boolean occupied;
+        
         public TestBoardCell(int testRow, int testCol) {
                 row = testRow;
                 col = testCol;
@@ -37,6 +38,4 @@ public class TestBoardCell {
         public boolean getOccupied() {
                 return occupied;
         }
-
-
 }
