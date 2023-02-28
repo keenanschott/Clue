@@ -1,0 +1,6 @@
+Authors:
+Keenan Schott (Section A), William Burns (Section A), A2-06
+
+Outside Sources:
+C09P Class Prep
+C13P Class Prep

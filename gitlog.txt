@@ -1,0 +1,62 @@
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C13A-2 Clue Paths 1 (Clue Pair), dated 2/27/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C13A-2 Clue Paths 1 (Clue Pair), dated 2/27/2023.
+
+commit 4707aafa04bd9e0783a062d56dbd82201d9a1628
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Mon Feb 27 23:36:35 2023 -0700
+
+    Working, failing tests
+
+commit 7ad78377314787ae960acb390a6dfab7aaa8ae3e
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Mon Feb 27 22:44:22 2023 -0700
+
+    Failures, not errors now
+
+commit 7642b48add2d97c2f0c1451eb0724fe81950819d
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Mon Feb 27 22:34:08 2023 -0700
+
+    current update
+
+commit c7039c2c50b6b0812e51b555393fa23b4566503d
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Mon Feb 27 22:20:10 2023 -0700
+
+    final tests finished
+
+commit f238ee2bb0b43a794d39386bbf5119e7c5a55b37
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Mon Feb 27 22:16:48 2023 -0700
+
+    occupation tests
+
+commit 723c35a6ffd727d939d8e54d6074db1785ab927a
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Mon Feb 27 22:10:26 2023 -0700
+
+    tests developed
+
+commit 0f1ddf65949df9a4691aee5e1b3edadff915df3c
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Mon Feb 27 22:04:38 2023 -0700
+
+    gitignore changes
+
+commit 0d5739bc8baceceea4ef6a70f809eaf6168add69
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Feb 27 21:39:00 2023 -0700
+
+    C13A-2, almost done, trying to get JUnit working...
+
+commit c53e7b882af3b42fdd0cbaf9027fce8305958a4e
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Feb 27 21:01:19 2023 -0700
+
+    Added gitignore
+
+commit 058edc6af03ff5db6dc5e9b399f7a5f04591b979
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Sun Feb 26 22:39:08 2023 -0700
+
+    initial commit, creating test classes
