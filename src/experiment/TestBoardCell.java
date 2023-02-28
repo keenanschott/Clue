@@ -22,7 +22,7 @@ public class TestBoardCell {
                 return adjList; // get adjacency list
         }
 
-        public boolean isRoom() {
+        public boolean getRoom() {
                 return isRoom; // get isRoom
         }
 
