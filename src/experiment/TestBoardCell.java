@@ -14,7 +14,12 @@ public class TestBoardCell {
                 isOccupied = false;
         }
 
-        public void addAdjacency(TestBoardCell cell) {
+        @Override
+		public String toString() {
+			return "TestBoardCell [row=" + row + ", col=" + col + "]";
+		}
+
+		public void addAdjacency(TestBoardCell cell) {
                 adjList.add(cell); // add cell to adjacency list
         }
 

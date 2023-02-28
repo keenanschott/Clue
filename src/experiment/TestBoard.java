@@ -64,4 +64,14 @@ public class TestBoard {
     public Set<TestBoardCell> getTargets() {
         return targets; // gets targets last created by calcTargets()
     }
+
+	@Override
+	public String toString() {
+		for (TestBoardCell currentCell : targets) {
+			System.out.println(currentCell);
+		}
+		return "";
+	}
+    
+    
 }
