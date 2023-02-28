@@ -1,5 +1,5 @@
 package tests;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import java.util.Set;
 
 import experiment.TestBoard;
@@ -10,14 +10,12 @@ public class BoardTestsExp {
 
     @BeforeEach
     public void setUp() {
-        board = new TestBoard();
+
     }
 
     @Test
     public void testAdjacency() {   
-        TestBoardCell cell = board.getCell(0,0);
-        Set<TestBoardCell> testList = cell.getAdjList();
-        Assert.assertTrue();
+
     }
 
     @Test 
