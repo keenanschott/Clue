@@ -38,13 +38,23 @@ public class TestBoard {
 
     public void calcTargets(TestBoardCell startCell, int pathLength) { // function stub
     	visited.add(startCell);
-    	findAllTargets();	
+    	for (TestBoardCell adjCell : startCell.getAdjList()) {
+    		findAllTargets(adjCell, pathLength);
+    	}
     }
     
-    private void 
-    
     private void findAllTargets(TestBoardCell startCell, int pathLength) {
-    	
+    	for (TestBoardCell adjCell : startCell.getAdjList()) {
+    		if (visited.contains(adjCell) == false) {
+    			visited.add(adjCell);
+    			if (pathLength == 1) {
+    				targets.add(adjCell);
+    			} else {
+    				findAllTargets(adjCell, pathLength - 1);
+    			}
+    			visited.remove(adjCell);
+    		}
+    	}
     }
 
     public TestBoardCell getCell(int row, int col) {
