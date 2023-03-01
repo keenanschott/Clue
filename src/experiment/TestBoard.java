@@ -1,75 +1,98 @@
 package experiment;
 import java.util.*;
 
+/**
+ * TestBoard
+ * A part of Clue Paths to set up and populate a game board.
+ * @author Keenan Schott
+ * @author Finn Burns
+ */
 public class TestBoard {
 	private TestBoardCell[][] grid; // grid of cells
-	private Set<TestBoardCell> targets; // targets
-	private Set<TestBoardCell> visited;
-	final static int COLS = 4;
-	final static int ROWS = 4;
+	private Set<TestBoardCell> targets; // all valid cells to move to
+	private Set<TestBoardCell> visited; // visited cells
+	public final static int COLS = 4; // 4 x 4 game board
+	public final static int ROWS = 4;
 
-    public TestBoard() { // empty constructor as prescribed
-    	grid = new TestBoardCell[ROWS][COLS]; // for testing
+	/**
+     * Set up the game board with new board cells. Then, create an adjacency list for every cell.
+     */
+    public TestBoard() { 
+    	grid = new TestBoardCell[ROWS][COLS]; 
     	for (int i = 0; i < ROWS; i++) {
     		for (int j = 0; j < COLS; j++) {
     			TestBoardCell testCell = new TestBoardCell(i, j);
-    			grid[i][j] = testCell; // fill grid with cells
+    			grid[i][j] = testCell; // fill grid with standard cells
     		}
     	}
-    	for (int i = 0; i < ROWS; i++) {
+    	for (int i = 0; i < ROWS; i++) { // create an adjacency list for every cell
     		for (int j = 0; j < COLS; j++) {
-    			if (i != 0) {
+    			if (i != 0) { // if not at top of board
     				grid[i][j].addAdjacency(grid[i - 1][j]);
     			}
-    			if (i != 3) {
+    			if (i != 3) { // if not at bottom of board
     				grid[i][j].addAdjacency(grid[i + 1][j]);
     			}
-    			if (j != 0) {
+    			if (j != 0) { // if not at very left of board
     				grid[i][j].addAdjacency(grid[i][j - 1]);
     			}
-    			if (j != 3) {
+    			if (j != 3) { // if not at very right of board
     				grid[i][j].addAdjacency(grid[i][j + 1]);
     			}
     		}
     	}
-    	targets = new HashSet<TestBoardCell>();
+    	targets = new HashSet<TestBoardCell>(); // allocate space for our sets
     	visited = new HashSet<TestBoardCell>();
     }
 
-    public void calcTargets(TestBoardCell startCell, int pathLength) { // function stub
-    	visited.add(startCell);
-		findAllTargets(startCell, pathLength);
+	/**
+     * Calculate all valid targets to move to.
+	 * 
+	 * @param startCell The starting cell to examine as it pertains to the pathLength.
+	 * @param pathLength The roll/how many moves we have.
+     */
+    public void calcTargets(TestBoardCell startCell, int pathLength) {
+    	visited.add(startCell); // can never move back to the start cell
+		findAllTargets(startCell, pathLength); // call helper function
     }
     
+	/**
+     * Find all valid targets to move to.
+	 * 
+	 * @param startCell The starting cell to examine as it pertains to the pathLength.
+	 * @param pathLength The roll/how many moves we have.
+     */
     private void findAllTargets(TestBoardCell startCell, int pathLength) {
-    	for (TestBoardCell adjCell : startCell.getAdjList()) {
-    		if (!visited.contains(adjCell) && !adjCell.getOccupied()) {
+    	for (TestBoardCell adjCell : startCell.getAdjList()) { // all adjacent cells
+    		if (!visited.contains(adjCell) && !adjCell.getIsOccupied()) { // if not in visited and not occupied
     			visited.add(adjCell);
-    			if (pathLength == 1 || adjCell.getRoom()) {
-    				targets.add(adjCell);
+    			if (pathLength == 1 || adjCell.getIsRoom()) { // if no more moves or at a room cell
+    				targets.add(adjCell); // add to targets
     			} else {
-    				findAllTargets(adjCell, pathLength - 1);
+    				findAllTargets(adjCell, pathLength - 1); // call recursively with one less move
     			}
     			visited.remove(adjCell);
     		}
     	}
     }
 
+	/**
+     * Get a cell from the grid.
+	 * 
+	 * @param row The requested row.
+	 * @param col The requested column.
+	 * @return Returns the TestBoardCell from that location in the grid.
+     */
     public TestBoardCell getCell(int row, int col) {
         return grid[row][col]; // returns the cell at the given parameters
     }
 
+	/**
+     * Return the targets list from calcTargets().
+	 * 
+	 * @return Returns targets.
+     */
     public Set<TestBoardCell> getTargets() {
-        return targets; // gets targets last created by calcTargets()
-    }
-
-	@Override
-	public String toString() {
-		for (TestBoardCell currentCell : targets) {
-			System.out.println(currentCell);
-		}
-		return "";
-	}
-    
-    
+        return targets; // gets targets created by calcTargets()
+    }    
 }
