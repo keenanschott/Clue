@@ -30,13 +30,13 @@ public class TestBoard {
     			if (i != 0) { // if not at top of board
     				grid[i][j].addAdjacency(grid[i - 1][j]);
     			}
-    			if (i != 3) { // if not at bottom of board
+    			if (i != ROWS - 1) { // if not at bottom of board
     				grid[i][j].addAdjacency(grid[i + 1][j]);
     			}
     			if (j != 0) { // if not at very left of board
     				grid[i][j].addAdjacency(grid[i][j - 1]);
     			}
-    			if (j != 3) { // if not at very right of board
+    			if (j != COLS - 1) { // if not at very right of board
     				grid[i][j].addAdjacency(grid[i][j + 1]);
     			}
     		}
