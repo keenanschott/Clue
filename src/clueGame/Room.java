@@ -10,4 +10,16 @@ public class Room {
         centerCell = center;
         labelCell = label;
     } 
+
+    public String getName() {
+        return name;
+    }
+    
+    public BoardCell getLabelCell() {
+        return labelCell;
+    }
+
+    public BoardCell getCenterCell() {
+        return centerCell;
+    }
 }

@@ -3,8 +3,8 @@ import java.util.*;
 
 public class Board {
     private BoardCell[][] grid;
-    private int numRows;
-    private int numColumns;
+    private int numRows = 50;
+    private int numColumns = 50;
     private String layoutConfigFile;
     private String setupConfigFile;
     private Map<Character,Room> roomMap;
@@ -50,6 +50,10 @@ public class Board {
     	visited = new HashSet<BoardCell>();
     }
 
+	public void setConfigFiles(String layoutCSV, String setupTXT) {
+		// TODO: implement properly later so that it links up with initialize() - probably gets row/col from those files
+	}
+
     public void loadSetupConfig() {
         // implement in later assignment
     }
@@ -57,4 +61,23 @@ public class Board {
     public void loadLayoutConfig() {
         // implement in later assignment
     }
+
+	public Room getRoom(char roomType) {
+		return new Room("...", new BoardCell(0,0), new BoardCell(0,0));
+	}	
+	
+	public Room getRoom(BoardCell cell) {
+		return new Room("...", new BoardCell(0,0), new BoardCell(0,0));
+	}	
+	public int getNumRows() {
+		return 0;
+	}
+
+	public int getNumColumns() {
+		return 0;
+	}
+
+	public BoardCell getCell(int row, int col) {
+		return grid[row][col];
+	}
 }

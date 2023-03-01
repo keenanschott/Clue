@@ -24,4 +24,27 @@ public class BoardCell {
     }
 
     // TODO: add necessary getters and setters
+    public Set<BoardCell> getAdjList() {
+        return adjList;
+    }
+
+    public boolean isDoorway() {
+        return false;
+    }
+
+    public DoorDirection getDoorDirection() {
+        return doorDirection;
+    }
+
+    public boolean isRoomCenter(){
+		return roomCenter;
+	}
+
+    public boolean isLabel() {
+        return roomLabel;
+    }
+
+    public char getSecretPassage() {
+        return secretPassage;
+    }
 }
