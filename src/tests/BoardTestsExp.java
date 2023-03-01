@@ -88,11 +88,12 @@ public class BoardTestsExp {
     	board.calcTargets(cell, 6); // roll a 6
     	Set<TestBoardCell> targets = board.getTargets();
         System.out.println(targets);
-        Assert.assertEquals(5, targets.size()); // valid cells that are not rooms below; I drew it out
+        Assert.assertEquals(6, targets.size()); // valid cells that are not rooms below; I drew it out
     	Assert.assertTrue(targets.contains(board.getCell(0, 0)));
     	Assert.assertTrue(targets.contains(board.getCell(0, 3)));
     	Assert.assertTrue(targets.contains(board.getCell(1, 1)));
         Assert.assertTrue(targets.contains(board.getCell(2, 1)));
         Assert.assertTrue(targets.contains(board.getCell(3, 1)));
+        Assert.assertTrue(targets.contains(board.getCell(2, 0)));
     }
 }
