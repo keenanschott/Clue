@@ -1,5 +1,83 @@
-I, Keenan Schott, certify that I participated equitably in the creation of assignment C13A-2 Clue Paths 1 (Clue Pair), dated 2/27/2023.
-I, William Burns, certify that I participated equitably in the creation of assignment C13A-2 Clue Paths 1 (Clue Pair), dated 2/27/2023.
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C14A-1 Clue Paths 2 (Clue Pair), dated 2/28/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C14A-1 Clue Paths 2 (Clue Pair), dated 2/28/2023.
+
+commit 304d079d86002d525e0a5911fb27446d437da407
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Feb 28 19:12:02 2023 -0700
+
+    Minor tweaks
+
+commit 7950efba0ad0679e8cab220161206e3a52efd1fb
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Feb 28 19:09:57 2023 -0700
+
+    Up to coding standards
+
+commit aaf4509653ada29bb12e2fade6cfa8dd9fff35ae
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Feb 28 17:15:17 2023 -0700
+
+    all tests passing
+
+commit a66bf3159a22fc9afdffac56b0bc9433c509a321
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Feb 28 17:10:40 2023 -0700
+
+    4 out of 5 working
+
+commit 0afbba6926e3a82efab78a8c7169356df8506eda
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Feb 28 16:37:26 2023 -0700
+
+    testTargetsNormal working
+
+commit adb05ef4acc53f45ab7d45855b7418e1227bfae4
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Feb 28 11:32:45 2023 -0700
+
+    testTargetsNormal examination
+
+commit c79b433b8b6bea8790c80717059f83e16f80f67d
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Feb 28 11:13:52 2023 -0700
+
+    toStrings for testing
+
+commit e0daa4c0b7088a00b7d9b3cf84c20f61a69d51a0
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Feb 28 10:33:57 2023 -0700
+
+    One passing test
+
+commit b154c044ab960c58a4d77e11075f6bff5d118b6c
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Feb 28 10:14:09 2023 -0700
+
+    Adjacencies calculated
+
+commit 57b58715aa158f2d19af24db3ccc03d0c587f43f
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Feb 28 09:44:36 2023 -0700
+
+    All functions except calcTargets done
+
+commit 21c2f36f4c9a63a86c9593f51cac40cc68cd9b06
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Feb 28 09:37:05 2023 -0700
+
+    Private variables added to experiment classes
+
+commit d76291bc1d269c372f30d1ef099227fc7a1bcabe
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Mon Feb 27 23:47:45 2023 -0700
+
+    Tweaked the gitignore
+
+commit a8059ddf42bbafd2d608cc184ba17273b63f98cd
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Mon Feb 27 23:45:34 2023 -0700
+
+    Final push; 2/27
 
 commit 4707aafa04bd9e0783a062d56dbd82201d9a1628
 Author: keenanschott <keenanmschott28@gmail.com>
