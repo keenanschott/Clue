@@ -1,0 +1,13 @@
+// Rooms and room cards
+Room, Galley, G
+Room, Swimming Pool, P
+Room, Captain's Quarters, C
+Room, Sun Deck, S
+Room, Engine Room, E
+Room, Bridge, B
+Room, Dining Hall, D
+Room, Head, H
+Room, Landing Pad, L
+// other spaces on board
+Space, Unused, X
+Space, Walkway, W
