@@ -13,7 +13,7 @@ import clueGame.Room;
 public class FileInitTests {
     public static final int LEGEND_SIZE = 11;
 	public static final int NUM_ROWS = 25;
-	public static final int NUM_COLUMNS = 31;
+	public static final int NUM_COLUMNS = 31; // size our board
 
 	// NOTE: I made Board static because I only want to set it up one
 	// time (using @BeforeAll), no need to do setup before each test.
@@ -69,7 +69,6 @@ public class FileInitTests {
 		assertFalse(cell.isDoorway());
 	}
 	
-
 	// Test that we have the correct number of doors
 	@Test
 	public void testNumberOfDoorways() {
@@ -80,7 +79,7 @@ public class FileInitTests {
 				if (cell.isDoorway())
 					numDoors++;
 			}
-		Assert.assertEquals(19, numDoors);
+		Assert.assertEquals(19, numDoors); // we have 19 doors total
 	}
 
 	// Test a few room cells to ensure the room initial is correct.
@@ -134,6 +133,5 @@ public class FileInitTests {
 		assertEquals( room.getName(), "Unused" ) ;
 		assertFalse( cell.isRoomCenter() );
 		assertFalse( cell.isLabel() );
-		
 	}
 }

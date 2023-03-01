@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 import clueGame.BadConfigFormatException;
 import clueGame.Board;
 
+/*
+ * This program tests that, when loading config files, exceptions 
+ * are thrown appropriately.
+ */
+
 public class ExceptionTests {
     @Test
 	public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {
