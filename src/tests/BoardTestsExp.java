@@ -54,38 +54,45 @@ public class BoardTestsExp {
     	board.getCell(1, 2).setRoom(true);
     	board.getCell(0, 2).setRoom(true);
     	TestBoardCell cell = board.getCell(0, 0); // observed cell at (0, 0)
-    	board.calcTargets(cell, 2); // roll a 2
+    	board.calcTargets(cell, 3); // roll a 3
     	Set<TestBoardCell> targets = board.getTargets();
-    	Assert.assertEquals(3, targets.size());
-    	Assert.assertTrue(targets.contains(board.getCell(1, 1))); // only valid cell two moves away
-    	Assert.assertTrue(targets.contains(board.getCell(2, 0))); // room cell two moves away; consumes remaining moves
-    	Assert.assertTrue(targets.contains(board.getCell(0, 2))); // room cell two moves away; consumers remaining moves
+    	Assert.assertEquals(6, targets.size());
+    	Assert.assertTrue(targets.contains(board.getCell(0, 1))); 
+        Assert.assertTrue(targets.contains(board.getCell(0, 2))); 
+        Assert.assertTrue(targets.contains(board.getCell(1, 0))); 
+    	Assert.assertTrue(targets.contains(board.getCell(1, 2))); 
+    	Assert.assertTrue(targets.contains(board.getCell(2, 0))); 
+        Assert.assertTrue(targets.contains(board.getCell(2, 1))); 
     }
     
     @Test
     public void testTargetsOccupied() {
     	board.getCell(3, 2).setOccupied(true);
+        board.getCell(0, 3).setOccupied(true);
+        board.getCell(2, 1).setOccupied(true);
     	TestBoardCell cell = board.getCell(3, 3); // observed cell at (3, 3)
-    	board.calcTargets(cell, 1); // roll a 1
+    	board.calcTargets(cell, 3); // roll a 3
     	Set<TestBoardCell> targets = board.getTargets();
     	Assert.assertEquals(1, targets.size());
-    	Assert.assertTrue(targets.contains(board.getCell(2, 3))); // only valid cell; (3, 2) is occupied
+    	Assert.assertTrue(targets.contains(board.getCell(1, 2))); // only valid cell; (3, 2) is occupied
     }
     
     @Test
     public void testTargetsMixed() {
-    	board.getCell(2, 3).setOccupied(true); // mixed bag of rooms and occupation
-    	board.getCell(0, 1).setOccupied(true);
-    	board.getCell(3, 3).setRoom(true);
+    	board.getCell(0, 1).setOccupied(true); // mixed bag of rooms and occupation
+    	board.getCell(0, 2).setOccupied(true);
     	board.getCell(0, 3).setRoom(true);
-    	board.getCell(1, 2).setRoom(true);
-    	board.getCell(0, 2).setRoom(true);
+    	board.getCell(1, 1).setRoom(true);
+    	board.getCell(2, 1).setRoom(true);
     	TestBoardCell cell = board.getCell(2, 2); // observed cell at (2, 2)
     	board.calcTargets(cell, 6); // roll a 6
     	Set<TestBoardCell> targets = board.getTargets();
-    	Assert.assertEquals(7, targets.size()); // valid cells that are not rooms below; I drew it out
+        System.out.println(targets);
+        Assert.assertEquals(5, targets.size()); // valid cells that are not rooms below; I drew it out
     	Assert.assertTrue(targets.contains(board.getCell(0, 0)));
-    	Assert.assertTrue(targets.contains(board.getCell(3, 1)));
+    	Assert.assertTrue(targets.contains(board.getCell(0, 3)));
     	Assert.assertTrue(targets.contains(board.getCell(1, 1)));
+        Assert.assertTrue(targets.contains(board.getCell(2, 1)));
+        Assert.assertTrue(targets.contains(board.getCell(3, 1)));
     }
 }
