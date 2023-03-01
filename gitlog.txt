@@ -1,5 +1,97 @@
-I, Keenan Schott, certify that I participated equitably in the creation of assignment C14A-1 Clue Paths 2 (Clue Pair), dated 2/28/2023.
-I, William Burns, certify that I participated equitably in the creation of assignment C14A-1 Clue Paths 2 (Clue Pair), dated 2/28/2023.
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C14A-2 Clue Init 1 (Clue Pair), dated 3/1/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C14A-2 Clue Init 1 (Clue Pair), dated 3/1/2023.
+
+commit 71ed3443f8b20155b1b9eb00ca38c57f3ee72cfd
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Mar 1 14:33:19 2023 -0700
+
+    Minor tweak
+
+commit de87b0c20cea9f9b7ecc1480b8ccc9c8a624c174
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Mar 1 14:32:06 2023 -0700
+
+    Up to coding standards
+
+commit fde0778e418b303132d359b9b7657211bfa314b9
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Mar 1 13:59:39 2023 -0700
+
+    Minor tweak
+
+commit 119cd22756d772dd694e6f104b45c3b18122e125
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Mar 1 13:59:01 2023 -0700
+
+    Minor tweak
+
+commit 372b384c257387340db735b1eb2f665c7c4d6a30
+Merge: 969a6e8 ff6d9eb
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Mar 1 13:16:24 2023 -0700
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit 969a6e81ae1dc13f65e2e663c8f896897a74ab37
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Mar 1 13:16:05 2023 -0700
+
+    added Test.txt to give our fileInit tests context
+
+commit ff6d9eb3ddefe2bdcf323195303b20d325b6e865
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Wed Mar 1 13:15:37 2023 -0700
+
+    Touched up testing parameters
+
+commit 3e03a126a2b919ff6cf0903cfc5359deb3e4cb1e
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Wed Mar 1 12:58:20 2023 -0700
+
+    Customized for our data
+
+commit 31d09db2e31c1ba5910a4bf68df2343cedb206ce
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Mar 1 12:40:22 2023 -0700
+
+    tests compile, and fail
+
+commit bb1653d70d07b3d98b28abe0b11ff1f9227eef60
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Mar 1 02:08:25 2023 -0700
+
+    implemented constructors, and getAdj
+
+commit c34c5699eaccda6b670532601ef2e91627b043f2
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Mar 1 01:40:38 2023 -0700
+
+    frameworked C14A-2 Init
+
+commit 6bc83093efa50102f09b442bbf3a3b60138948c7
+Merge: 9930f19 5294c9a
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Mar 1 00:56:39 2023 -0700
+
+    merged with keenan, onto clue init 1
+
+commit 9930f198ce8e6233ae80c18d30f9316dd8ec0dee
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Mar 1 00:55:17 2023 -0700
+
+    well fuck
+
+commit 5294c9a794bf8be7e88dfb709956490c7459ddd8
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Feb 28 19:18:12 2023 -0700
+
+    C14A-1 final touches 2
+
+commit dc95225ef46fe1c9633e430fbc5637fe2a60cc86
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Feb 28 19:17:36 2023 -0700
+
+    C14A-1 final touches
 
 commit 304d079d86002d525e0a5911fb27446d437da407
 Author: Keenan Schott <keenanmschott28@gmail.com>
@@ -30,6 +122,13 @@ Author: Keenan Schott <keenanmschott28@gmail.com>
 Date:   Tue Feb 28 16:37:26 2023 -0700
 
     testTargetsNormal working
+
+commit 8ab0d5afec69e0c4d223b6c4e8748f1345fb4995
+Merge: 5f1162e adb05ef
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Feb 28 11:59:53 2023 -0700
+
+    merged with keenan's implementations
 
 commit adb05ef4acc53f45ab7d45855b7418e1227bfae4
 Author: keenanschott <keenanmschott28@gmail.com>
@@ -85,11 +184,25 @@ Date:   Mon Feb 27 23:36:35 2023 -0700
 
     Working, failing tests
 
+commit 5f1162ed2c570add587ada9aebd3f12fdfdcaf88
+Merge: e8c4688 7ad7837
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Feb 27 22:45:04 2023 -0700
+
+    merge with keenan
+
 commit 7ad78377314787ae960acb390a6dfab7aaa8ae3e
 Author: keenanschott <keenanmschott28@gmail.com>
 Date:   Mon Feb 27 22:44:22 2023 -0700
 
     Failures, not errors now
+
+commit e8c46885f6d39e91c278fa68abd65debd979fbdd
+Merge: afaa0bf 7642b48
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Feb 27 22:34:54 2023 -0700
+
+    trying to initialize test board
 
 commit 7642b48add2d97c2f0c1451eb0724fe81950819d
 Author: keenanschott <keenanmschott28@gmail.com>
@@ -97,11 +210,25 @@ Date:   Mon Feb 27 22:34:08 2023 -0700
 
     current update
 
+commit afaa0bfa9d95c2b676dc204164e34b4cb8622c0a
+Merge: 10f5108 c7039c2
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Feb 27 22:21:01 2023 -0700
+
+    merged with keenan's test
+
 commit c7039c2c50b6b0812e51b555393fa23b4566503d
 Author: keenanschott <keenanmschott28@gmail.com>
 Date:   Mon Feb 27 22:20:10 2023 -0700
 
     final tests finished
+
+commit 10f5108382f92829923908a07cc2792dc829fb96
+Merge: 2e44f9c f238ee2
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Feb 27 22:18:01 2023 -0700
+
+    merged with keenan's test
 
 commit f238ee2bb0b43a794d39386bbf5119e7c5a55b37
 Author: keenanschott <keenanmschott28@gmail.com>
@@ -114,6 +241,19 @@ Author: keenanschott <keenanmschott28@gmail.com>
 Date:   Mon Feb 27 22:10:26 2023 -0700
 
     tests developed
+
+commit 2e44f9c39f9f926d315cccd83db7960d8a411025
+Merge: f9383ed 0f1ddf6
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Feb 27 22:08:41 2023 -0700
+
+    merged testAdjacency
+
+commit f9383ed1b35653d8268a1f789ecb0d5b6f0cc2a0
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Feb 27 22:06:33 2023 -0700
+
+    trying to get boardtestsexp working
 
 commit 0f1ddf65949df9a4691aee5e1b3edadff915df3c
 Author: keenanschott <keenanmschott28@gmail.com>
