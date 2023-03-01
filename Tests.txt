@@ -7,8 +7,6 @@ FourDoorDirections:
 	[8,21] is a RIGHT doorway into Engine Room ('E')
 	[28,15] is a DOWN doorway into Landing Pad ('L')
 	[21,7] is a LEFT doorway into Head ('H')
-	
-	No Doorway:
 	[0,8] is a walkway, and therefore NOT a doorway
 
 testRooms: 
@@ -18,5 +16,3 @@ testRooms:
 	[0,0] is a secret passage cell FROM Bridge TO Landing Pad
 	[5,0] is a walkway cell 
 	[4,0] is an unused cell to test ('X')
-
-
