@@ -41,14 +41,14 @@ public class Board {
     public void initialize() {
 		ArrayList<String[]> allLinesLayout = new ArrayList<String[]>();
 		File file = new File(layoutConfigFile);
-		String currentString;
+		String currentLine;
+		String[] lineArray;
 		try {
 			Scanner sc = new Scanner(file);
 			while (sc.hasNext()) {
-				String[] currentLine;
-				currentString = sc.next();
-				currentLine = currentString.split(",");
-				allLinesLayout.add(currentLine);
+				currentLine = sc.next();
+				lineArray = currentLine.split(",");
+				allLinesLayout.add(lineArray);
 			}
 			numRows = allLinesLayout.size();
 			numColumns = allLinesLayout.get(0).length; // TODO - detect bad characters
@@ -56,7 +56,33 @@ public class Board {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
+		
+		file = new File(setupConfigFile);
+		try {
+			Scanner sc = new Scanner(file);
+			while (sc.hasNext()) {
+				currentLine = sc.next();
+				lineArray = currentLine.split(",");
+				if (lineArray.length == 3) {
+					if (lineArray[0].equals("Room") || lineArray[0].equals("Space")) {
+						//roomMap.put(lineArray[2], lineArray[1]);
+						/*
+						 * We are creating a room based off Setup, however key components of a Room object are located in 
+						 * layoutConfigFile. We need to either create a different parameterized room constructor or refractor
+						 * our code...
+						*/
+					}
+					else {
+						System.out.println("Invalid cell type");
+					}
+				}
+				else {
+					System.out.println("Invalid line, handle later.");
+				}
+			}	
+		} catch (FileNotFoundException e) {
+			e.printStacktrace();
+		}
 
 
 
