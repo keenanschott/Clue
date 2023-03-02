@@ -1,6 +1,5 @@
 package clueGame;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -12,8 +11,8 @@ import java.util.*;
  */
 public class Board {
     private BoardCell[][] grid; // grid of cells
-    private int numRows = 50; // TODO: remove this later when we implement setConfigFiles()
-    private int numColumns = 50; // TODO: remove this later when we implement setConfigFiles()
+    private int numRows; // TODO: remove this later when we implement setConfigFiles()
+    private int numColumns; // TODO: remove this later when we implement setConfigFiles()
     private String layoutConfigFile; // layout file
     private String setupConfigFile; // setup file
     private Map<Character,Room> roomMap; // maps characters to rooms
@@ -40,7 +39,30 @@ public class Board {
      * Set up the game board with new board cells. Then, create an adjacency list for every cell.
      */
     public void initialize() {
-        grid = new BoardCell[numRows][numColumns]; 
+		ArrayList<String[]> allLinesLayout = new ArrayList<String[]>();
+		File file = new File(layoutConfigFile);
+		String currentString;
+		try {
+			Scanner sc = new Scanner(file);
+			while (sc.hasNext()) {
+				String[] currentLine;
+				currentString = sc.next();
+				currentLine = currentString.split(",");
+				allLinesLayout.add(currentLine);
+			}
+			numRows = allLinesLayout.size();
+			numColumns = allLinesLayout.get(0).length; // TODO - detect bad characters
+			sc.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+
+
+
+
+
+		grid = new BoardCell[numRows][numColumns]; 
     	for (int i = 0; i < numRows; i++) {
     		for (int j = 0; j < numColumns; j++) {
     			BoardCell testCell = new BoardCell(i, j);
@@ -68,15 +90,8 @@ public class Board {
     }
 
 	public void setConfigFiles(String layoutCSV, String setupTXT) {
-		File file = new File(layoutCSV);
-		try {
-			Scanner sc = new Scanner(file);
-			while (sc.hasNext()) {
-				System.out.println(sc.next());
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		layoutConfigFile = "data/" + layoutCSV;
+		setupConfigFile = "data/" + setupTXT;
 	}
 
     public void loadSetupConfig() {
@@ -111,5 +126,12 @@ public class Board {
      */
 	public BoardCell getCell(int row, int col) {
 		return grid[row][col]; // returns the cell at the given parameters
+	}
+
+	public static void main(String[] args) {
+		Board board = new Board();
+		board = Board.getInstance();
+		// set the file names to use my config files
+		board.setConfigFiles("ClueLayout306.csv", "ClueSetup306.txt");
 	}
 }
