@@ -1,4 +1,7 @@
 package clueGame;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 /**
@@ -65,7 +68,15 @@ public class Board {
     }
 
 	public void setConfigFiles(String layoutCSV, String setupTXT) {
-		// TODO: implement properly later so that it links up with initialize() - probably gets row/col from those files
+		File file = new File(layoutCSV);
+		try {
+			Scanner sc = new Scanner(file);
+			while (sc.hasNext()) {
+				System.out.println(sc.next());
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
     public void loadSetupConfig() {
