@@ -12,6 +12,12 @@ import clueGame.Board;
  * are thrown appropriately.
  */
 
+/**
+ * ExceptionTests
+ * A part of Clue Init to test and examine the BadCongifFormatException.
+ * @author Keenan Schott
+ * @author Finn Burns
+ */
 public class ExceptionTests {
     @Test
 	public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {

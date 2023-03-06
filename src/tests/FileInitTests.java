@@ -10,10 +10,17 @@ import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.DoorDirection;
 import clueGame.Room;
+
+/**
+ * FileInitTests
+ * A part of Clue Init to test and examine the initialization of the game.
+ * @author Keenan Schott
+ * @author Finn Burns
+ */
 public class FileInitTests {
     public static final int LEGEND_SIZE = 11;
 	public static final int NUM_ROWS = 25;
-	public static final int NUM_COLUMNS = 31; // size our board
+	public static final int NUM_COLUMNS = 31; // size of our board
 
 	// NOTE: I made Board static because I only want to set it up one
 	// time (using @BeforeAll), no need to do setup before each test.
@@ -49,7 +56,6 @@ public class FileInitTests {
 
 	// Test a doorway in each direction (RIGHT/LEFT/UP/DOWN), plus
 	// two cells that are not a doorway.
-	// These cells are white on the planning spreadsheet
 	@Test
 	public void FourDoorDirections() {
 		BoardCell cell = board.getCell(6, 29);
@@ -64,7 +70,7 @@ public class FileInitTests {
 		cell = board.getCell(21, 7);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.LEFT, cell.getDoorDirection());
-		// Test that walkways are not doors
+		// test that walkways are not doors
 		cell = board.getCell(0, 8);
 		assertFalse(cell.isDoorway());
 	}

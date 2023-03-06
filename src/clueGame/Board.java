@@ -3,8 +3,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-import javax.swing.RootPaneContainer;
-
 /**
  * Board
  * A part of Clue Init to set up and populate a game board.
@@ -45,8 +43,18 @@ public class Board {
 		targets = new HashSet<BoardCell>(); // allocate space for our sets
     	visited = new HashSet<BoardCell>();
 		roomMap = new HashMap<>();
-		loadSetupConfig();
-		loadLayoutConfig();
+		try {
+			loadSetupConfig();
+		} catch (BadConfigFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			loadLayoutConfig();
+		} catch (BadConfigFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// for (int i = 0; i < numRows; i++) {
 		// 	for (int j = 0; j < numColumns; j++) {
@@ -81,7 +89,7 @@ public class Board {
 		setupConfigFile = "data/" + setupTXT;
 	}
 
-    public void loadSetupConfig() {
+    public void loadSetupConfig() throws BadConfigFormatException {
         File file = new File(setupConfigFile);
 		String currentLine;
 		String[] lineArray;
@@ -111,7 +119,7 @@ public class Board {
 		}
     }
 
-    public void loadLayoutConfig() {
+    public void loadLayoutConfig() throws BadConfigFormatException {
         ArrayList<String[]> allLinesLayout = new ArrayList<String[]>();
 		File file = new File(layoutConfigFile);
 		String currentLine;
@@ -153,12 +161,17 @@ public class Board {
 								newCell.setSecretPassage(cell.charAt(1));
 							}
 						}
+					} else {
+						throw new BadConfigFormatException("Layout file specifies a room that is not in the legend!");
 					}
 					grid[rowCounter][colCounter] = newCell; // fill grid with standard cells
 					colCounter++;
 				}
 			}
 			rowCounter++;
+			if (colCounter != numColumns) {
+				throw new BadConfigFormatException("Layout file that does not have the same number of columns for each row!");
+			}
 			colCounter = 0;			
 		}
     }
