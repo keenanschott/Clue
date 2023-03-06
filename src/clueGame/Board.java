@@ -11,8 +11,8 @@ import java.util.*;
  */
 public class Board {
     private BoardCell[][] grid; // grid of cells
-    private int numRows; // TODO: remove this later when we implement setConfigFiles()
-    private int numColumns; // TODO: remove this later when we implement setConfigFiles()
+    private int numRows;
+    private int numColumns;
     private String layoutConfigFile; // layout file
     private String setupConfigFile; // setup file
     private Map<Character,Room> roomMap; // maps characters to rooms
@@ -37,10 +37,9 @@ public class Board {
 
 	/**
      * Set up the game board with new board cells. Then, create an adjacency list for every cell.
-	 * 
      */
     public void initialize() {
-		targets = new HashSet<BoardCell>(); // allocate space for our sets
+		targets = new HashSet<BoardCell>(); // allocate space for our sets and map
     	visited = new HashSet<BoardCell>();
 		roomMap = new HashMap<>();
 		try {

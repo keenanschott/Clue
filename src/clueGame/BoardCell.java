@@ -9,9 +9,9 @@ import java.util.*;
  */
 public class BoardCell {
     private int row, col; // row and column identifiers for each cell
-    private char initial, secretPassage; // chars we'll need later
+    private char initial, secretPassage; // chars
     private DoorDirection doorDirection = DoorDirection.NONE; // door direction for a given cell; default is NONE
-    private boolean roomLabel, roomCenter; // booleans we'll need later
+    private boolean roomLabel, roomCenter; // booleans
     private Set<BoardCell> adjList; // adjacency list for a given cell
     
     /**
@@ -19,13 +19,14 @@ public class BoardCell {
      * 
      * @param inputRow The row value.
      * @param inputCol The column value.
+     * @param inputInitial The initial of the room.
      */
     public BoardCell(int inputRow, int inputCol, char inputInitial) {
         adjList = new HashSet<BoardCell>(); // allocate space
         row = inputRow; // given row and column
         col = inputCol;
-        initial = inputInitial;
-        roomLabel = false; // set booleans to false as a default
+        initial = inputInitial; // given room
+        roomLabel = false; // set booleans to false as a default unless changed later
         roomCenter = false;
     }
 
