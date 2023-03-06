@@ -54,7 +54,6 @@ public class BoardCell {
         return adjList;
     }
 
-    // TODO: revisit the below function stubs
     public boolean isDoorway() {
         if (doorDirection != DoorDirection.NONE) {
             return true;
@@ -110,5 +109,14 @@ public class BoardCell {
 
     public char getSecretPassage() {
         return secretPassage;
+    }
+
+    // could use better naming
+    public boolean getCenter() {
+        return roomCenter;
+    }
+
+    public boolean getLabel() {
+        return roomLabel;
     }
 }

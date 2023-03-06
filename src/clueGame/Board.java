@@ -54,30 +54,53 @@ public class Board {
 		}
 		
 		/*
-		Walkways only connect to adjacent walkways
-		Walkways with doors will also connect to the room center the door points to.
-		The cell that represents the Room (i.e. connects to walkway) is the cell with a second character of ‘*’ 
+		1. Walkways only connect to adjacent walkways
+
+		2. Walkways with doors will also connect to the room center the door points to.
+
+		3. The cell that represents the Room (i.e. connects to walkway) is the cell with a second character of ‘*’ 
 		(no other cells in a room should have adjacencies).
-		Room center cells ONLY connect to 1) door walkways that enter the room and 2) 
+
+		4.Room center cells ONLY connect to 1) door walkways that enter the room and 2) 
 		another room center cell if there is a secret passage connecting.
+
 		*/
     	for (int i = 0; i < numRows; i++) { // create an adjacency list for every cell
     		for (int j = 0; j < numColumns; j++) {
-    			if (i != 0) { // if not at top of board
-    				grid[i][j].addAdjacency(grid[i - 1][j]);
-    			}
-    			if (i != numRows - 1) { // if not at bottom of board
-    				grid[i][j].addAdjacency(grid[i + 1][j]);
-    			}
-    			if (j != 0) { // if not at very left of board
-    				grid[i][j].addAdjacency(grid[i][j - 1]);
-    			}
-    			if (j != numColumns - 1) { // if not at very right of board
-    				grid[i][j].addAdjacency(grid[i][j + 1]);
-    			}
+				if (grid[i][j].getInitial() == 'W') { // handling conditions 1 and 2
+					// check if walkway in each direction 
+						// same code as adjacencyDefault but do && grid @ whatever == 'W'
+					if (grid[i][j].getDoorDirection() != DoorDirection.NONE) {
+						// add adjacency to room Center cell of Room that door is on
+							// IDEA SO FAR: use door direction of the cell
+								// .getRoom().getCenterCell()
+					}
+				}
+				if (grid[i][j].getCenter() == true) { // handling condition 3
+					//grid[i][j].addAdjacency(WALKWAY ENTERING GRID[i][j];
+					if (grid[i][j].getSecretPassage() != '\u0000') { // checking if its secret passage (\u0000 is null val)
+						// set adjacency to room center cell connected to grid[i][j]
+					}
+				}
+				//adjacencyDefault(i, j); // is this a good idea? the conditions kinda alter what we populate adjacency list with
     		}
     	}
     }
+
+	public void adjacencyDefault(int i, int j) {
+		if (i != 0) { // if not at top of board
+			grid[i][j].addAdjacency(grid[i - 1][j]);
+		}
+		if (i != numRows - 1) { // if not at bottom of board
+			grid[i][j].addAdjacency(grid[i + 1][j]);
+		}
+		if (j != 0) { // if not at very left of board
+			grid[i][j].addAdjacency(grid[i][j - 1]);
+		}
+		if (j != numColumns - 1 && ) { // if not at very right of board
+			grid[i][j].addAdjacency(grid[i][j + 1]);
+		}
+	}
 
 	public void setConfigFiles(String layoutCSV, String setupTXT) {
 		layoutConfigFile = "data/" + layoutCSV;
@@ -136,7 +159,7 @@ public class Board {
 		int rowCounter = 0;
 		int colCounter = 0;
 		for (String[] row : allLinesLayout) {
-			for (String cell : row)` {
+			for (String cell : row) {
 				if (cell.length() < 1 || cell.length() > 2) {
 					throw new BadConfigFormatException("Layout file contains configuration errors!");
 				} else {
@@ -169,6 +192,37 @@ public class Board {
 			}
 			colCounter = 0;			
 		}
+    }
+
+			/**
+     * Calculate all valid targets to move to.
+	 * 
+	 * @param startCell The starting cell to examine as it pertains to the pathLength.
+	 * @param pathLength The roll/how many moves we have.
+     */
+    public void calcTargets(BoardCell startCell, int pathLength) {
+    	visited.add(startCell); // can never move back to the start cell
+		findAllTargets(startCell, pathLength); // call helper function
+    }
+    
+	/**
+     * Find all valid targets to move to.
+	 * 
+	 * @param startCell The starting cell to examine as it pertains to the pathLength.
+	 * @param pathLength The roll/how many moves we have.
+     */
+    private void findAllTargets(BoardCell startCell, int pathLength) {
+    	for (BoardCell adjCell : startCell.getAdjList()) { // all adjacent cells
+    		if (!visited.contains(adjCell) && !adjCell.getIsOccupied()) { // if not in visited and not occupied
+    			visited.add(adjCell);
+    			if (pathLength == 1 || adjCell.getIsRoom()) { // if no more moves or at a room cell
+    				targets.add(adjCell); // add to targets
+    			} else {
+    				findAllTargets(adjCell, pathLength - 1); // call recursively with one less move
+    			}
+    			visited.remove(adjCell);
+    		}
+    	}
     }
 
 	public Room getRoom(char roomType) {
