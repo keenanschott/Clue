@@ -20,13 +20,20 @@ public class BoardCell {
      * @param inputRow The row value.
      * @param inputCol The column value.
      */
-    public BoardCell(int inputRow, int inputCol) {
+    public BoardCell(int inputRow, int inputCol, char inputInitial) {
+        adjList = new HashSet<BoardCell>(); // allocate space
         row = inputRow; // given row and column
         col = inputCol;
-        adjList = new HashSet<BoardCell>(); // allocate space
+        initial = inputInitial;
         roomLabel = false; // set booleans to false as a default
         roomCenter = false;
     }
+
+    @Override
+    public String toString() {
+        return row + ", " + col + ", " + initial + ", " + roomLabel + ", " + roomCenter;
+    }
+
 
     /**
      * Add a cell to the adjacency list.
@@ -48,11 +55,30 @@ public class BoardCell {
 
     // TODO: revisit the below function stubs
     public boolean isDoorway() {
-        return false;
+        if (doorDirection == null) {
+            return false;
+        }
+        return true;
     }
 
     public DoorDirection getDoorDirection() {
+        if (doorDirection == null) {
+            return null;
+        }
         return doorDirection;
+    }
+
+
+    public void setInitial(char ini) {
+        initial = ini;
+    }
+
+    public char getInitial() {
+        return initial;
+    }
+
+    public void setSecretPassage(char sp) {
+        secretPassage = sp;
     }
 
     public boolean isRoomCenter(){
@@ -61,6 +87,14 @@ public class BoardCell {
 
     public boolean isLabel() {
         return roomLabel;
+    }
+
+    public void setLabel(boolean label) {
+        roomLabel = label;
+    }
+
+    public void setCenter(boolean center) {
+        roomCenter = center;
     }
 
     public char getSecretPassage() {

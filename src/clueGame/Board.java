@@ -39,10 +39,38 @@ public class Board {
      * Set up the game board with new board cells. Then, create an adjacency list for every cell.
      */
     public void initialize() {
-		ArrayList<String[]> allLinesLayout = new ArrayList<String[]>();
-		File file = new File(layoutConfigFile);
+		File file = new File(setupConfigFile);
+		targets = new HashSet<BoardCell>(); // allocate space for our sets
+    	visited = new HashSet<BoardCell>();
+		roomMap = new HashMap<>();
 		String currentLine;
 		String[] lineArray;
+		try {
+			Scanner sc = new Scanner(file);
+			while (sc.hasNext()) {
+				currentLine = sc.nextLine();
+				lineArray = currentLine.split(",");
+				if (lineArray.length == 3) {
+					if (lineArray[0].equals("Room") || lineArray[0].equals("Space")) {
+						Room newRoom = new Room(lineArray[1].trim(), null, null);
+						roomMap.put(lineArray[2].trim().charAt(0), newRoom);
+					}
+					else {
+						System.out.println("Invalid cell type");
+					}
+				}
+				else {
+					System.out.println("Invalid line or comment, handle later.");
+				}
+			}	
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+
+
+		ArrayList<String[]> allLinesLayout = new ArrayList<String[]>();
+		file = new File(layoutConfigFile);
 		try {
 			Scanner sc = new Scanner(file);
 			while (sc.hasNext()) {
@@ -56,45 +84,47 @@ public class Board {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		file = new File(setupConfigFile);
-		try {
-			Scanner sc = new Scanner(file);
-			while (sc.hasNext()) {
-				currentLine = sc.next();
-				lineArray = currentLine.split(",");
-				if (lineArray.length == 3) {
-					if (lineArray[0].equals("Room") || lineArray[0].equals("Space")) {
-						//roomMap.put(lineArray[2], lineArray[1]);
-						/*
-						 * We are creating a room based off Setup, however key components of a Room object are located in 
-						 * layoutConfigFile. We need to either create a different parameterized room constructor or refractor
-						 * our code...
-						*/
-					}
-					else {
-						System.out.println("Invalid cell type");
-					}
-				}
-				else {
-					System.out.println("Invalid line, handle later.");
-				}
-			}	
-		} catch (FileNotFoundException e) {
-			e.printStacktrace();
-		}
-
-
-
-
-
 		grid = new BoardCell[numRows][numColumns]; 
-    	for (int i = 0; i < numRows; i++) {
-    		for (int j = 0; j < numColumns; j++) {
-    			BoardCell testCell = new BoardCell(i, j);
-    			grid[i][j] = testCell; // fill grid with standard cells
-    		}
-    	}
+		int rowCounter = 0;
+		int colCounter = 0;
+		for (String[] row : allLinesLayout) {
+			for (String cell : row) {
+				if (cell.length() < 1 || cell.length() > 2) {
+					System.out.println("BAD - really BAD!");
+				} else {
+					BoardCell newCell = new BoardCell(rowCounter, colCounter, cell.charAt(0));
+					if (roomMap.containsKey(cell.charAt(0))) {
+						if(cell.length() == 2) {
+							Room changer = roomMap.get(cell.charAt(0));
+							if(cell.charAt(1) == '#') {
+								newCell.setLabel(true);
+								changer.setLabelCell(newCell);
+							} else if (cell.charAt(1) == '*') {
+								newCell.setCenter(true);
+								changer.setCenterCell(newCell);
+							}
+						}
+					}
+					grid[rowCounter][colCounter] = newCell; // fill grid with standard cells
+					colCounter++;
+				}
+			}
+			rowCounter++;
+			colCounter = 0;			
+		}
+		
+		// for (int i = 0; i < numRows; i++) {
+		// 	for (int j = 0; j < numColumns; j++) {
+		// 		System.out.println(grid[i][j]);
+		// 	}
+		// }
+		roomMap.forEach((key, value) -> System.out.println(key + " : " + value));
+
+
+
+		// everything above this line is gucci, need to fix adjacency
+
+
     	for (int i = 0; i < numRows; i++) { // create an adjacency list for every cell
     		for (int j = 0; j < numColumns; j++) {
     			if (i != 0) { // if not at top of board
@@ -111,8 +141,6 @@ public class Board {
     			}
     		}
     	}
-    	targets = new HashSet<BoardCell>(); // allocate space for our sets
-    	visited = new HashSet<BoardCell>();
     }
 
 	public void setConfigFiles(String layoutCSV, String setupTXT) {
@@ -129,11 +157,11 @@ public class Board {
     }
 
 	public Room getRoom(char roomType) {
-		return new Room("...", new BoardCell(0,0), new BoardCell(0,0)); // TODO: implement in later assignment
+		return new Room("...", new BoardCell(0,0, '~'), new BoardCell(0,0, '!')); // TODO: implement in later assignment
 	}	
 	
 	public Room getRoom(BoardCell cell) {
-		return new Room("...", new BoardCell(0,0), new BoardCell(0,0)); // TODO: implement in later assignment
+		return new Room("...", new BoardCell(0,0, '~'), new BoardCell(0,0, '~')); // TODO: implement in later assignment
 	}	
 	public int getNumRows() {
 		return 0; // TODO: implement in later assignment
@@ -159,5 +187,6 @@ public class Board {
 		board = Board.getInstance();
 		// set the file names to use my config files
 		board.setConfigFiles("ClueLayout306.csv", "ClueSetup306.txt");
+		board.initialize();
 	}
 }

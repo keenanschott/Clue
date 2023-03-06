@@ -20,6 +20,11 @@ public class Room {
         labelCell = label;
     } 
 
+    @Override
+    public String toString() {
+        return name + ", " + centerCell + ", " + labelCell;
+    }
+
     // all getters below
     public String getName() {
         return name;
@@ -31,5 +36,13 @@ public class Room {
 
     public BoardCell getCenterCell() {
         return centerCell;
+    }
+
+    public void setLabelCell(BoardCell label) {
+        labelCell = label;
+    }
+
+    public void setCenterCell(BoardCell center) {
+        centerCell = center;
     }
 }
