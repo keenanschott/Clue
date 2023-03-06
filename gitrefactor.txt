@@ -1,0 +1,495 @@
+diff --git a/src/clueGame/BadConfigFormatException.java b/src/clueGame/BadConfigFormatException.java
+index 9f58a3c..6f95eb2 100644
+--- a/src/clueGame/BadConfigFormatException.java
++++ b/src/clueGame/BadConfigFormatException.java
+@@ -6,12 +6,20 @@ package clueGame;
+  * @author Keenan Schott
+  * @author Finn Burns
+  */
+-public class BadConfigFormatException extends RuntimeException {
++public class BadConfigFormatException extends Exception {
+ 
++    /**
++     * Constructor with no parameters; default message.
++     */
+     public BadConfigFormatException() {
+-        super("Invalid file configuration.");
++        super("Setup file contains configuration errors!");
+     }
+ 
++    /**
++     * Constructor with a String parameter.
++     * 
++     * @param errorMessage The given error message for the exception.
++     */
+     public BadConfigFormatException(String errorMessage) {
+         super(errorMessage);
+     }
+diff --git a/src/clueGame/Board.java b/src/clueGame/Board.java
+index d152c17..db57b06 100644
+--- a/src/clueGame/Board.java
++++ b/src/clueGame/Board.java
+@@ -3,8 +3,6 @@ import java.io.File;
+ import java.io.FileNotFoundException;
+ import java.util.*;
+ 
+-import javax.swing.RootPaneContainer;
+-
+ /**
+  * Board
+  * A part of Clue Init to set up and populate a game board.
+@@ -13,13 +11,13 @@ import javax.swing.RootPaneContainer;
+  */
+ public class Board {
+     private BoardCell[][] grid; // grid of cells
+-    private int numRows; // TODO: remove this later when we implement setConfigFiles()
+-    private int numColumns; // TODO: remove this later when we implement setConfigFiles()
++    private int numRows; 
++    private int numColumns;
+     private String layoutConfigFile; // layout file
+     private String setupConfigFile; // setup file
+     private Map<Character,Room> roomMap; // maps characters to rooms
+     private static Board theInstance = new Board(); // Singleton Pattern
+-    // these are not in the UML on canvas, but still needed
++    // these are not in the UML on canvas, but still needed for adjacency testing
+     private Set<BoardCell> targets; // all valid cells to move to
+ 	private Set<BoardCell> visited; // visited cells
+ 
+@@ -39,25 +37,22 @@ public class Board {
+ 
+ 	/**
+      * Set up the game board with new board cells. Then, create an adjacency list for every cell.
+-	 * 
+      */
+     public void initialize() {
+-		targets = new HashSet<BoardCell>(); // allocate space for our sets
++		targets = new HashSet<BoardCell>(); // allocate space for our sets and map
+     	visited = new HashSet<BoardCell>();
+ 		roomMap = new HashMap<>();
+-		loadSetupConfig();
+-		loadLayoutConfig();
+-		
+-		// for (int i = 0; i < numRows; i++) {
+-		// 	for (int j = 0; j < numColumns; j++) {
+-		// 		System.out.println(grid[i][j]);
+-		// 	}
+-		// }
+-		// roomMap.forEach((key, value) -> System.out.println(key + " : " + value));
+-
+-		// everything above this line is gucci, need to fix adjacency
+-
+-
++		try {
++			loadSetupConfig();
++		} catch (BadConfigFormatException e) {
++			e.printStackTrace(); // consider changing this to something else
++		}
++		try {
++			loadLayoutConfig();
++		} catch (BadConfigFormatException e) {
++			e.printStackTrace(); // consider changing this to something else
++		}
++		// TODO: adjacency list creation below needs to be updated given new guidelines and rules (see next assignment)
+     	for (int i = 0; i < numRows; i++) { // create an adjacency list for every cell
+     		for (int j = 0; j < numColumns; j++) {
+     			if (i != 0) { // if not at top of board
+@@ -76,106 +71,135 @@ public class Board {
+     	}
+     }
+ 
++	/**
++     * Connect instance variables to requested input files.
++	 * 
++	 * @param layoutCSV The requested layout CSV file.
++	 * @param setupTXT The requested setup text file. 
++     */
+ 	public void setConfigFiles(String layoutCSV, String setupTXT) {
+-		layoutConfigFile = "data/" + layoutCSV;
++		layoutConfigFile = "data/" + layoutCSV; // our files are stored in a data folder
+ 		setupConfigFile = "data/" + setupTXT;
+ 	}
+ 
+-    public void loadSetupConfig() {
+-        File file = new File(setupConfigFile);
+-		String currentLine;
+-		String[] lineArray;
++	/**
++     * Load the setup file and check for validity.
++	 * 
++	 * @throws BadConfigFormatException
++     */
++    public void loadSetupConfig() throws BadConfigFormatException {
++        File file = new File(setupConfigFile); // file object
++		String currentLine; // current line
++		String[] lineArray; // array of words in current line
+ 		try {
+-			Scanner sc = new Scanner(file);
++			Scanner sc = new Scanner(file); // open
+ 			while (sc.hasNext()) {
+-				currentLine = sc.nextLine();
+-				lineArray = currentLine.split(",");
+-				if (lineArray.length == 3) {
+-					if (lineArray[0].equals("Room") || lineArray[0].equals("Space")) {
+-						Room newRoom = new Room(lineArray[1].trim(), null, null);
+-						roomMap.put(lineArray[2].trim().charAt(0), newRoom);
+-					}
+-					else {
+-						throw new BadConfigFormatException("Setup file contains configuration errors!");
+-					}
++				currentLine = sc.nextLine(); // get entire line
++				lineArray = currentLine.split(", "); // split by comma
++				if (lineArray.length == 3 && (lineArray[0].equals("Room") || lineArray[0].equals("Space"))) { // valid line
++					Room newRoom = new Room(lineArray[1], null, null); // do not center or label yet
++					roomMap.put(lineArray[2].charAt(0), newRoom); // put into map
+ 				}
+ 				else {
+-					if (!lineArray[0].substring(0, 2).equals("//")) {
+-						throw new BadConfigFormatException("Setup file contains configuration errors!");
++					if (!lineArray[0].substring(0, 2).equals("//")) { // if not a comment
++						throw new BadConfigFormatException();
+ 					}
+ 				}
+ 			}
+-			sc.close();	
++			sc.close();	// close
+ 		} catch (FileNotFoundException e) {
+-			e.printStackTrace();
++			e.printStackTrace(); // consider changing this to something else
+ 		}
+     }
+ 
+-    public void loadLayoutConfig() {
+-        ArrayList<String[]> allLinesLayout = new ArrayList<String[]>();
+-		File file = new File(layoutConfigFile);
+-		String currentLine;
+-		String[] lineArray;
++	/**
++     * Load the layout file and check for validity.
++	 * 
++	 * @throws BadConfigFormatException
++     */
++    public void loadLayoutConfig() throws BadConfigFormatException {
++        ArrayList<String[]> allLinesLayout = new ArrayList<String[]>(); // new ArrayList of Strings
++		File file = new File(layoutConfigFile); // file object
++		String currentLine; // current line
++		String[] lineArray; // array of words in current line
+ 		try {
+-			Scanner sc = new Scanner(file);
++			Scanner sc = new Scanner(file); // open
+ 			while (sc.hasNext()) {
+-				currentLine = sc.next();
++				currentLine = sc.nextLine();
+ 				lineArray = currentLine.split(",");
+ 				allLinesLayout.add(lineArray);
+ 			}
+-			numRows = allLinesLayout.size();
+-			numColumns = allLinesLayout.get(0).length; // TODO - detect bad characters
+-			sc.close();
++			numRows = allLinesLayout.size(); // number of rows is equal to size of allLinesLayout
++			numColumns = allLinesLayout.get(0).length; // number of columns is equal to size of any entry in allLinesLayout
++			sc.close(); // close
+ 		} catch (FileNotFoundException e) {
+-			e.printStackTrace();
++			e.printStackTrace(); // consider changing this to something else
+ 		}
++		// fill the grid given allLinesLayout
++		fillGrid(allLinesLayout);
++    }
++
++	/**
++     * Fill the grid given a two-dimensional array of Strings.
++	 * 
++	 * @param layout Contains all cells as strings. 
++	 * @throws BadConfigFormatException
++     */
++	private void fillGrid(ArrayList<String[]> layout) throws BadConfigFormatException {
+ 		grid = new BoardCell[numRows][numColumns]; 
+-		int rowCounter = 0;
+-		int colCounter = 0;
+-		for (String[] row : allLinesLayout) {
+-			for (String cell : row) {
++		int rowCounter = 0; // count rows
++		int colCounter = 0; // count columns
++		for (String[] row : layout) {
++			for (String cell : row) { // for a given cell String
+ 				if (cell.length() < 1 || cell.length() > 2) {
+-					throw new BadConfigFormatException("Layout file contains configuration errors!");
++					throw new BadConfigFormatException("Layout file contains configuration errors!"); // invalid length of String
+ 				} else {
+-					BoardCell newCell = new BoardCell(rowCounter, colCounter, cell.charAt(0));
++					BoardCell newCell = new BoardCell(rowCounter, colCounter, cell.charAt(0)); // new cell
+ 					if (roomMap.containsKey(cell.charAt(0))) {
+-						if(cell.length() == 2) {
+-							Room changer = roomMap.get(cell.charAt(0));
+-							if(cell.charAt(1) == '#') {
++						if(cell.length() == 2) { // if a special cell
++							Room changeRoom = roomMap.get(cell.charAt(0)); // temporary Room object to change what's in the map
++							if(cell.charAt(1) == '#') { // label cell
+ 								newCell.setLabel(true);
+-								changer.setLabelCell(newCell);
+-							} else if (cell.charAt(1) == '*') {
++								changeRoom.setLabelCell(newCell);
++							} else if (cell.charAt(1) == '*') { // center cell
+ 								newCell.setCenter(true);
+-								changer.setCenterCell(newCell);
+-							} else if (cell.charAt(0) == 'W') {
++								changeRoom.setCenterCell(newCell);
++							} else if (cell.charAt(0) == 'W') { // doorway cell
+ 								newCell.setDoorDirection(cell.charAt(1));
+ 							} else {
+-								newCell.setSecretPassage(cell.charAt(1));
++								newCell.setSecretPassage(cell.charAt(1)); // only remaining special cell option
+ 							}
+ 						}
++					} else {
++						throw new BadConfigFormatException("Layout file specifies a room that is not in the legend!"); // not in setup file
+ 					}
+-					grid[rowCounter][colCounter] = newCell; // fill grid with standard cells
+-					colCounter++;
++					grid[rowCounter][colCounter] = newCell; // fill grid with newCell
++					colCounter++; // next column, same row
+ 				}
+ 			}
+-			rowCounter++;
+-			colCounter = 0;			
++			rowCounter++; // next row
++			if (colCounter != numColumns) {
++				throw new BadConfigFormatException("Layout file that does not have the same number of columns for each row!"); // columns count mismatched in layout file
++			}
++			colCounter = 0; // reset column count to start from left
+ 		}
+-    }
++	}
+ 
++	// getters and setters
+ 	public Room getRoom(char roomType) {
+-		return roomMap.get(roomType); // TODO: implement in later assignment
++		return roomMap.get(roomType); // return a room by character input
+ 	}	
+ 	
+ 	public Room getRoom(BoardCell cell) {
+-		return roomMap.get(cell.getInitial()); // TODO: implement in later assignment
++		return roomMap.get(cell.getInitial()); // return a room by cell input
+ 	}	
++
+ 	public int getNumRows() {
+-		return numRows; // TODO: implement in later assignment
++		return numRows; // return the number of rows
+ 	}
+ 
+ 	public int getNumColumns() {
+-		return numColumns; // TODO: implement in later assignment
++		return numColumns; // return the number of columns
+ 	}
+ 
+ 	/**
+@@ -188,5 +212,4 @@ public class Board {
+ 	public BoardCell getCell(int row, int col) {
+ 		return grid[row][col]; // returns the cell at the given parameters
+ 	}
+-
+ }
+diff --git a/src/clueGame/BoardCell.java b/src/clueGame/BoardCell.java
+index a6e3809..62526c3 100644
+--- a/src/clueGame/BoardCell.java
++++ b/src/clueGame/BoardCell.java
+@@ -9,9 +9,9 @@ import java.util.*;
+  */
+ public class BoardCell {
+     private int row, col; // row and column identifiers for each cell
+-    private char initial, secretPassage; // chars we'll need later
++    private char initial, secretPassage; // chars
+     private DoorDirection doorDirection = DoorDirection.NONE; // door direction for a given cell; default is NONE
+-    private boolean roomLabel, roomCenter; // booleans we'll need later
++    private boolean roomLabel, roomCenter; // booleans
+     private Set<BoardCell> adjList; // adjacency list for a given cell
+     
+     /**
+@@ -19,22 +19,17 @@ public class BoardCell {
+      * 
+      * @param inputRow The row value.
+      * @param inputCol The column value.
++     * @param inputInitial The initial of the room.
+      */
+     public BoardCell(int inputRow, int inputCol, char inputInitial) {
+         adjList = new HashSet<BoardCell>(); // allocate space
+         row = inputRow; // given row and column
+         col = inputCol;
+-        initial = inputInitial;
+-        roomLabel = false; // set booleans to false as a default
++        initial = inputInitial; // given room
++        roomLabel = false; // set booleans to false as a default unless changed later
+         roomCenter = false;
+     }
+ 
+-    @Override
+-    public String toString() {
+-        return row + ", " + col + ", " + initial + ", " + secretPassage + ", " + roomLabel + ", " + roomCenter + ", " + doorDirection;
+-    }
+-
+-
+     /**
+      * Add a cell to the adjacency list.
+      * 
+@@ -53,18 +48,32 @@ public class BoardCell {
+         return adjList;
+     }
+ 
+-    // TODO: revisit the below function stubs
++    /**
++     * Whether or not a cell is a doorway.
++     * 
++     * @return Return the doorway status boolean.
++     */
+     public boolean isDoorway() {
+         if (doorDirection != DoorDirection.NONE) {
+             return true;
+         }
+-        return false;
++        return false; // if NONE, the cell is not a doorway
+     }
+ 
++    /**
++     * Get the actual door direction.
++     * 
++     * @return Return the doorway direction.
++     */
+     public DoorDirection getDoorDirection() {
+         return doorDirection;
+     }
+ 
++    /**
++     * Set the direction of the doorway for a given cell.
++     * 
++     * @param direction The direction of the doorway.
++     */
+     public void setDoorDirection(char direction) {
+         if (direction == '<') {
+             this.doorDirection = DoorDirection.LEFT;
+@@ -75,14 +84,11 @@ public class BoardCell {
+         } else if (direction == 'v') {
+             this.doorDirection = DoorDirection.DOWN;
+         } else {
+-            this.doorDirection = DoorDirection.NONE;
++            this.doorDirection = DoorDirection.NONE; // any other character is NONE
+         }
+     }
+ 
+-    public void setInitial(char ini) {
+-        initial = ini;
+-    }
+-
++    // all getters and setters
+     public char getInitial() {
+         return initial;
+     }
+@@ -91,6 +97,10 @@ public class BoardCell {
+         secretPassage = sp;
+     }
+ 
++    public char getSecretPassage() {
++        return secretPassage;
++    }
++
+     public boolean isRoomCenter(){
+ 		return roomCenter;
+ 	}
+@@ -106,8 +116,4 @@ public class BoardCell {
+     public void setCenter(boolean center) {
+         roomCenter = center;
+     }
+-
+-    public char getSecretPassage() {
+-        return secretPassage;
+-    }
+ }
+diff --git a/src/clueGame/Room.java b/src/clueGame/Room.java
+index 9785175..0e16a04 100644
+--- a/src/clueGame/Room.java
++++ b/src/clueGame/Room.java
+@@ -13,6 +13,10 @@ public class Room {
+ 
+     /**
+      * Set up a room with the given information.
++     * 
++     * @param inputName Inputted name for the room.
++     * @param center Given center cell for the room. 
++     * @param label Given label cell for the room. 
+      */
+     public Room(String inputName, BoardCell center, BoardCell label) {
+         name = inputName;
+@@ -20,12 +24,15 @@ public class Room {
+         labelCell = label;
+     } 
+ 
++    /**
++     * How we print a room's information.
++     */
+     @Override
+     public String toString() {
+-        return name + ", " + centerCell + ", " + labelCell;
++        return "ROOM: " + name + ", " + centerCell + ", " + labelCell; // BoardCell also has a toString()
+     }
+ 
+-    // all getters below
++    // all getters and setters below
+     public String getName() {
+         return name;
+     }
+diff --git a/src/tests/ExceptionTests.java b/src/tests/ExceptionTests.java
+index 4fe56e9..39ec51c 100644
+--- a/src/tests/ExceptionTests.java
++++ b/src/tests/ExceptionTests.java
+@@ -12,6 +12,12 @@ import clueGame.Board;
+  * are thrown appropriately.
+  */
+ 
++/**
++ * ExceptionTests
++ * A part of Clue Init to test and examine the BadCongifFormatException.
++ * @author Keenan Schott
++ * @author Finn Burns
++ */
+ public class ExceptionTests {
+     @Test
+ 	public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {
+diff --git a/src/tests/FileInitTests.java b/src/tests/FileInitTests.java
+index a51ebf3..6e1c4c5 100644
+--- a/src/tests/FileInitTests.java
++++ b/src/tests/FileInitTests.java
+@@ -10,10 +10,17 @@ import clueGame.Board;
+ import clueGame.BoardCell;
+ import clueGame.DoorDirection;
+ import clueGame.Room;
++
++/**
++ * FileInitTests
++ * A part of Clue Init to test and examine the initialization of the game.
++ * @author Keenan Schott
++ * @author Finn Burns
++ */
+ public class FileInitTests {
+     public static final int LEGEND_SIZE = 11;
+ 	public static final int NUM_ROWS = 25;
+-	public static final int NUM_COLUMNS = 31; // size our board
++	public static final int NUM_COLUMNS = 31; // size of our board
+ 
+ 	// NOTE: I made Board static because I only want to set it up one
+ 	// time (using @BeforeAll), no need to do setup before each test.
+@@ -49,7 +56,6 @@ public class FileInitTests {
+ 
+ 	// Test a doorway in each direction (RIGHT/LEFT/UP/DOWN), plus
+ 	// two cells that are not a doorway.
+-	// These cells are white on the planning spreadsheet
+ 	@Test
+ 	public void FourDoorDirections() {
+ 		BoardCell cell = board.getCell(6, 29);
+@@ -64,7 +70,7 @@ public class FileInitTests {
+ 		cell = board.getCell(21, 7);
+ 		assertTrue(cell.isDoorway());
+ 		assertEquals(DoorDirection.LEFT, cell.getDoorDirection());
+-		// Test that walkways are not doors
++		// test that walkways are not doors
+ 		cell = board.getCell(0, 8);
+ 		assertFalse(cell.isDoorway());
+ 	}
