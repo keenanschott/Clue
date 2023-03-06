@@ -45,13 +45,11 @@ public class Board {
 		try {
 			loadSetupConfig();
 		} catch (BadConfigFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			loadLayoutConfig();
 		} catch (BadConfigFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
