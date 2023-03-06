@@ -30,12 +30,6 @@ public class BoardCell {
         roomCenter = false;
     }
 
-    @Override
-    public String toString() {
-        return row + ", " + col + ", " + initial + ", " + secretPassage + ", " + roomLabel + ", " + roomCenter + ", " + doorDirection;
-    }
-
-
     /**
      * Add a cell to the adjacency list.
      * 
@@ -54,18 +48,32 @@ public class BoardCell {
         return adjList;
     }
 
-    // TODO: revisit the below function stubs
+    /**
+     * Whether or not a cell is a doorway.
+     * 
+     * @return Return the doorway status boolean.
+     */
     public boolean isDoorway() {
         if (doorDirection != DoorDirection.NONE) {
             return true;
         }
-        return false;
+        return false; // if NONE, the cell is not a doorway
     }
 
+    /**
+     * Get the actual door direction.
+     * 
+     * @return Return the doorway direction.
+     */
     public DoorDirection getDoorDirection() {
         return doorDirection;
     }
 
+    /**
+     * Set the direction of the doorway for a given cell.
+     * 
+     * @param direction The direction of the doorway.
+     */
     public void setDoorDirection(char direction) {
         if (direction == '<') {
             this.doorDirection = DoorDirection.LEFT;
@@ -76,20 +84,21 @@ public class BoardCell {
         } else if (direction == 'v') {
             this.doorDirection = DoorDirection.DOWN;
         } else {
-            this.doorDirection = DoorDirection.NONE;
+            this.doorDirection = DoorDirection.NONE; // any other character is NONE
         }
     }
 
-    public void setInitial(char ini) {
-        initial = ini;
-    }
-
+    // all getters and setters
     public char getInitial() {
         return initial;
     }
 
     public void setSecretPassage(char sp) {
         secretPassage = sp;
+    }
+
+    public char getSecretPassage() {
+        return secretPassage;
     }
 
     public boolean isRoomCenter(){
@@ -106,9 +115,5 @@ public class BoardCell {
 
     public void setCenter(boolean center) {
         roomCenter = center;
-    }
-
-    public char getSecretPassage() {
-        return secretPassage;
     }
 }
