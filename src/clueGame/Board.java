@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import javax.swing.RootPaneContainer;
+
 /**
  * Board
  * A part of Clue Init to set up and populate a game board.
@@ -161,18 +163,18 @@ public class Board {
     }
 
 	public Room getRoom(char roomType) {
-		return new Room("...", new BoardCell(0,0, '~'), new BoardCell(0,0, '!')); // TODO: implement in later assignment
+		return roomMap.get(roomType); // TODO: implement in later assignment
 	}	
 	
 	public Room getRoom(BoardCell cell) {
-		return new Room("...", new BoardCell(0,0, '~'), new BoardCell(0,0, '~')); // TODO: implement in later assignment
+		return roomMap.get(cell.getInitial()); // TODO: implement in later assignment
 	}	
 	public int getNumRows() {
-		return 0; // TODO: implement in later assignment
+		return numRows; // TODO: implement in later assignment
 	}
 
 	public int getNumColumns() {
-		return 0; // TODO: implement in later assignment
+		return numColumns; // TODO: implement in later assignment
 	}
 
 	/**

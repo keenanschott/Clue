@@ -55,16 +55,13 @@ public class BoardCell {
 
     // TODO: revisit the below function stubs
     public boolean isDoorway() {
-        if (doorDirection == null) {
-            return false;
+        if (doorDirection != DoorDirection.NONE) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     public DoorDirection getDoorDirection() {
-        if (doorDirection == null) {
-            return null;
-        }
         return doorDirection;
     }
 
