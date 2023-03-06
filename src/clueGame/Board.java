@@ -53,15 +53,14 @@ public class Board {
 			e.printStackTrace();
 		}
 		
-		// for (int i = 0; i < numRows; i++) {
-		// 	for (int j = 0; j < numColumns; j++) {
-		// 		System.out.println(grid[i][j]);
-		// 	}
-		// }
-		// roomMap.forEach((key, value) -> System.out.println(key + " : " + value));
-		// everything above this line is gucci, need to fix adjacency
-
-
+		/*
+		Walkways only connect to adjacent walkways
+		Walkways with doors will also connect to the room center the door points to.
+		The cell that represents the Room (i.e. connects to walkway) is the cell with a second character of ‘*’ 
+		(no other cells in a room should have adjacencies).
+		Room center cells ONLY connect to 1) door walkways that enter the room and 2) 
+		another room center cell if there is a secret passage connecting.
+		*/
     	for (int i = 0; i < numRows; i++) { // create an adjacency list for every cell
     		for (int j = 0; j < numColumns; j++) {
     			if (i != 0) { // if not at top of board
@@ -137,7 +136,7 @@ public class Board {
 		int rowCounter = 0;
 		int colCounter = 0;
 		for (String[] row : allLinesLayout) {
-			for (String cell : row) {
+			for (String cell : row)` {
 				if (cell.length() < 1 || cell.length() > 2) {
 					throw new BadConfigFormatException("Layout file contains configuration errors!");
 				} else {
