@@ -185,6 +185,37 @@ public class Board {
 		}
 	}
 
+	/**
+     * Calculate all valid targets to move to.
+	 * 
+	 * @param startCell The starting cell to examine as it pertains to the pathLength.
+	 * @param pathLength The roll/how many moves we have.
+     */
+    public void calcTargets(BoardCell startCell, int pathLength) {
+    	visited.add(startCell); // can never move back to the start cell
+		findAllTargets(startCell, pathLength); // call helper function
+    }
+
+	/**
+     * Find all valid targets to move to.
+	 * 
+	 * @param startCell The starting cell to examine as it pertains to the pathLength.
+	 * @param pathLength The roll/how many moves we have.
+     */
+    private void findAllTargets(BoardCell startCell, int pathLength) {
+    	for (BoardCell adjCell : startCell.getAdjList()) { // all adjacent cells
+    		if (!visited.contains(adjCell) && !adjCell.getIsOccupied()) { // if not in visited and not occupied
+    			visited.add(adjCell);
+    			if (pathLength == 1 || adjCell.getIsRoom()) { // if no more moves or at a room cell
+    				targets.add(adjCell); // add to targets
+    			} else {
+    				findAllTargets(adjCell, pathLength - 1); // call recursively with one less move
+    			}
+    			visited.remove(adjCell);
+    		}
+    	}
+    }
+
 	// getters and setters
 	public Room getRoom(char roomType) {
 		return roomMap.get(roomType); // return a room by character input
@@ -200,6 +231,14 @@ public class Board {
 
 	public int getNumColumns() {
 		return numColumns; // return the number of columns
+	}
+
+	public Set<BoardCell> getAdjList(int row, int col) {
+		return grid[row][col].getAdjList(); // call BoardCell's getAdjList()
+	}
+
+	public Set<BoardCell> getTargets() {
+		return targets; // return target cells
 	}
 
 	/**

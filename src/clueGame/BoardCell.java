@@ -11,7 +11,7 @@ public class BoardCell {
     private int row, col; // row and column identifiers for each cell
     private char initial, secretPassage; // chars
     private DoorDirection doorDirection = DoorDirection.NONE; // door direction for a given cell; default is NONE
-    private boolean roomLabel, roomCenter; // booleans
+    private boolean roomLabel, roomCenter, isRoom, isOccupied; // boolean statuses for a given cell
     private Set<BoardCell> adjList; // adjacency list for a given cell
     
     /**
@@ -115,5 +115,21 @@ public class BoardCell {
 
     public void setCenter(boolean center) {
         roomCenter = center;
+    }
+
+    public void setOccupied(boolean occupied) {
+        isOccupied = occupied; // set isOccupied
+    }
+
+    public boolean getIsOccupied() {
+        return isOccupied; // get isOccupied
+    }
+
+    public void setIsRoom(boolean roomStatus) {
+        isRoom = roomStatus; // set isRoom
+    }
+
+    public boolean getIsRoom() {
+        return isRoom; // get isRoom
     }
 }
