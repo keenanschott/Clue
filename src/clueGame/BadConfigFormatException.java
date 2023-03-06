@@ -12,7 +12,7 @@ public class BadConfigFormatException extends Exception {
      * Constructor with no parameters; default message.
      */
     public BadConfigFormatException() {
-        super("Invalid file configuration.");
+        super("Setup file contains configuration errors!");
     }
 
     /**

@@ -104,12 +104,12 @@ public class Board {
 						roomMap.put(lineArray[2].trim().charAt(0), newRoom);
 					}
 					else {
-						throw new BadConfigFormatException("Setup file contains configuration errors!");
+						throw new BadConfigFormatException();
 					}
 				}
 				else {
 					if (!lineArray[0].substring(0, 2).equals("//")) {
-						throw new BadConfigFormatException("Setup file contains configuration errors!");
+						throw new BadConfigFormatException();
 					}
 				}
 			}
