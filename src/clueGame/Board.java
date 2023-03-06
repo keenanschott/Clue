@@ -59,7 +59,6 @@ public class Board {
 		// 	}
 		// }
 		// roomMap.forEach((key, value) -> System.out.println(key + " : " + value));
-
 		// everything above this line is gucci, need to fix adjacency
 
 
