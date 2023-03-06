@@ -10,7 +10,7 @@ import java.util.*;
 public class BoardCell {
     private int row, col; // row and column identifiers for each cell
     private char initial, secretPassage; // chars we'll need later
-    private DoorDirection doorDirection; // door direction for a given cell
+    private DoorDirection doorDirection = DoorDirection.NONE; // door direction for a given cell; default is NONE
     private boolean roomLabel, roomCenter; // booleans we'll need later
     private Set<BoardCell> adjList; // adjacency list for a given cell
     
@@ -31,7 +31,7 @@ public class BoardCell {
 
     @Override
     public String toString() {
-        return row + ", " + col + ", " + initial + ", " + roomLabel + ", " + roomCenter;
+        return row + ", " + col + ", " + initial + ", " + secretPassage + ", " + roomLabel + ", " + roomCenter + ", " + doorDirection;
     }
 
 
@@ -68,6 +68,19 @@ public class BoardCell {
         return doorDirection;
     }
 
+    public void setDoorDirection(char direction) {
+        if (direction == '<') {
+            this.doorDirection = DoorDirection.LEFT;
+        } else if (direction == '>') {
+            this.doorDirection = DoorDirection.RIGHT;
+        } else if (direction == '^') {
+            this.doorDirection = DoorDirection.UP;
+        } else if (direction == 'v') {
+            this.doorDirection = DoorDirection.DOWN;
+        } else {
+            this.doorDirection = DoorDirection.NONE;
+        }
+    }
 
     public void setInitial(char ini) {
         initial = ini;

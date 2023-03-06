@@ -102,6 +102,10 @@ public class Board {
 							} else if (cell.charAt(1) == '*') {
 								newCell.setCenter(true);
 								changer.setCenterCell(newCell);
+							} else if (cell.charAt(0) == 'W') {
+								newCell.setDoorDirection(cell.charAt(1));
+							} else {
+								newCell.setSecretPassage(cell.charAt(1));
 							}
 						}
 					}
@@ -113,12 +117,12 @@ public class Board {
 			colCounter = 0;			
 		}
 		
-		// for (int i = 0; i < numRows; i++) {
-		// 	for (int j = 0; j < numColumns; j++) {
-		// 		System.out.println(grid[i][j]);
-		// 	}
-		// }
-		roomMap.forEach((key, value) -> System.out.println(key + " : " + value));
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numColumns; j++) {
+				System.out.println(grid[i][j]);
+			}
+		}
+		// roomMap.forEach((key, value) -> System.out.println(key + " : " + value));
 
 
 
