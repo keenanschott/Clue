@@ -119,11 +119,11 @@ public class Board {
 			colCounter = 0;			
 		}
 		
-		for (int i = 0; i < numRows; i++) {
-			for (int j = 0; j < numColumns; j++) {
-				System.out.println(grid[i][j]);
-			}
-		}
+		// for (int i = 0; i < numRows; i++) {
+		// 	for (int j = 0; j < numColumns; j++) {
+		// 		System.out.println(grid[i][j]);
+		// 	}
+		// }
 		// roomMap.forEach((key, value) -> System.out.println(key + " : " + value));
 
 
