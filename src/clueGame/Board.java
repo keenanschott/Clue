@@ -39,7 +39,7 @@ public class Board {
      * Set up the game board with new board cells. Then, create an adjacency list for every cell.
      */
     public void initialize() {
-		targets = new HashSet<BoardCell>(); // allocate space for our sets and map
+		targets = new HashSet<BoardCell>(); // allocate space for our sets
     	visited = new HashSet<BoardCell>();
 		try {
 			loadSetupConfig();
@@ -87,7 +87,7 @@ public class Board {
 	 * @throws BadConfigFormatException
      */
     public void loadSetupConfig() throws BadConfigFormatException {
-		roomMap = new HashMap<Character,Room>();
+		roomMap = new HashMap<Character,Room>(); // allocate space for our map
         File file = new File(setupConfigFile); // file object
 		String currentLine; // current line
 		String[] lineArray; // array of words in current line
