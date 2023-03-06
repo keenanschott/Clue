@@ -6,6 +6,13 @@ package clueGame;
  * @author Keenan Schott
  * @author Finn Burns
  */
-public class BadConfigFormatException extends Exception {
-    // skeleton (for now)
+public class BadConfigFormatException extends RuntimeException {
+
+    public BadConfigFormatException() {
+        super("Invalid file configuration.");
+    }
+
+    public BadConfigFormatException(String errorMessage) {
+        super(errorMessage);
+    }
 }
