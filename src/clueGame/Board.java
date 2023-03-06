@@ -41,7 +41,6 @@ public class Board {
     public void initialize() {
 		targets = new HashSet<BoardCell>(); // allocate space for our sets and map
     	visited = new HashSet<BoardCell>();
-		roomMap = new HashMap<>();
 		try {
 			loadSetupConfig();
 		} catch (BadConfigFormatException e) {
@@ -88,6 +87,7 @@ public class Board {
 	 * @throws BadConfigFormatException
      */
     public void loadSetupConfig() throws BadConfigFormatException {
+		roomMap = new HashMap<Character,Room>();
         File file = new File(setupConfigFile); // file object
 		String currentLine; // current line
 		String[] lineArray; // array of words in current line
