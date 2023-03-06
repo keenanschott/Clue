@@ -8,12 +8,19 @@ package clueGame;
  */
 public class BadConfigFormatException extends Exception {
 
+    /**
+     * Constructor with no parameters; default message.
+     */
     public BadConfigFormatException() {
         super("Invalid file configuration.");
     }
 
+    /**
+     * Constructor with a String parameter.
+     * 
+     * @param errorMessage The given error message for the exception.
+     */
     public BadConfigFormatException(String errorMessage) {
         super(errorMessage);
     }
-    
 }

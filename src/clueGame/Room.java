@@ -13,6 +13,10 @@ public class Room {
 
     /**
      * Set up a room with the given information.
+     * 
+     * @param inputName Inputted name for the room.
+     * @param center Given center cell for the room. 
+     * @param label Given label cell for the room. 
      */
     public Room(String inputName, BoardCell center, BoardCell label) {
         name = inputName;
@@ -20,12 +24,15 @@ public class Room {
         labelCell = label;
     } 
 
+    /**
+     * How we print a room's information.
+     */
     @Override
     public String toString() {
-        return name + ", " + centerCell + ", " + labelCell;
+        return "ROOM: " + name + ", " + centerCell + ", " + labelCell; // BoardCell also has a toString()
     }
 
-    // all getters below
+    // all getters and setters below
     public String getName() {
         return name;
     }
