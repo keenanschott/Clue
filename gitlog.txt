@@ -1,5 +1,119 @@
-I, Keenan Schott, certify that I participated equitably in the creation of assignment C14A-2 Clue Init 1 (Clue Pair), dated 3/1/2023.
-I, William Burns, certify that I participated equitably in the creation of assignment C14A-2 Clue Init 1 (Clue Pair), dated 3/1/2023.
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C15A-1 Clue Init 2 (Clue Pair), dated 3/5/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C15A-1 Clue Init 2 (Clue Pair), dated 3/5/2023.
+
+commit f1b6d66ef6e28c4dd595a00c8278923d8aba5cd7
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 21:13:01 2023 -0700
+
+    Minor tweaks
+
+commit ea056befc7651e8c0a9d404d2095f09e0734b907
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 21:10:42 2023 -0700
+
+    refactoring txt
+
+commit 6c393582300f4c8eef1e2b3875ea5cb7bda7bd31
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 20:57:50 2023 -0700
+
+    Refactoring
+
+commit bc67133f081572dc58df14474b046cab6a2d7ccc
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 20:20:49 2023 -0700
+
+    Last changes
+
+commit f972274f998c9b570a6d3e1ee174b6c2b85a7774
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 20:15:50 2023 -0700
+
+    Minor tweaks
+
+commit 5e394ae294a7210aaf5f2be7fa532e0e26bd6f68
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 20:14:51 2023 -0700
+
+    Minor tweaks
+
+commit 37250536f213cca30a9c71e4a7bc945eae5baa4f
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 20:11:57 2023 -0700
+
+    Minor tweaks to BadCongif exception
+
+commit 2db523399f8556e4e9f4108bd55a7512251ed565
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 20:09:24 2023 -0700
+
+    Ongoing changes
+
+commit 950e7a0b4845b67b50f215a8564d7a4b873c5e29
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 20:02:19 2023 -0700
+
+    All tests documented
+
+commit ea42300a059e46b72933c618f29771b4db0047df
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 19:43:16 2023 -0700
+
+    A bit of refactoring
+
+commit 5a217db49b1d24fefcf5e51203a94cf5208a9ef0
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 18:21:39 2023 -0700
+
+    Minor tweaks
+
+commit 71a9b83a2b19d81cdcccaca388c31a9a9450310a
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 18:18:45 2023 -0700
+
+    init tests passing
+
+commit 2f40d25cddf4ecbd97e2bcbd548d22595be75676
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 18:13:56 2023 -0700
+
+    All variables in BoardCell now assigned
+
+commit 48b7da04795d779b52f5f0de31b3ef2983a7f608
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 18:02:52 2023 -0700
+
+    Map correctly populated along with grid
+
+commit 5c264c41a744be86f6848b8243e9074be2236a82
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Thu Mar 2 10:27:15 2023 -0700
+
+    Started implementing loop for SetupConfigTXT, we need to figure out the Room object situation....
+
+commit 70abbe1e6ab5f4fa5c8d92f76c5aab3362863745
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Thu Mar 2 10:01:23 2023 -0700
+
+    Working on config
+
+commit b61b4bce4ecd1b7285fc6f9647555bed2b7f4fb8
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Thu Mar 2 09:38:17 2023 -0700
+
+    Working on file config
+
+commit 87bc02dcc5f28eff0b95cd28292069cb3f8f62e7
+Author: Keenan Schott <94594779+keenanschott@users.noreply.github.com>
+Date:   Wed Mar 1 14:44:54 2023 -0700
+
+    Delete .DS_Store
+
+commit e45870da620a624db23e0eb565f45e97484699d2
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Mar 1 14:39:54 2023 -0700
+
+    C14A-2 final touches before submission
 
 commit 71ed3443f8b20155b1b9eb00ca38c57f3ee72cfd
 Author: Keenan Schott <keenanmschott28@gmail.com>
