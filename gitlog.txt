@@ -1,6 +1,18 @@
 I, Keenan Schott, certify that I participated equitably in the creation of assignment C15A-2 Clue Board 1 (Clue Pair), dated 3/6/2023.
 I, William Burns, certify that I participated equitably in the creation of assignment C15A-2 Clue Board 1 (Clue Pair), dated 3/6/2023.
 
+commit 9d86d2b832958fe23f3c1ee23e0abf54139b0e8e
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Mar 6 22:50:00 2023 -0700
+
+    fixed up ClueLayoutTests.xslx
+
+commit bce0af6e6afc55c40f1d1f7dad4908f385f3b9ad
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Mar 6 22:45:14 2023 -0700
+
+    updated gitlog
+
 commit 46a32d132a0b62f858ab70a160d8fdb9f6f97f5f
 Merge: 6f28bca 7c9a2fe
 Author: finn <90734575+squilliamb@users.noreply.github.com>
