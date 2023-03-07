@@ -97,7 +97,7 @@ public class Board {
 		if (j != 0) { // if not at very left of board
 			grid[i][j].addAdjacency(grid[i][j - 1]);
 		}
-		if (j != numColumns - 1 && ) { // if not at very right of board
+		if (j != numColumns - 1) { // if not at very right of board
 			grid[i][j].addAdjacency(grid[i][j + 1]);
 		}
 	}
