@@ -22,7 +22,7 @@ public class BoardAdjTargetTest {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
+		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		// Initialize will load config files 
 		board.initialize();
 	}
@@ -42,6 +42,8 @@ public class BoardAdjTargetTest {
 		testList = board.getAdjList(21, 13);
 		assertEquals(2,testList.size());
 		assertTrue(testList.contains(board.getCell(21,9)));
+		assertTrue(testList.contains(board.getCell(18,7)));
+		assertFalse(testList.contains(board.getCell(21,14)));
 	}
 
 	
@@ -93,7 +95,6 @@ public class BoardAdjTargetTest {
 		assertTrue(testList.contains(board.getCell(7,24)));
 		assertTrue(testList.contains(board.getCell(7,26)));
 	}
-	
 	
 	// Tests out of room center, 1, 2 and 3
 	// These are LIGHT BLUE on the planning spreadsheet
