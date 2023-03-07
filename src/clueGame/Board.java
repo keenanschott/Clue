@@ -57,23 +57,26 @@ public class Board {
 	private void createAdj(BoardCell[][] grid) {
 		for (int i = 0; i < numRows; i++) { // create an adjacency list for every cell
     		for (int j = 0; j < numColumns; j++) {
-				if (grid[i][j].getInitial() == 'W') { // handling conditions 1 and 2
-					// check if walkway in each direction 
-						// same code as adjacencyDefault but do && grid @ whatever == 'W'
-					if (grid[i][j].getDoorDirection() != DoorDirection.NONE) {
-						// add adjacency to room Center cell of Room that door is on
-							// IDEA SO FAR: use door direction of the cell
-								// .getRoom().getCenterCell()
-					}
-				}
-				else if (grid[i][j].getSecretPassage() != '\u0000') { // checking if its secret passage (\u0000 is null val)
+				
+				if (grid[i][j].getSecretPassage() != '\u0000') { // checking if its secret passage (\u0000 is null val)
 						// set adjacency to room center cell connected to grid[i][j]
 						roomMap.get(grid[i][j].getInitial()).getCenterCell().addAdjacency(roomMap.get(grid[i][j].getSecretPassage()).getCenterCell());
 				}
-				else if ((grid[i][j].getIsRoom() && !grid[i][j].isRoomCenter() || grid[i][j].isLabel() || grid[i][j].getInitial() == 'X' || grid[i][j].isRoomCenter())) {
+				else if ((grid[i][j].getIsRoom() && !grid[i][j].isRoomCenter()) || grid[i][j].isLabel() || grid[i][j].getInitial() == 'X' || grid[i][j].isRoomCenter()) {
 					// no adjacency
 				}
 				else {
+
+
+					if (grid[i][j].getInitial() == 'W') { // handling conditions 1 and 2
+						// check if walkway in each direction 
+							// same code as adjacencyDefault but do && grid @ whatever == 'W'
+						if (grid[i][j].getDoorDirection() != DoorDirection.NONE) {
+							// add adjacency to room Center cell of Room that door is on
+								// IDEA SO FAR: use door direction of the cell
+									// .getRoom().getCenterCell()
+						}
+					}
 					if (i != 0) {
 						grid[i][j].addAdjacency(grid[i - 1][j]);
 					}
