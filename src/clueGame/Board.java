@@ -51,24 +51,36 @@ public class Board {
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace(); // consider changing this to something else
 		}
-		// TODO: adjacency list creation below needs to be updated given new guidelines and rules (see next assignment)
-    	for (int i = 0; i < numRows; i++) { // create an adjacency list for every cell
-    		for (int j = 0; j < numColumns; j++) {
-    			if (i != 0) { // if not at top of board
-    				grid[i][j].addAdjacency(grid[i - 1][j]);
-    			}
-    			if (i != numRows - 1) { // if not at bottom of board
-    				grid[i][j].addAdjacency(grid[i + 1][j]);
-    			}
-    			if (j != 0) { // if not at very left of board
-    				grid[i][j].addAdjacency(grid[i][j - 1]);
-    			}
-    			if (j != numColumns - 1) { // if not at very right of board
-    				grid[i][j].addAdjacency(grid[i][j + 1]);
-    			}
-    		}
-    	}
+		createAdj(grid);
     }
+
+	private void createAdj(BoardCell[][] grid) {
+		for (int i = 0; i < numRows; i++) { // create an adjacency list for every cell
+			for (int j = 0; j < numColumns; j++) {
+				if (grid[i][j].getSecretPassage() != '\0') {
+					roomMap.get(grid[i][j].getInitial()).getCenterCell().addAdjacency(roomMap.get(grid[i][j].getSecretPassage()).getCenterCell());;
+				}
+				if (grid[i][j].getIsRoom()) {
+					
+				}
+
+
+
+				if (i != 0) { // if not at top of board
+					grid[i][j].addAdjacency(grid[i - 1][j]);
+				}
+				if (i != numRows - 1) { // if not at bottom of board
+					grid[i][j].addAdjacency(grid[i + 1][j]);
+				}
+				if (j != 0) { // if not at very left of board
+					grid[i][j].addAdjacency(grid[i][j - 1]);
+				}
+				if (j != numColumns - 1) { // if not at very right of board
+					grid[i][j].addAdjacency(grid[i][j + 1]);
+				}
+			}
+		}
+	}
 
 	/**
      * Connect instance variables to requested input files.
