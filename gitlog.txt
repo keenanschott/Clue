@@ -1,5 +1,103 @@
-I, Keenan Schott, certify that I participated equitably in the creation of assignment C15A-1 Clue Init 2 (Clue Pair), dated 3/5/2023.
-I, William Burns, certify that I participated equitably in the creation of assignment C15A-1 Clue Init 2 (Clue Pair), dated 3/5/2023.
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C15A-2 Clue Board 1 (Clue Pair), dated 3/6/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C15A-2 Clue Board 1 (Clue Pair), dated 3/6/2023.
+
+commit 46a32d132a0b62f858ab70a160d8fdb9f6f97f5f
+Merge: 6f28bca 7c9a2fe
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Mar 6 22:42:25 2023 -0700
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit 6f28bca3ae2b594399317090d095a5567bb10628
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Mar 6 22:42:22 2023 -0700
+
+    implemented testTargetsOccupied
+
+commit 7c9a2fe23a4ff2d9a8394872b5f5f3cb083dd299
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Mar 6 22:41:58 2023 -0700
+
+    tests finished
+
+commit 20921fac3f1565fd1a2a8994d250d63dcd9a046a
+Merge: 4ff7551 78a59ed
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Mar 6 22:28:10 2023 -0700
+
+    Merge branch 'main' of https://github.com/squilliamb/Clue
+
+commit 78a59ed579f9f96a539619d4dd181fbf9b4d8a4e
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Mar 6 22:27:32 2023 -0700
+
+    implemented tests targets galley, landing pad, door v2
+
+commit c952db993fc8e2e3e91f8a64a6e11ed2e08a8ba6
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Mar 6 22:24:44 2023 -0700
+
+    implemented tests targets galley, landing pad, door
+
+commit 4ff7551d3b31e1553587443a78b91b3672d485d7
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Mar 6 22:24:41 2023 -0700
+
+    tests
+
+commit 25ccd072fd9b045a8c4c6b1fd87ac09a9ea284b5
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Mar 6 21:41:07 2023 -0700
+
+    implemented adjacency tests, skeletonized targets
+
+commit ed59cbb532877b5ffba4b583818e33a3258193d1
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Mon Mar 6 10:29:48 2023 -0700
+
+    Added testing spreadsheet - see ClueLayoutTests
+
+commit a2e3afa148b139d6bb13f518e4e26420e2283260
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Mon Mar 6 10:24:16 2023 -0700
+
+    changed non306 test
+
+commit f084506ae25b525375f088edde75f12f6f9ba4e2
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Mon Mar 6 10:22:26 2023 -0700
+
+    tests failing
+
+commit a31505e5fe3fb9ecb68d53b3ead389526d703256
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Mon Mar 6 10:04:53 2023 -0700
+
+    Added tests
+
+commit 8b695a20b719bf6a5b3df11b5ade58be39c6de6b
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Mon Mar 6 09:59:57 2023 -0700
+
+    Added xlsx file
+
+commit 1cf45481b059f529a0f32b4cd4f5a3fdbff76db2
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 21:55:52 2023 -0700
+
+    Memory issues
+
+commit 858b509156770822078e6a005a68aeae67b5b5b5
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 21:51:40 2023 -0700
+
+    Tests passing
+
+commit 33f1bb29bff6f4a644b7244730b7630497900ee0
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 5 21:14:53 2023 -0700
+
+    Final touches
 
 commit f1b6d66ef6e28c4dd595a00c8278923d8aba5cd7
 Author: Keenan Schott <keenanmschott28@gmail.com>
