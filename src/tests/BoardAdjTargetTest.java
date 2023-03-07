@@ -214,9 +214,13 @@ public class BoardAdjTargetTest {
 	// test to make sure occupied locations do not cause problems
 	public void testTargetsOccupied() { 
 		// (21,7) - make sure player can't move through a door occupied by another player
-		board.getCell(15,7).setOccupied(true);
+		board.getCell(21,7).setOccupied(true);
+		board.calcTargets(board.getCell(24, 8), 4);
+		board.getCell(21,7).setOccupied(false);
 		Set<BoardCell> targets = board.getTargets();
-		
+		assertEquals(6, targets.size());
+		assertFalse(targets.contains(board.getCell(21,7)));
+
 		// (3,24) - room center cell is occupied, want to 
 		board.getCell(3, 24).setOccupied(true);
 		board.calcTargets(board.getCell(5, 19), 1);
@@ -227,14 +231,13 @@ public class BoardAdjTargetTest {
 		assertTrue(targets.contains(board.getCell(4, 19)));	
 		assertTrue(targets.contains(board.getCell(6,19)));
 		assertTrue(targets.contains(board.getCell(5,18)));
+
 		// (10,14) - nearby walkway occupied 
+		board.getCell(10,14).setOccupied(true);
+		board.calcTargets(board.getCell(9,13), 2);
+		board.getCell(10,14).setOccupied(false);
+		targets = board.getTargets();
+		assertEquals(5, targets.size());
+		assertFalse(targets.contains(board.getCell(10,14)));
 	}
 }
-
-/*
- * only walkway adjacent (18,8) (7,17) (7,25)
- * rooms/doors (2,2) (20,25) (18,3)
- * test targets (9,13) (5,19) (24,8) (14,2) (20,28)
- * occupied spaces (10,14) (3,24) (21,7)
- * door directions (20,19) (10,10)
- */
