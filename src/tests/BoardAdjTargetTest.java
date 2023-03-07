@@ -22,7 +22,7 @@ public class BoardAdjTargetTest {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
+		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		// Initialize will load config files 
 		board.initialize();
 	}
@@ -42,6 +42,8 @@ public class BoardAdjTargetTest {
 		testList = board.getAdjList(21, 13);
 		assertEquals(2,testList.size());
 		assertTrue(testList.contains(board.getCell(21,9)));
+		assertTrue(testList.contains(board.getCell(18,7)));
+		assertFalse(testList.contains(board.getCell(21,14)));
 	}
 
 	
@@ -93,7 +95,6 @@ public class BoardAdjTargetTest {
 		assertTrue(testList.contains(board.getCell(7,24)));
 		assertTrue(testList.contains(board.getCell(7,26)));
 	}
-	
 	
 	// Tests out of room center, 1, 2 and 3
 	// These are LIGHT BLUE on the planning spreadsheet
@@ -189,12 +190,24 @@ public class BoardAdjTargetTest {
 		// test roll of 1
 		board.calcTargets(board.getCell(24, 8), 1);
 		Set<BoardCell> targets = board.getTargets();
+		assertEquals(3,targets.size());
+		assertTrue(targets.contains(board.getCell(24,7)));
+		assertTrue(targets.contains(board.getCell(23,8)));
+		assertTrue(targets.contains(board.getCell(24,9)));
 		// test roll of 2
 		board.calcTargets(board.getCell(24, 8), 2);
 		targets = board.getTargets();
+		assertEquals(3,targets.size());
+		assertTrue(targets.contains(board.getCell(23,7)));
+		assertTrue(targets.contains(board.getCell(22,8)));
+		assertTrue(targets.contains(board.getCell(23,9)));
 		// test roll of 3
 		board.calcTargets(board.getCell(24, 8), 3);
 		targets = board.getTargets();
+		assertEquals(3,targets.size());
+		assertTrue(targets.contains(board.getCell(22,7)));
+		assertTrue(targets.contains(board.getCell(21,8)));
+		assertTrue(targets.contains(board.getCell(22,9)));
 	}
 
 	@Test
@@ -202,12 +215,31 @@ public class BoardAdjTargetTest {
 		// test roll of 1
 		board.calcTargets(board.getCell(9, 13), 1);
 		Set<BoardCell> targets = board.getTargets();
+		assertEquals(4, targets.size());
+		assertTrue(targets.contains(board.getCell(9, 12)));	
+		assertTrue(targets.contains(board.getCell(8, 13)));	
+		assertTrue(targets.contains(board.getCell(9,14)));
+		assertTrue(targets.contains(board.getCell(10,13)));
 		// test roll of 2
 		board.calcTargets(board.getCell(9, 13), 2);
 		targets = board.getTargets();
+		assertEquals(6, targets.size());
+		assertTrue(targets.contains(board.getCell(11, 13)));	
+		assertTrue(targets.contains(board.getCell(10, 14)));	
+		assertTrue(targets.contains(board.getCell(8,14)));
+		assertTrue(targets.contains(board.getCell(7,13)));
+		assertTrue(targets.contains(board.getCell(8,12)));
+		assertTrue(targets.contains(board.getCell(10,12)));
 		// test roll of 3
 		board.calcTargets(board.getCell(9, 13), 3);
 		targets = board.getTargets();
+		assertEquals(6, targets.size());
+		assertTrue(targets.contains(board.getCell(12, 13)));	
+		assertTrue(targets.contains(board.getCell(11, 14)));	
+		assertTrue(targets.contains(board.getCell(7,14)));
+		assertTrue(targets.contains(board.getCell(7,12)));
+		assertTrue(targets.contains(board.getCell(10,11)));
+		assertTrue(targets.contains(board.getCell(11,12)));
 	}
 
 	@Test
