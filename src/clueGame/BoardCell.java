@@ -132,4 +132,13 @@ public class BoardCell {
     public boolean getIsRoom() {
         return isRoom; // get isRoom
     }
+
+    // could use better naming
+    public boolean getCenter() {
+        return roomCenter;
+    }
+
+    public boolean getLabel() {
+        return roomLabel;
+    }
 }
