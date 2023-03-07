@@ -214,7 +214,9 @@ public class BoardAdjTargetTest {
 	// test to make sure occupied locations do not cause problems
 	public void testTargetsOccupied() { 
 		// (21,7) - make sure player can't move through a door occupied by another player
+		board.getCell(15,7).setOccupied(true);
 		Set<BoardCell> targets = board.getTargets();
+		
 		// (3,24) - room center cell is occupied, want to 
 		board.getCell(3, 24).setOccupied(true);
 		board.calcTargets(board.getCell(5, 19), 1);
