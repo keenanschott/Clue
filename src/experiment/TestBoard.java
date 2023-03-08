@@ -18,6 +18,8 @@ public class TestBoard {
      * Set up the game board with new board cells. Then, create an adjacency list for every cell.
      */
     public TestBoard() { 
+		targets = new HashSet<TestBoardCell>(); // allocate space for our sets and board
+    	visited = new HashSet<TestBoardCell>();
     	grid = new TestBoardCell[ROWS][COLS]; 
     	for (int i = 0; i < ROWS; i++) {
     		for (int j = 0; j < COLS; j++) {
@@ -41,8 +43,6 @@ public class TestBoard {
     			}
     		}
     	}
-    	targets = new HashSet<TestBoardCell>(); // allocate space for our sets
-    	visited = new HashSet<TestBoardCell>();
     }
 
 	/**

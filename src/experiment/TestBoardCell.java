@@ -10,7 +10,7 @@ import java.util.*;
 public class TestBoardCell {
         private int row, col; // row and column identifiers for each cell
         private Set<TestBoardCell> adjList; // adjacency list for a given cell
-        private boolean isRoom, isOccupied; // boolean statuses for a given cell
+        private boolean isRoom = false, isOccupied = false; // boolean statuses for a given cell; false as default
         
         /**
          * Construct a cell with default values.
@@ -22,8 +22,6 @@ public class TestBoardCell {
                 row = testRow; // test row and column
                 col = testCol;
                 adjList = new HashSet<TestBoardCell>(); // allocate space
-                isRoom = false; // set booleans to false as a default
-                isOccupied = false;
         }
 
         /**
@@ -44,6 +42,7 @@ public class TestBoardCell {
                 return adjList;
         }
 
+        // all getters and setters
         public void setIsRoom(boolean roomStatus) {
                 isRoom = roomStatus; // set isRoom
         }
