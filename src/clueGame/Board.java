@@ -39,8 +39,6 @@ public class Board {
      * Set up the game board with new board cells. Then, create an adjacency list for every cell.
      */
     public void initialize() {
-		targets = new HashSet<BoardCell>(); // allocate space for our sets
-    	visited = new HashSet<BoardCell>();
 		try {
 			loadSetupConfig();
 		} catch (BadConfigFormatException e) {
@@ -202,7 +200,7 @@ public class Board {
 							}
 						}
 						// setting non moveable cells to occupied to aid in creating adjacencies later
-						if (roomMap.containsKey(cell.charAt(0)) && newCell.getInitial() != 'W' && newCell.getInitial() != 'X') {
+						if (newCell.getInitial() != 'W' && newCell.getInitial() != 'X') {
 							newCell.setIsRoom(true);
 						}
 						if (newCell.getInitial() == 'X') {
@@ -231,8 +229,16 @@ public class Board {
 	 * @param pathLength The roll/how many moves we have.
      */
     public void calcTargets(BoardCell startCell, int pathLength) {
+    	visited = new HashSet<BoardCell>();
+		targets = new HashSet<BoardCell>(); // allocate space for our sets
     	visited.add(startCell); // can never move back to the start cell
 		findAllTargets(startCell, pathLength); // call helper function
+		
+		// testing
+		Iterator itr = targets.iterator();
+		while (itr.hasNext()) {
+			System.out.println(itr.next());
+		}
     }
 
     
@@ -244,9 +250,9 @@ public class Board {
      */
     private void findAllTargets(BoardCell startCell, int pathLength) {
     	for (BoardCell adjCell : startCell.getAdjList()) { // all adjacent cells
-    		if (!visited.contains(adjCell)) { // if not in visited and not occupied
+    		if (!visited.contains(adjCell) && (!adjCell.getIsOccupied() || adjCell.isRoomCenter()) && (adjCell.isRoomCenter() || adjCell.getInitial() == 'W')) { // if not in visited and not occupied
     			visited.add(adjCell);
-    			if (pathLength == 1 || adjCell.getIsRoom()) { // if no more moves or at a room cell
+    			if (pathLength == 1 || adjCell.isRoomCenter()) { // if no more moves or at a room cell
     				targets.add(adjCell); // add to targets
     			} else {
     				findAllTargets(adjCell, pathLength - 1); // call recursively with one less move
@@ -290,4 +296,12 @@ public class Board {
 	public BoardCell getCell(int row, int col) {
 		return grid[row][col]; // returns the cell at the given parameters
 	}
+
+	public static void main(String[] args) {
+		Board board = Board.getInstance();
+		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
+		board.initialize();
+		board.calcTargets(board.getCell(5,19), 3);
+	}
+
 }
