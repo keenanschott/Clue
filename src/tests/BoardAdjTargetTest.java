@@ -42,7 +42,7 @@ public class BoardAdjTargetTest {
 		testList = board.getAdjList(21, 13);
 		assertEquals(2,testList.size());
 		assertTrue(testList.contains(board.getCell(21,9)));
-		assertTrue(testList.contains(board.getCell(18,7)));
+		assertTrue(testList.contains(board.getCell(18,17)));
 		assertFalse(testList.contains(board.getCell(21,14)));
 	}
 
@@ -79,7 +79,7 @@ public class BoardAdjTargetTest {
 		assertTrue(testList.contains(board.getCell(18,7)));
 		assertTrue(testList.contains(board.getCell(18,9)));
 		assertTrue(testList.contains(board.getCell(17,8)));
-		assertTrue(testList.contains(board.getCell(17,9)));
+		assertTrue(testList.contains(board.getCell(19,8)));
 
 		// (7,17)
 		testList = board.getAdjList(7,17);

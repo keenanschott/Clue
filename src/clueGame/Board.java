@@ -66,27 +66,34 @@ public class Board {
 					// no adjacency
 				}
 				else {
-
-
-					if (grid[i][j].getInitial() == 'W') { // handling conditions 1 and 2
-						// check if walkway in each direction 
-							// same code as adjacencyDefault but do && grid @ whatever == 'W'
-						if (grid[i][j].getDoorDirection() != DoorDirection.NONE) {
-							// add adjacency to room Center cell of Room that door is on
-								// IDEA SO FAR: use door direction of the cell
-									// .getRoom().getCenterCell()
+					if (grid[i][j].getDoorDirection() != DoorDirection.NONE) {
+						if (grid[i][j].getDoorDirection() == DoorDirection.UP) {
+							grid[i][j].addAdjacency(roomMap.get(grid[i - 1][j].getInitial()).getCenterCell()); // door to center cell adjacency
+							roomMap.get(grid[i - 1][j].getInitial()).getCenterCell().addAdjacency(grid[i][j]); // center cell to door adjacency
+						}
+						else if (grid[i][j].getDoorDirection() == DoorDirection.DOWN) {
+							grid[i][j].addAdjacency(roomMap.get(grid[i + 1][j].getInitial()).getCenterCell());
+							roomMap.get(grid[i + 1][j].getInitial()).getCenterCell().addAdjacency(grid[i][j]);
+						}
+						else if (grid[i][j].getDoorDirection() == DoorDirection.LEFT) {
+							grid[i][j].addAdjacency(roomMap.get(grid[i][j - 1].getInitial()).getCenterCell());
+							roomMap.get(grid[i][j - 1].getInitial()).getCenterCell().addAdjacency(grid[i][j]);
+						}
+						else if (grid[i][j].getDoorDirection() == DoorDirection.RIGHT) {
+							grid[i][j].addAdjacency(roomMap.get(grid[i][j + 1].getInitial()).getCenterCell());
+							roomMap.get(grid[i][j + 1].getInitial()).getCenterCell().addAdjacency(grid[i][j]);
 						}
 					}
-					if (i != 0) {
+					if (i != 0 && grid[i - 1][j].getIsOccupied() != true && grid[i - 1][j].getInitial() == 'W') {
 						grid[i][j].addAdjacency(grid[i - 1][j]);
 					}
-					if (i != numRows - 1) {
+					if (i != numRows - 1 && grid[i + 1][j].getIsOccupied() != true && grid[i + 1][j].getInitial() == 'W') {
 						grid[i][j].addAdjacency(grid[i + 1][j]);
 					}
-					if (j != 0) {	
+					if (j != 0 && grid[i][j - 1].getIsOccupied() != true && grid[i][j - 1].getInitial() == 'W') {	
 						grid[i][j].addAdjacency(grid[i][j - 1]);
 					}
-					if (j != numColumns - 1) {
+					if (j != numColumns - 1 && grid[i][j + 1].getIsOccupied() != true && grid[i][j + 1].getInitial() == 'W') {
 						grid[i][j].addAdjacency(grid[i][j + 1]);
 					}
 				}
@@ -194,7 +201,15 @@ public class Board {
 								newCell.setSecretPassage(cell.charAt(1)); // only remaining special cell option
 							}
 						}
-					} else {
+						// setting non moveable cells to occupied to aid in creating adjacencies later
+						if (roomMap.containsKey(cell.charAt(0)) && newCell.getInitial() != 'W' && newCell.getInitial() != 'X') {
+							newCell.setIsRoom(true);
+						}
+						if (newCell.getInitial() == 'X') {
+							newCell.setOccupied(true);
+						}					
+					}
+					else {
 						throw new BadConfigFormatException("Layout file specifies a room that is not in the legend!"); // not in setup file
 					}
 					grid[rowCounter][colCounter] = newCell; // fill grid with newCell
