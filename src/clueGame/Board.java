@@ -244,7 +244,7 @@ public class Board {
      */
     private void findAllTargets(BoardCell startCell, int pathLength) {
     	for (BoardCell adjCell : startCell.getAdjList()) { // all adjacent cells
-    		if (!visited.contains(adjCell) && !adjCell.getIsOccupied()) { // if not in visited and not occupied
+    		if (!visited.contains(adjCell)) { // if not in visited and not occupied
     			visited.add(adjCell);
     			if (pathLength == 1 || adjCell.getIsRoom()) { // if no more moves or at a room cell
     				targets.add(adjCell); // add to targets
