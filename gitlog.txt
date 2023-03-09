@@ -1,5 +1,109 @@
-I, Keenan Schott, certify that I participated equitably in the creation of assignment C15A-2 Clue Board 1 (Clue Pair), dated 3/6/2023.
-I, William Burns, certify that I participated equitably in the creation of assignment C15A-2 Clue Board 1 (Clue Pair), dated 3/6/2023.
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C16A Clue Board 2 (Clue Pair), dated 3/X/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C16A Clue Board 2 (Clue Pair), dated 3/X/2023.
+
+commit bf8d19b5a0d52507ce44a2b5894f25611067176e
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Mar 8 18:51:47 2023 -0700
+
+    Minor tweaks
+
+commit ef4984cd61df824767aaede0a8498c463450b2cf
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Mar 8 18:08:39 2023 -0700
+
+    Refactored and commented tests as well
+
+commit 70eec79515aa5e45a4e8876ebf8dfd2898b95329
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Mar 8 17:49:39 2023 -0700
+
+    Refactored Board
+
+commit 81c3ead8ef28c8d980d8ef34142e5e2a4505edb0
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Mar 8 17:23:04 2023 -0700
+
+    Refactored fillGrid
+
+commit 1a2da35d1625e60dc81ea53f15116a0b4a8df100
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Mar 8 16:52:57 2023 -0700
+
+    Only Board and BoardCell, data, and tests left to refactor
+
+commit e99e6d047102c9494245b42039b6d7b15293dcd3
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Mar 8 16:44:55 2023 -0700
+
+    ALL TESTS PASSING - REFACTORING FROM THIS POINT ONWARDS
+
+commit d32b98b8d4a1d712b4c2fdce98adbd6d7dfd053f
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Mar 8 16:16:39 2023 -0700
+
+    All 306 tests passing - figuring out our tests now
+
+commit 574c54ef372bf73169a3273b39356a229c0a8ba3
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Mar 7 23:01:58 2023 -0700
+
+    testTargets galley and landing pad passing. i added targets.clear() statements after first two rolls. only issue that seems to remain is targets.clear() gets rid of room center cells we calculate as targets for a roll of 1, when it should carry over into a roll of 2, and 3 and so on...
+
+commit d8219da8fbf90ca5f26b5288ff04eb0db54cc298
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Mar 7 18:49:55 2023 -0700
+
+    fixed failing tests. implemented methods correctly, tests were written wrong
+
+commit 83aa71ba73a557fd399ce6659b71b257c23c3515
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Mar 7 10:17:43 2023 -0700
+
+    test adj
+
+commit 37d83b8e925279f8900a6c4c368605f1c2f44f0c
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Mar 7 10:15:01 2023 -0700
+
+    restructured createAdj
+
+commit 17325b605f9730b9ee92b820a07bb35643d1ba5e
+Merge: e77138b f301127
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Mar 7 10:03:06 2023 -0700
+
+    merged with keenan's create adj
+
+commit e77138b8b069ff5c7b048ca048a184dec909f1b1
+Merge: be1d894 66c8925
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Mar 7 10:00:51 2023 -0700
+
+    merged and fixed createAdj
+
+commit f3011279f37b3c88a2f4a33436cddbd9e05bd748
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Mar 7 09:53:01 2023 -0700
+
+    adj testing
+
+commit 66c89257c3f1c6a2ff67eb2a15fb7e686566eb13
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Mar 7 09:42:55 2023 -0700
+
+    framing adjacency
+
+commit be1d8940ac1f92c4aa10b26a1f5d4475c944ffbc
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Mar 7 09:40:20 2023 -0700
+
+    started adj
+
+commit 41d85b8841e4eeb96eaaf92c6ed81e3730d6fbcf
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Mar 6 22:53:43 2023 -0700
+
+    fixed up ClueLayoutTests.xslx for the second time lol
 
 commit 9d86d2b832958fe23f3c1ee23e0abf54139b0e8e
 Author: finn <90734575+squilliamb@users.noreply.github.com>
@@ -104,6 +208,18 @@ Author: Keenan Schott <keenanmschott28@gmail.com>
 Date:   Sun Mar 5 21:51:40 2023 -0700
 
     Tests passing
+
+commit 2c673ef0bc33b42592022876269ade267f437088
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Sun Mar 5 21:32:55 2023 -0700
+
+    added targets methods to clueGame package. need to resolve some issues with using methods in experiment package, and not in clueGame.
+
+commit 7ea01177515cc49efefda8d09a17ea79c07b1102
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Sun Mar 5 21:17:40 2023 -0700
+
+    skeletonized testing adjacencies
 
 commit 33f1bb29bff6f4a644b7244730b7630497900ee0
 Author: Keenan Schott <keenanmschott28@gmail.com>

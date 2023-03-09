@@ -12,6 +12,13 @@ import org.junit.jupiter.api.Test;
 import clueGame.Board;
 import clueGame.BoardCell;
 
+/**
+ * BoardAdjTargetTest
+ * A part of Clue Board to test and examine the movement algorithm as it pertains to the game board.
+ * DATE: 3/8/2023
+ * @author Keenan Schott
+ * @author Finn Burns
+ */
 public class BoardAdjTargetTest {
 	// We make the Board static because we can load it one time and 
 	// then do all the tests. 
@@ -28,7 +35,7 @@ public class BoardAdjTargetTest {
 	}
 
 	// Ensure that player does not move around within room
-	// These cells are LIGHT ORANGE on the planning spreadsheet
+	// These cells are BRIGHT BLUE on the planning spreadsheet
 	@Test
 	public void testAdjacenciesRooms()
 	{
@@ -40,15 +47,14 @@ public class BoardAdjTargetTest {
 
 		// (21,13) Center Dining Hall
 		testList = board.getAdjList(21, 13);
-		assertEquals(2,testList.size());
+		assertEquals(2, testList.size());
 		assertTrue(testList.contains(board.getCell(21,9)));
 		assertTrue(testList.contains(board.getCell(18,17)));
-		assertFalse(testList.contains(board.getCell(21,14)));
+		assertFalse(testList.contains(board.getCell(21,14))); // ensure it does not move to a generic room cell
 	}
 
-	
 	// Ensure door locations include their rooms and also additional walkways
-	// These cells are LIGHT ORANGE on the planning spreadsheet
+	// These cells are BRIGHT BLUE on the planning spreadsheet
 	@Test
 	public void testAdjacencyDoor()
 	{
@@ -69,7 +75,7 @@ public class BoardAdjTargetTest {
 	}
 	
 	// Test a variety of walkway scenarios
-	// These tests are Dark Orange on the planning spreadsheet
+	// These tests are DARK ORANGE on the planning spreadsheet
 	@Test
 	public void testAdjacencyWalkways()
 	{
@@ -96,29 +102,30 @@ public class BoardAdjTargetTest {
 		assertTrue(testList.contains(board.getCell(7,26)));
 	}
 	
-	// Tests out of room center, 1, 2 and 3
+	// Tests out of the Galley's room center
 	// These are LIGHT BLUE on the planning spreadsheet
 	@Test
-	public void testTargetsInGalley() { // (14,2)
-		//test a roll of 1
+	public void testTargetsInGalley() { 
+		// (14,2)
+		// test a roll of 1
 		board.calcTargets(board.getCell(14,2), 1);
 		Set<BoardCell> targets = board.getTargets();
-		assertEquals(3, targets.size());
+		assertEquals(3, targets.size()); // three walkways from the room
 		assertTrue(targets.contains(board.getCell(5,5)));
 		assertTrue(targets.contains(board.getCell(14,13)));
 		assertTrue(targets.contains(board.getCell(17,6)));
 		targets.clear();
 
-		//test a roll of 2
+		// test a roll of 2
 		board.calcTargets(board.getCell(14,2), 2);
 		targets = board.getTargets();
-		assertEquals(9, targets.size()); 
+		assertEquals(9, targets.size());
 		assertTrue(targets.contains(board.getCell(5,4)));
-		assertTrue(targets.contains(board.getCell(4,5)));
-		assertTrue(targets.contains(board.getCell(5,6)));
+		assertTrue(targets.contains(board.getCell(15,13)));
+		assertTrue(targets.contains(board.getCell(18,6)));
 		targets.clear();
 
-		//test a roll of 3
+		// test a roll of 3
 		board.calcTargets(board.getCell(14,2), 3);
 		targets = board.getTargets();
 		assertEquals(13, targets.size());
@@ -127,8 +134,11 @@ public class BoardAdjTargetTest {
 		assertTrue(targets.contains(board.getCell(17,8)));
 	}
 	
+	// Tests out of the Landing Pad's room center
+	// These are LIGHT BLUE on the planning spreadsheet
 	@Test
-	public void testTargetsInLandingPad() { // (20,28)
+	public void testTargetsInLandingPad() { 
+		// (20,28)
 		// test roll of 1
 		board.calcTargets(board.getCell(20, 28), 1);
 		Set<BoardCell> targets = board.getTargets();
@@ -156,10 +166,11 @@ public class BoardAdjTargetTest {
 		assertTrue(targets.contains(board.getCell(15,30)));		
 	}
 
-	// Tests out of room center, 1, 2 and 3
+	// Tests out of a doorway
 	// These are LIGHT BLUE on the planning spreadsheet
 	@Test
-	public void testTargetsAtDoor() { // (18,17)
+	public void testTargetsAtDoor() { 
+		// (18,17) and (5,19)
 		// test roll of 1
 		board.calcTargets(board.getCell(18, 17), 1);
 		Set<BoardCell> targets = board.getTargets();
@@ -186,7 +197,7 @@ public class BoardAdjTargetTest {
 		// test roll of 3
 		board.calcTargets(board.getCell(5, 19), 3);
 		targets = board.getTargets();
-		assertEquals(12,targets.size());
+		assertEquals(12, targets.size());
 		assertTrue(targets.contains(board.getCell(3,24)));
 		assertTrue(targets.contains(board.getCell(2,19)));
 		assertTrue(targets.contains(board.getCell(3,18)));
@@ -201,8 +212,11 @@ public class BoardAdjTargetTest {
 		assertTrue(targets.contains(board.getCell(6,19)));
 	}
 
+	// Tests out of a walkway
+	// These are LIGHT BLUE on the planning spreadsheet
 	@Test
-	public void testTargetsInWalkway1() { // (24,8)
+	public void testTargetsInWalkway1() { 
+		// (24,8)
 		// test roll of 1
 		board.calcTargets(board.getCell(24, 8), 1);
 		Set<BoardCell> targets = board.getTargets();
@@ -233,8 +247,11 @@ public class BoardAdjTargetTest {
 		assertTrue(targets.contains(board.getCell(24,9)));
 	}
 
+	// Tests out of a walkway
+	// These are LIGHT BLUE on the planning spreadsheet
 	@Test
-	public void testTargetsInWalkway2() { // (9,13)
+	public void testTargetsInWalkway2() { 
+		// (9,13)
 		// test roll of 1
 		board.calcTargets(board.getCell(9, 13), 1);
 		Set<BoardCell> targets = board.getTargets();
@@ -273,8 +290,9 @@ public class BoardAdjTargetTest {
 		assertTrue(targets.contains(board.getCell(11, 14)));	
 	}
 
+	// Tests are LIGHT BLUE on the planning spreadsheet
+	// Occupied cells are RED on the planning spreadsheet
 	@Test
-	// test to make sure occupied locations do not cause problems
 	public void testTargetsOccupied() { 
 		// (21,7) - make sure player can't move through a door occupied by another player
 		board.getCell(21,7).setOccupied(true);
@@ -282,16 +300,16 @@ public class BoardAdjTargetTest {
 		board.getCell(21,7).setOccupied(false);
 		Set<BoardCell> targets = board.getTargets();
 		assertEquals(5, targets.size());
-		assertFalse(targets.contains(board.getCell(21,7)));
+		assertFalse(targets.contains(board.getCell(21,7))); // ensure targets does not contain the doorway
 		targets.clear();
 		
-		// (3,24) - room center cell is occupied, want to 
+		// (3,24) - room center cell is occupied
 		board.getCell(3, 24).setOccupied(true);
 		board.calcTargets(board.getCell(5, 19), 1);
 		board.getCell(3, 24).setOccupied(false);
 		targets = board.getTargets();
 		assertEquals(4, targets.size());
-		assertTrue(targets.contains(board.getCell(3, 24)));	
+		assertTrue(targets.contains(board.getCell(3, 24))); // room centers, even if occupied, can still be moved to per the rules
 		assertTrue(targets.contains(board.getCell(4, 19)));	
 		assertTrue(targets.contains(board.getCell(6,19)));
 		assertTrue(targets.contains(board.getCell(5,18)));
@@ -303,6 +321,11 @@ public class BoardAdjTargetTest {
 		board.getCell(10,14).setOccupied(false);
 		targets = board.getTargets();
 		assertEquals(5, targets.size());
-		assertFalse(targets.contains(board.getCell(10,14)));
+		assertFalse(targets.contains(board.getCell(10,14))); // ensure targets does not contain occupied cell
+		assertTrue(targets.contains(board.getCell(11,13)));
+		assertTrue(targets.contains(board.getCell(10,12)));
+		assertTrue(targets.contains(board.getCell(8,12)));
+		assertTrue(targets.contains(board.getCell(8,14)));
+		assertTrue(targets.contains(board.getCell(7,13)));
 	}
 }
