@@ -1,5 +1,5 @@
-I, Keenan Schott, certify that I participated equitably in the creation of assignment C16A Clue Board 2 (Clue Pair), dated 3/X/2023.
-I, William Burns, certify that I participated equitably in the creation of assignment C16A Clue Board 2 (Clue Pair), dated 3/X/2023.
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C16A Clue Board 2 (Clue Pair), dated 3/9/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C16A Clue Board 2 (Clue Pair), dated 3/9/2023.
 
 commit bf8d19b5a0d52507ce44a2b5894f25611067176e
 Author: Keenan Schott <keenanmschott28@gmail.com>
