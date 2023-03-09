@@ -5,7 +5,8 @@ import java.util.*;
 
 /**
  * Board
- * A part of Clue Init to set up and populate a game board.
+ * A part of Clue Board to set up and populate a game board.
+ * DATE: 3/8/2023
  * @author Keenan Schott
  * @author Finn Burns
  */

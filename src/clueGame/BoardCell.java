@@ -2,8 +2,9 @@ package clueGame;
 import java.util.*;
 
 /**
- * TestBoardCell
- * A part of Clue Init that constitutes a single cell in the game board.
+ * BoardCell
+ * A part of Clue Board that constitutes a single cell in the game board.
+ * DATE: 3/8/2023
  * @author Keenan Schott
  * @author Finn Burns
  */
@@ -11,7 +12,7 @@ public class BoardCell {
     private int row, col; // row and column identifiers for each cell
     private char initial, secretPassage; // chars
     private DoorDirection doorDirection = DoorDirection.NONE; // door direction for a given cell; default is NONE
-    private boolean roomLabel, roomCenter, isRoom, isOccupied; // boolean statuses for a given cell
+    private boolean roomLabel = false, roomCenter = false, isRoom, isOccupied; // boolean statuses for a given cell; defaults set for select booleans
     private Set<BoardCell> adjList; // adjacency list for a given cell
     
     /**
@@ -22,12 +23,10 @@ public class BoardCell {
      * @param inputInitial The initial of the room.
      */
     public BoardCell(int inputRow, int inputCol, char inputInitial) {
-        adjList = new HashSet<BoardCell>(); // allocate space
+        adjList = new HashSet<BoardCell>(); // allocate space for the adj. list
         row = inputRow; // given row and column
         col = inputCol;
-        initial = inputInitial; // given room
-        roomLabel = false; // set booleans to false as a default unless changed later
-        roomCenter = false;
+        initial = inputInitial; // given room initial
     }
 
     /**
@@ -40,18 +39,9 @@ public class BoardCell {
     }
 
     /**
-     * Get the adjacency list.
-     * 
-     * @return Return the adjacency list.
-     */
-    public Set<BoardCell> getAdjList() {
-        return adjList;
-    }
-
-    /**
      * Whether or not a cell is a doorway.
      * 
-     * @return Return the doorway status boolean.
+     * @return Return the doorway status boolean; derived from the DoorDirection enum.
      */
     public boolean isDoorway() {
         if (doorDirection != DoorDirection.NONE) {
@@ -61,34 +51,33 @@ public class BoardCell {
     }
 
     /**
-     * Get the actual door direction.
-     * 
-     * @return Return the doorway direction.
-     */
-    public DoorDirection getDoorDirection() {
-        return doorDirection;
-    }
-
-    /**
      * Set the direction of the doorway for a given cell.
      * 
      * @param direction The direction of the doorway.
      */
     public void setDoorDirection(char direction) {
         if (direction == '<') {
-            this.doorDirection = DoorDirection.LEFT;
+            this.doorDirection = DoorDirection.LEFT; // set left
         } else if (direction == '>') {
-            this.doorDirection = DoorDirection.RIGHT;
+            this.doorDirection = DoorDirection.RIGHT; // set right
         } else if (direction == '^') {
-            this.doorDirection = DoorDirection.UP;
+            this.doorDirection = DoorDirection.UP; // set up
         } else if (direction == 'v') {
-            this.doorDirection = DoorDirection.DOWN;
+            this.doorDirection = DoorDirection.DOWN; // set down
         } else {
             this.doorDirection = DoorDirection.NONE; // any other character is NONE
         }
     }
 
     // all getters and setters
+    public Set<BoardCell> getAdjList() {
+        return adjList;
+    }
+
+    public DoorDirection getDoorDirection() {
+        return doorDirection;
+    }
+
     public char getInitial() {
         return initial;
     }
@@ -131,14 +120,5 @@ public class BoardCell {
 
     public boolean getIsRoom() {
         return isRoom; // get isRoom
-    }
-
-    // could use better naming
-    public boolean getCenter() {
-        return roomCenter;
-    }
-
-    public boolean getLabel() {
-        return roomLabel;
     }
 }

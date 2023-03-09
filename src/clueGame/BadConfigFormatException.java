@@ -3,6 +3,7 @@ package clueGame;
 /**
  * BadConfigFormatException
  * A part of Clue Init to detect a bad configuration.
+ * DATE: 3/8/2023
  * @author Keenan Schott
  * @author Finn Burns
  */

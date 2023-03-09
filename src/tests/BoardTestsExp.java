@@ -11,6 +11,7 @@ import experiment.TestBoardCell;
 /**
  * BoardTestsExp
  * A part of Clue Paths to test and examine the movement algorithm as it pertains to the game board.
+ * DATE: 3/8/2023
  * @author Keenan Schott
  * @author Finn Burns
  */
@@ -54,7 +55,7 @@ public class BoardTestsExp {
         board.calcTargets(cell, 2); // roll a 2
         Set<TestBoardCell> targets = board.getTargets();
         Assert.assertEquals(3, targets.size()); 
-        Assert.assertTrue(targets.contains(board.getCell(0, 2))); // cells two moves away
+        Assert.assertTrue(targets.contains(board.getCell(0, 2))); // all cells two moves away
         Assert.assertTrue(targets.contains(board.getCell(1, 1)));
         Assert.assertTrue(targets.contains(board.getCell(2, 0)));
         Assert.assertFalse(targets.contains(board.getCell(1, 0))); // these cells should not be present; would require to move back to a previously visited square
@@ -76,7 +77,7 @@ public class BoardTestsExp {
     	board.calcTargets(cell, 3); // roll a 3
     	Set<TestBoardCell> targets = board.getTargets();
     	Assert.assertEquals(6, targets.size()); // six valid rooms
-    	Assert.assertTrue(targets.contains(board.getCell(0, 1))); // all valid rooms
+    	Assert.assertTrue(targets.contains(board.getCell(0, 1)));
         Assert.assertTrue(targets.contains(board.getCell(0, 2))); 
         Assert.assertTrue(targets.contains(board.getCell(1, 0))); 
     	Assert.assertTrue(targets.contains(board.getCell(1, 2))); 
@@ -112,7 +113,7 @@ public class BoardTestsExp {
     	TestBoardCell cell = board.getCell(2, 2); // observed cell at (2, 2)
     	board.calcTargets(cell, 6); // roll a 6
     	Set<TestBoardCell> targets = board.getTargets();
-        Assert.assertEquals(6, targets.size()); // valid cells below; draw out to visualize
+        Assert.assertEquals(6, targets.size()); // valid cells below; draw out to visualize or see spreadsheet in data
     	Assert.assertTrue(targets.contains(board.getCell(0, 0)));
     	Assert.assertTrue(targets.contains(board.getCell(0, 3)));
     	Assert.assertTrue(targets.contains(board.getCell(1, 1)));
