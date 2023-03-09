@@ -141,9 +141,4 @@ public class BoardCell {
     public boolean getLabel() {
         return roomLabel;
     }
-
-    @Override
-    public String toString() {
-        return "ROW: " + row + ", COL: " + col + ", INITIAL: " + initial + ", ISROOM: " + isRoom + ", ISOCCUPIED: " + isOccupied;
-    }
 }

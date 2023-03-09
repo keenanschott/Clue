@@ -17,7 +17,6 @@ public class Board {
     private String setupConfigFile; // setup file
     private Map<Character,Room> roomMap; // maps characters to rooms
     private static Board theInstance = new Board(); // Singleton Pattern
-    // these are not in the UML on canvas, but still needed for adjacency testing
     private Set<BoardCell> targets; // all valid cells to move to
 	private Set<BoardCell> visited; // visited cells
 
@@ -40,18 +39,23 @@ public class Board {
      */
     public void initialize() {
 		try {
-			loadSetupConfig();
+			loadSetupConfig(); // try to load file
 		} catch (BadConfigFormatException e) {
-			e.printStackTrace(); // consider changing this to something else
+			e.printStackTrace(); 
 		}
 		try {
-			loadLayoutConfig();
+			loadLayoutConfig(); // try to load file
 		} catch (BadConfigFormatException e) {
-			e.printStackTrace(); // consider changing this to something else
+			e.printStackTrace(); 
 		}
-		createAdj(grid);
+		createAdj(grid); // create adjacency lists for every cell
     }
 
+	/**
+     * Create an adjacency list for every cell within the game board.
+	 * 
+	 * @param grid The game board; create adjacency lists for every cell within it.
+     */
 	private void createAdj(BoardCell[][] grid) {
 		for (int i = 0; i < numRows; i++) { // create an adjacency list for every cell
     		for (int j = 0; j < numColumns; j++) {
@@ -137,7 +141,7 @@ public class Board {
 			}
 			sc.close();	// close
 		} catch (FileNotFoundException e) {
-			e.printStackTrace(); // consider changing this to something else
+			e.printStackTrace(); 
 		}
     }
 
@@ -162,7 +166,7 @@ public class Board {
 			numColumns = allLinesLayout.get(0).length; // number of columns is equal to size of any entry in allLinesLayout
 			sc.close(); // close
 		} catch (FileNotFoundException e) {
-			e.printStackTrace(); // consider changing this to something else
+			e.printStackTrace();
 		}
 		// fill the grid given allLinesLayout
 		fillGrid(allLinesLayout);
@@ -181,31 +185,14 @@ public class Board {
 		for (String[] row : layout) {
 			for (String cell : row) { // for a given cell String
 				if (cell.length() < 1 || cell.length() > 2) {
-					throw new BadConfigFormatException("Layout file contains configuration errors!"); // invalid length of String
+					throw new BadConfigFormatException("Layout file contains configuration errors!"); // invalid length of String; invalid cell
 				} else {
 					BoardCell newCell = new BoardCell(rowCounter, colCounter, cell.charAt(0)); // new cell
-					if (roomMap.containsKey(cell.charAt(0))) {
-						if(cell.length() == 2) { // if a special cell
-							Room changeRoom = roomMap.get(cell.charAt(0)); // temporary Room object to change what's in the map
-							if(cell.charAt(1) == '#') { // label cell
-								newCell.setLabel(true);
-								changeRoom.setLabelCell(newCell);
-							} else if (cell.charAt(1) == '*') { // center cell
-								newCell.setCenter(true);
-								changeRoom.setCenterCell(newCell);
-							} else if (cell.charAt(0) == 'W') { // doorway cell
-								newCell.setDoorDirection(cell.charAt(1));
-							} else {
-								newCell.setSecretPassage(cell.charAt(1)); // only remaining special cell option
-							}
-						}
-						// setting non moveable cells to occupied to aid in creating adjacencies later
-						if (newCell.getInitial() != 'W' && newCell.getInitial() != 'X') {
-							newCell.setIsRoom(true);
-						}
-						if (newCell.getInitial() == 'X') {
-							newCell.setOccupied(true);
-						}					
+					if (roomMap.containsKey(cell.charAt(0))) { // a valid cell with regards to our map
+						fillGridCellHelper(newCell); // set cell booleans depending on the initial; see fillGridCellHelper
+						if(cell.length() == 2) { // if a cell with special behavior
+							fillGridRoomHelper(cell, newCell); // see fillGridRoomHelper
+						}				
 					}
 					else {
 						throw new BadConfigFormatException("Layout file specifies a room that is not in the legend!"); // not in setup file
@@ -214,11 +201,46 @@ public class Board {
 					colCounter++; // next column, same row
 				}
 			}
-			rowCounter++; // next row
+			rowCounter++; // iterate to the next row
 			if (colCounter != numColumns) {
-				throw new BadConfigFormatException("Layout file that does not have the same number of columns for each row!"); // columns count mismatched in layout file
+				throw new BadConfigFormatException("Layout file that does not have the same number of columns for each row!"); // invalid row; did not have a matching column count
 			}
-			colCounter = 0; // reset column count to start from left
+			colCounter = 0; // reset column count to start from left for the next row
+		}
+	}
+
+	/**
+     * Set cell booleans depending on the initial.
+	 * 
+	 * @param cell The cell under examination.
+     */
+	private void fillGridCellHelper(BoardCell cell) {
+		if (cell.getInitial() != 'W' && cell.getInitial() != 'X') {
+			cell.setIsRoom(true); // if not W or X, the cell is a room
+		}
+		else if (cell.getInitial() == 'X') {
+			cell.setOccupied(true); // if X, set the cell to be occupied
+		}	
+	}
+
+	/**
+     * Change aspects of the Room and BoardCell depending on the special characters observed.
+	 * 
+	 * @param cellString The string that represents the given cell.
+	 * @param cell The corresponding BoardCell.
+     */
+	private void fillGridRoomHelper(String cellString, BoardCell cell) {
+		Room changeRoom = roomMap.get(cellString.charAt(0)); // temporary Room object to change the room within the map
+		if(cellString.charAt(1) == '#') { // label cell
+			cell.setLabel(true);
+			changeRoom.setLabelCell(cell);
+		} else if (cellString.charAt(1) == '*') { // center cell
+			cell.setCenter(true);
+			changeRoom.setCenterCell(cell);
+		} else if (cellString.charAt(0) == 'W') { // doorway cell
+			cell.setDoorDirection(cellString.charAt(1));
+		} else {
+			cell.setSecretPassage(cellString.charAt(1)); // only remaining special cell option
 		}
 	}
 
@@ -229,19 +251,12 @@ public class Board {
 	 * @param pathLength The roll/how many moves we have.
      */
     public void calcTargets(BoardCell startCell, int pathLength) {
-    	visited = new HashSet<BoardCell>();
-		targets = new HashSet<BoardCell>(); // allocate space for our sets
+    	visited = new HashSet<BoardCell>(); // allocate space for our sets
+		targets = new HashSet<BoardCell>(); 
     	visited.add(startCell); // can never move back to the start cell
 		findAllTargets(startCell, pathLength); // call helper function
-		
-		// testing
-		Iterator itr = targets.iterator();
-		while (itr.hasNext()) {
-			System.out.println(itr.next());
-		}
     }
 
-    
 	/**
      * Find all valid targets to move to.
 	 * 
@@ -249,19 +264,26 @@ public class Board {
 	 * @param pathLength The roll/how many moves we have.
      */
     private void findAllTargets(BoardCell startCell, int pathLength) {
-    	for (BoardCell adjCell : startCell.getAdjList()) { // all adjacent cells
-    		if (!visited.contains(adjCell) && (!adjCell.getIsOccupied() || adjCell.isRoomCenter()) && (adjCell.isRoomCenter() || adjCell.getInitial() == 'W')) { // if not in visited and not occupied
-    			visited.add(adjCell);
-    			if (pathLength == 1 || adjCell.isRoomCenter()) { // if no more moves or at a room cell
+    	for (BoardCell adjCell : startCell.getAdjList()) { // all adjacent cells to the start cell
+			/* 
+			 * What we need to check (all conditions below need to be met):
+			 * - not in visited
+			 * - not occupied or is a room center
+			 * - is a room center or is a walkway
+			 */
+    		if (!visited.contains(adjCell) && (!adjCell.getIsOccupied() || adjCell.isRoomCenter()) && (adjCell.isRoomCenter() || adjCell.getInitial() == 'W')) { // see above
+    			visited.add(adjCell); // add to visited
+    			if (pathLength == 1 || adjCell.isRoomCenter()) { // if no more moves or at a room center
     				targets.add(adjCell); // add to targets
     			} else {
     				findAllTargets(adjCell, pathLength - 1); // call recursively with one less move
     			}
-    			visited.remove(adjCell);
+    			visited.remove(adjCell); // remove from visited
 			}
 		}
     }
 
+	// all getters and setters
 	public Room getRoom(char roomType) {
 		return roomMap.get(roomType); // return a room by character input
 	}	
@@ -296,12 +318,4 @@ public class Board {
 	public BoardCell getCell(int row, int col) {
 		return grid[row][col]; // returns the cell at the given parameters
 	}
-
-	public static void main(String[] args) {
-		Board board = Board.getInstance();
-		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
-		board.initialize();
-		board.calcTargets(board.getCell(5,19), 3);
-	}
-
 }
