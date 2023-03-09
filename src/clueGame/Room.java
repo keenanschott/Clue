@@ -24,14 +24,6 @@ public class Room {
         labelCell = label;
     } 
 
-    /**
-     * How we print a room's information.
-     */
-    @Override
-    public String toString() {
-        return "ROOM: " + name + ", " + centerCell + ", " + labelCell; // BoardCell also has a toString()
-    }
-
     // all getters and setters below
     public String getName() {
         return name;
