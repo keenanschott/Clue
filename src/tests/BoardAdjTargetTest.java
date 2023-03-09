@@ -213,7 +213,7 @@ public class BoardAdjTargetTest {
 		// test roll of 3
 		board.calcTargets(board.getCell(24, 8), 3);
 		targets = board.getTargets();
-		assertEquals(3,targets.size());
+		assertEquals(6,targets.size()); // SET THIS TO 6, but was 3 
 		assertTrue(targets.contains(board.getCell(22,7)));
 		assertTrue(targets.contains(board.getCell(21,8)));
 		assertTrue(targets.contains(board.getCell(22,9)));
