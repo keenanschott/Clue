@@ -59,48 +59,77 @@ public class Board {
 	private void createAdj(BoardCell[][] grid) {
 		for (int i = 0; i < numRows; i++) { // create an adjacency list for every cell
     		for (int j = 0; j < numColumns; j++) {
-				
-				if (grid[i][j].getSecretPassage() != '\u0000') { // checking if its secret passage (\u0000 is null val)
-						// set adjacency to room center cell connected to grid[i][j]
-						roomMap.get(grid[i][j].getInitial()).getCenterCell().addAdjacency(roomMap.get(grid[i][j].getSecretPassage()).getCenterCell());
+				// checking if its a secret passage (\u0000 is null val)
+				if (grid[i][j].getSecretPassage() != '\u0000') { 
+					// connect other room's center cell by adding it to the current room's center cell's adjacency list
+					roomMap.get(grid[i][j].getInitial()).getCenterCell().addAdjacency(roomMap.get(grid[i][j].getSecretPassage()).getCenterCell());
 				}
-				else if ((grid[i][j].getIsRoom() && !grid[i][j].isRoomCenter()) || grid[i][j].isLabel() || grid[i][j].getInitial() == 'X' || grid[i][j].isRoomCenter()) {
-					// no adjacency
+				// if the cell is a room cell in any capacity or an unused space - no need to create an adjacency list
+				else if (grid[i][j].getIsRoom() || grid[i][j].getInitial() == 'X') {
+					// no adjacency list needed
 				}
-				else {
+				// generic adjacency list creation condition
+				else { 
 					if (grid[i][j].getDoorDirection() != DoorDirection.NONE) {
-						if (grid[i][j].getDoorDirection() == DoorDirection.UP) {
-							grid[i][j].addAdjacency(roomMap.get(grid[i - 1][j].getInitial()).getCenterCell()); // door to center cell adjacency
-							roomMap.get(grid[i - 1][j].getInitial()).getCenterCell().addAdjacency(grid[i][j]); // center cell to door adjacency
-						}
-						else if (grid[i][j].getDoorDirection() == DoorDirection.DOWN) {
-							grid[i][j].addAdjacency(roomMap.get(grid[i + 1][j].getInitial()).getCenterCell());
-							roomMap.get(grid[i + 1][j].getInitial()).getCenterCell().addAdjacency(grid[i][j]);
-						}
-						else if (grid[i][j].getDoorDirection() == DoorDirection.LEFT) {
-							grid[i][j].addAdjacency(roomMap.get(grid[i][j - 1].getInitial()).getCenterCell());
-							roomMap.get(grid[i][j - 1].getInitial()).getCenterCell().addAdjacency(grid[i][j]);
-						}
-						else if (grid[i][j].getDoorDirection() == DoorDirection.RIGHT) {
-							grid[i][j].addAdjacency(roomMap.get(grid[i][j + 1].getInitial()).getCenterCell());
-							roomMap.get(grid[i][j + 1].getInitial()).getCenterCell().addAdjacency(grid[i][j]);
-						}
+						doorwayAdjacencies(grid, i, j); // special rules apply to center cells in relation to doorways; see doorwayAdjacencies
 					}
-					if (i != 0 && grid[i - 1][j].getIsOccupied() != true && grid[i - 1][j].getInitial() == 'W') {
-						grid[i][j].addAdjacency(grid[i - 1][j]);
-					}
-					if (i != numRows - 1 && grid[i + 1][j].getIsOccupied() != true && grid[i + 1][j].getInitial() == 'W') {
-						grid[i][j].addAdjacency(grid[i + 1][j]);
-					}
-					if (j != 0 && grid[i][j - 1].getIsOccupied() != true && grid[i][j - 1].getInitial() == 'W') {	
-						grid[i][j].addAdjacency(grid[i][j - 1]);
-					}
-					if (j != numColumns - 1 && grid[i][j + 1].getIsOccupied() != true && grid[i][j + 1].getInitial() == 'W') {
-						grid[i][j].addAdjacency(grid[i][j + 1]);
-					}
+					genericAdjacencies(grid, i, j); // generic adjacency checking; see genericAdjacencies
 				}
 			}	
     	}
+	}
+
+	/**
+     * The generic adjacency list creation conditions.
+	 * 
+	 * @param gameBoard grid; the game board.
+	 * @param row The row to access on the game board. 
+	 * @param col The column to access on the game board. 
+     */
+	private void genericAdjacencies(BoardCell[][] gameBoard, int row, int col) {
+		// if not at the top of the board AND the cell above is not occupied AND the cell above is a walkway, then add to the current cell's adjacency list
+		if (row != 0 && !gameBoard[row - 1][col].getIsOccupied() && gameBoard[row - 1][col].getInitial() == 'W') {
+			gameBoard[row][col].addAdjacency(gameBoard[row - 1][col]);
+		}
+		// if not at the bottom of the board AND the cell below is not occupied AND the cell below is a walkway, then add to the current cell's adjacency list
+		if (row != numRows - 1 && !gameBoard[row + 1][col].getIsOccupied() && gameBoard[row + 1][col].getInitial() == 'W') {
+			gameBoard[row][col].addAdjacency(gameBoard[row + 1][col]);
+		}
+		// if not at the left of the board AND the cell to the left is not occupied AND the cell to the left is a walkway, then add to the current cell's adjacency list
+		if (col != 0 && !gameBoard[row][col - 1].getIsOccupied() && gameBoard[row][col - 1].getInitial() == 'W') {	
+			gameBoard[row][col].addAdjacency(gameBoard[row][col - 1]);
+		}
+		// if not at the right of the board AND the cell to the right is not occupied AND the cell to the right is a walkway, then add to the current cell's adjacency list
+		if (col != numColumns - 1 && !gameBoard[row][col + 1].getIsOccupied() && gameBoard[row][col + 1].getInitial() == 'W') {
+			gameBoard[row][col].addAdjacency(gameBoard[row][col + 1]);
+		}
+	}
+
+
+	/**
+     * Add the doorway to the room's center cell's adj. list and the room's center cell to the doorway's adj. list.
+	 * 
+	 * @param gameBoard grid; the game board.
+	 * @param row The row to access on the game board. 
+	 * @param col The column to access on the game board. 
+     */
+	private void doorwayAdjacencies(BoardCell[][] gameBoard, int row, int col) {
+		if (gameBoard[row][col].getDoorDirection() == DoorDirection.UP) {
+			gameBoard[row][col].addAdjacency(roomMap.get(gameBoard[row - 1][col].getInitial()).getCenterCell()); // add the room's center cell to the doorway's adj. list.
+			roomMap.get(gameBoard[row - 1][col].getInitial()).getCenterCell().addAdjacency(gameBoard[row][col]); // add the doorway to the room's center cell's adj. list
+		}
+		else if (gameBoard[row][col].getDoorDirection() == DoorDirection.DOWN) {
+			gameBoard[row][col].addAdjacency(roomMap.get(gameBoard[row + 1][col].getInitial()).getCenterCell()); // add the room's center cell to the doorway's adj. list.
+			roomMap.get(gameBoard[row + 1][col].getInitial()).getCenterCell().addAdjacency(gameBoard[row][col]); // add the doorway to the room's center cell's adj. list
+		}
+		else if (gameBoard[row][col].getDoorDirection() == DoorDirection.LEFT) {
+			gameBoard[row][col].addAdjacency(roomMap.get(gameBoard[row][col - 1].getInitial()).getCenterCell()); // add the room's center cell to the doorway's adj. list.
+			roomMap.get(gameBoard[row][col - 1].getInitial()).getCenterCell().addAdjacency(gameBoard[row][col]); // add the doorway to the room's center cell's adj. list
+		}
+		else if (gameBoard[row][col].getDoorDirection() == DoorDirection.RIGHT) {
+			gameBoard[row][col].addAdjacency(roomMap.get(gameBoard[row][col + 1].getInitial()).getCenterCell()); // add the room's center cell to the doorway's adj. list.
+			roomMap.get(gameBoard[row][col + 1].getInitial()).getCenterCell().addAdjacency(gameBoard[row][col]); // add the doorway to the room's center cell's adj. list
+		}
 	}
 
 	/**
@@ -125,12 +154,12 @@ public class Board {
 		String currentLine; // current line
 		String[] lineArray; // array of words in current line
 		try {
-			Scanner sc = new Scanner(file); // open
-			while (sc.hasNext()) {
-				currentLine = sc.nextLine(); // get entire line
+			Scanner scan = new Scanner(file); // open
+			while (scan.hasNext()) {
+				currentLine = scan.nextLine(); // get entire line
 				lineArray = currentLine.split(", "); // split by comma
 				if (lineArray.length == 3 && (lineArray[0].equals("Room") || lineArray[0].equals("Space"))) { // valid line
-					Room newRoom = new Room(lineArray[1], null, null); // do not center or label yet
+					Room newRoom = new Room(lineArray[1], null, null); // do not insert center or label yet
 					roomMap.put(lineArray[2].charAt(0), newRoom); // put into map
 				}
 				else {
@@ -139,7 +168,7 @@ public class Board {
 					}
 				}
 			}
-			sc.close();	// close
+			scan.close(); // close
 		} catch (FileNotFoundException e) {
 			e.printStackTrace(); 
 		}
