@@ -165,6 +165,7 @@ public class Board {
 				}
 				else {
 					if (!lineArray[0].substring(0, 2).equals("//")) { // if not a comment
+						scan.close(); // close before exception
 						throw new BadConfigFormatException();
 					}
 				}
