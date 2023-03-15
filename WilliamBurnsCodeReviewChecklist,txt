@@ -1,0 +1,8 @@
+William Burns Code Review Checklist 
+
+1. Avoid code duplication. If present, try to contain functionality within one specific method. 
+2. If a function is too verbose, can it's functionality be condensed into multiple methods to provide a more organized, understandable flow.
+3. Check for consistent variable naming conventions.
+4. Avoid instantiating new objects inside loops. 
+5. Check for proper use of static (i.e call static methods using class name and not object name)
+
