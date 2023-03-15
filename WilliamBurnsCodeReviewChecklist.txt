@@ -5,4 +5,3 @@ William Burns Code Review Checklist
 3. Check for consistent variable naming conventions.
 4. Avoid instantiating new objects inside loops. 
 5. Check for proper use of static (i.e call static methods using class name and not object name)
-
