@@ -1,0 +1,16 @@
+charles and landon (A2-07)
+- obviously add comments to clarify confusion about functionality/logic
+- compartmentalize functionality into helper functions to improve clarity
+	- i understand if you're only using a function once, and you see no need to
+		- if that's the case just comment
+- lots of redundant code
+- liked how you guys handled both your layout and setup configs in one try branch
+
+nevaeha and isabella (A2-05)
+- confusing variable names (single letter)
+	- try to be more specific (i.e. use row and col for looping variables, instead of i and j)
+- variables should follow consistent naming standard (camelCase)
+- add comment blocks above functions
+- preface test blocks with comments to give context as to what's being tested
+	- helps user reference the board layout file
+- code is well organized and structured

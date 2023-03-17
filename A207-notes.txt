@@ -1,0 +1,20 @@
+NOTES FOR OUR CODEBASE (from group A2-07) 
+-initialize() function
+	- can umbrella load setup and load layout in one try catch
+- createAdj() function
+	- passing in our grid into the function
+	- we have access to that variable inside the class
+	- THIS IS A RECURRING ISSUE ACROSS MANY FUNCTIONS
+- line 64 board.java
+	- is there another more concise value for null? 
+	- maybe \0
+- line 69 board.java
+	- else if leads to nothing
+	- maybe make that else 
+- comments on top of files
+- badconfig format
+	- use one 
+- legend for color of cells 
+- comment blocks
+- organization of methods, if methods are used by other methods make sure they're near each other in file
+- add function name to comment blocks
