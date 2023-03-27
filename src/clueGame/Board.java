@@ -303,11 +303,11 @@ public class Board {
     	for (BoardCell adjCell : startCell.getAdjList()) { // all adjacent cells to the start cell
 			/* 
 			 * What we need to check (all conditions below need to be met):
-			 * - not in visited
-			 * - not occupied or is a room center
-			 * - is a room center or is a walkway
+			 * - not in visited AND
+			 * - is not occupied and is a walkway OR
+			 * - is a room center
 			 */
-    		if (!visited.contains(adjCell) && (!adjCell.getIsOccupied() || adjCell.isRoomCenter()) && (adjCell.isRoomCenter() || adjCell.getInitial() == 'W')) { // see above
+			if ((!visited.contains(adjCell) && !adjCell.getIsOccupied() && adjCell.getInitial() == 'W') || (!visited.contains(adjCell) && adjCell.isRoomCenter())) { // see above
     			visited.add(adjCell); // add to visited
     			if (pathLength == 1 || adjCell.isRoomCenter()) { // if no more moves or at a room center
     				targets.add(adjCell); // add to targets
