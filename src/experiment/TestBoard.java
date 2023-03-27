@@ -16,6 +16,7 @@ public class TestBoard {
 	public final static int ROWS = 4;
 
 	/**
+	 * TestBoard()
      * Set up the game board with new board cells. Then, create an adjacency list for every cell.
      */
     public TestBoard() { 
@@ -47,6 +48,7 @@ public class TestBoard {
     }
 
 	/**
+	 * calcTargets()
      * Calculate all valid targets to move to.
 	 * 
 	 * @param startCell The starting cell to examine as it pertains to the pathLength.
@@ -58,6 +60,7 @@ public class TestBoard {
     }
     
 	/**
+	 * findAllTargets()
      * Find all valid targets to move to.
 	 * 
 	 * @param startCell The starting cell to examine as it pertains to the pathLength.
@@ -78,6 +81,7 @@ public class TestBoard {
     }
 
 	/**
+	 * getCell()
      * Get a cell from the grid.
 	 * 
 	 * @param row The requested row.
@@ -89,6 +93,7 @@ public class TestBoard {
     }
 
 	/**
+	 * getTargets()
      * Return the targets list from calcTargets().
 	 * 
 	 * @return Returns targets.

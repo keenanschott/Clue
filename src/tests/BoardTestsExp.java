@@ -19,6 +19,7 @@ public class BoardTestsExp {
     private TestBoard board; // test board for a given test
 
     /**
+     * setUp()
      * Set up the game board before each test.
      */
     @BeforeEach
@@ -27,6 +28,7 @@ public class BoardTestsExp {
     }
 
     /**
+     * testAdjacency()
      * Test that the adjacency list feature is working properly with two different scenarios.
      */
     @Test
@@ -47,6 +49,7 @@ public class BoardTestsExp {
     }
 
     /**
+     * testTargetsNormal()
      * Test that calcTargets is working properly with one scenario and no special considerations.
      */
     @Test 
@@ -64,6 +67,7 @@ public class BoardTestsExp {
     }
     
     /**
+     * testTargetsRoom()
      * Test that calcTargets is working properly with one scenario and room cells present.
      */
     @Test
@@ -86,6 +90,7 @@ public class BoardTestsExp {
     }
     
     /**
+     * testTargetsOccupied()
      * Test that calcTargets is working properly with one scenario and occupied cells present.
      */
     @Test
@@ -101,6 +106,7 @@ public class BoardTestsExp {
     }
     
     /**
+     * testTargetsMixed()
      * Test that calcTargets is working properly with one scenario and a mix of occupied and room cells present.
      */
     @Test

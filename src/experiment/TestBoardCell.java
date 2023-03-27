@@ -14,6 +14,7 @@ public class TestBoardCell {
         private boolean isRoom = false, isOccupied = false; // boolean statuses for a given cell; false as default
         
         /**
+         * TestBoardCell()
          * Construct a cell with default values.
          * 
          * @param testRow The row value.
@@ -26,6 +27,7 @@ public class TestBoardCell {
         }
 
         /**
+         * addAdjacency()
          * Add a cell to the adjacency list.
          * 
          * @param cell The TestBoardCell to add to the adjacency list.
@@ -35,6 +37,7 @@ public class TestBoardCell {
         }
 
         /**
+         * getAdjList()
          * Get the adjacency list.
          * 
          * @return Return the adjacency list.

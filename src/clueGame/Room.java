@@ -13,6 +13,7 @@ public class Room {
     private BoardCell labelCell; // the label cell of the room
 
     /**
+     * Room()
      * Set up a room with the given information.
      * 
      * @param inputName Inputted name for the room.

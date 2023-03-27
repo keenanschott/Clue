@@ -22,6 +22,7 @@ public class Board {
 	private Set<BoardCell> visited; // visited cells
 
 	/**
+	 * Board()
      * Constructor (see Singleton Pattern).
      */
     private Board() {
@@ -29,6 +30,7 @@ public class Board {
     }
     
 	/**
+	 * getInstance()
      * Constructor supplement (see Singleton Pattern).
      */
     public static Board getInstance() {
@@ -36,6 +38,7 @@ public class Board {
     }
 
 	/**
+	 * initialize()
      * Set up the game board with new board cells. Then, create an adjacency list for every cell.
      */
     public void initialize() {
@@ -49,6 +52,7 @@ public class Board {
     }
 
 	/**
+	 * setConfigFiles()
      * Connect instance variables to requested input files.
 	 * 
 	 * @param layoutCSV The requested layout CSV file.
@@ -60,6 +64,7 @@ public class Board {
 	}
 
 	/**
+	 * loadSetupConfig()
      * Load the setup file and check for validity.
 	 * 
 	 * @throws BadConfigFormatException
@@ -92,6 +97,7 @@ public class Board {
     }
 
 	/**
+	 * loadLayoutConfig()
      * Load the layout file and check for validity.
 	 * 
 	 * @throws BadConfigFormatException
@@ -118,7 +124,8 @@ public class Board {
 		fillGrid(allLinesLayout);
     }
 
-		/**
+	/**
+	 * fillGrid()
      * Fill the grid given a two-dimensional array of Strings.
 	 * 
 	 * @param layout Contains all cells as strings. 
@@ -156,6 +163,7 @@ public class Board {
 	}
 
 	/**
+	 * fillGridCellHelper()
      * Set cell booleans depending on the initial.
 	 * 
 	 * @param cell The cell under examination.
@@ -170,6 +178,7 @@ public class Board {
 	}
 
 	/**
+	 * fillGridRoomHelper()
      * Change aspects of the Room and BoardCell depending on the special characters observed.
 	 * 
 	 * @param cellString The string that represents the given cell.
@@ -191,6 +200,7 @@ public class Board {
 	}
 
 	/**
+	 * createAdj()
      * Create an adjacency list for every cell within the game board.
 	 * 
 	 * @param grid The game board; create adjacency lists for every cell within it.
@@ -215,6 +225,7 @@ public class Board {
 	}
 
 	/**
+	 * genericAdjacencies()
      * The generic adjacency list creation conditions.
 	 * 
 	 * @param gameBoard grid; the game board.
@@ -241,6 +252,7 @@ public class Board {
 	}
 
 	/**
+	 * doorwayAdjacencies()
      * Add the doorway to the room's center cell's adj. list and the room's center cell to the doorway's adj. list.
 	 * 
 	 * @param gameBoard grid; the game board.
@@ -267,6 +279,7 @@ public class Board {
 	}
 
 	/**
+	 * calcTargets()
      * Calculate all valid targets to move to.
 	 * 
 	 * @param startCell The starting cell to examine as it pertains to the pathLength.
@@ -280,6 +293,7 @@ public class Board {
     }
 
 	/**
+	 * findAllTargets()
      * Find all valid targets to move to.
 	 * 
 	 * @param startCell The starting cell to examine as it pertains to the pathLength.

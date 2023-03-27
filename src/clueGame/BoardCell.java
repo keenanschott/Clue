@@ -16,6 +16,7 @@ public class BoardCell {
     private Set<BoardCell> adjList; // adjacency list for a given cell
     
     /**
+     * BoardCell()
      * Construct a cell with default values.
      * 
      * @param inputRow The row value.
@@ -30,6 +31,7 @@ public class BoardCell {
     }
 
     /**
+     * addAdjacency()
      * Add a cell to the adjacency list.
      * 
      * @param cell The BoardCell to add to the adjacency list.
@@ -39,6 +41,7 @@ public class BoardCell {
     }
 
     /**
+     * isDoorway()
      * Whether or not a cell is a doorway.
      * 
      * @return Return the doorway status boolean; derived from the DoorDirection enum.
@@ -51,6 +54,7 @@ public class BoardCell {
     }
 
     /**
+     * setDoorDirection()
      * Set the direction of the doorway for a given cell.
      * 
      * @param direction The direction of the doorway.
