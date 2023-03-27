@@ -1,5 +1,153 @@
-I, Keenan Schott, certify that I participated equitably in the creation of assignment C16A Clue Board 2 (Clue Pair), dated 3/9/2023.
-I, William Burns, certify that I participated equitably in the creation of assignment C16A Clue Board 2 (Clue Pair), dated 3/9/2023.
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C19A-2 Refactoring (Clue Pair), dated 3/26/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C19A-2 Refactoring (Clue Pair), dated 3/26/2023.
+
+commit 87db60b69eb8d53a40be0ac4a933cc3f8cb07f31
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 26 22:24:03 2023 -0600
+
+    added some final comments
+
+commit 93ec065dbff9a314854daafb40b6018e5737a2b0
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 26 22:18:08 2023 -0600
+
+    reworked findAllTargets() logic using a logic simplifier
+
+commit 12151bb696027f2d710d3f8e3409c027e4f5eb74
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 26 22:05:58 2023 -0600
+
+    added function names to comment blocks
+
+commit a2ab1132ad8cc39c8b3170bb3d9098f7e9ef324d
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 26 21:56:07 2023 -0600
+
+    reorganized function order in Board
+
+commit 494ed0bea3d24bfaffdb775f049c4e97c650b780
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 26 21:42:14 2023 -0600
+
+    added comment blocks at the top of each file
+
+commit 2d7888af911b59389cd3875dd06fd8647be015bb
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 26 21:07:46 2023 -0600
+
+    used De Morgan's law to rework logic in createAdj()
+
+commit ee34d1a3aecf6bd07b017f163a9285587ead5167
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 26 21:00:28 2023 -0600
+
+    more concise value for null
+
+commit 3169bcd359b36dda568e6e2cc6a46137d7779e20
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 26 20:58:58 2023 -0600
+
+    stop passing in instance variables to functions within the Board class
+
+commit 9229498b61c5a3a267c929f2ab58c6e59274418d
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 26 20:52:15 2023 -0600
+
+    load setup and layout in one try-catch
+
+commit 6e450728413fb7ab15c4d288a49b1f5ec25966e2
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 26 20:45:41 2023 -0600
+
+    Refactoring startign point
+
+commit 834001bfdcebf6f4468bff952c2094251f888b09
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Thu Mar 16 19:23:38 2023 -0600
+
+    posted notes we received and made for groups in our code review session
+
+commit 5cc6b1f4b65531481dc7dfb0f87f010dec8df3c7
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Mar 15 17:16:59 2023 -0600
+
+    Fixed txt extension
+
+commit 27b9fb9bb460f8f12879f4cd2b339f491622528d
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Mar 15 17:12:57 2023 -0600
+
+    added my code review checklist
+
+commit 0b78c6bae2a457d4495af50d8d45f7c3f93e8ecd
+Merge: 1c4ee84 8b8d186
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Mar 15 16:54:23 2023 -0600
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit 8b8d186109e27755b5c740066f6c211bf41c3ef0
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Mar 14 20:57:51 2023 -0600
+
+    Updated checklist
+
+commit e0b08181009914863751de443b250a0cda90d1f0
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Mar 14 20:57:38 2023 -0600
+
+    Updated checklist
+
+commit c70d301fd983eefe64a32c2bdb2563571e9bef77
+Author: Keenan Schott <94594779+keenanschott@users.noreply.github.com>
+Date:   Tue Mar 14 20:46:21 2023 -0600
+
+    Added code review document
+
+commit 1c4ee841ff5025ac367c52dbabc2828a92496a54
+Merge: 012fbe4 457d710
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Fri Mar 10 12:06:18 2023 -0700
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit 457d7105c1d6cf5af5854feba5332d850035f914
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Thu Mar 9 10:13:20 2023 -0700
+
+    Updated git log
+
+commit 35fa3b33cf07444377c9c8364a259550d7bf61f4
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Thu Mar 9 10:11:47 2023 -0700
+
+    Final touch-up before submission
+
+commit d84d7446500e9562bacc0f4277d696920de8a871
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Thu Mar 9 10:03:22 2023 -0700
+
+    Minor tweaks from in class
+
+commit 012fbe48342395196c159e89d2b1cd009dc787f6
+Merge: 59f42a1 decbcb1
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Mar 8 19:12:51 2023 -0700
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit 59f42a105b45727f96145bbe596d594e04e93804
+Merge: 5c75bff 1a2da35
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Mar 8 19:12:20 2023 -0700
+
+    merged with keenan
+
+commit decbcb16de50d88695db8598e86712b08d6012c5
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Mar 8 18:53:01 2023 -0700
+
+    Updated git log
 
 commit bf8d19b5a0d52507ce44a2b5894f25611067176e
 Author: Keenan Schott <keenanmschott28@gmail.com>
@@ -24,6 +172,12 @@ Author: Keenan Schott <keenanmschott28@gmail.com>
 Date:   Wed Mar 8 17:23:04 2023 -0700
 
     Refactored fillGrid
+
+commit 5c75bff80cfeac41909f089a59483216eebe91d6
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Mar 8 17:12:21 2023 -0700
+
+    trying to pull
 
 commit 1a2da35d1625e60dc81ea53f15116a0b4a8df100
 Author: Keenan Schott <keenanmschott28@gmail.com>
