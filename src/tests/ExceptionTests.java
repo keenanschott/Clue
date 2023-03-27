@@ -14,8 +14,8 @@ import clueGame.Board;
 
 /**
  * ExceptionTests
- * A part of Clue Init to test and examine the BadCongifFormatException.
- * DATE: 3/8/2023
+ * A series of tests to examine the BadConfigFormatException under all of the conditions where it needs to be thrown.
+ * DATE: 3/26/2023
  * @author Keenan Schott
  * @author Finn Burns
  */

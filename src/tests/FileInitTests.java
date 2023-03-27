@@ -13,8 +13,8 @@ import clueGame.Room;
 
 /**
  * FileInitTests
- * A part of Clue Init to test and examine the initialization of the game.
- * DATE: 3/8/2023
+ * A series of tests to examine the file initialization as it pertains to the cell and room identifiers along with the room Map.
+ * DATE: 3/26/2023
  * @author Keenan Schott
  * @author Finn Burns
  */

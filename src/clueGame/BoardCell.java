@@ -3,8 +3,8 @@ import java.util.*;
 
 /**
  * BoardCell
- * A part of Clue Board that constitutes a single cell in the game board.
- * DATE: 3/8/2023
+ * This class constitutes a single cell in the game board. The grid in Board is filled with these cells, and each cell has an adjacency list of adjacent cells. Each cell has identifiers correlated to row, column, room initial, secret passage, door direction, etc. 
+ * DATE: 3/26/2023
  * @author Keenan Schott
  * @author Finn Burns
  */

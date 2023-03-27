@@ -10,8 +10,8 @@ import experiment.TestBoardCell;
 
 /**
  * BoardTestsExp
- * A part of Clue Paths to test and examine the movement algorithm as it pertains to the game board.
- * DATE: 3/8/2023
+ * A series of tests to examine the test movement algorithm and test adjacency list creation algorithm as it pertains to the initialization of the test game board.
+ * DATE: 3/26/2023
  * @author Keenan Schott
  * @author Finn Burns
  */

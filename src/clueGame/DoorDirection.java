@@ -2,8 +2,8 @@ package clueGame;
 
 /**
  * Door Direction
- * A part of Clue Board that serves as the enumerated type for a door.
- * DATE: 3/8/2023
+ * The enumerated type for a door; used for the door direction in a BoardCell, and can be any cardinal direction or nothing.
+ * DATE: 3/26/2023
  * @author Keenan Schott
  * @author Finn Burns
  */

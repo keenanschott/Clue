@@ -14,8 +14,8 @@ import clueGame.BoardCell;
 
 /**
  * BoardAdjTargetTest
- * A part of Clue Board to test and examine the movement algorithm as it pertains to the game board.
- * DATE: 3/8/2023
+ * A series of tests to examine the movement algorithm and adjacency list creation algorithm as it pertains to the initialization of the game board.
+ * DATE: 3/26/2023
  * @author Keenan Schott
  * @author Finn Burns
  */

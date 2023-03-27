@@ -3,8 +3,8 @@ import java.util.*;
 
 /**
  * TestBoard
- * A part of Clue Paths to set up and populate a game board.
- * DATE: 3/8/2023
+ * The test game board initialization; reads in the game setup and layout, populates the game board, creates adjacency lists, etc. This class also implements the movement algorithm.
+ * DATE: 3/26/2023
  * @author Keenan Schott
  * @author Finn Burns
  */

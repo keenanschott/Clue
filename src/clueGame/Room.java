@@ -2,8 +2,8 @@ package clueGame;
 
 /**
  * Room
- * A part of Clue Init that constitutes a single room object.
- * DATE: 3/8/2023
+ * This class constitutes a single room. It has a center cell and a label cell along with a name. In Board, all rooms are put into a Map to be drawn from later.
+ * DATE: 3/26/2023
  * @author Keenan Schott
  * @author Finn Burns
  */
