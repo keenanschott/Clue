@@ -40,16 +40,12 @@ public class Board {
      */
     public void initialize() {
 		try {
-			loadSetupConfig(); // try to load file
+			loadSetupConfig(); // try to load files
+			loadLayoutConfig();
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace(); 
-		}
-		try {
-			loadLayoutConfig(); // try to load file
-		} catch (BadConfigFormatException e) {
-			e.printStackTrace(); 
-		}
 		createAdj(grid); // create adjacency lists for every cell
+		}
     }
 
 	/**
