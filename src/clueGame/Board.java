@@ -61,12 +61,8 @@ public class Board {
 					// connect other room's center cell by adding it to the current room's center cell's adjacency list
 					roomMap.get(grid[i][j].getInitial()).getCenterCell().addAdjacency(roomMap.get(grid[i][j].getSecretPassage()).getCenterCell());
 				}
-				// if the cell is a room cell in any capacity or an unused space - no need to create an adjacency list
-				else if (grid[i][j].getIsRoom() || grid[i][j].getInitial() == 'X') {
-					// no adjacency list needed
-				}
-				// generic adjacency list creation condition
-				else { 
+				// if the cell is not a room cell in any capacity and not an unused space - create a generic adjacency list
+				else if (!grid[i][j].getIsRoom() && !(grid[i][j].getInitial() == 'X')) {
 					if (grid[i][j].getDoorDirection() != DoorDirection.NONE) {
 						doorwayAdjacencies(i, j); // special rules apply to center cells in relation to doorways; see doorwayAdjacencies
 					}
