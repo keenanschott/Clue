@@ -57,7 +57,7 @@ public class Board {
 		for (int i = 0; i < numRows; i++) { // create an adjacency list for every cell
     		for (int j = 0; j < numColumns; j++) {
 				// checking if its a secret passage (\u0000 is null val)
-				if (grid[i][j].getSecretPassage() != '\u0000') { 
+				if (grid[i][j].getSecretPassage() != '\0') { 
 					// connect other room's center cell by adding it to the current room's center cell's adjacency list
 					roomMap.get(grid[i][j].getInitial()).getCenterCell().addAdjacency(roomMap.get(grid[i][j].getSecretPassage()).getCenterCell());
 				}
