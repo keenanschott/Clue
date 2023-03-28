@@ -20,6 +20,9 @@ public class Board {
     private static Board theInstance = new Board(); // Singleton Pattern
     private Set<BoardCell> targets; // all valid cells to move to
 	private Set<BoardCell> visited; // visited cells
+	private Solution theAnswer;
+	private Player[] players;
+	private Card[] deck;
 
 	/**
 	 * Board()
@@ -318,6 +321,14 @@ public class Board {
 			}
 		}
     }
+
+	/**
+	 * deal()
+     * Deal all of the cards.
+     */
+	public void deal() {
+
+	}
 
 	// all getters and setters
 	public Room getRoom(char roomType) {
