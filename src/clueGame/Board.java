@@ -22,7 +22,7 @@ public class Board {
 	private Set<BoardCell> visited; // visited cells
 	private Solution theAnswer;
 	private ArrayList<Player> players;
-	private Card[] deck;
+	private ArrayList<Card> deck;
 
 	/**
 	 * Board()
@@ -75,6 +75,7 @@ public class Board {
     public void loadSetupConfig() throws BadConfigFormatException {
 		roomMap = new HashMap<Character,Room>(); // allocate space for our map
 		players = new ArrayList<Player>(); // allocate space for player list
+		deck = new ArrayList<Card>();
         File file = new File(setupConfigFile); // file object
 		String currentLine; // current line
 		String[] lineArray; // array of words in current line
@@ -86,12 +87,18 @@ public class Board {
 				if (lineArray.length == 3 && (lineArray[0].equals("Room") || lineArray[0].equals("Space"))) { // valid line
 					Room newRoom = new Room(lineArray[1], null, null); // do not insert center or label yet
 					roomMap.put(lineArray[2].charAt(0), newRoom); // put into map
+					deck.add(new Card(lineArray[1], CardType.ROOM)); // add to deck
 				} else if (lineArray.length == 5 && lineArray[0].equals("Player")) {
 					if (lineArray[3].equals("Human")) {
 						players.add(new HumanPlayer(lineArray[1], lineArray[2], Integer.parseInt(lineArray[4].split("-")[0]), Integer.parseInt(lineArray[4].split("-")[1])));
 					} else {
 						players.add(new ComputerPlayer(lineArray[1], lineArray[2], Integer.parseInt(lineArray[4].split("-")[0]), Integer.parseInt(lineArray[4].split("-")[1])));
 					}
+					// make a player card
+					deck.add(new Card(lineArray[1], CardType.PERSON));
+				} else if (lineArray.length == 2 && lineArray[0].equals("Weapon")) {
+					// make a weapon card
+					deck.add(new Card(lineArray[1], CardType.WEAPON));
 				}
 				else {
 					if (!lineArray[0].substring(0, 2).equals("//")) { // if not a comment
