@@ -85,7 +85,6 @@ public class GameSetupTests {
         }
         assertEquals(human, 1);
         assertEquals(computer, 5);
-        
     }
 
     // ensure the deck is of correct size and is populated correctly>>>>>>> e47437e04655c315fd2a3b23b4cf786b291200fb
