@@ -96,6 +96,7 @@ public class GameSetupTests {
         assertTrue(board.getDeck().get(15).equals(new Card("WeaponName1", CardType.WEAPON)));
         assertTrue(board.getDeck().get(0).equals(new Card("Galley", CardType.ROOM)));
         assertTrue(board.getDeck().get(10).equals(new Card("PlayerName2", CardType.PERSON)));
+        
     }
 
     // ensure the hands of each player are roughly equal in length and do not contain the solution, are unique, etc.
