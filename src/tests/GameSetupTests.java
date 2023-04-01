@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import clueGame.Board;
 import clueGame.Card;
 import clueGame.CardType;
+import clueGame.HumanPlayer;
 import clueGame.Player;
 
 /**
@@ -73,6 +74,17 @@ public class GameSetupTests {
         // test a few colors
         assertTrue(board.getPlayersList().get(0).getColor().equals("Red"));
         assertTrue(board.getPlayersList().get(2).getColor().equals("Blue"));
+        // test for five computer players and one human player
+        int human = 0, computer = 0;
+        for (Player player : board.getPlayersList()) {
+            if (player instanceof HumanPlayer) {
+                human++;
+            } else {
+                computer++;
+            }
+        }
+        assertEquals(human, 1);
+        assertEquals(computer, 5);
     }
 
     // ensure the deck is of correct size and is populated correctly
