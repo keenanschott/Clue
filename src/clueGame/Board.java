@@ -21,8 +21,8 @@ public class Board {
     private Set<BoardCell> targets; // all valid cells to move to
 	private Set<BoardCell> visited; // visited cells
 	private Solution theAnswer;
-	private Player[] players;
-	private Card[] deck;
+	private ArrayList<Player> players;
+	private ArrayList<Card> deck;
 
 	/**
 	 * Board()
@@ -74,6 +74,8 @@ public class Board {
      */
     public void loadSetupConfig() throws BadConfigFormatException {
 		roomMap = new HashMap<Character,Room>(); // allocate space for our map
+		players = new ArrayList<Player>(); // allocate space for player list
+		deck = new ArrayList<Card>();
         File file = new File(setupConfigFile); // file object
 		String currentLine; // current line
 		String[] lineArray; // array of words in current line
@@ -85,6 +87,20 @@ public class Board {
 				if (lineArray.length == 3 && (lineArray[0].equals("Room") || lineArray[0].equals("Space"))) { // valid line
 					Room newRoom = new Room(lineArray[1], null, null); // do not insert center or label yet
 					roomMap.put(lineArray[2].charAt(0), newRoom); // put into map
+					if (lineArray[0].equals("Room")) {
+						deck.add(new Card(lineArray[1], CardType.ROOM)); // add to deck
+					}
+				} else if (lineArray.length == 5 && lineArray[0].equals("Player")) {
+					if (lineArray[3].equals("Human")) {
+						players.add(new HumanPlayer(lineArray[1], lineArray[2], Integer.parseInt(lineArray[4].split("-")[0]), Integer.parseInt(lineArray[4].split("-")[1])));
+					} else {
+						players.add(new ComputerPlayer(lineArray[1], lineArray[2], Integer.parseInt(lineArray[4].split("-")[0]), Integer.parseInt(lineArray[4].split("-")[1])));
+					}
+					// make a player card
+					deck.add(new Card(lineArray[1], CardType.PERSON));
+				} else if (lineArray.length == 2 && lineArray[0].equals("Weapon")) {
+					// make a weapon card
+					deck.add(new Card(lineArray[1], CardType.WEAPON));
 				}
 				else {
 					if (!lineArray[0].substring(0, 2).equals("//")) { // if not a comment
@@ -327,7 +343,37 @@ public class Board {
      * Deal all of the cards.
      */
 	public void deal() {
-
+		theAnswer = new Solution();
+		// make a copy of the deck to remove from
+		ArrayList<Card> deckCopy = new ArrayList<Card>();
+		deckCopy.addAll(deck);
+		// iterate through players
+		int player_counter = 0;
+		// temporary card to look at
+		Card temp;
+		// RNGs
+		Random rand = new Random();
+		int int_random;
+		// solution booleans
+		boolean solutionPlayer = false, solutionWeapon = false, solutionRoom = false;
+		while (deckCopy.size() != 0) {
+			int_random = rand.nextInt(deckCopy.size());
+			temp = deckCopy.get(int_random);
+			deckCopy.remove(temp);
+			if (solutionPlayer == false && temp.getType() == CardType.PERSON) {
+				solutionPlayer = true;
+				theAnswer.setPerson(temp);
+			} else if (solutionWeapon == false && temp.getType() == CardType.WEAPON) {
+				solutionWeapon = true;
+				theAnswer.setWeapon(temp);
+			} else if (solutionRoom == false && temp.getType() == CardType.ROOM) {
+				solutionRoom = true;
+				theAnswer.setRoom(temp);
+			} else {
+				players.get(player_counter % players.size()).updateHand(temp);
+				player_counter++;
+			}
+		}
 	}
 
 	// all getters and setters
@@ -358,4 +404,13 @@ public class Board {
 	public BoardCell getCell(int row, int col) {
 		return grid[row][col]; // returns the cell at the given parameters
 	}
+
+	public Solution getTheAnswer() {
+		return theAnswer;
+	}
+
+	public ArrayList<Player> getPlayersList() {
+		return players;
+	}
+
 }

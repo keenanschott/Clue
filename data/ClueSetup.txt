@@ -11,3 +11,17 @@ Room, Landing Pad, L
 // other spaces on board
 Space, Unused, X
 Space, Walkway, W
+// players
+Player, PlayerName1, Red, Human, 18-0
+Player, PlayerName2, Green, Computer, 7-0
+Player, PlayerName3, Blue, Computer, 25-24
+Player, PlayerName4, Yellow, Computer, 18-24
+Player, PlayerName5, Purple, Computer, 8-24
+Player, PlayerName6, White, Computer, 0-17
+// weapons
+Weapon, WeaponName1
+Weapon, WeaponName2
+Weapon, WeaponName3
+Weapon, WeaponName4
+Weapon, WeaponName5
+Weapon, WeaponName6

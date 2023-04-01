@@ -16,4 +16,8 @@ public class Card {
         }
         return false;
     }
+
+    public CardType getType() {
+        return type;
+    }
 }
