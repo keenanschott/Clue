@@ -87,7 +87,7 @@ public class GameSetupTests {
         assertEquals(computer, 5);
     }
 
-    // ensure the deck is of correct size and is populated correctly
+    // ensure the deck is of correct size and is populated correctly>>>>>>> e47437e04655c315fd2a3b23b4cf786b291200fb
     @Test
     public void testDeck() {
         // test deck size
@@ -126,6 +126,7 @@ public class GameSetupTests {
                 }
             }
         }
+        
         // check our counters
         assertEquals(people, 5);
         assertEquals(rooms, 8);
