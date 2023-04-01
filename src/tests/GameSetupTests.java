@@ -4,18 +4,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Assert;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import clueGame.Board;
-import clueGame.BoardCell;
+import clueGame.Card;
 import clueGame.CardType;
-import clueGame.ComputerPlayer;
-import clueGame.DoorDirection;
-import clueGame.HumanPlayer;
 import clueGame.Player;
-import clueGame.Room;
+
 
 public class GameSetupTests {
     private static Board board; // test board for a given test
@@ -44,8 +42,73 @@ public class GameSetupTests {
     public void testPlayers() {
         // test players list for size and containment
         assertTrue(board.getPlayersList().size() == 6);
-        assertTrue(board.getPlayersList().get(0).equals(new HumanPlayer("PlayerName1", "Red", 18, 0)));
-        //assertTrue(board.getPlayersList().get(1).equals(new ComputerPlayer("PlayerName2", "Green", 7, 0)));
+        // test first player
+        assertTrue(board.getPlayersList().get(0).getName().equals("PlayerName1"));
+        assertTrue(board.getPlayersList().get(0).getRow() == 18);
+        assertTrue(board.getPlayersList().get(0).getColumn() == 0);
+        // test other players
+        assertTrue(board.getPlayersList().get(1).getName().equals("PlayerName2"));
+        assertTrue(board.getPlayersList().get(1).getRow() == 7);
+        assertTrue(board.getPlayersList().get(1).getColumn() == 0);
+        assertTrue(board.getPlayersList().get(2).getName().equals("PlayerName3"));
+        assertTrue(board.getPlayersList().get(2).getRow() == 25);
+        assertTrue(board.getPlayersList().get(2).getColumn() == 24);
+        assertTrue(board.getPlayersList().get(3).getName().equals("PlayerName4"));
+        assertTrue(board.getPlayersList().get(3).getRow() == 18);
+        assertTrue(board.getPlayersList().get(3).getColumn() == 24);
+        assertTrue(board.getPlayersList().get(4).getName().equals("PlayerName5"));
+        assertTrue(board.getPlayersList().get(4).getRow() == 8);
+        assertTrue(board.getPlayersList().get(4).getColumn() == 24);
+        assertTrue(board.getPlayersList().get(5).getName().equals("PlayerName6"));
+        assertTrue(board.getPlayersList().get(5).getRow() == 0);
+        assertTrue(board.getPlayersList().get(5).getColumn() == 17);
+        // test a few colors
+        assertTrue(board.getPlayersList().get(0).getColor().equals("Red"));
+        assertTrue(board.getPlayersList().get(2).getColor().equals("Blue"));
     }
 
+
+    @Test
+    public void testDeck() {
+        // test deck size
+        assertEquals(board.getDeck().size(), 21);
+        // test deck contains a card of each type
+        assertTrue(board.getDeck().get(15).equals(new Card("WeaponName1", CardType.WEAPON)));
+        assertTrue(board.getDeck().get(0).equals(new Card("Galley", CardType.ROOM)));
+        assertTrue(board.getDeck().get(10).equals(new Card("PlayerName2", CardType.PERSON)));
+    }
+
+    @Test
+    public void testHands() {
+        // ensure each player has three cards in their hand
+        for (Player test : board.getPlayersList()) {
+            assertEquals(test.getHand().size(), 3);
+        }
+        // test that each card in every hand is unique and not dealt out twice or more, to different players, etc.
+        // assert that there's eight room cards, five weapon cards, and five people cards
+        int people = 0, rooms = 0, weapons = 0;
+        ArrayList<Card> testUniqueness = new ArrayList<Card>();
+        for (Player testPlayer : board.getPlayersList()) {
+            for (Card testCard : testPlayer.getHand()) {
+                assertFalse(testUniqueness.contains(testCard));
+                testUniqueness.add(testCard); // continue checking for uniqueness
+                // keep a counter
+                if (testCard.getType() == CardType.PERSON) {
+                    assertFalse(testCard.equals(board.getTheAnswer().getPerson())); // assert that no hand has the answer person
+                    people++;
+                } else if (testCard.getType() == CardType.WEAPON) {
+                    assertFalse(testCard.equals(board.getTheAnswer().getWeapon())); // assert that no hand has the answer weapon
+                    weapons++;
+                } else {
+                    assertFalse(testCard.equals(board.getTheAnswer().getRoom())); // assert that no hand has the answer room
+                    rooms++;
+                }
+            }
+        }
+        
+        // check our counters
+        assertEquals(people, 5);
+        assertEquals(rooms, 8);
+        assertEquals(weapons, 5);
+    }
 }
