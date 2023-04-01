@@ -1,5 +1,178 @@
-I, Keenan Schott, certify that I participated equitably in the creation of assignment C19A-2 Refactoring (Clue Pair), dated 3/26/2023.
-I, William Burns, certify that I participated equitably in the creation of assignment C19A-2 Refactoring (Clue Pair), dated 3/26/2023.
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C20A Clue Pairs 1 (Clue Pair), dated 3/31/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C20A Clue Pairs 1 (Clue Pair), dated 3/31/2023.
+
+commit 46f4867443650844baf8a752be102bd530392d1f
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 22:05:11 2023 -0600
+
+    final touches
+
+commit 71677d41984d32d27c77d780a84c2b5782538036
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 22:04:47 2023 -0600
+
+    testHands passing
+
+commit 8253840039531da25071cb612f6c7edbe10ccb35
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 22:03:12 2023 -0600
+
+    testHands failing
+
+commit c8830baa5be9106ead619407cdeb83277322b757
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 22:01:38 2023 -0600
+
+    testDeck passing
+
+commit d4137ec4d548a1a88e6b1c47c509be3acdbf5a5b
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 22:01:18 2023 -0600
+
+    testDeck failing
+
+commit c67a4e766b4fe12c9f2395b2de69e9e39227e8b6
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 22:00:30 2023 -0600
+
+    testPlayers passing
+
+commit 9f62d811c577e6b6f96c208edebbf558bba85bb1
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 21:59:34 2023 -0600
+
+    testPlayers failing
+
+commit 17d109a00fb9d1ec1e87654895f7e7a82b364b01
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 21:58:59 2023 -0600
+
+    testSolution passing
+
+commit 64da9dadd8345bec5a8b7e0c6862f1b253cad85b
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 21:58:12 2023 -0600
+
+    testSolution failing
+
+commit c02fb00a8d5a21c6a7ca6bfe17a811eb2b613d03
+Merge: e751b65 885c6e5
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 21:47:44 2023 -0600
+
+    Merge branch 'main' of https://github.com/squilliamb/Clue
+
+commit e751b654b21b00f953a7b372ff22d443269a6a57
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 21:46:25 2023 -0600
+
+    added test
+
+commit 885c6e50c60ad9287c0579a7765cfedefd753cfd
+Merge: 92777dd e47437e
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Fri Mar 31 21:45:53 2023 -0600
+
+    properly merged with keenan's game setup test comments
+
+commit 92777ddc1a2cece3646c4b265980cd0bf32d7f9e
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Fri Mar 31 21:45:16 2023 -0600
+
+    Added header comments to Player, ComputerPlayer, and HumanPlayer
+
+commit e47437e04655c315fd2a3b23b4cf786b291200fb
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 21:41:51 2023 -0600
+
+    tests commented
+
+commit 2b7bac260303cd5e26863fec9fe9ef96b35fe9fa
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 21:35:50 2023 -0600
+
+    comments in Card and Solution
+
+commit 4fcfccc5568983df3a58d346d6da3f0afca66e63
+Merge: 76c3ba0 c7bab86
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Fri Mar 31 21:23:27 2023 -0600
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit 76c3ba0887151527080939d3ae177cf4f1a99a7b
+Merge: c4f4223 dee7509
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Fri Mar 31 21:23:04 2023 -0600
+
+    merged gamesetuptests.java
+
+commit c7bab861d705c65023fd51821cd35634395456ce
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 21:22:31 2023 -0600
+
+    all comments in Board
+
+commit dee75094cf9409e9002586337a333f6e7ee6e06a
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 21:16:18 2023 -0600
+
+    added comments to Board
+
+commit c4f42235dec6b38f0b69baea7e6db3ee98d6daba
+Merge: 694e284 7ee0cad
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Fri Mar 31 19:38:55 2023 -0600
+
+    merged with keenan game setup test
+
+commit 694e284c19d9a49ff739500606ca332e0670d942
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Fri Mar 31 19:37:38 2023 -0600
+
+    added gamesetuptests.java
+
+commit 7ee0cad03f97307cd4b88ca1ccc99ba5a74a967d
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 16:29:44 2023 -0600
+
+    more tests
+
+commit afd30db383a54cde56cbaffa459a7de9b3fb7129
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 14:53:51 2023 -0600
+
+    tests passing for cards
+
+commit 338ab85d34cf545ef76572add749d6ed05f29609
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 14:44:29 2023 -0600
+
+    All tests passing for player addition
+
+commit c96305778f33ff8eaeda6523cd650a2a1b861aba
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 14:29:10 2023 -0600
+
+    Added players to clue setup
+
+commit fa11762b51a8919d10007cd85c23385e77eacad1
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Mar 28 10:35:20 2023 -0600
+
+    completed UML, tests ready to be written
+
+commit 8bd40f0a8eacdb60bb59ec2e145746e623459058
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 26 22:47:35 2023 -0600
+
+    added changes text document
+
+commit e645f3c97f25edef7415ba79427419e304d1a3e7
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Mar 26 22:26:44 2023 -0600
+
+    updated git log
 
 commit 87db60b69eb8d53a40be0ac4a933cc3f8cb07f31
 Author: Keenan Schott <keenanmschott28@gmail.com>
