@@ -14,7 +14,13 @@ import clueGame.Card;
 import clueGame.CardType;
 import clueGame.Player;
 
-
+/**
+ * GameSetupTests
+ * A series of tests to examine the player initialization as it pertains to solution generation, the deck of cards, and the hand of each player.
+ * DATE: 3/31/2023
+ * @author Keenan Schott
+ * @author Finn Burns
+ */
 public class GameSetupTests {
     private static Board board; // test board for a given test
 
@@ -29,6 +35,7 @@ public class GameSetupTests {
         board.deal();
 	}
 
+    // ensure the randomly chosen solution passes our initial checks
     @Test
     public void testSolution() {
         // solution randomly chosen
@@ -38,6 +45,7 @@ public class GameSetupTests {
         assertEquals(board.getTheAnswer().getRoom().getType(), CardType.ROOM);
     }
 
+    // ensure the players list is populated correctly with the corresponding players
     @Test
     public void testPlayers() {
         // test players list for size and containment
@@ -67,6 +75,7 @@ public class GameSetupTests {
         assertTrue(board.getPlayersList().get(2).getColor().equals("Blue"));
     }
 
+    // ensure the deck is of correct size and is populated correctly
     @Test
     public void testDeck() {
         // test deck size
@@ -77,6 +86,7 @@ public class GameSetupTests {
         assertTrue(board.getDeck().get(10).equals(new Card("PlayerName2", CardType.PERSON)));
     }
 
+    // ensure the hands of each player are roughly equal in length and do not contain the solution, are unique, etc.
     @Test
     public void testHands() {
         // ensure each player has three cards in their hand
