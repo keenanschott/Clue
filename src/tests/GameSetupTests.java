@@ -126,6 +126,7 @@ public class GameSetupTests {
                 }
             }
         }
+        
         // check our counters
         assertEquals(people, 5);
         assertEquals(rooms, 8);
