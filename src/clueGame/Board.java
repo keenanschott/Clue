@@ -342,35 +342,36 @@ public class Board {
      * Deal all of the cards.
      */
 	public void deal() {
-		theAnswer = new Solution();
-		// make a copy of the deck to remove from
-		ArrayList<Card> deckCopy = new ArrayList<Card>();
-		deckCopy.addAll(deck);
+		theAnswer = new Solution(); // allocate space for the solution
+		ArrayList<Card> deckCopy = new ArrayList<Card>(); 
+		deckCopy.addAll(deck); // copy the deck to remove from
 		// iterate through players
 		int player_counter = 0;
 		// temporary card to look at
 		Card temp;
-		// RNGs
+		// RNG
 		Random rand = new Random();
 		int int_random;
 		// solution booleans
 		boolean solutionPlayer = false, solutionWeapon = false, solutionRoom = false;
+		// look through deck
 		while (deckCopy.size() != 0) {
+			// get a random card from the copy and remove it
 			int_random = rand.nextInt(deckCopy.size());
-			temp = deckCopy.get(int_random);
+			temp = deckCopy.get(int_random); 
 			deckCopy.remove(temp);
 			if (solutionPlayer == false && temp.getType() == CardType.PERSON) {
 				solutionPlayer = true;
-				theAnswer.setPerson(temp);
+				theAnswer.setPerson(temp); // set solution person to first random person
 			} else if (solutionWeapon == false && temp.getType() == CardType.WEAPON) {
 				solutionWeapon = true;
-				theAnswer.setWeapon(temp);
+				theAnswer.setWeapon(temp); // set solution weapon to first random weapon
 			} else if (solutionRoom == false && temp.getType() == CardType.ROOM) {
 				solutionRoom = true;
-				theAnswer.setRoom(temp);
+				theAnswer.setRoom(temp); // set solution room to first random room
 			} else {
-				players.get(player_counter % players.size()).updateHand(temp);
-				player_counter++;
+				players.get(player_counter % players.size()).updateHand(temp); // iterate through the players and add the current card
+				player_counter++; // next player
 			}
 		}
 	}
@@ -405,24 +406,23 @@ public class Board {
 	}
 
 	public Solution getTheAnswer() {
-		return theAnswer;
+		return theAnswer; // return the solution
 	}
 
 	public ArrayList<Player> getPlayersList() {
-		return players;
+		return players; // return the players list
 	}
 
 	public Player getPlayer(String name) {
 		for (Player player : players) {
 			if (player.getName() == name) {
-				return player;
+				return player; // return a player from the players list
 			}
 		}
 		return null;
 	}
 
 	public ArrayList<Card> getDeck() {
-		return deck;
+		return deck; // return the deck
 	}
-
 }
