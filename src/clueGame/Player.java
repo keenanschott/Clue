@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Player
  * Game player object; players have a name, color, position on the board, and a current hand that they possess. They have the ability
  * to draw a card through the updateHand function.
- * DATE: 03/31/2023
+ * DATE: 3/31/2023
  * @author Keenan Schott    
  * @author Finn Burns
  */
@@ -87,5 +87,4 @@ public abstract class Player {
     public ArrayList<Card> getHand() {
         return hand;
     }
-
 }
