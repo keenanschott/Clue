@@ -10,14 +10,23 @@ public class Card {
         type = cardType;
     }
 
-    public boolean equals(Card target) {
-        if (this.cardName == target.cardName) {
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
             return true;
         }
-        return false;
+        if (!(o instanceof Card)) {
+            return false;
+        }
+        Card c = (Card) o;
+        return (c.getType() == getType() && c.getName().equals(getName()));
     }
 
     public CardType getType() {
         return type;
+    }
+
+    public String getName() {
+        return cardName;
     }
 }

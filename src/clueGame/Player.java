@@ -38,4 +38,8 @@ public abstract class Player {
         return column;
     }
 
+    public ArrayList<Card> getHand() {
+        return hand;
+    }
+
 }

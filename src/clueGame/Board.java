@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Board
  * The game board initialization; reads in the game setup and layout, populates the game board, creates adjacency lists, etc. This class also implements the movement algorithm.
- * DATE: 3/26/2023
+ * DATE: 3/31/2023
  * @author Keenan Schott
  * @author Finn Burns
  */
@@ -20,9 +20,9 @@ public class Board {
     private static Board theInstance = new Board(); // Singleton Pattern
     private Set<BoardCell> targets; // all valid cells to move to
 	private Set<BoardCell> visited; // visited cells
-	private Solution theAnswer;
-	private ArrayList<Player> players;
-	private ArrayList<Card> deck;
+	private Solution theAnswer; // the solution
+	private ArrayList<Player> players; // all players
+	private ArrayList<Card> deck; // all cards
 
 	/**
 	 * Board()
@@ -75,7 +75,7 @@ public class Board {
     public void loadSetupConfig() throws BadConfigFormatException {
 		roomMap = new HashMap<Character,Room>(); // allocate space for our map
 		players = new ArrayList<Player>(); // allocate space for player list
-		deck = new ArrayList<Card>();
+		deck = new ArrayList<Card>(); // allocate space for the deck
         File file = new File(setupConfigFile); // file object
 		String currentLine; // current line
 		String[] lineArray; // array of words in current line
@@ -84,23 +84,22 @@ public class Board {
 			while (scan.hasNext()) {
 				currentLine = scan.nextLine(); // get entire line
 				lineArray = currentLine.split(", "); // split by comma
-				if (lineArray.length == 3 && (lineArray[0].equals("Room") || lineArray[0].equals("Space"))) { // valid line
+				if (lineArray.length == 3 && lineArray[0].equals("Room")) { // valid line for a room
 					Room newRoom = new Room(lineArray[1], null, null); // do not insert center or label yet
 					roomMap.put(lineArray[2].charAt(0), newRoom); // put into map
-					if (lineArray[0].equals("Room")) {
-						deck.add(new Card(lineArray[1], CardType.ROOM)); // add to deck
+					deck.add(new Card(lineArray[1], CardType.ROOM)); // add to deck as a room
+				} else if (lineArray.length == 3 && lineArray[0].equals("Space")) { // valid line for a space
+					Room newRoom = new Room(lineArray[1], null, null); // do not insert center or label yet
+					roomMap.put(lineArray[2].charAt(0), newRoom); // put into map as a room
+				} else if (lineArray.length == 5 && lineArray[0].equals("Player")) { // valid line for a player
+					if (lineArray[3].equals("Human")) { // human
+						players.add(new HumanPlayer(lineArray[1], lineArray[2], Integer.parseInt(lineArray[4].split("-")[0]), Integer.parseInt(lineArray[4].split("-")[1]))); // new human player
+					} else { // computer
+						players.add(new ComputerPlayer(lineArray[1], lineArray[2], Integer.parseInt(lineArray[4].split("-")[0]), Integer.parseInt(lineArray[4].split("-")[1]))); // new computer player
 					}
-				} else if (lineArray.length == 5 && lineArray[0].equals("Player")) {
-					if (lineArray[3].equals("Human")) {
-						players.add(new HumanPlayer(lineArray[1], lineArray[2], Integer.parseInt(lineArray[4].split("-")[0]), Integer.parseInt(lineArray[4].split("-")[1])));
-					} else {
-						players.add(new ComputerPlayer(lineArray[1], lineArray[2], Integer.parseInt(lineArray[4].split("-")[0]), Integer.parseInt(lineArray[4].split("-")[1])));
-					}
-					// make a player card
-					deck.add(new Card(lineArray[1], CardType.PERSON));
-				} else if (lineArray.length == 2 && lineArray[0].equals("Weapon")) {
-					// make a weapon card
-					deck.add(new Card(lineArray[1], CardType.WEAPON));
+					deck.add(new Card(lineArray[1], CardType.PERSON)); // add to deck as a player
+				} else if (lineArray.length == 2 && lineArray[0].equals("Weapon")) { // valid line for a weapon
+					deck.add(new Card(lineArray[1], CardType.WEAPON)); // add to deck as a weapon
 				}
 				else {
 					if (!lineArray[0].substring(0, 2).equals("//")) { // if not a comment
@@ -411,6 +410,19 @@ public class Board {
 
 	public ArrayList<Player> getPlayersList() {
 		return players;
+	}
+
+	public Player getPlayer(String name) {
+		for (Player player : players) {
+			if (player.getName() == name) {
+				return player;
+			}
+		}
+		return null;
+	}
+
+	public ArrayList<Card> getDeck() {
+		return deck;
 	}
 
 }
