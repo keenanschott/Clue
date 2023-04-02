@@ -1,6 +1,8 @@
 package clueGame;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Player
@@ -16,6 +18,7 @@ public abstract class Player {
     private int row;
     private int column;
     private ArrayList<Card> hand;
+    private Set<Card> seenCards;
 
     /**
      * Player(String inName, String inColor, int inRow, int inColumn)
@@ -32,6 +35,7 @@ public abstract class Player {
         row = inRow;
         column = inColumn;
         hand = new ArrayList<Card>();
+        seenCards = new HashSet<Card>();
     }
 
     /**
@@ -42,6 +46,21 @@ public abstract class Player {
     public void updateHand(Card card) {
         hand.add(card);
     }
+
+    /**
+     * updateSeen(Card card)
+     * update seen set
+     * @param seenCard 
+     */
+    public void updateSeen(Card seenCard) {
+        seenCards.add(seenCard);
+    }
+
+    /**
+     * UPDATE
+     * UPDATE
+     */
+    abstract public Card disproveSuggestion(Solution suggestion);
 
     /**
      * getName()
@@ -86,5 +105,9 @@ public abstract class Player {
      */
     public ArrayList<Card> getHand() {
         return hand;
+    }
+
+    public Set<Card> getSeenCards() {
+        return seenCards;
     }
 }

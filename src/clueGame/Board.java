@@ -371,10 +371,43 @@ public class Board {
 				theAnswer.setRoom(temp); // set solution room to first random room
 			} else {
 				players.get(player_counter % players.size()).updateHand(temp); // iterate through the players and add the current card
+				players.get(player_counter % players.size()).updateSeen(temp);
 				player_counter++; // next player
 			}
 		}
 	}
+
+	/**
+	 * checkAccusation()
+     * Check a player's accusation.
+     */
+	public boolean checkAccusation(Solution accusation) {
+		return theAnswer.equals(accusation);
+	}
+
+	/**
+	 * handleSuggestion()
+     * Handle a player's suggestion.
+     */
+	public Card handleSuggestion(Solution suggestion) {
+		Card evidence;
+		for (Player currentPlayer : players) {
+			evidence = currentPlayer.disproveSuggestion(suggestion);
+			if (evidence != null) {
+				return evidence;
+			}
+		}
+		return null;
+	} 
+
+
+
+
+
+
+
+
+
 
 	// all getters and setters
 	public Room getRoom(char roomType) {

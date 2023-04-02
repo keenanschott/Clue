@@ -9,7 +9,7 @@ package clueGame;
  */
 public class Card {
     private String cardName; // the name associated with the card
-    private CardType type; // the card type
+    private CardType cardType; // the card type
 
     /**
 	 * Card()
@@ -18,10 +18,10 @@ public class Card {
      * @param name The requested card name.
      * @param cardType The requested card type.
      */
-    public Card(String name, CardType cardType) {
+    public Card(String name, CardType type) {
         super();
         cardName = name;
-        type = cardType;
+        cardType = type;
     }
 
     /**
@@ -44,7 +44,7 @@ public class Card {
 
     // all getters and setters
     public CardType getType() {
-        return type;
+        return cardType;
     }
 
     public String getName() {
