@@ -22,4 +22,17 @@ public class ComputerAITest {
 		board.initialize();
         board.deal();
 	}
+
+    @Test
+    public void testCreateSuggestion() {
+        // room matches  current location
+        // if only one weapon/person not seen
+        
+    }
+
+    @Test
+    public void testSelectTargets() {
+        // 
+    }
+
 }

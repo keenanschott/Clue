@@ -24,5 +24,29 @@ public class GameSolutionTest {
 		board.initialize();
         board.deal();
 	}
+
+    // ensure accusations are handled correctly (correct solution and solution (weapon,room,person cases))
+    @Test
+    public void testAccusation() {
+        // correct solution
+        // solution with wrong person
+        // solution with wrong weapon
+        // solution with wrong room
+    }
+
+    // ensure proper disproval of suggestion when player has matching card/s or no matching card
+    @Test
+    public void testDisproveSuggestion() {
+        // player has one matching card
+        // player has multiple matching cards
+        // if player has no matching cards 
+    }
     
+    @Test
+    public void testHandleSuggestion() {
+        // no one can disprove suggestion
+        // suggestion only suggesting player can disprove
+        // suggestion only human can disprove 
+        // suggestion two players can disprove
+    }
 }
