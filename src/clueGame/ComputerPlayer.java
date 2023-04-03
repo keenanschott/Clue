@@ -50,21 +50,26 @@ public class ComputerPlayer extends Player {
 
     public BoardCell selectTarget() {
         Board board = Board.getInstance();
-        board.calcTargets(board.getCell(getRow(), getColumn()), 6); //TODO change from 6 to something else
+        Random random = new Random(); 
+        int randomIdx = random.nextInt(6); // variable to store random index/path length
+        board.calcTargets(board.getCell(getRow(), getColumn()), randomIdx); //TODO change from 6 to something else
         Set<BoardCell> targets = board.getTargets();
-
-
-
+        ArrayList<BoardCell> smartTargets = new ArrayList<>(); // list of targets in rooms we have yet to see, need to set to ArrayList for retrieval purposes
+        
+        // iterate through list of targets 
         for (BoardCell currentCell : targets) {
-            if (currentCell.isRoomCenter() && !getSeenCards().contains(new Card(board.getRoom(currentCell).getName(), CardType.ROOM))) {
-
+            if (currentCell.isRoomCenter() && !getSeenCards().contains(new Card(board.getRoom(currentCell).getName(), CardType.ROOM))) { // if it's a room and we have not seen this room card yet
+                smartTargets.add(currentCell); // we now consider this a target because we have yet to travel there
             }
         }
-
-
-
-
-        return new BoardCell(0, 0, 'c');
+        if (!smartTargets.isEmpty()) { // if targets exist in rooms we have yet to visit 
+            randomIdx = random.nextInt(smartTargets.size()); // access random index of smartTargets
+            return smartTargets.get(randomIdx);
+        } else { // if no new rooms to travel to 
+            randomIdx = random.nextInt(targets.size());
+            ArrayList<BoardCell> accessibleTargets = new ArrayList<>(targets);
+            return accessibleTargets.get(randomIdx);
+        }
     }
 
     @Override
