@@ -27,7 +27,7 @@ public class ComputerAITest {
     public void testCreateSuggestion() {
         // room matches  current location
         // if only one weapon/person not seen
-        
+
     }
 
     @Test
