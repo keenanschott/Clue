@@ -145,15 +145,20 @@ public class ComputerAITest {
         }
         
         // if room in list that has not been seen, select it
-        
         testPlayer = (ComputerPlayer)board.getPlayer("PlayerName3");
-        assertEquals(testPlayer.selectTarget(4), board.getCell(2, 25));
-
-        //testPlayer.setLocation(0, 0);
-
-        // if room in list that has been seen, each target (room included) select randomly
+        assertEquals(testPlayer.selectTarget(4), board.getCell(20, 25));
         
-
+        // if room in list that has been seen, each target (room included) select randomly
+        Set<Card> currentSeenCards = new HashSet<Card>();
+        for (Card card : board.getDeck()) {
+            if (card.getType() == CardType.PERSON && i < 4) { // include all weapons except "PlayerName5" and "PlayerName6"
+                currentSeenCards.add(card);
+                i++;
+            } else if (i == 4 && card.getType() == CardType.PERSON) {
+                twoCards.add(card); // "PlayerName5" and "PlayerName6"
+            }
+        }
+        
     }
 
 }
