@@ -35,21 +35,36 @@ public class ComputerAITest {
         ComputerPlayer testPlayer = (ComputerPlayer) board.getPlayer("PlayerName2");
         testPlayer.setLocation(2, 2); // set to middle of the room
         Solution testSuggestion = testPlayer.createSuggestion(board.getRoom(board.getCell(testPlayer.getRow(), testPlayer.getColumn()))); // create suggestion based off of current room
-        assertEquals(board.getRoom(testSuggestion.getRoom()), currentRoom);
+        assertEquals(board.getRoom(testSuggestion.getRoom()), currentRoom); // assert suggestion room is equal to current room
         // if only one weapon/person not seen, it's selected
-        Set<Card> currentSeenCards = testPlayer.getSeenCards();
+        Set<Card> currentSeenCards = new HashSet<Card>(); // create a new set of seen cards
         int i = 0;
-        currentSeenCards = new HashSet<Card>();
-        Card targetCard = new Card(null, null);
+        Card targetCard = new Card(null, null); // create weapon card to be missing
         for (Card card : board.getDeck()) {
             if (card.getType() == CardType.WEAPON && i < 5) { // include all weapons except "WeaponName6"
                 currentSeenCards.add(card);
                 i++;
             } else if (i == 5 && card.getType() == CardType.WEAPON) {
-                targetCard = card;
+                targetCard = card; // "WeaponName6"
             }
         }
-        assertEquals(testPlayer.createSuggestion(currentRoom).getWeapon(), targetCard);
+        testPlayer.setSeenCards(currentSeenCards); // set seen cards
+        assertEquals(testPlayer.createSuggestion(currentRoom).getWeapon(), targetCard); // suggestion should contain "WeaponName6"
+        currentSeenCards = new HashSet<Card>(); // create a new set of seen cards
+        i = 0;
+        targetCard = new Card(null, null); // create person card to be missing
+        for (Card card : board.getDeck()) {
+            if (card.getType() == CardType.PERSON && i < 5) { // include all people except "PlayerName6"
+                currentSeenCards.add(card);
+                i++;
+            } else if (i == 5 && card.getType() == CardType.PERSON) {
+                targetCard = card; // "PlayerName6"
+            }
+        }
+        testPlayer.setSeenCards(currentSeenCards); // set seen cards
+        assertEquals(testPlayer.createSuggestion(currentRoom).getWeapon(), targetCard); // suggestion should contain "PlayerName6"
+
+
         // if multiple weapons not seen, one is randomly selected
         
         // if multiple persons not seen, one is randomly selected

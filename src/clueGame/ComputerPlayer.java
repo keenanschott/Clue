@@ -34,7 +34,7 @@ public class ComputerPlayer extends Player {
         Random random = new Random();
         int randomInt;
         Card randomCard;
-        while (weapon == false && person == false) {
+        while (weapon == false || person == false) {
             randomInt = random.nextInt(deckCopy.size());
             randomCard = deckCopy.get(randomInt);
             if (weapon == false && randomCard.getType() == CardType.WEAPON && !getSeenCards().contains(randomCard) && !getHand().contains(randomCard)) {

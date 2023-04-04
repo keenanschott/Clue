@@ -111,6 +111,10 @@ public abstract class Player {
         return seenCards;
     }
 
+    public void setSeenCards(Set<Card> seen) {
+        seenCards = seen;
+    }
+
     public void setLocation(int row, int col) {
         this.row = row;
         this.column = col;
