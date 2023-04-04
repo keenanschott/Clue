@@ -50,6 +50,21 @@ public class ComputerAITest {
         }
         testPlayer.setSeenCards(currentSeenCards); // set seen cards
         assertEquals(testPlayer.createSuggestion(currentRoom).getWeapon(), targetCard); // suggestion should contain "WeaponName6"
+        currentSeenCards = new HashSet<Card>(); // create a new set of seen cards
+        i = 0;
+        targetCard = new Card(null, null); // create person card to be missing
+        for (Card card : board.getDeck()) {
+            if (card.getType() == CardType.PERSON && i < 5) { // include all people except "PlayerName6"
+                currentSeenCards.add(card);
+                i++;
+            } else if (i == 5 && card.getType() == CardType.PERSON) {
+                targetCard = card; // "PlayerName6"
+            }
+        }
+        testPlayer.setSeenCards(currentSeenCards); // set seen cards
+        assertEquals(testPlayer.createSuggestion(currentRoom).getWeapon(), targetCard); // suggestion should contain "PlayerName6"
+
+
         // if multiple weapons not seen, one is randomly selected
         
         // if multiple persons not seen, one is randomly selected
