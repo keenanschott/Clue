@@ -122,7 +122,7 @@ public class ComputerAITest {
         assertTrue(six > 400); // assert "PlayerName6" appears more than 400 times
         // seen cards has garbage in it, but doesn't matter for further testing
         board.getPlayer("PlayerName2").setHand(originalHand);
-        board.getPlayer("PlayerName2").setLocation(7, 0); // return to original location
+        board.getPlayer("PlayerName2").setLocation(7, 0); // return to original location for further testing
     }
 
     @Test
