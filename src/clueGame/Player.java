@@ -107,6 +107,10 @@ public abstract class Player {
         return hand;
     }
 
+    public void setHand(ArrayList<Card> inHand) {
+        hand = inHand;
+    }
+
     public Set<Card> getSeenCards() {
         return seenCards;
     }
