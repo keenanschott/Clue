@@ -25,14 +25,27 @@ public class ComputerAITest {
 
     @Test
     public void testCreateSuggestion() {
-        // room matches  current location
+        // room matches current location 
+        ComputerPlayer testPlayer = (ComputerPlayer)board.getPlayer("PlayerName2"); // typecast to computerplayer because board stores humans and comps as just player
+        Solution testSuggestion = testPlayer.createSuggestion(board.getRoom(board.getCell(testPlayer.getRow(), testPlayer.getColumn())));
+        assertEquals(testSuggestion.getRoom(), board.getRoom(board.getCell(testPlayer.getRow(), testPlayer.getColumn())));
+
         // if only one weapon/person not seen
 
+        // if multiple weapons not seen, one is randomly selected
+
+        // if multiple persons not seen, one is randomly selected
     }
 
     @Test
     public void testSelectTargets() {
-        // 
+        // if no rooms in list, select randomly
+        
+        // if room in list that has not been seen, select it
+
+        // if room in list that has been seen, each target (room included) select randomly
+
+        
     }
 
 }
