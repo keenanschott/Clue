@@ -477,4 +477,13 @@ public class Board {
 	public ArrayList<Card> getDeck() {
 		return deck; // return the deck
 	}
+
+	public Card getCard(String name) {
+		for (Card currCard : deck ) {
+			if (currCard.getName() == name) {
+				return currCard;
+			}
+		}
+		return null;
+ 	}
 }

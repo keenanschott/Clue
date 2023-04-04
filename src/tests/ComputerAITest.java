@@ -144,23 +144,43 @@ public class ComputerAITest {
             assertTrue(trackTargets.get(key) > 400); // sample value of 150, depends on dice roll and number of potential targets for even split
         }
         
-        // if room in list that has not been seen, select it
-        Set<Card> currentSeenCards = new HashSet<Card>();
-        testPlayer = (ComputerPlayer)board.getPlayer("PlayerName3");
+        // if room in list that has not been seen, select it (TESTING VARIETY OF PLAYERS w/ VARIETY ROLLS)
+        Set<Card> currentSeenCards = new HashSet<Card>(); // reset seen cards to empty
+        testPlayer = (ComputerPlayer)board.getPlayer("PlayerName2");
+        board.calcTargets(board.getCell(testPlayer.getRow(),testPlayer.getColumn()), 2); // no target from 7,0 that is room
         testPlayer.setSeenCards(currentSeenCards);
-        assertEquals(testPlayer.selectTarget(4), board.getCell(20, 25));
+        assertEquals(testPlayer.selectTarget(2), board.getCell(2, 2));
+        currentSeenCards.clear();
+        testPlayer = (ComputerPlayer)board.getPlayer("PlayerName4");
+        board.calcTargets(board.getCell(testPlayer.getRow(),testPlayer.getColumn()), 5); 
+        testPlayer.setSeenCards(currentSeenCards);
+        assertEquals(testPlayer.selectTarget(5), board.getCell(21, 22));
+        currentSeenCards.clear();
+        testPlayer = (ComputerPlayer)board.getPlayer("PlayerName6");
+        board.calcTargets(board.getCell(testPlayer.getRow(),testPlayer.getColumn()), 6); 
+        testPlayer.setSeenCards(currentSeenCards);
+        assertEquals(testPlayer.selectTarget(6), board.getCell(17, 6));
+        currentSeenCards.clear();
         
         // if room in list that has been seen, each target (room included) select randomly
-        // currentSeenCards = new HashSet<Card>();
-        // for (Card card : board.getDeck()) {
-        //     if (card.getType() == CardType.PERSON && i < 4) { // include all weapons except "PlayerName5" and "PlayerName6"
-        //         currentSeenCards.add(card);
-        //         i++;
-        //     } else if (i == 4 && card.getType() == CardType.PERSON) {
-        //         twoCards.add(card); // "PlayerName5" and "PlayerName6"
-        //     }
-        // }
+        currentSeenCards.add(board.getCard("Bridge"));
+        trackTargets.clear();
+        testPlayer = (ComputerPlayer)board.getPlayer("PlayerName2");
+        board.calcTargets(board.getCell(testPlayer.getRow(),testPlayer.getColumn()), 1);
+        iterator = board.getTargets().iterator();
         
+        while (iterator.hasNext()) {
+            trackTargets.put(iterator.next(),0); // populate trackTargets with each possible target and a count of 0
+        }
+        for (int i = 0; i < 1000; i++) {
+            sampleTarget = testPlayer.selectTarget(1); // choose a target
+            trackTargets.put(sampleTarget, trackTargets.get(sampleTarget) + 1); // add 1 to target
+        }
+        for (BoardCell key : trackTargets.keySet()) {
+            assertTrue(trackTargets.get(key) > (1000 / trackTargets.size())); // sample value of 150, depends on dice roll and number of potential targets for even split
+        }
+
+    
     }
 
 }
