@@ -62,6 +62,8 @@ public class GameSolutionTest {
     public void testDisproveSuggestion() {
         HumanPlayer test = (HumanPlayer)board.getPlayersList().get(0); // get "PlayerName1", simply for the sake of testing
         Card randomCard = test.getHand().get(0); // get a random card in the player's hand for comparison
+        Card originalCard1 = test.getHand().get(1); // save original cards
+        Card originalCard2 = test.getHand().get(2);
         // if player has no matching cards, null is returned (as of now, ComputerPlayer and HumanPlayer disproveSuggestion() are the exact same)
         Solution badSolution = new Solution(badRoom, badPerson, badWeapon); // bad suggestion, null should be returned
         assertEquals(test.disproveSuggestion(badSolution), null);
@@ -97,13 +99,18 @@ public class GameSolutionTest {
         assertEquals(person > 250, true); // does it occur randomly at an acceptable frequency?
         assertEquals(room > 250, true);
         assertEquals(weapon > 250, true);
+        test.getHand().set(0, randomCard); // preserve instance state for further testing
+        test.getHand().set(1, originalCard1);
+        test.getHand().set(2, originalCard2);
     }
     
     @Test
     public void testHandleSuggestion() {
-        // no one can disprove suggestion
-        // suggestion only suggesting player can disprove
-        // suggestion only human can disprove 
-        // suggestion two players can disprove
+        // get a random origin player
+        ComputerPlayer testPlayer = (ComputerPlayer) board.getPlayersList().get(1); // get "PlayerName2", simply for the sake of testing
+        // if suggestion no one can disprove returns null
+        Solution badSolution = new Solution(badRoom, badPerson, badWeapon); // bad suggestion, null should be returned
+        assertEquals(board.handleSuggestion(badSolution), null);
+        // suggestion only suggesting player can disprove returns null
     }
 }
