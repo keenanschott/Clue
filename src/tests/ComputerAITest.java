@@ -79,8 +79,11 @@ public class ComputerAITest {
         }
         
         // if room in list that has not been seen, select it
+        
         testPlayer = (ComputerPlayer)board.getPlayer("PlayerName3");
-        assertEquals(testPlayer.selectTarget(2), board.getCell(2, 25));
+        assertEquals(testPlayer.selectTarget(4), board.getCell(2, 25));
+
+        //testPlayer.setLocation(0, 0);
 
         // if room in list that has been seen, each target (room included) select randomly
         
