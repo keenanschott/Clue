@@ -54,7 +54,7 @@ public class GameSolutionTest {
         test.setRoom(badRoom);
         assertEquals(board.checkAccusation(test), false);
         test.setRoom(correctRoom);
-        // after all that changing, check original is still correct   
+        // after all that changing, check original is correct   
         assertEquals(board.checkAccusation(test), true); 
     }
 
