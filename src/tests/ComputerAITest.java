@@ -5,8 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.Hashtable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -29,17 +31,32 @@ public class ComputerAITest {
     @Test
     public void testCreateSuggestion() {
         // room matches current location 
-        board.getPlayer("PlayerName2").setLocation(4, 2);
-        ComputerPlayer testPlayer = (ComputerPlayer)board.getPlayer("PlayerName2");
-        Solution testSuggestion = testPlayer.createSuggestion(board.getRoom(board.getCell(testPlayer.getRow(), testPlayer.getColumn())));
-        assertEquals(testSuggestion.getRoom(), board.getRoom(board.getCell(testPlayer.getRow(), testPlayer.getColumn())));
-
+        Room currentRoom = board.getRoom(board.getCell(2, 2)); // get the room we're currently in
+        ComputerPlayer testPlayer = (ComputerPlayer) board.getPlayer("PlayerName2");
+        testPlayer.setLocation(2, 2); // set to middle of the room
+        Solution testSuggestion = testPlayer.createSuggestion(board.getRoom(board.getCell(testPlayer.getRow(), testPlayer.getColumn()))); // create suggestion based off of current room
+        assertEquals(board.getRoom(testSuggestion.getRoom()), currentRoom);
         // if only one weapon/person not seen, it's selected
-
+        Set<Card> currentSeenCards = testPlayer.getSeenCards();
+        int i = 0;
+        currentSeenCards = new HashSet<Card>();
+        Card targetCard = new Card(null, null);
+        for (Card card : board.getDeck()) {
+            if (card.getType() == CardType.WEAPON && i < 5) { // include all weapons except "WeaponName6"
+                currentSeenCards.add(card);
+                i++;
+            } else if (i == 5 && card.getType() == CardType.WEAPON) {
+                targetCard = card;
+            }
+        }
+        assertEquals(testPlayer.createSuggestion(currentRoom).getWeapon(), targetCard);
         // if multiple weapons not seen, one is randomly selected
         
         // if multiple persons not seen, one is randomly selected
 
+
+
+        board.getPlayer("PlayerName2").setLocation(7, 0); // return to original location
     }
 
     @Test

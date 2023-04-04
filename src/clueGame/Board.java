@@ -433,6 +433,10 @@ public class Board {
 		return roomMap.get(cell.getInitial()); // return a room by cell input
 	}	
 
+	public Room getRoom(Card roomCard) {
+		return roomMap.get(roomCard.getName().charAt(0));
+	}
+
 	public int getNumRows() {
 		return numRows; // return the number of rows
 	}
