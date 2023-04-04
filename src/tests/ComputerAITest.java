@@ -33,6 +33,9 @@ public class ComputerAITest {
         // room matches current location 
         Room currentRoom = board.getRoom(board.getCell(2, 2)); // get the room we're currently in
         ComputerPlayer testPlayer = (ComputerPlayer) board.getPlayer("PlayerName2");
+        ArrayList<Card> originalHand = new ArrayList<Card>();
+        originalHand.addAll(testPlayer.getHand()); // save original hand
+        testPlayer.getHand().clear(); // since hands are randomly generated, ensure there are no conflicts
         testPlayer.setLocation(2, 2); // set to middle of the room
         Solution testSuggestion = testPlayer.createSuggestion(board.getRoom(board.getCell(testPlayer.getRow(), testPlayer.getColumn()))); // create suggestion based off of current room
         assertEquals(board.getRoom(testSuggestion.getRoom()), currentRoom); // assert suggestion room is equal to current room
@@ -62,16 +65,64 @@ public class ComputerAITest {
             }
         }
         testPlayer.setSeenCards(currentSeenCards); // set seen cards
-        assertEquals(testPlayer.createSuggestion(currentRoom).getWeapon(), targetCard); // suggestion should contain "PlayerName6"
-
-
+        assertEquals(testPlayer.createSuggestion(currentRoom).getPerson(), targetCard); // suggestion should contain "PlayerName6"
         // if multiple weapons not seen, one is randomly selected
-        
+        ArrayList<Card> twoCards = new ArrayList<Card>();   
+        currentSeenCards = new HashSet<Card>(); // create a new set of seen cards
+        i = 0;
+        targetCard = new Card(null, null); // create weapon cards to be missing
+        for (Card card : board.getDeck()) {
+            if (card.getType() == CardType.WEAPON && i < 4) { // include all weapons except "WeaponName5" and "WeaponName6"
+                currentSeenCards.add(card);
+                i++;
+            } else if (i == 4 && card.getType() == CardType.WEAPON) {
+                twoCards.add(card); // "WeaponName5" and "WeaponName6"
+            }
+        }
+        testPlayer.setSeenCards(currentSeenCards); // set seen cards
+        int five = 0, six = 0; // counters
+        for (int j = 0; j < 1000; j++) {
+            targetCard = testPlayer.createSuggestion(currentRoom).getWeapon();
+            if (targetCard.equals(twoCards.get(0))) {
+                five++; // "WeaponName5"
+            } else if ((targetCard.equals(twoCards.get(1)))) {
+                six++; // "WeaponName6"
+            } else {
+                assertEquals(true, false);
+            }
+        }
+        assertTrue(five > 400); // assert "WeaponName5" appears more than 400 times
+        assertTrue(six > 400); // assert "WeaponName6" appears more than 400 times
         // if multiple persons not seen, one is randomly selected
-
-
-
-        board.getPlayer("PlayerName2").setLocation(7, 0); // return to original location
+        twoCards = new ArrayList<Card>();   
+        currentSeenCards = new HashSet<Card>(); // create a new set of seen cards
+        i = 0;
+        targetCard = new Card(null, null); // create person cards to be missing
+        for (Card card : board.getDeck()) {
+            if (card.getType() == CardType.PERSON && i < 4) { // include all weapons except "PlayerName5" and "PlayerName6"
+                currentSeenCards.add(card);
+                i++;
+            } else if (i == 4 && card.getType() == CardType.PERSON) {
+                twoCards.add(card); // "PlayerName5" and "PlayerName6"
+            }
+        }
+        testPlayer.setSeenCards(currentSeenCards); // set seen cards
+        five = 0; six = 0; // counters
+        for (int j = 0; j < 1000; j++) {
+            targetCard = testPlayer.createSuggestion(currentRoom).getPerson();
+            if (targetCard.equals(twoCards.get(0))) {
+                five++; // "PlayerName5"
+            } else if ((targetCard.equals(twoCards.get(1)))) {
+                six++; // "PlayerName6"
+            } else {
+                assertEquals(true, false);
+            }
+        }
+        assertTrue(five > 400); // assert "PlayerName5" appears more than 400 times
+        assertTrue(six > 400); // assert "PlayerName6" appears more than 400 times
+        // seen cards has garbage in it, but doesn't matter for further testing
+        board.getPlayer("PlayerName2").setHand(originalHand);
+        board.getPlayer("PlayerName2").setLocation(7, 0); // return to original location for further testing
     }
 
     @Test
