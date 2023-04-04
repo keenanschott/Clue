@@ -4,7 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Map;
+import java.util.Hashtable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -31,16 +34,32 @@ public class ComputerAITest {
         Solution testSuggestion = testPlayer.createSuggestion(board.getRoom(board.getCell(testPlayer.getRow(), testPlayer.getColumn())));
         assertEquals(testSuggestion.getRoom(), board.getRoom(board.getCell(testPlayer.getRow(), testPlayer.getColumn())));
 
-        // if only one weapon/person not seen
+        // if only one weapon/person not seen, it's selected
 
         // if multiple weapons not seen, one is randomly selected
-
+        
         // if multiple persons not seen, one is randomly selected
+
     }
 
     @Test
     public void testSelectTargets() {
         // if no rooms in list, select randomly
+        ComputerPlayer testPlayer = (ComputerPlayer)board.getPlayer("PlayerName2"); // copy over player
+        board.calcTargets(board.getCell(testPlayer.getRow(),testPlayer.getColumn()), 1); // no target from 7,0 that is room
+        Map<BoardCell,Integer> trackTargets = new Hashtable<>(); // map to track targets and occurences for random confirmation
+        Iterator<BoardCell> iterator = board.getTargets().iterator(); // iterate over set of targets 
+        BoardCell sampleTarget; 
+        while (iterator.hasNext()) {
+            trackTargets.put(iterator.next(),0); // populate trackTargets with each possible target and a count of 0  
+        }
+        for (int i = 0; i < 1000; i++) {
+            sampleTarget = testPlayer.selectTarget(1); // choose a target
+            trackTargets.put(sampleTarget, trackTargets.get(sampleTarget) + 1); // add 1 to target
+        }
+        for (BoardCell key : trackTargets.keySet()) {
+            assertTrue(trackTargets.get(key) > 150); // sample value of 150, depends on dice roll and number of potential targets for even split
+        }
         
         // if room in list that has not been seen, select it
 

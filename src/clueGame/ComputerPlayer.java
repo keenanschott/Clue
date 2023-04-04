@@ -48,11 +48,12 @@ public class ComputerPlayer extends Player {
         return newSuggestion;
     }
 
-    public BoardCell selectTarget() {
+    // TODO: figure out how to generate random roll
+    public BoardCell selectTarget(int diceroll) {
         Board board = Board.getInstance();
         Random random = new Random(); 
-        int randomIdx = random.nextInt(6); // variable to store random index/path length
-        board.calcTargets(board.getCell(getRow(), getColumn()), randomIdx); //TODO change from 6 to something else
+        // int randomIdx = random.nextInt(6); // variable to store random index/path length
+        board.calcTargets(board.getCell(getRow(), getColumn()), diceroll); //TODO change from 6 to something else
         Set<BoardCell> targets = board.getTargets();
         ArrayList<BoardCell> smartTargets = new ArrayList<>(); // list of targets in rooms we have yet to see, need to set to ArrayList for retrieval purposes
         
@@ -63,12 +64,12 @@ public class ComputerPlayer extends Player {
             }
         }
         if (!smartTargets.isEmpty()) { // if targets exist in rooms we have yet to visit 
-            randomIdx = random.nextInt(smartTargets.size()); // access random index of smartTargets
-            return smartTargets.get(randomIdx);
+            diceroll = random.nextInt(smartTargets.size()); // access random index of smartTargets
+            return smartTargets.get(diceroll);
         } else { // if no new rooms to travel to 
-            randomIdx = random.nextInt(targets.size());
+            diceroll = random.nextInt(targets.size());
             ArrayList<BoardCell> accessibleTargets = new ArrayList<>(targets);
-            return accessibleTargets.get(randomIdx);
+            return accessibleTargets.get(diceroll);
         }
     }
 
