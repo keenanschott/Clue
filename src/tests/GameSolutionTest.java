@@ -74,7 +74,7 @@ public class GameSolutionTest {
         } else {
             badSolution = new Solution(randomCard, badPerson, badWeapon); 
         }   
-        assertEquals(test.disproveSuggestion(badSolution), randomCard); // randomCard3 should be returned
+        assertEquals(test.disproveSuggestion(badSolution), randomCard); // randomCard should be returned
         // if players has >1 matching card, returned card should be chosen randomly
         // set hand and suggestion to something known
         test.getHand().set(0, badPerson);
