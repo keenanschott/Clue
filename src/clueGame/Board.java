@@ -389,12 +389,27 @@ public class Board {
 	 * handleSuggestion()
      * Handle a player's suggestion.
      */
-	public Card handleSuggestion(Solution suggestion) {
+	public Card handleSuggestion(Player origin, Solution suggestion) {
 		Card evidence;
 		for (Player currentPlayer : players) {
-			evidence = currentPlayer.disproveSuggestion(suggestion);
-			if (evidence != null) {
-				return evidence;
+			if (currentPlayer != origin) {
+				evidence = currentPlayer.disproveSuggestion(suggestion);
+				if (evidence != null) {
+					return evidence;
+				}
+			}
+		}
+		return null;
+	} 
+
+	public Player handleSuggestionTestReturn(Player origin, Solution suggestion) {
+		Card evidence;
+		for (Player currentPlayer : players) {
+			if (currentPlayer != origin) {
+				evidence = currentPlayer.disproveSuggestion(suggestion);
+				if (evidence != null) {
+					return currentPlayer;
+				}
 			}
 		}
 		return null;
