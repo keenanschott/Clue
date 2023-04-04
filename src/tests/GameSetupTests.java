@@ -53,24 +53,24 @@ public class GameSetupTests {
         assertTrue(board.getPlayersList().size() == 6);
         // test first player
         assertTrue(board.getPlayersList().get(0).getName().equals("PlayerName1"));
-        assertTrue(board.getPlayersList().get(0).getRow() == 18);
-        assertTrue(board.getPlayersList().get(0).getColumn() == 0);
+        assertTrue(board.getPlayersList().get(0).getRow() == 0);
+        assertTrue(board.getPlayersList().get(0).getColumn() == 18);
         // test other players
         assertTrue(board.getPlayersList().get(1).getName().equals("PlayerName2"));
-        assertTrue(board.getPlayersList().get(1).getRow() == 7);
-        assertTrue(board.getPlayersList().get(1).getColumn() == 0);
+        assertTrue(board.getPlayersList().get(1).getRow() == 0);
+        assertTrue(board.getPlayersList().get(1).getColumn() == 7);
         assertTrue(board.getPlayersList().get(2).getName().equals("PlayerName3"));
-        assertTrue(board.getPlayersList().get(2).getRow() == 25);
-        assertTrue(board.getPlayersList().get(2).getColumn() == 24);
+        assertTrue(board.getPlayersList().get(2).getRow() == 24);
+        assertTrue(board.getPlayersList().get(2).getColumn() == 25);
         assertTrue(board.getPlayersList().get(3).getName().equals("PlayerName4"));
-        assertTrue(board.getPlayersList().get(3).getRow() == 18);
-        assertTrue(board.getPlayersList().get(3).getColumn() == 24);
+        assertTrue(board.getPlayersList().get(3).getRow() == 24);
+        assertTrue(board.getPlayersList().get(3).getColumn() == 18);
         assertTrue(board.getPlayersList().get(4).getName().equals("PlayerName5"));
-        assertTrue(board.getPlayersList().get(4).getRow() == 8);
-        assertTrue(board.getPlayersList().get(4).getColumn() == 24);
+        assertTrue(board.getPlayersList().get(4).getRow() == 24);
+        assertTrue(board.getPlayersList().get(4).getColumn() == 8);
         assertTrue(board.getPlayersList().get(5).getName().equals("PlayerName6"));
-        assertTrue(board.getPlayersList().get(5).getRow() == 0);
-        assertTrue(board.getPlayersList().get(5).getColumn() == 17);
+        assertTrue(board.getPlayersList().get(5).getRow() == 17);
+        assertTrue(board.getPlayersList().get(5).getColumn() == 0);
         // test a few colors
         assertTrue(board.getPlayersList().get(0).getColor().equals("Red"));
         assertTrue(board.getPlayersList().get(2).getColor().equals("Blue"));

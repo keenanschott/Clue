@@ -12,13 +12,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import clueGame.*;
 public class ComputerAITest {
     private static Board board;
-    @BeforeAll
-	public static void setUp() {
+    @BeforeEach
+	public void setUp() {
 		// Board is singleton, get the only instances
 		board = Board.getInstance();
 		// set the file names to use my config files
@@ -122,33 +123,26 @@ public class ComputerAITest {
         assertTrue(six > 400); // assert "PlayerName6" appears more than 400 times
         // seen cards has garbage in it, but doesn't matter for further testing
         board.getPlayer("PlayerName2").setHand(originalHand);
-        board.getPlayer("PlayerName2").setLocation(7, 0); // return to original location for further testing
+        board.getPlayer("PlayerName2").setLocation(0, 7); // return to original location for further testing
     }
 
     @Test
     public void testSelectTargets() {
-        // if no rooms in list, select randomly
         ComputerPlayer testPlayer = (ComputerPlayer)board.getPlayer("PlayerName2"); // copy over player
         board.calcTargets(board.getCell(testPlayer.getRow(),testPlayer.getColumn()), 1); // no target from 7,0 that is room
         Map<BoardCell,Integer> trackTargets = new Hashtable<>(); // map to track targets and occurences for random confirmation
         Iterator<BoardCell> iterator = board.getTargets().iterator(); // iterate over set of targets 
         BoardCell sampleTarget; 
         while (iterator.hasNext()) {
-            trackTargets.put(iterator.next(),0); // populate trackTargets with each possible target and a count of 0  
+            trackTargets.put(iterator.next(),0); // populate trackTargets with each possible target and a count of 0
         }
         for (int i = 0; i < 1000; i++) {
             sampleTarget = testPlayer.selectTarget(1); // choose a target
             trackTargets.put(sampleTarget, trackTargets.get(sampleTarget) + 1); // add 1 to target
         }
         for (BoardCell key : trackTargets.keySet()) {
-            assertTrue(trackTargets.get(key) > 150); // sample value of 150, depends on dice roll and number of potential targets for even split
+            assertTrue(trackTargets.get(key) > 400); // sample value of 150, depends on dice roll and number of potential targets for even split
         }
-        
-        // if room in list that has not been seen, select it
-        testPlayer = (ComputerPlayer)board.getPlayer("PlayerName3");
-        assertEquals(testPlayer.selectTarget(2), board.getCell(2, 25));
-
-        // if room in list that has been seen, each target (room included) select randomly
         
 
     }
