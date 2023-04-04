@@ -35,22 +35,27 @@ public class GameSolutionTest {
 
     // ensure accusations are handled correctly (correct solution and solution (weapon,room,person cases))
     @Test
-    public void testAccusation() {
-        Solution test;
-        // correct solution
-        test = board.getTheAnswer();
+    public void testCheckAccusation() {
+        Card correctPerson = board.getTheAnswer().getPerson(); // save correct person
+        Card correctRoom = board.getTheAnswer().getRoom(); // save correct room
+        Card correctWeapon = board.getTheAnswer().getWeapon(); // save correct weapon
+        // check the correct solution
+        Solution test = new Solution(correctRoom, correctPerson, correctWeapon);
         assertEquals(board.checkAccusation(test), true);
         // solution with wrong person
         test.setPerson(badPerson);
-        assertEquals(board.checkAccusation(test), false); // assertionError
-        // solution with wrong weapon
-        test = board.getTheAnswer();
-        test.setWeapon(badPerson);
         assertEquals(board.checkAccusation(test), false);
+        test.setPerson(correctPerson);
+        // solution with wrong weapon
+        test.setWeapon(badWeapon);
+        assertEquals(board.checkAccusation(test), false);
+        test.setWeapon(correctWeapon);
         // solution with wrong room
-        test = board.getTheAnswer();
         test.setRoom(badRoom);
-        assertEquals(board.checkAccusation(test), false);    
+        assertEquals(board.checkAccusation(test), false);
+        test.setRoom(correctRoom);
+        // after all that changing, check original is still correct   
+        assertEquals(board.checkAccusation(test), true); 
     }
 
     // ensure proper disproval of suggestion when player has matching card/s or no matching card

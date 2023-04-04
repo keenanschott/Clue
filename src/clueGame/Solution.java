@@ -20,6 +20,13 @@ public class Solution {
         super();
     }
 
+    public Solution(Card inRoom, Card inPerson, Card inWeapon) {
+        super();
+        room = inRoom;
+        person = inPerson;
+        weapon = inWeapon;
+    }
+
     /**
 	 * equals()
      * Compare two Solution instances.
@@ -28,11 +35,8 @@ public class Solution {
      */
     @Override
     public boolean equals(Object o) {
-        if (o == this) {
-            return true; // if it's itself; true
-        }
         if (!(o instanceof Solution)) {
-            return false; // if not a Card instance; false
+            return false; // if not a Solution instance; false
         }
         Solution c = (Solution) o; // cast
         return (getRoom().equals(c.getRoom()) && getPerson().equals(c.getPerson()) && getWeapon().equals(c.getWeapon())); // compare instance variabless
