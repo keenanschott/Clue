@@ -26,7 +26,8 @@ public class ComputerAITest {
     @Test
     public void testCreateSuggestion() {
         // room matches current location 
-        ComputerPlayer testPlayer = (ComputerPlayer)board.getPlayer("PlayerName2"); // typecast to computerplayer because board stores humans and comps as just player
+        board.getPlayer("PlayerName2").setLocation(4, 2);
+        ComputerPlayer testPlayer = (ComputerPlayer)board.getPlayer("PlayerName2");
         Solution testSuggestion = testPlayer.createSuggestion(board.getRoom(board.getCell(testPlayer.getRow(), testPlayer.getColumn())));
         assertEquals(testSuggestion.getRoom(), board.getRoom(board.getCell(testPlayer.getRow(), testPlayer.getColumn())));
 
@@ -45,7 +46,7 @@ public class ComputerAITest {
 
         // if room in list that has been seen, each target (room included) select randomly
 
-        
+
     }
 
 }

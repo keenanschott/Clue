@@ -110,4 +110,9 @@ public abstract class Player {
     public Set<Card> getSeenCards() {
         return seenCards;
     }
+
+    public void setLocation(int row, int col) {
+        this.row = row;
+        this.column = col;
+    }
 }
