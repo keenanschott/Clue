@@ -27,8 +27,7 @@ public class GameSolutionTest {
 		// Initialize will load config files 
 		board.initialize();
         board.deal();
-
-        badPerson = new Card("badPerson", CardType.PERSON);
+        badPerson = new Card("badPerson", CardType.PERSON); // create dummy cards for our tests
         badWeapon = new Card("badWeapon", CardType.WEAPON);
         badRoom = new Card("badRoom", CardType.ROOM);
 	}
@@ -61,10 +60,43 @@ public class GameSolutionTest {
     // ensure proper disproval of suggestion when player has matching card/s or no matching card
     @Test
     public void testDisproveSuggestion() {
-        // player has one matching card
-        
-        // player has multiple matching cards
-        // if player has no matching cards 
+        HumanPlayer test = (HumanPlayer)board.getPlayersList().get(0); // get "PlayerName1", simply for the sake of testing
+        Card randomCard = test.getHand().get(0); // get a random card in the player's hand for comparison
+        // if player has no matching cards, null is returned (as of now, ComputerPlayer and HumanPlayer disproveSuggestion() are the exact same)
+        Solution badSolution = new Solution(badRoom, badPerson, badWeapon); // bad suggestion, null should be returned
+        assertEquals(test.disproveSuggestion(badSolution), null);
+        // if player has only one matching card it should be returned
+        // set badSolution accordingly
+        if (randomCard.getType() == CardType.PERSON) {
+            badSolution = new Solution(badRoom, randomCard, badWeapon); 
+        } else if (randomCard.getType() == CardType.WEAPON) {
+            badSolution = new Solution(badRoom, badPerson, randomCard); 
+        } else {
+            badSolution = new Solution(randomCard, badPerson, badWeapon); 
+        }   
+        assertEquals(test.disproveSuggestion(badSolution), randomCard); // randomCard3 should be returned
+        // if players has >1 matching card, returned card should be chosen randomly
+        // set hand and suggestion to something known
+        test.getHand().set(0, badPerson);
+        test.getHand().set(1, badWeapon);
+        test.getHand().set(2, badRoom);
+        badSolution = new Solution(badRoom, badPerson, badWeapon); // all 3 matching
+        int person = 0, weapon = 0, room = 0;
+        for (int i = 0; i < 1000; i++) { // prove all three occur at least 250 times
+            Card currentCard = test.disproveSuggestion(badSolution);
+            if (currentCard.equals(badPerson)) {
+                person++;
+            } else if (currentCard.equals(badRoom)) {
+                room++;
+            } else if (currentCard.equals(badWeapon)) {
+                weapon++;
+            } else {
+                assertEquals(true, false); // something bad happened if this occurs
+            }
+        }
+        assertEquals(person > 250, true); // does it occur randomly at an acceptable frequency?
+        assertEquals(room > 250, true);
+        assertEquals(weapon > 250, true);
     }
     
     @Test
