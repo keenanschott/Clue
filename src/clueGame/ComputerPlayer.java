@@ -63,7 +63,7 @@ public class ComputerPlayer extends Player {
                 smartTargets.add(currentCell); // we now consider this a target because we have yet to travel there
             }
         }
-        if (!smartTargets.isEmpty()) { // if targets exist in rooms we have yet to visit 
+        if (!smartTargets.isEmpty()) { // if targets exist in rooms we have yet to visit or we've seen room in targets list
             diceroll = random.nextInt(smartTargets.size()); // access random index of smartTargets 
             return smartTargets.get(diceroll); //
         } else { // if no new rooms to travel to 

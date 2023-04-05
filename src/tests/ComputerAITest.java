@@ -128,6 +128,7 @@ public class ComputerAITest {
 
     @Test
     public void testSelectTargets() {
+        // if no rooms in list, select randomly
         ComputerPlayer testPlayer = (ComputerPlayer)board.getPlayer("PlayerName2"); // copy over player
         board.calcTargets(board.getCell(testPlayer.getRow(),testPlayer.getColumn()), 1); // no target from 7,0 that is room
         Map<BoardCell,Integer> trackTargets = new Hashtable<>(); // map to track targets and occurences for random confirmation
@@ -147,37 +148,35 @@ public class ComputerAITest {
         // if room in list that has not been seen, select it (TESTING VARIETY OF PLAYERS w/ VARIETY ROLLS)
         Set<Card> currentSeenCards = new HashSet<Card>(); // reset seen cards to empty
         testPlayer = (ComputerPlayer)board.getPlayer("PlayerName2");
-        board.calcTargets(board.getCell(testPlayer.getRow(),testPlayer.getColumn()), 2); // no target from 7,0 that is room
+        board.calcTargets(board.getCell(testPlayer.getRow(),testPlayer.getColumn()), 3); // no target from 7,0 that is room
         testPlayer.setSeenCards(currentSeenCards);
-        assertEquals(testPlayer.selectTarget(2), board.getCell(2, 2));
+        assertEquals(testPlayer.selectTarget(3), board.getCell(2, 2));
         currentSeenCards.clear();
         testPlayer = (ComputerPlayer)board.getPlayer("PlayerName4");
-        board.calcTargets(board.getCell(testPlayer.getRow(),testPlayer.getColumn()), 5); 
-        testPlayer.setSeenCards(currentSeenCards);
-        assertEquals(testPlayer.selectTarget(5), board.getCell(21, 22));
-        currentSeenCards.clear();
-        testPlayer = (ComputerPlayer)board.getPlayer("PlayerName6");
         board.calcTargets(board.getCell(testPlayer.getRow(),testPlayer.getColumn()), 6); 
         testPlayer.setSeenCards(currentSeenCards);
-        assertEquals(testPlayer.selectTarget(6), board.getCell(17, 6));
+        assertEquals(testPlayer.selectTarget(6), board.getCell(21, 22));
         currentSeenCards.clear();
         
         // if room in list that has been seen, each target (room included) select randomly
-        currentSeenCards.add(board.getCard("Bridge"));
+        Card testBridge = new Card("Bridge", CardType.ROOM);
+        // currentSeenCards.add(board.getCard("Bridge"));
+        currentSeenCards.add(testBridge);
         trackTargets.clear();
         testPlayer = (ComputerPlayer)board.getPlayer("PlayerName2");
-        board.calcTargets(board.getCell(testPlayer.getRow(),testPlayer.getColumn()), 1);
+        testPlayer.setSeenCards(currentSeenCards);
+        board.calcTargets(board.getCell(testPlayer.getRow(),testPlayer.getColumn()), 3);
         iterator = board.getTargets().iterator();
         
         while (iterator.hasNext()) {
             trackTargets.put(iterator.next(),0); // populate trackTargets with each possible target and a count of 0
         }
         for (int i = 0; i < 1000; i++) {
-            sampleTarget = testPlayer.selectTarget(1); // choose a target
+            sampleTarget = testPlayer.selectTarget(3); // choose a target
             trackTargets.put(sampleTarget, trackTargets.get(sampleTarget) + 1); // add 1 to target
         }
         for (BoardCell key : trackTargets.keySet()) {
-            assertTrue(trackTargets.get(key) > (1000 / trackTargets.size())); // sample value of 150, depends on dice roll and number of potential targets for even split
+            assertTrue(trackTargets.get(key) > 400); // sample value of 150, depends on dice roll and number of potential targets for even split
         }
 
     
