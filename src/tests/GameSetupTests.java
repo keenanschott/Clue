@@ -52,23 +52,23 @@ public class GameSetupTests {
         // test players list for size and containment
         assertTrue(board.getPlayersList().size() == 6);
         // test first player
-        assertTrue(board.getPlayersList().get(0).getName().equals("PlayerName1"));
+        assertTrue(board.getPlayersList().get(0).getName().equals("Captain Haddock"));
         assertTrue(board.getPlayersList().get(0).getRow() == 0);
         assertTrue(board.getPlayersList().get(0).getColumn() == 18);
         // test other players
-        assertTrue(board.getPlayersList().get(1).getName().equals("PlayerName2"));
+        assertTrue(board.getPlayersList().get(1).getName().equals("Richard Parker"));
         assertTrue(board.getPlayersList().get(1).getRow() == 0);
         assertTrue(board.getPlayersList().get(1).getColumn() == 7);
-        assertTrue(board.getPlayersList().get(2).getName().equals("PlayerName3"));
+        assertTrue(board.getPlayersList().get(2).getName().equals("Patrick Star"));
         assertTrue(board.getPlayersList().get(2).getRow() == 24);
         assertTrue(board.getPlayersList().get(2).getColumn() == 25);
-        assertTrue(board.getPlayersList().get(3).getName().equals("PlayerName4"));
+        assertTrue(board.getPlayersList().get(3).getName().equals("Owen Chase"));
         assertTrue(board.getPlayersList().get(3).getRow() == 24);
         assertTrue(board.getPlayersList().get(3).getColumn() == 18);
-        assertTrue(board.getPlayersList().get(4).getName().equals("PlayerName5"));
+        assertTrue(board.getPlayersList().get(4).getName().equals("Captain Ahab"));
         assertTrue(board.getPlayersList().get(4).getRow() == 24);
         assertTrue(board.getPlayersList().get(4).getColumn() == 8);
-        assertTrue(board.getPlayersList().get(5).getName().equals("PlayerName6"));
+        assertTrue(board.getPlayersList().get(5).getName().equals("Captain Nemo"));
         assertTrue(board.getPlayersList().get(5).getRow() == 17);
         assertTrue(board.getPlayersList().get(5).getColumn() == 0);
         // test a few colors
@@ -93,9 +93,9 @@ public class GameSetupTests {
         // test deck size
         assertEquals(board.getDeck().size(), 21);
         // test deck contains a card of each type
-        assertTrue(board.getDeck().get(15).equals(new Card("WeaponName1", CardType.WEAPON)));
+        assertTrue(board.getDeck().get(15).equals(new Card("Harpoon", CardType.WEAPON)));
         assertTrue(board.getDeck().get(0).equals(new Card("Galley", CardType.ROOM)));
-        assertTrue(board.getDeck().get(10).equals(new Card("PlayerName2", CardType.PERSON)));
+        assertTrue(board.getDeck().get(10).equals(new Card("Richard Parker", CardType.PERSON)));
     }
 
     // ensure the hands of each player are roughly equal in length and do not contain the solution, are unique, etc.

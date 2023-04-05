@@ -32,9 +32,6 @@ public class Card {
      */
     @Override
     public boolean equals(Object o) {
-        if (o == this) {
-            return true; // if it's itself; true
-        }
         if (!(o instanceof Card)) {
             return false; // if not a Card instance; false
         }

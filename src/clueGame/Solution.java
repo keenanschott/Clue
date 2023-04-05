@@ -3,7 +3,7 @@ package clueGame;
 /**
  * Solution
  * The solution to the game; has one weapon card, one room card, and one person card. The human player attempts to deduce this solution to win the game.
- * DATE: 3/31/2023
+ * DATE: 4/4/2023
  * @author Keenan Schott
  * @author Finn Burns
  */
@@ -14,12 +14,20 @@ public class Solution {
 
     /**
 	 * Solution()
-     * Constructor.
+     * Basic constructor.
      */
     public Solution() {
         super();
     }
 
+    /**
+	 * Solution()
+     * Paramaterized constructor.
+     * 
+     * @param inRoom The requested room card.
+     * @param inPerson The requested person card.
+     * @param inWeapon The requested weapon card.
+     */
     public Solution(Card inRoom, Card inPerson, Card inWeapon) {
         super();
         room = inRoom;
@@ -39,7 +47,7 @@ public class Solution {
             return false; // if not a Solution instance; false
         }
         Solution c = (Solution) o; // cast
-        return (getRoom().equals(c.getRoom()) && getPerson().equals(c.getPerson()) && getWeapon().equals(c.getWeapon())); // compare instance variabless
+        return (getRoom().equals(c.getRoom()) && getPerson().equals(c.getPerson()) && getWeapon().equals(c.getWeapon())); // compare instance variables
     }
 
     // all getters and setters

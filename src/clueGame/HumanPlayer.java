@@ -5,16 +5,17 @@ import java.util.Random;
 
 /**
  * HumanPlayer
- * Extension of player class with room for later human player functionality implementation. 
- * DATE: 03/31/2023
+ * Extension of the Player class with room for later human player functionality implementation. 
+ * DATE: 4/4/2023
  * @author Keenan Schott
  * @author Finn Burns
  */
 public class HumanPlayer extends Player {
 
     /**
-     * HumanPlayer(String inName, String inColor, int inRow, int inColumn)
-     * At the moment, inheriting constructor behavior from parent class Player
+     * HumanPlayer()
+     * At the moment, inheriting constructor behavior from parent class Player.
+     * 
      * @param inName
      * @param inColor
      * @param inRow
@@ -24,10 +25,17 @@ public class HumanPlayer extends Player {
         super(inName, inColor, inRow, inColumn);
     }
 
+    /**
+     * disproveSuggestion()
+     * Disprove a suggestion.
+     * 
+     * @param suggestion The suggestion to disprove.
+     * @return The card that disproves the suggestion.
+     */
     @Override
     public Card disproveSuggestion(Solution suggestion) {
-        ArrayList<Card> matching = new ArrayList<Card>();
-        for (Card currentCard : getHand()) {
+        ArrayList<Card> matching = new ArrayList<Card>(); // allocate space for matching list
+        for (Card currentCard : getHand()) { // all match conditions
             if (currentCard.getType() == CardType.PERSON && currentCard.equals(suggestion.getPerson())) {
                 matching.add(currentCard);
             } else if (currentCard.getType() == CardType.ROOM && currentCard.equals(suggestion.getRoom())) {
@@ -37,15 +45,14 @@ public class HumanPlayer extends Player {
             }
         }
         if (matching.size() == 1) {
-            updateSeen(matching.get(0));
+            updateSeen(matching.get(0)); // add to seen
             return matching.get(0);
         } else if (matching.size() > 1) {
             Random random = new Random();
-            int randomInt = random.nextInt(matching.size());
-            updateSeen(matching.get(randomInt));
+            int randomInt = random.nextInt(matching.size()); // randomly choose out of matching cards
+            updateSeen(matching.get(randomInt)); // add to seen
             return matching.get(randomInt);
         }
-        return null;
+        return null; // otherwise, return null
     }
-    
 }

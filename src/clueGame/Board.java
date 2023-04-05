@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Board
  * The game board initialization; reads in the game setup and layout, populates the game board, creates adjacency lists, etc. This class also implements the movement algorithm.
- * DATE: 3/31/2023
+ * DATE: 4/4/2023
  * @author Keenan Schott
  * @author Finn Burns
  */
@@ -220,8 +220,6 @@ public class Board {
 	/**
 	 * createAdj()
      * Create an adjacency list for every cell within the game board.
-	 * 
-	 * @param grid The game board; create adjacency lists for every cell within it.
      */
 	private void createAdj() {
 		for (int i = 0; i < numRows; i++) { // create an adjacency list for every cell
@@ -246,7 +244,6 @@ public class Board {
 	 * genericAdjacencies()
      * The generic adjacency list creation conditions.
 	 * 
-	 * @param gameBoard grid; the game board.
 	 * @param row The row to access on the game board. 
 	 * @param col The column to access on the game board. 
      */
@@ -273,7 +270,6 @@ public class Board {
 	 * doorwayAdjacencies()
      * Add the doorway to the room's center cell's adj. list and the room's center cell to the doorway's adj. list.
 	 * 
-	 * @param gameBoard grid; the game board.
 	 * @param row The row to access on the game board. 
 	 * @param col The column to access on the game board. 
      */
@@ -380,6 +376,8 @@ public class Board {
 	/**
 	 * checkAccusation()
      * Check a player's accusation.
+	 * 
+	 * @return A boolean corresponding to the accuracy of the accusation.
      */
 	public boolean checkAccusation(Solution accusation) {
 		return theAnswer.equals(accusation);
@@ -388,41 +386,44 @@ public class Board {
 	/**
 	 * handleSuggestion()
      * Handle a player's suggestion.
+	 * 
+	 * @param origin The player the suggestion originates from.
+	 * @param suggestion The suggestion itself. 
+	 * @return The card that disproves the suggestion.
      */
 	public Card handleSuggestion(Player origin, Solution suggestion) {
 		Card evidence;
-		for (Player currentPlayer : players) {
-			if (currentPlayer != origin) {
+		for (Player currentPlayer : players) { // cycle through all of the players
+			if (currentPlayer != origin) { // the player of origin cannot be used here
 				evidence = currentPlayer.disproveSuggestion(suggestion);
 				if (evidence != null) {
-					return evidence;
+					return evidence; // return the card if a player can disprove it
 				}
 			}
 		}
 		return null;
 	} 
 
+	/**
+	 * handleSuggestionTestReturn()
+     * handleSuggestion()'s helper function to test the player that returns the card.
+	 * 
+	 * @param origin The player the suggestion originates from.
+	 * @param suggestion The suggestion itself. 
+	 * @return The player that disproved the suggestion.
+     */
 	public Player handleSuggestionTestReturn(Player origin, Solution suggestion) {
 		Card evidence;
-		for (Player currentPlayer : players) {
-			if (currentPlayer != origin) {
+		for (Player currentPlayer : players) { // cycle through all of the players
+			if (currentPlayer != origin) { // the player of origin cannot be used here
 				evidence = currentPlayer.disproveSuggestion(suggestion);
 				if (evidence != null) {
-					return currentPlayer;
+					return currentPlayer; // return the player that disproved the suggestion
 				}
 			}
 		}
 		return null;
 	} 
-
-
-
-
-
-
-
-
-
 
 	// all getters and setters
 	public Room getRoom(char roomType) {
@@ -434,7 +435,7 @@ public class Board {
 	}	
 
 	public Room getRoom(Card roomCard) {
-		return roomMap.get(roomCard.getName().charAt(0));
+		return roomMap.get(roomCard.getName().charAt(0)); // return a room by card input
 	}
 
 	public int getNumRows() {
@@ -468,7 +469,7 @@ public class Board {
 	public Player getPlayer(String name) {
 		for (Player player : players) {
 			if (player.getName().equals(name)) {
-				return player; // return a player from the players list
+				return player; // return a player from the players list if the name matches (used exclusively in safe testing)
 			}
 		}
 		return null;
@@ -477,13 +478,4 @@ public class Board {
 	public ArrayList<Card> getDeck() {
 		return deck; // return the deck
 	}
-
-	public Card getCard(String name) {
-		for (Card currCard : deck ) {
-			if (currCard.getName().equals(name)) {
-				return currCard;
-			}
-		}
-		return null;
- 	}
 }

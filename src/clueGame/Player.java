@@ -6,9 +6,9 @@ import java.util.Set;
 
 /**
  * Player
- * Game player object; players have a name, color, position on the board, and a current hand that they possess. They have the ability
+ * Game player object; players have a name, color, position on the board, seen cards, and a current hand that they possess. They have the ability
  * to draw a card through the updateHand function.
- * DATE: 3/31/2023
+ * DATE: 4/4/2023
  * @author Keenan Schott    
  * @author Finn Burns
  */
@@ -21,12 +21,13 @@ public abstract class Player {
     private Set<Card> seenCards;
 
     /**
-     * Player(String inName, String inColor, int inRow, int inColumn)
-     * Constructor
-     * @param inName
-     * @param inColor
-     * @param inRow
-     * @param inColumn
+     * Player()
+     * Paramaterized constructor.
+     * 
+     * @param inName The input name. 
+     * @param inColor The input color.
+     * @param inRow The input row.
+     * @param inColumn The input column.
      */
     public Player(String inName, String inColor, int inRow, int inColumn) {
         super();
@@ -34,85 +35,65 @@ public abstract class Player {
         color = inColor;
         row = inRow;
         column = inColumn;
-        hand = new ArrayList<Card>();
+        hand = new ArrayList<Card>(); // allocate space
         seenCards = new HashSet<Card>();
     }
 
     /**
-     * updateHand(Card card)
-     * update players hand
-     * @param card
+     * updateHand()
+     * Update a player's hand.
+     * 
+     * @param card The card to add.
      */
     public void updateHand(Card card) {
         hand.add(card);
     }
 
     /**
-     * updateSeen(Card card)
-     * update seen set
-     * @param seenCard 
+     * updateSeen()
+     * Update seen cards set.
+     * 
+     * @param seenCard The card to be seen.
      */
     public void updateSeen(Card seenCard) {
         seenCards.add(seenCard);
     }
 
     /**
-     * UPDATE
-     * UPDATE
+     * disproveSuggestion()
+     * The method to use when disproving a suggestion.
+     * 
+     * @param suggestion The suggestion to be disproven.
      */
     abstract public Card disproveSuggestion(Solution suggestion);
 
-    /**
-     * getName()
-     * simple getter function for name
-     * @return
-     */
+    // all getters and setterss
     public String getName() {
         return name;
     }
 
-    /**
-     * getColor()
-     * simple getter function for color
-     * @return
-     */
     public String getColor() {
         return color;
     }
 
-    /**
-     * getRow()
-     * simple getter function for player's row
-     * @return
-     */
     public int getRow() {
         return row;
     }
 
-    /**
-     * getColumn()
-     * simple getter function for player's column
-     * @return
-     */
     public int getColumn() {
         return column;
     }
 
-    /**
-     * getHand()
-     * simple getter function for player's hand
-     * @return
-     */
     public ArrayList<Card> getHand() {
         return hand;
     }
 
-    public void setHand(ArrayList<Card> inHand) {
-        hand = inHand;
-    }
-
     public Set<Card> getSeenCards() {
         return seenCards;
+    }
+
+    public void setHand(ArrayList<Card> inHand) {
+        hand = inHand;
     }
 
     public void setSeenCards(Set<Card> seen) {

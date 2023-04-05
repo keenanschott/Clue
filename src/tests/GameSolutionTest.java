@@ -2,19 +2,26 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import clueGame.*;
 
+/**
+ * GameSolutionTest
+ * A series of tests to examine suggestion and accusation handling.
+ * DATE: 4/4/2023
+ * @author Keenan Schott
+ * @author Finn Burns
+ */
 public class GameSolutionTest {
-    private static Board board;
-    private static Card badPerson;
-    private static Card badWeapon;
-    private static Card badRoom;
+    private static Board board; // test board for a given test
+    private static Card badPerson; // example person not in the deck
+    private static Card badWeapon; // example weapon not in the deck
+    private static Card badRoom; // example room not in the deck
 
-    @BeforeAll
-	public static void setUp() {
+    @BeforeEach
+	public void setUp() {
 		// Board is singleton, get the only instances
 		board = Board.getInstance();
 		// set the file names to use my config files
@@ -27,7 +34,7 @@ public class GameSolutionTest {
         badRoom = new Card("badRoom", CardType.ROOM);
 	}
 
-    // ensure accusations are handled correctly (correct solution and solution (weapon,room,person cases))
+    // ensure accusations are handled correctly (correct solution and solution (weapon,room,person cases)
     @Test
     public void testCheckAccusation() {
         Card correctPerson = board.getTheAnswer().getPerson(); // save correct person
@@ -48,17 +55,15 @@ public class GameSolutionTest {
         test.setRoom(badRoom);
         assertEquals(board.checkAccusation(test), false);
         test.setRoom(correctRoom);
-        // after all that changing, check original is correct   
+        // after all that changing, check original is still correct   
         assertEquals(board.checkAccusation(test), true); 
     }
 
-    // ensure proper disproval of suggestion when player has matching card/s or no matching card
+    // ensure proper disproval of suggestion when player has matching card(s) or no matching card
     @Test
     public void testDisproveSuggestion() {
         HumanPlayer test = (HumanPlayer)board.getPlayersList().get(0); // get "PlayerName1", simply for the sake of testing
         Card randomCard = test.getHand().get(0); // get a random card in the player's hand for comparison
-        Card originalCard1 = test.getHand().get(1); // save original cards
-        Card originalCard2 = test.getHand().get(2);
         // if player has no matching cards, null is returned (as of now, ComputerPlayer and HumanPlayer disproveSuggestion() are the exact same)
         Solution badSolution = new Solution(badRoom, badPerson, badWeapon); // bad suggestion, null should be returned
         assertEquals(test.disproveSuggestion(badSolution), null);
@@ -94,9 +99,6 @@ public class GameSolutionTest {
         assertEquals(person > 250, true); // does it occur randomly at an acceptable frequency?
         assertEquals(room > 250, true);
         assertEquals(weapon > 250, true);
-        test.getHand().set(0, randomCard); // preserve instance state for further testing
-        test.getHand().set(1, originalCard1);
-        test.getHand().set(2, originalCard2);
     }
     
     @Test
@@ -117,21 +119,14 @@ public class GameSolutionTest {
         board.getPlayersList().get(0).getHand().set(0, randomCard); // return card
         // suggestion that two players can disprove, correct player (based on starting with next player in list) returns answer
         ComputerPlayer nextPlayer1 = (ComputerPlayer) board.getPlayersList().get(2); // "PlayerName3"
-        Card randomCard1 = board.getPlayersList().get(2).getHand().get(0); // save card
         ComputerPlayer nextPlayer2 = (ComputerPlayer) board.getPlayersList().get(5); // "PlayerName6"
-        Card randomCard2 = board.getPlayersList().get(5).getHand().get(0); // save card
         nextPlayer1.getHand().set(0, badPerson); // set hands to contain badPerson
         nextPlayer2.getHand().set(0, badPerson);
         testPlayer.getHand().set(0, badPerson);
-        badSolution = new Solution(badRoom, badPerson, badWeapon);
         assertEquals(board.handleSuggestionTestReturn((Player)testPlayer, badSolution), nextPlayer1); // after testPlayer comes nextPlayer1, ensure nextPlayer1 returns the proof
         testPlayer = (ComputerPlayer) board.getPlayersList().get(3); // get "PlayerName4", simply for the sake of testing
-        board.getPlayersList().get(1).getHand().set(0, randomCard); // return card for further testing
-        randomCard = board.getPlayersList().get(3).getHand().get(0);
-        testPlayer.getHand().set(0, badPerson);
+        board.getPlayersList().get(1).getHand().set(0, randomCard); // remove the former testPlayer badPerson card using an arbitrary card
+        testPlayer.getHand().set(0, badPerson); // set hand to contain badPerson
         assertEquals(board.handleSuggestionTestReturn((Player)testPlayer, badSolution), nextPlayer1); // now, after testPlayer comes nextPlayer2, ensure nextPlayer2 returns the proof
-        board.getPlayersList().get(3).getHand().set(0, randomCard); // return card for further testing
-        board.getPlayersList().get(2).getHand().set(0, randomCard1); // return card for further testing
-        board.getPlayersList().get(5).getHand().set(0, randomCard2); // return card for further testing
     }
 }
