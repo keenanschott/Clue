@@ -142,7 +142,7 @@ public class ComputerAITest {
         }
         for (int i = 0; i < 1000; i++) {
             sampleTarget = testPlayer.selectTarget(1); // choose a target
-            trackTargets.put(sampleTarget, trackTargets.get(sampleTarget) + 1); // add 1 to target for each occurrence
+            trackTargets.put(sampleTarget, trackTargets.get(sampleTarget) + 1); // add 1 to target for each occurrenc
         }
         for (BoardCell key : trackTargets.keySet()) {
             assertTrue(trackTargets.get(key) > 400); // two possible targets; each should generate at least 400
