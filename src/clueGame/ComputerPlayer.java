@@ -63,6 +63,14 @@ public class ComputerPlayer extends Player {
                 smartTargets.add(currentCell); // we now consider this a target because we have yet to travel there
             }
         }
+
+        // boolean roomPresent = false;
+        // for (Card card : getSeenCards()) {
+        //     if (card.getType() == CardType.ROOM) {
+        //         roomPresent = true;
+        //     }
+        // }
+
         if (!smartTargets.isEmpty()) { // if targets exist in rooms we have yet to visit or we've seen room in targets list
             diceroll = random.nextInt(smartTargets.size()); // access random index of smartTargets 
             return smartTargets.get(diceroll); //

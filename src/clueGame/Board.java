@@ -480,7 +480,7 @@ public class Board {
 
 	public Card getCard(String name) {
 		for (Card currCard : deck ) {
-			if (currCard.getName() == name) {
+			if (currCard.getName().equals(name)) {
 				return currCard;
 			}
 		}

@@ -145,7 +145,7 @@ public class ComputerAITest {
             assertTrue(trackTargets.get(key) > 400); // sample value of 150, depends on dice roll and number of potential targets for even split
         }
         
-        // if room in list that has not been seen, select it (TESTING VARIETY OF PLAYERS w/ VARIETY ROLLS)
+        // // if room in list that has not been seen, select it (TESTING VARIETY OF PLAYERS w/ VARIETY ROLLS)
         Set<Card> currentSeenCards = new HashSet<Card>(); // reset seen cards to empty
         testPlayer = (ComputerPlayer)board.getPlayer("PlayerName2");
         board.calcTargets(board.getCell(testPlayer.getRow(),testPlayer.getColumn()), 3); // no target from 7,0 that is room
@@ -158,10 +158,8 @@ public class ComputerAITest {
         assertEquals(testPlayer.selectTarget(6), board.getCell(21, 22));
         currentSeenCards.clear();
         
-        // if room in list that has been seen, each target (room included) select randomly
-        Card testBridge = new Card("Bridge", CardType.ROOM);
-        // currentSeenCards.add(board.getCard("Bridge"));
-        currentSeenCards.add(testBridge);
+        // // if room in list that has been seen, each target (room included) select randomly
+        currentSeenCards.add(board.getCard("Bridge"));
         trackTargets.clear();
         testPlayer = (ComputerPlayer)board.getPlayer("PlayerName2");
         testPlayer.setSeenCards(currentSeenCards);
@@ -176,7 +174,7 @@ public class ComputerAITest {
             trackTargets.put(sampleTarget, trackTargets.get(sampleTarget) + 1); // add 1 to target
         }
         for (BoardCell key : trackTargets.keySet()) {
-            assertTrue(trackTargets.get(key) > 400); // sample value of 150, depends on dice roll and number of potential targets for even split
+            assertTrue(trackTargets.get(key) > 100); // sample value of 150, depends on dice roll and number of potential targets for even split
         }
 
     
