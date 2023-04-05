@@ -1,5 +1,226 @@
-I, Keenan Schott, certify that I participated equitably in the creation of assignment C20A Clue Pairs 1 (Clue Pair), dated 3/31/2023.
-I, William Burns, certify that I participated equitably in the creation of assignment C20A Clue Pairs 1 (Clue Pair), dated 3/31/2023.
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C21A Clue Players 2 (Clue Pair), dated 4/4/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C21A Clue Players 2 (Clue Pair), dated 4/4/2023.
+
+commit 61830c7cdb2f5d71443ac42f1e7ebc71b43281a8
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 4 20:53:36 2023 -0600
+
+    testSelectTargets() passing
+
+commit 0aef95e061e1f817981e8bf36380ddc0bd3c36ad
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 4 20:53:25 2023 -0600
+
+    testSelectTargets() failing
+
+commit 588478a0450d4acb627ea4c8bbeddb1a451321e1
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 4 20:52:47 2023 -0600
+
+    testSelectTargets() passing
+
+commit 07364b2d0117e4c0df02691fa1fe596410ff6f3b
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 4 18:24:19 2023 -0600
+
+    changes if condition to .equals for board.java getCard() method
+
+commit 55d7a75dc745b42bcbfb635e27a8ca49df95d4d1
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 4 18:00:06 2023 -0600
+
+    trying to fix last condition of selectTargets
+
+commit 06290eb909f32fd6900114ae84c66487e0a1f222
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 4 17:18:27 2023 -0600
+
+    testSelectTargets written entirely, needing tweaking, still failing returned board cell target
+
+commit 21d3e46b53823c0af874e7e6b8c8eaa790ec2f72
+Merge: c1622ab 6d2d9df
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 4 16:15:34 2023 -0600
+
+    merged with keenan adjacency fix
+
+commit c1622ab9a0e4defa663e6ed792b98d1ba8b86404
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 4 16:10:37 2023 -0600
+
+    trying to fix tests
+
+commit 6d2d9dffcbe249c6b4c12060d816971f5ae310ef
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 4 14:55:40 2023 -0600
+
+    changes
+
+commit 3168e67fef20aa96763c8ff7a7c518aab6e56694
+Merge: ae98fc8 693fad0
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 4 12:09:25 2023 -0600
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit 693fad0daf06010c0c8c95481f9eb77e5727dbac
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 4 11:33:24 2023 -0600
+
+    testCreateSuggestion() passing
+
+commit 80ef6fad54f0a8394bcf263e1ecf0110c6a1e7f6
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 4 11:32:53 2023 -0600
+
+    testCreateSuggestion() failing
+
+commit ae98fc82da796ff613320b93bee7858c96b267f2
+Merge: 10cca76 47f065c
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 4 10:29:20 2023 -0600
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit 10cca76eee9b1d9b7249620e561a6fbd15c1a25c
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 4 10:29:18 2023 -0600
+
+    no prog
+
+commit 47f065c6dd5dc1264bc157606885c9dedb4c971f
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 4 10:27:06 2023 -0600
+
+    contuining
+
+commit 191ea2c250aec50a9632c20cae7459e6ff954128
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 4 10:13:22 2023 -0600
+
+    continuing tests
+
+commit 7c14b41edf4e856b1e3738858e4df6d4b3ffb201
+Merge: bba6e6d 16bba71
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Apr 3 23:27:25 2023 -0600
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit bba6e6d9b392c43a1db440495489bc7f104d57ec
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Apr 3 23:27:13 2023 -0600
+
+    working on tests
+
+commit 16bba711135287307a9343cb8b4d15e536998513
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Apr 3 23:26:59 2023 -0600
+
+    contuining work
+
+commit c099035f51a477e824aeb827db0582658fe52236
+Merge: 62c5e90 e0462ed
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Apr 3 22:42:50 2023 -0600
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit 62c5e90a81e3c717400b80904bf886f82520f827
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Apr 3 22:42:43 2023 -0600
+
+    working on testSelectTargets case #1
+
+commit e0462ed48fa6c442442f7c15cbcf91857146396f
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Apr 3 22:42:09 2023 -0600
+
+    testHandleSuggestion() passing
+
+commit ca11047c51f17a9a6c7cd3309eecf57e72dd8a79
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Apr 3 22:09:27 2023 -0600
+
+    testHandleSuggestion() failing
+
+commit 3fb222d51e46d4f233ee6d47acadf6060b8af95a
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Apr 3 22:00:42 2023 -0600
+
+    testDisproveSuggestion() passing
+
+commit 3f13969df85beed4ca2d1eae9bffc4c74f52e08c
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Apr 3 22:00:13 2023 -0600
+
+    testDisproveSuggestion() failing
+
+commit 6e21bd1e2be7ae54554103794d8d43fef26b02f6
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Apr 3 21:25:38 2023 -0600
+
+    testCheckAccusation() correct
+
+commit d481eb29807fd9520c193658d0026561dfc0d6cb
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Apr 3 21:25:15 2023 -0600
+
+    testCheckAccusation() failing
+
+commit 667a431321979404022393f1eeb175e506542db3
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Apr 3 21:12:08 2023 -0600
+
+    fixed null return
+
+commit 38a7377715f2f545e6753d0290beaba9aa005f5c
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Apr 3 21:06:07 2023 -0600
+
+    working out testCreateSuggestion
+
+commit f765fd9657f0424920fd3314d7eaf620f4e2c02a
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Mon Apr 3 20:50:40 2023 -0600
+
+    began testCreateSuggestion, commented out rest of tests
+
+commit 0a3dae847f9e668fa5bf98363bf43a8df247d876
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Sun Apr 2 22:33:30 2023 -0600
+
+    wrote test for Accusation, however, getting assertion errors.
+
+commit 96773901531e154cece5568fe778a24850a3cdfb
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Sun Apr 2 21:02:54 2023 -0600
+
+    added initial comments to new tests, still have to write
+
+commit 7e49f1d12927c0881834e831050cf26c11306532
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Sun Apr 2 19:52:05 2023 -0600
+
+    initial workings of ComputerAITest and GameSolutionTest
+
+commit 0023e65a097d252682360abb587d5abf4261dd1c
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Sun Apr 2 19:44:09 2023 -0600
+
+    implemented select target method for computerPlayer
+
+commit 3e88c07c9a5c0b7efdee52e92f5ce85d3aabbbe6
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sat Apr 1 21:17:38 2023 -0600
+
+    everything so far
+
+commit 6b6ad80f10b31ebc278bf4eb926c0114850ac859
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Fri Mar 31 22:16:39 2023 -0600
+
+    final stuff
 
 commit 46f4867443650844baf8a752be102bd530392d1f
 Author: Keenan Schott <keenanmschott28@gmail.com>
