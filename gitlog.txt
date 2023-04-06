@@ -1,5 +1,29 @@
-I, Keenan Schott, certify that I participated equitably in the creation of assignment C21A Clue Players 2 (Clue Pair), dated 4/4/2023.
-I, William Burns, certify that I participated equitably in the creation of assignment C21A Clue Players 2 (Clue Pair), dated 4/4/2023.
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C22A-1 - Clue Control GUI (Clue Pair), dated 4/6/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C22A-1 - Clue Control GUI (Clue Pair), dated 4/6/2023.
+
+commit dd3bf74cc92aaf8ab78030cc00ea150b79120e1a
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Thu Apr 6 16:22:37 2023 -0600
+
+    finished C22A-1 gui
+
+commit 34b2b061230190d8f4a68d8d6950244daa32b53c
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Thu Apr 6 10:46:44 2023 -0600
+
+    nearly done, refactor (put in constructor mostly) and do setters
+
+commit 41db3e9fbd188a7fc8bf52e33b0b1c48be8cf69e
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Thu Apr 6 09:30:47 2023 -0600
+
+    added archive folder
+
+commit eefd1aa8a348a1d22c367d7626977d66a7d37ef0
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 4 20:56:37 2023 -0600
+
+    final touches
 
 commit 61830c7cdb2f5d71443ac42f1e7ebc71b43281a8
 Author: Keenan Schott <keenanmschott28@gmail.com>
