@@ -17,8 +17,10 @@ import clueGame.Player;
 
 /**
  * GameSetupTests
- * A series of tests to examine the player initialization as it pertains to solution generation, the deck of cards, and the hand of each player.
+ * A series of tests to examine the player initialization as it pertains to
+ * solution generation, the deck of cards, and the hand of each player.
  * DATE: 3/31/2023
+ * 
  * @author Keenan Schott
  * @author Finn Burns
  */
@@ -26,15 +28,15 @@ public class GameSetupTests {
     private static Board board; // test board for a given test
 
     @BeforeAll
-	public static void setUp() {
-		// Board is singleton, get the only instances
-		board = Board.getInstance();
-		// set the file names to use my config files
-		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
-		// Initialize will load config files 
-		board.initialize();
+    public static void setUp() {
+        // Board is singleton, get the only instances
+        board = Board.getInstance();
+        // set the file names to use my config files
+        board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
+        // Initialize will load config files
+        board.initialize();
         board.deal();
-	}
+    }
 
     // ensure the randomly chosen solution passes our initial checks
     @Test
@@ -87,7 +89,8 @@ public class GameSetupTests {
         assertEquals(computer, 5);
     }
 
-    // ensure the deck is of correct size and is populated correctly>>>>>>> e47437e04655c315fd2a3b23b4cf786b291200fb
+    // ensure the deck is of correct size and is populated correctly>>>>>>>
+    // e47437e04655c315fd2a3b23b4cf786b291200fb
     @Test
     public void testDeck() {
         // test deck size
@@ -98,15 +101,18 @@ public class GameSetupTests {
         assertTrue(board.getDeck().get(10).equals(new Card("Richard Parker", CardType.PERSON)));
     }
 
-    // ensure the hands of each player are roughly equal in length and do not contain the solution, are unique, etc.
+    // ensure the hands of each player are roughly equal in length and do not
+    // contain the solution, are unique, etc.
     @Test
     public void testHands() {
         // ensure each player has three cards in their hand
         for (Player test : board.getPlayersList()) {
             assertEquals(test.getHand().size(), 3);
         }
-        // test that each card in every hand is unique and not dealt out twice or more, to different players, etc.
-        // assert that there's eight room cards, five weapon cards, and five people cards
+        // test that each card in every hand is unique and not dealt out twice or more,
+        // to different players, etc.
+        // assert that there's eight room cards, five weapon cards, and five people
+        // cards
         int people = 0, rooms = 0, weapons = 0;
         ArrayList<Card> testUniqueness = new ArrayList<Card>();
         for (Player testPlayer : board.getPlayersList()) {
@@ -115,13 +121,16 @@ public class GameSetupTests {
                 testUniqueness.add(testCard); // continue checking for uniqueness
                 // keep a counter
                 if (testCard.getType() == CardType.PERSON) {
-                    assertFalse(testCard.equals(board.getTheAnswer().getPerson())); // assert that no hand has the answer person
+                    assertFalse(testCard.equals(board.getTheAnswer().getPerson())); // assert that no hand has the
+                                                                                    // answer person
                     people++;
                 } else if (testCard.getType() == CardType.WEAPON) {
-                    assertFalse(testCard.equals(board.getTheAnswer().getWeapon())); // assert that no hand has the answer weapon
+                    assertFalse(testCard.equals(board.getTheAnswer().getWeapon())); // assert that no hand has the
+                                                                                    // answer weapon
                     weapons++;
                 } else {
-                    assertFalse(testCard.equals(board.getTheAnswer().getRoom())); // assert that no hand has the answer room
+                    assertFalse(testCard.equals(board.getTheAnswer().getRoom())); // assert that no hand has the answer
+                                                                                  // room
                     rooms++;
                 }
             }

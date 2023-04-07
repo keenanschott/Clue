@@ -1,4 +1,5 @@
 package gui;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -18,8 +19,11 @@ import clueGame.ComputerPlayer;
 
 /**
  * GameControlPanel
- * The bottom game control panel; displays whose turn it is, what the roll is, what the guess is, what the guess result is, and buttons for making an accusation or moving to the next player.
+ * The bottom game control panel; displays whose turn it is, what the roll is,
+ * what the guess is, what the guess result is, and buttons for making an
+ * accusation or moving to the next player.
  * DATE: 4/6/2023
+ * 
  * @author Keenan Schott
  * @author Finn Burns
  */
@@ -51,11 +55,11 @@ public class GameControlPanel extends JPanel {
 
     /**
      * GameControlPanel()
-	 * Constructor for the panel, it does 90% of the work.
-	 */
-	public GameControlPanel()  {
+     * Constructor for the panel, it does 90% of the work.
+     */
+    public GameControlPanel() {
         // initialize all instance variables (see above)
-		gameControlPanel = new JPanel();
+        gameControlPanel = new JPanel();
         topPanel = new JPanel();
         topOne = new JPanel();
         topOneLabel = new JLabel("Whose turn?");
@@ -120,10 +124,10 @@ public class GameControlPanel extends JPanel {
         // add topPanel and bottomPanel to gameControlPanel
         gameControlPanel.add(topPanel, BorderLayout.NORTH);
         gameControlPanel.add(bottomPanel, BorderLayout.SOUTH);
-	}
-	
+    }
+
     /**
-	 * createLayout()
+     * createLayout()
      * Adds the gameControlPanel to the JFrame to display.
      * 
      * @param currentFrame The current JFrame.
@@ -134,17 +138,17 @@ public class GameControlPanel extends JPanel {
     }
 
     /**
-	 * setTurn()
+     * setTurn()
      * Set the player, background color, and roll.
      * 
      * @param inPlayer The input ComputerPlayer.
-     * @param roll The dice roll.
+     * @param roll     The dice roll.
      */
     private void setTurn(ComputerPlayer inPlayer, int roll) {
-        Color color; 
+        Color color;
         try {
             Field field = Class.forName("java.awt.Color").getField(inPlayer.getColor()); // get color from inPlayer
-            color = (Color)field.get(null);
+            color = (Color) field.get(null);
         } catch (Exception e) {
             color = null;
         }
@@ -154,7 +158,7 @@ public class GameControlPanel extends JPanel {
     }
 
     /**
-	 * setGuess()
+     * setGuess()
      * Set the guess text field.
      * 
      * @param inString The input guess.
@@ -164,7 +168,7 @@ public class GameControlPanel extends JPanel {
     }
 
     /**
-	 * setGuessResult()
+     * setGuessResult()
      * Set the guess result text field.
      * 
      * @param inString The input guess result.
@@ -173,23 +177,23 @@ public class GameControlPanel extends JPanel {
         bottomTwoText.setText(inString); // set text
     }
 
-	/**
+    /**
      * main()
-	 * Main to test the panel.
-	 * 
-	 * @param args The list of arguments.
-	 */
-	public static void main(String[] args) {
-        JFrame frame = new JFrame();  // create the frame
-		GameControlPanel panel = new GameControlPanel();  // create the panel
-		frame.setContentPane(panel); // put the panel in the frame
-		frame.setSize(750, 180);  // size the frame
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
+     * Main to test the panel.
+     * 
+     * @param args The list of arguments.
+     */
+    public static void main(String[] args) {
+        JFrame frame = new JFrame(); // create the frame
+        GameControlPanel panel = new GameControlPanel(); // create the panel
+        frame.setContentPane(panel); // put the panel in the frame
+        frame.setSize(750, 180); // size the frame
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
         panel.createLayout(frame); // connect GameControlPanel to the JFrame
-		frame.setVisible(true); // make it visible
-        // test filling in the data 
+        frame.setVisible(true); // make it visible
+        // test filling in the data
         panel.setTurn(new ComputerPlayer("Richard Parker", "green", 0, 0), 5);
         panel.setGuess("I have no guess!");
         panel.setGuessResult("So you have nothing?");
-	}
+    }
 }

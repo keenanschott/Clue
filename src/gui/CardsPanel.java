@@ -1,4 +1,5 @@
 package gui;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -20,8 +21,11 @@ import clueGame.HumanPlayer;
 
 /**
  * CardsPanel
- * The right-hand side cards control panel; displays the cards in the human player's hand and the seen cards for all card types (people, rooms, and weapons).
+ * The right-hand side cards control panel; displays the cards in the human
+ * player's hand and the seen cards for all card types (people, rooms, and
+ * weapons).
  * DATE: 4/6/2023
+ * 
  * @author Keenan Schott
  * @author Finn Burns
  */
@@ -49,11 +53,11 @@ public class CardsPanel extends JPanel {
 
     /**
      * CardsPanel()
-	 * Constructor for the panel, it does 90% of the work.
-	 */
-	public CardsPanel() {
+     * Constructor for the panel, it does 90% of the work.
+     */
+    public CardsPanel() {
         // initialize all instance variables (see above)
-		cardsPanel = new JPanel();
+        cardsPanel = new JPanel();
         peoplePanel = new JPanel();
         roomsPanel = new JPanel();
         weaponsPanel = new JPanel();
@@ -70,7 +74,7 @@ public class CardsPanel extends JPanel {
         peoplePanelBorder.setTitleJustification(TitledBorder.LEFT);
         peoplePanelBorder.setTitlePosition(TitledBorder.TOP);
         peoplePanel.setBorder(peoplePanelBorder);
-        cardsPanel.add(peoplePanel, BorderLayout.NORTH); 
+        cardsPanel.add(peoplePanel, BorderLayout.NORTH);
         // people components
         peopleHand = new JLabel("In Hand:");
         peopleHandCards = new JTextField("None");
@@ -90,7 +94,7 @@ public class CardsPanel extends JPanel {
         roomsPanelBorder.setTitleJustification(TitledBorder.LEFT);
         roomsPanelBorder.setTitlePosition(TitledBorder.TOP);
         roomsPanel.setBorder(roomsPanelBorder);
-        cardsPanel.add(roomsPanel, BorderLayout.CENTER); 
+        cardsPanel.add(roomsPanel, BorderLayout.CENTER);
         // rooms components
         roomsHand = new JLabel("In Hand:");
         roomsHandCards = new JTextField("None");
@@ -110,7 +114,7 @@ public class CardsPanel extends JPanel {
         weaponsPanelBorder.setTitleJustification(TitledBorder.LEFT);
         weaponsPanelBorder.setTitlePosition(TitledBorder.TOP);
         weaponsPanel.setBorder(weaponsPanelBorder);
-        cardsPanel.add(weaponsPanel, BorderLayout.SOUTH); 
+        cardsPanel.add(weaponsPanel, BorderLayout.SOUTH);
         // weapons components
         weaponsHand = new JLabel("In Hand:");
         weaponsHandCards = new JTextField("None");
@@ -125,10 +129,10 @@ public class CardsPanel extends JPanel {
         weaponsPanel.add(weaponsHandCards);
         weaponsPanel.add(weaponsSeen);
         weaponsPanel.add(weaponsSeenCards);
-	}
-	
+    }
+
     /**
-	 * addPanel()
+     * addPanel()
      * Adds the cardsPanel to the JFrame to display.
      * 
      * @param currentFrame The current JFrame.
@@ -138,47 +142,92 @@ public class CardsPanel extends JPanel {
         currentFrame.add(cardsPanel, BorderLayout.CENTER); // add cardsPanel to the JFrame
     }
 
+    /**
+     * getColor()
+     * Converts a computer player's color String to the Color type.
+     * 
+     * @param computer A computer player.
+     * @return The converted Color type.
+     */
+    private Color getColor(ComputerPlayer computer) {
+        Color color;
+        try {
+            Field field = Class.forName("java.awt.Color").getField(computer.getColor()); // get color from String
+            color = (Color) field.get(null);
+        } catch (Exception e) {
+            color = null; // failed to convert; return null
+        }
+        return color;
+    }
+
+    /**
+     * generateNewFieldHand()
+     * Generates a new text field for the hand.
+     * 
+     * @param outerPanel The panel to insert the new text field into.
+     * @param name       The name to go in the text field.
+     */
+    private void generateNewFieldHand(JPanel outerPanel, String name) {
+        JTextField newField = new JTextField(name);
+        newField.setBackground(Color.WHITE);
+        newField.setEditable(false);
+        outerPanel.add(newField); // add new field to outer panel
+    }
+
+    /**
+     * generateNewFieldSeen()
+     * Generates a new text field for seen cards.
+     * 
+     * @param color      The color to set the new text field to.
+     * @param outerPanel The panel to insert the new text field into.
+     * @param name       The name to go in the text field.
+     */
+    private void generateNewFieldSeen(Color color, JPanel outerPanel, String name) {
+        JTextField newField = new JTextField(name);
+        newField.setBackground(color);
+        newField.setEditable(false);
+        outerPanel.add(newField); // add new field to outer panel
+        outerPanel.revalidate(); // revalidate the outer panel
+    }
+
+    /**
+     * addHand()
+     * Populates the hand text fields.
+     * 
+     * @param human The human player.
+     */
     private void addHand(HumanPlayer human) {
-        for (Card currentCard : human.getHand()) {
-            if (currentCard.getType() == CardType.PERSON) {
-                if (peopleHandCards.getText().equals("None")) {
-                    peopleHandCards.setText(currentCard.getName());
+        for (Card currentCard : human.getHand()) { // for all of the cards in the human player's hand
+            if (currentCard.getType() == CardType.PERSON) { // person
+                if (peopleHandCards.getText().equals("None")) { // first occurrence
+                    peopleHandCards.setText(currentCard.getName()); // change text
                 } else {
-                    peoplePanel.removeAll();
+                    peoplePanel.removeAll(); // reconstruct panel
                     peoplePanel.add(peopleHand);
                     peoplePanel.add(peopleHandCards);
-                    JTextField newField = new JTextField(currentCard.getName());
-                    newField.setBackground(Color.WHITE);
-                    newField.setEditable(false);
-                    peoplePanel.add(newField);
+                    generateNewFieldHand(peoplePanel, currentCard.getName()); // generate new text field
                     peoplePanel.add(peopleSeen);
                     peoplePanel.add(peopleSeenCards);
                 }
-            } else if (currentCard.getType() == CardType.ROOM) {
-                if (roomsHandCards.getText().equals("None")) {
-                    roomsHandCards.setText(currentCard.getName());
+            } else if (currentCard.getType() == CardType.ROOM) { // room
+                if (roomsHandCards.getText().equals("None")) { // first occurrence
+                    roomsHandCards.setText(currentCard.getName()); // change text
                 } else {
-                    roomsPanel.removeAll();
+                    roomsPanel.removeAll(); // reconstruct panel
                     roomsPanel.add(roomsHand);
                     roomsPanel.add(roomsHandCards);
-                    JTextField newField = new JTextField(currentCard.getName());
-                    newField.setBackground(Color.WHITE);
-                    newField.setEditable(false);
-                    roomsPanel.add(newField);
+                    generateNewFieldHand(roomsPanel, currentCard.getName()); // generate new text field
                     roomsPanel.add(roomsSeen);
                     roomsPanel.add(roomsSeenCards);
                 }
-            } else {
-                if (weaponsHandCards.getText().equals("None")) {
-                    weaponsHandCards.setText(currentCard.getName());
+            } else { // weapon
+                if (weaponsHandCards.getText().equals("None")) { // first occurrence
+                    weaponsHandCards.setText(currentCard.getName()); // change text
                 } else {
-                    weaponsPanel.removeAll();
+                    weaponsPanel.removeAll(); // reconstruct panel
                     weaponsPanel.add(weaponsHand);
                     weaponsPanel.add(weaponsHandCards);
-                    JTextField newField = new JTextField(currentCard.getName());
-                    newField.setBackground(Color.WHITE);
-                    newField.setEditable(false);
-                    weaponsPanel.add(newField);
+                    generateNewFieldHand(weaponsPanel, currentCard.getName()); // generate new text field
                     weaponsPanel.add(weaponsSeen);
                     weaponsPanel.add(weaponsSeenCards);
                 }
@@ -186,70 +235,55 @@ public class CardsPanel extends JPanel {
         }
     }
 
-    private Color getColor(ComputerPlayer computer) {
-        Color color; 
-        try {
-            Field field = Class.forName("java.awt.Color").getField(computer.getColor()); // get color from inPlayer
-            color = (Color)field.get(null);
-        } catch (Exception e) {
-            color = null;
-        }
-        return color;
-    }
-
+    /**
+     * addSeen()
+     * Populates the seen text fields.
+     * 
+     * @param computer A computer player.
+     */
     private void addSeen(ComputerPlayer computer) {
-        for (Card currentCard : computer.getHand()) {
-            if (currentCard.getType() == CardType.PERSON) {
-                if (peopleSeenCards.getText().equals("None")) {
-                    peopleSeenCards.setText(currentCard.getName());
-                    peopleSeenCards.setBackground(getColor(computer));
+        for (Card currentCard : computer.getHand()) { // for all of the cards in the computer player's hand
+            if (currentCard.getType() == CardType.PERSON) { // person
+                if (peopleSeenCards.getText().equals("None")) { // first occurrence
+                    peopleSeenCards.setText(currentCard.getName()); // change text
+                    peopleSeenCards.setBackground(getColor(computer)); // change background color
                 } else {
-                    JTextField newField = new JTextField(currentCard.getName());
-                    newField.setBackground(getColor(computer));
-                    newField.setEditable(false);
-                    peoplePanel.add(newField);
-                    peoplePanel.revalidate();
+                    generateNewFieldSeen(getColor(computer), peoplePanel, currentCard.getName()); // generate a new
+                                                                                                  // field
                 }
-            } else if (currentCard.getType() == CardType.ROOM) {
-                if (roomsSeenCards.getText().equals("None")) {
-                    roomsSeenCards.setText(currentCard.getName());
-                    roomsSeenCards.setBackground(getColor(computer));
+            } else if (currentCard.getType() == CardType.ROOM) { // room
+                if (roomsSeenCards.getText().equals("None")) { // first occurrence
+                    roomsSeenCards.setText(currentCard.getName()); // change text
+                    roomsSeenCards.setBackground(getColor(computer)); // change background color
                 } else {
-                    JTextField newField = new JTextField(currentCard.getName());
-                    newField.setBackground(getColor(computer));
-                    newField.setEditable(false);
-                    roomsPanel.add(newField);
-                    roomsPanel.revalidate();
+                    generateNewFieldSeen(getColor(computer), roomsPanel, currentCard.getName()); // generate a new field
                 }
-            } else {
-                if (weaponsSeenCards.getText().equals("None")) {
-                    weaponsSeenCards.setText(currentCard.getName());
-                    weaponsSeenCards.setBackground(getColor(computer));
+            } else { // weapon
+                if (weaponsSeenCards.getText().equals("None")) { // first occurrence
+                    weaponsSeenCards.setText(currentCard.getName()); // change text
+                    weaponsSeenCards.setBackground(getColor(computer)); // change background color
                 } else {
-                    JTextField newField = new JTextField(currentCard.getName());
-                    newField.setBackground(getColor(computer));
-                    newField.setEditable(false);
-                    weaponsPanel.add(newField);
-                    weaponsPanel.revalidate();
+                    generateNewFieldSeen(getColor(computer), weaponsPanel, currentCard.getName()); // generate a new
+                                                                                                   // field
                 }
             }
         }
     }
 
-	/**
+    /**
      * main()
-	 * Main to test the panel.
-	 * 
-	 * @param args The list of arguments.
-	 */
-	public static void main(String[] args) {
-        JFrame frame = new JFrame();  // create the frame
-		CardsPanel panel = new CardsPanel();  // create the panel
-		frame.setContentPane(panel); // put the panel in the frame
-		frame.setSize(250, 600);  // size the frame
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
+     * Main to test the panel.
+     * 
+     * @param args The list of arguments.
+     */
+    public static void main(String[] args) {
+        JFrame frame = new JFrame(); // create the frame
+        CardsPanel panel = new CardsPanel(); // create the panel
+        frame.setContentPane(panel); // put the panel in the frame
+        frame.setSize(250, 600); // size the frame
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
         panel.addPanel(frame); // connect CardsPanel to the JFrame
-        // test filling in the data 
+        // test filling in the data
         ArrayList<Card> tempHand = new ArrayList<Card>(); // create and fill a temporary hand
         tempHand.add(new Card("Captain Nemo", CardType.PERSON));
         tempHand.add(new Card("Anchor", CardType.WEAPON));
@@ -258,7 +292,8 @@ public class CardsPanel extends JPanel {
         test1.setHand(tempHand); // test hand creation
         panel.addHand(test1);
         // test for seen cards
-        // no need to create fully fledged calls to clueGame, make temporary computer players and read from their hand to test GUI for this instance only
+        // no need to create fully fledged calls to clueGame, make temporary computer
+        // players and read from their hand to test GUI for this instance only
         if (true) { // change to false to not see this stage of GUI testing
             ComputerPlayer test2 = new ComputerPlayer("Richard Parker", "green", 0, 7); // new computer player hand
             tempHand = new ArrayList<Card>();
@@ -297,5 +332,5 @@ public class CardsPanel extends JPanel {
             panel.addSeen(test6); // add to seen for testing
         }
         frame.setVisible(true); // make it visible
-	}
+    }
 }

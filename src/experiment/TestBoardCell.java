@@ -1,10 +1,14 @@
 package experiment;
+
 import java.util.*;
 
 /**
  * TestBoardCell
- * This class constitutes a single test cell in the test game board. The grid in Board is filled with these cells, and each cell has an adjacency list of adjacent cells. Each cell has identifiers correlated to row, column, etc. 
+ * This class constitutes a single test cell in the test game board. The grid in
+ * Board is filled with these cells, and each cell has an adjacency list of
+ * adjacent cells. Each cell has identifiers correlated to row, column, etc.
  * DATE: 3/26/2023
+ * 
  * @author Keenan Schott
  * @author Finn Burns
  */
@@ -12,7 +16,7 @@ public class TestBoardCell {
         private int row, col; // row and column identifiers for each cell
         private Set<TestBoardCell> adjList; // adjacency list for a given cell
         private boolean isRoom = false, isOccupied = false; // boolean statuses for a given cell; false as default
-        
+
         /**
          * TestBoardCell()
          * Construct a cell with default values.

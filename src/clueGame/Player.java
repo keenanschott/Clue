@@ -6,10 +6,12 @@ import java.util.Set;
 
 /**
  * Player
- * Game player object; players have a name, color, position on the board, seen cards, and a current hand that they possess. They have the ability
+ * Game player object; players have a name, color, position on the board, seen
+ * cards, and a current hand that they possess. They have the ability
  * to draw a card through the updateHand function.
  * DATE: 4/4/2023
- * @author Keenan Schott    
+ * 
+ * @author Keenan Schott
  * @author Finn Burns
  */
 public abstract class Player {
@@ -24,9 +26,9 @@ public abstract class Player {
      * Player()
      * Paramaterized constructor.
      * 
-     * @param inName The input name. 
-     * @param inColor The input color.
-     * @param inRow The input row.
+     * @param inName   The input name.
+     * @param inColor  The input color.
+     * @param inRow    The input row.
      * @param inColumn The input column.
      */
     public Player(String inName, String inColor, int inRow, int inColumn) {

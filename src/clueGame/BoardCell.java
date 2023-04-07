@@ -1,10 +1,15 @@
 package clueGame;
+
 import java.util.*;
 
 /**
  * BoardCell
- * This class constitutes a single cell in the game board. The grid in Board is filled with these cells, and each cell has an adjacency list of adjacent cells. Each cell has identifiers correlated to row, column, room initial, secret passage, door direction, etc. 
+ * This class constitutes a single cell in the game board. The grid in Board is
+ * filled with these cells, and each cell has an adjacency list of adjacent
+ * cells. Each cell has identifiers correlated to row, column, room initial,
+ * secret passage, door direction, etc.
  * DATE: 3/26/2023
+ * 
  * @author Keenan Schott
  * @author Finn Burns
  */
@@ -12,15 +17,16 @@ public class BoardCell {
     private int row, col; // row and column identifiers for each cell
     private char initial, secretPassage; // chars
     private DoorDirection doorDirection = DoorDirection.NONE; // door direction for a given cell; default is NONE
-    private boolean roomLabel = false, roomCenter = false, isRoom, isOccupied; // boolean statuses for a given cell; defaults set for select booleans
+    private boolean roomLabel = false, roomCenter = false, isRoom, isOccupied; // boolean statuses for a given cell;
+                                                                               // defaults set for select booleans
     private Set<BoardCell> adjList; // adjacency list for a given cell
-    
+
     /**
      * BoardCell()
      * Construct a cell with default values.
      * 
-     * @param inputRow The row value.
-     * @param inputCol The column value.
+     * @param inputRow     The row value.
+     * @param inputCol     The column value.
      * @param inputInitial The initial of the room.
      */
     public BoardCell(int inputRow, int inputCol, char inputInitial) {
@@ -44,7 +50,8 @@ public class BoardCell {
      * isDoorway()
      * Whether or not a cell is a doorway.
      * 
-     * @return Return the doorway status boolean; derived from the DoorDirection enum.
+     * @return Return the doorway status boolean; derived from the DoorDirection
+     *         enum.
      */
     public boolean isDoorway() {
         if (doorDirection != DoorDirection.NONE) {
@@ -94,9 +101,9 @@ public class BoardCell {
         return secretPassage;
     }
 
-    public boolean isRoomCenter(){
-		return roomCenter;
-	}
+    public boolean isRoomCenter() {
+        return roomCenter;
+    }
 
     public boolean isLabel() {
         return roomLabel;

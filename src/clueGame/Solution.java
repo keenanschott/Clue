@@ -2,8 +2,10 @@ package clueGame;
 
 /**
  * Solution
- * The solution to the game; has one weapon card, one room card, and one person card. The human player attempts to deduce this solution to win the game.
+ * The solution to the game; has one weapon card, one room card, and one person
+ * card. The human player attempts to deduce this solution to win the game.
  * DATE: 4/4/2023
+ * 
  * @author Keenan Schott
  * @author Finn Burns
  */
@@ -13,7 +15,7 @@ public class Solution {
     private Card weapon;
 
     /**
-	 * Solution()
+     * Solution()
      * Basic constructor.
      */
     public Solution() {
@@ -21,10 +23,10 @@ public class Solution {
     }
 
     /**
-	 * Solution()
+     * Solution()
      * Paramaterized constructor.
      * 
-     * @param inRoom The requested room card.
+     * @param inRoom   The requested room card.
      * @param inPerson The requested person card.
      * @param inWeapon The requested weapon card.
      */
@@ -36,10 +38,10 @@ public class Solution {
     }
 
     /**
-	 * equals()
+     * equals()
      * Compare two Solution instances.
-	 * 
-	 * @param o The comparison object.
+     * 
+     * @param o The comparison object.
      */
     @Override
     public boolean equals(Object o) {
@@ -47,7 +49,8 @@ public class Solution {
             return false; // if not a Solution instance; false
         }
         Solution c = (Solution) o; // cast
-        return (getRoom().equals(c.getRoom()) && getPerson().equals(c.getPerson()) && getWeapon().equals(c.getWeapon())); // compare instance variables
+        return (getRoom().equals(c.getRoom()) && getPerson().equals(c.getPerson())
+                && getWeapon().equals(c.getWeapon())); // compare instance variables
     }
 
     // all getters and setters

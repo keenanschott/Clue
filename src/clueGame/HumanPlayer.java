@@ -5,8 +5,10 @@ import java.util.Random;
 
 /**
  * HumanPlayer
- * Extension of the Player class with room for later human player functionality implementation. 
+ * Extension of the Player class with room for later human player functionality
+ * implementation.
  * DATE: 4/4/2023
+ * 
  * @author Keenan Schott
  * @author Finn Burns
  */

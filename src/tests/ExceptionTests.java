@@ -14,13 +14,15 @@ import clueGame.Board;
 
 /**
  * ExceptionTests
- * A series of tests to examine the BadConfigFormatException under all of the conditions where it needs to be thrown.
+ * A series of tests to examine the BadConfigFormatException under all of the
+ * conditions where it needs to be thrown.
  * DATE: 3/26/2023
+ * 
  * @author Keenan Schott
  * @author Finn Burns
  */
 public class ExceptionTests {
-    @Test
+	@Test
 	public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {
 		assertThrows(BadConfigFormatException.class, () -> {
 			// Note that we are using a LOCAL Board variable, because each
@@ -36,7 +38,7 @@ public class ExceptionTests {
 	}
 
 	// Test that an exception is thrown for a Layout file that specifies
-	// a room that is not in the legend. 
+	// a room that is not in the legend.
 	@Test
 	public void testBadRoom() throws BadConfigFormatException, FileNotFoundException {
 		assertThrows(BadConfigFormatException.class, () -> {
