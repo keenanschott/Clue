@@ -12,12 +12,12 @@ Room, Landing Pad, L
 Space, Unused, X
 Space, Walkway, W
 // players
-Player, Captain Haddock, red, Human, 0-18
+Player, Captain Haddock, cyan, Human, 0-18
 Player, Richard Parker, green, Computer, 0-7
-Player, Patrick Star, blue, Computer, 24-25
+Player, Patrick Star, orange, Computer, 24-25
 Player, Owen Chase, yellow, Computer, 24-18
-Player, Captain Ahab, purple, Computer, 24-8
-Player, Captain Nemo, white, Computer, 17-0
+Player, Captain Ahab, magenta, Computer, 24-8
+Player, Captain Nemo, pink, Computer, 17-0
 // weapons
 Weapon, Harpoon
 Weapon, Cutlass

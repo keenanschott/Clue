@@ -72,8 +72,8 @@ public class GameSetupTests {
         assertTrue(board.getPlayersList().get(5).getRow() == 17);
         assertTrue(board.getPlayersList().get(5).getColumn() == 0);
         // test a few colors
-        assertTrue(board.getPlayersList().get(0).getColor().equals("red"));
-        assertTrue(board.getPlayersList().get(2).getColor().equals("blue"));
+        assertTrue(board.getPlayersList().get(0).getColor().equals("cyan"));
+        assertTrue(board.getPlayersList().get(2).getColor().equals("orange"));
         // test for five computer players and one human player
         int human = 0, computer = 0;
         for (Player player : board.getPlayersList()) {
