@@ -1,5 +1,23 @@
-I, Keenan Schott, certify that I participated equitably in the creation of assignment C22A-1 - Clue Control GUI (Clue Pair), dated 4/6/2023.
-I, William Burns, certify that I participated equitably in the creation of assignment C22A-1 - Clue Control GUI (Clue Pair), dated 4/6/2023.
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C22A-2 Clue Cards GUI (Clue Pair), dated 4/6/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C22A-2 Clue Cards GUI (Clue Pair), dated 4/6/2023.
+
+commit 931abcdcc32681bf93f9cbafeb694fab0c0b25e8
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Thu Apr 6 22:21:43 2023 -0600
+
+    Finished cards GUI, started board
+
+commit f68abaa613249f6b0595d2e06fdea96ffafa8102
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Thu Apr 6 21:45:41 2023 -0600
+
+    nearly done
+
+commit 0facd54d7811a4e6a498b39594fc63ff5269942f
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Thu Apr 6 16:25:44 2023 -0600
+
+    ready to submit
 
 commit dd3bf74cc92aaf8ab78030cc00ea150b79120e1a
 Author: Keenan Schott <keenanmschott28@gmail.com>
