@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import javax.swing.JPanel;
+
 /**
  * Board
  * The game board initialization; reads in the game setup and layout, populates
@@ -14,7 +16,7 @@ import java.util.*;
  * @author Keenan Schott
  * @author Finn Burns
  */
-public class Board {
+public class Board extends JPanel {
 	private BoardCell[][] grid; // grid of cells
 	private int numRows;
 	private int numColumns;
