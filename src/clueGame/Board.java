@@ -251,25 +251,42 @@ public class Board extends JPanel {
 
 		int cellWidth = 1000 / numColumns;
 		int cellHeight = 1000 / numRows; 
-		int yCoord;
-		int xCoord;
-
-		// draw board first
+		int yCoord = 0;
+		int xCoord = 0;
+		g.setColor(Color.BLACK);
+		// draw rooms first
 		for (int i = 0; i < numRows; i++) {
 			yCoord = i * cellHeight;
 			for (int j = 0; j < numColumns; j++) {
-				xCoord = j * cellWidth;
-				grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight, grid[i][j]);
+				if (grid[i][j].getIsRoom()) {
+					xCoord = j * cellWidth;
+					grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight, grid[i][j]);
+				}
 			}
 		}		
+		// other cells next
+		for (int i = 0; i < numRows; i++) {
+			yCoord = i * cellHeight;
+			for (int j = 0; j < numColumns; j++) {
+				if (!grid[i][j].getIsRoom()) {
+					xCoord = j * cellWidth;
+					grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight, grid[i][j]);
+				}
+			}
+		}
 
 		// handle names second
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numColumns; j++) {
-				if (grid[i][j].isLabel())
+				if (grid[i][j].isLabel()) {
 					yCoord = i * cellHeight;
 					xCoord = j * cellWidth;
-					grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight, grid[i][j]);
+					grid[i][j].drawLabel(g, xCoord, yCoord, grid[i][j]);
+				} else if (grid[i][j].getDoorDirection() != DoorDirection.NONE) {
+					yCoord = i * cellHeight;
+					xCoord = j * cellWidth;
+					grid[i][j].drawDoor(g, xCoord, yCoord, cellWidth, cellHeight, grid[i][j]);
+				}
 			}
 		}	
 	}
@@ -580,5 +597,26 @@ public class Board extends JPanel {
 
 	public ArrayList<Card> getDeck() {
 		return deck; // return the deck
+	}
+
+
+
+
+
+	public static void main(String[] args) {
+		// Board is singleton, get the only instances
+        Board board = Board.getInstance();
+        // set the file names to use my config files
+        board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
+        // Initialize will load config files
+        board.initialize();
+        board.deal();
+		JFrame frame = new JFrame(); // create the frame
+		frame.setLayout(new GridLayout(0, 1));
+        frame.add(board, BorderLayout.CENTER); // add cardsPanel to the JFrame
+		frame.setContentPane(board); // put the panel in the frame
+        frame.setSize(1000, 1000); // size the frame
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
+		frame.setVisible(true);
 	}
 }

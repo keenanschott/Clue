@@ -62,15 +62,43 @@ public class BoardCell {
     }
 
     public void draw(Graphics g, int x, int y, int width, int height, BoardCell currentCell) {
-        if (!roomLabel && !isOccupied) {
+        if (isRoom) {
             g.setColor(Color.BLACK);
+            g.drawRect(x, y, width, height);
+            g.setColor(Color.GRAY);
             g.fillRect(x, y, width, height);
+        } else if (getInitial() == 'W') {
+            g.setColor(Color.YELLOW);
+            g.fillRect(x, y, width, height);
+            g.setColor(Color.BLACK);
+            g.drawRect(x, y, width, height);
         }
-        else if (roomLabel == true){
-            Room currentRoom = Board.getInstance().getRoom(currentCell);
-            String roomTitle = currentRoom.getName();
-            g.drawString(roomTitle, x + 5, y + 5);
+        else {
+            g.setColor(Color.BLACK);
+            g.drawRect(x, y, width, height);
+            g.fillRect(x, y, width, height);
         }       
+    }
+
+    public void drawLabel(Graphics g, int x, int y, BoardCell currentCell) {
+        g.setColor(Color.BLUE);
+        g.setFont(new Font("Tahoma", Font.PLAIN, 16)); 
+        Room currentRoom = Board.getInstance().getRoom(currentCell);
+        String roomTitle = currentRoom.getName();
+        g.drawString(roomTitle, x, y);  
+    }
+
+    public void drawDoor(Graphics g, int x, int y, int width, int height, BoardCell currentCell) {
+        g.setColor(Color.BLUE);
+        if (currentCell.getDoorDirection() == DoorDirection.DOWN) {
+            g.fillRect(x, y + height, width, height / 5);
+        } else if (currentCell.getDoorDirection() == DoorDirection.UP) {
+            g.fillRect(x, y - (height / 5), width, height / 5);
+        } else if (currentCell.getDoorDirection() == DoorDirection.RIGHT) {
+            g.fillRect(x + width, y, width / 5, height);
+        } else {
+            g.fillRect(x - (width / 5), y, width / 5, height);
+        }
     }
 
     /**
