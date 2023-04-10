@@ -279,11 +279,11 @@ public class CardsPanel extends JPanel {
     public static void main(String[] args) {
         JFrame frame = new JFrame(); // create the frame
         CardsPanel panel = new CardsPanel(); // create the panel
-        frame.setContentPane(panel); // put the panel in the frame
+        //frame.setContentPane(panel); // put the panel in the frame
         frame.setSize(250, 600); // size the frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
         panel.addPanel(frame); // connect CardsPanel to the JFrame
-        // test filling in the data
+        // test filling in the datas
         ArrayList<Card> tempHand = new ArrayList<Card>(); // create and fill a temporary hand
         tempHand.add(new Card("Captain Nemo", CardType.PERSON));
         tempHand.add(new Card("Anchor", CardType.WEAPON));

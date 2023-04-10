@@ -186,7 +186,7 @@ public class GameControlPanel extends JPanel {
     public static void main(String[] args) {
         JFrame frame = new JFrame(); // create the frame
         GameControlPanel panel = new GameControlPanel(); // create the panel
-        frame.setContentPane(panel); // put the panel in the frame
+        //frame.setContentPane(panel); // put the panel in the frame
         frame.setSize(750, 180); // size the frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
         panel.createLayout(frame); // connect GameControlPanel to the JFrame
