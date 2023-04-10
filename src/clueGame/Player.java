@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.awt.*;
+import java.lang.reflect.Field;
 
 /**
  * Player
@@ -43,8 +44,19 @@ public abstract class Player {
     }
 
     public void draw(Graphics g, int x, int y, int width, int height) {
-
+        Color color;
+        try {
+            Field field = Class.forName("java.awt.Color").getField(getColor()); // get color from String
+            color = (Color) field.get(null);
+        } catch (Exception e) {
+            color = null; // failed to convert; return null
+        }
+        g.setColor(Color.BLACK);
+        g.drawOval(x, y, width, height);
+        g.setColor(color);
+        g.fillOval(x, y, width, height);
     }
+
     /**
      * updateHand()
      * Update a player's hand.
