@@ -129,6 +129,7 @@ public class CardsPanel extends JPanel {
         weaponsPanel.add(weaponsHandCards);
         weaponsPanel.add(weaponsSeen);
         weaponsPanel.add(weaponsSeenCards);
+        setVisible(true);
     }
 
     /**
@@ -276,61 +277,61 @@ public class CardsPanel extends JPanel {
      * 
      * @param args The list of arguments.
      */
-    public static void main(String[] args) {
-        JFrame frame = new JFrame(); // create the frame
-        CardsPanel panel = new CardsPanel(); // create the panel
-        frame.setContentPane(panel); // put the panel in the frame
-        frame.setSize(250, 600); // size the frame
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-        panel.addPanel(frame); // connect CardsPanel to the JFrame
-        // test filling in the data
-        ArrayList<Card> tempHand = new ArrayList<Card>(); // create and fill a temporary hand
-        tempHand.add(new Card("Captain Nemo", CardType.PERSON));
-        tempHand.add(new Card("Anchor", CardType.WEAPON));
-        tempHand.add(new Card("Propeller", CardType.WEAPON));
-        HumanPlayer test1 = new HumanPlayer("Captain Haddock", "cyan", 0, 18); // create temporary human player
-        test1.setHand(tempHand); // test hand creation
-        panel.addHand(test1);
-        // test for seen cards
-        // no need to create fully fledged calls to clueGame, make temporary computer
-        // players and read from their hand to test GUI for this instance only
-        if (true) { // change to false to not see this stage of GUI testing
-            ComputerPlayer test2 = new ComputerPlayer("Richard Parker", "green", 0, 7); // new computer player hand
-            tempHand = new ArrayList<Card>();
-            tempHand.add(new Card("Captain Haddock", CardType.PERSON));
-            tempHand.add(new Card("Galley", CardType.ROOM));
-            tempHand.add(new Card("Harpoon", CardType.WEAPON));
-            test2.setHand(tempHand);
-            panel.addSeen(test2); // add to seen for testing
-            ComputerPlayer test3 = new ComputerPlayer("Patrick Star", "orange", 24, 25); // new computer player hand
-            tempHand = new ArrayList<Card>();
-            tempHand.add(new Card("Richard Parker", CardType.PERSON));
-            tempHand.add(new Card("Swimming Pool", CardType.ROOM));
-            tempHand.add(new Card("Captain's Quarters", CardType.ROOM));
-            test3.setHand(tempHand);
-            panel.addSeen(test3); // add to seen for testing
-            ComputerPlayer test4 = new ComputerPlayer("Owen Chase", "yellow", 24, 18); // new computer player hand
-            tempHand = new ArrayList<Card>();
-            tempHand.add(new Card("Patrick Star", CardType.PERSON));
-            tempHand.add(new Card("Sun Deck", CardType.ROOM));
-            tempHand.add(new Card("Engine Room", CardType.ROOM));
-            test4.setHand(tempHand);
-            panel.addSeen(test4); // add to seen for testing
-            ComputerPlayer test5 = new ComputerPlayer("Captain Ahab", "magenta", 24, 8); // new computer player hand
-            tempHand = new ArrayList<Card>();
-            tempHand.add(new Card("Owen Chase", CardType.PERSON));
-            tempHand.add(new Card("Bridge", CardType.ROOM));
-            tempHand.add(new Card("Dining Hall", CardType.ROOM));
-            test5.setHand(tempHand);
-            panel.addSeen(test5); // add to seen for testing
-            ComputerPlayer test6 = new ComputerPlayer("Captain Nemo", "pink", 17, 0); // new computer player hand
-            tempHand = new ArrayList<Card>();
-            tempHand.add(new Card("Head", CardType.ROOM));
-            tempHand.add(new Card("Cutlass", CardType.WEAPON));
-            tempHand.add(new Card("Speargun", CardType.WEAPON));
-            test6.setHand(tempHand);
-            panel.addSeen(test6); // add to seen for testing
-        }
-        frame.setVisible(true); // make it visible
-    }
+    // public static void main(String[] args) {
+    //     JFrame frame = new JFrame(); // create the frame
+    //     CardsPanel panel = new CardsPanel(); // create the panel
+    //     frame.setContentPane(panel); // put the panel in the frame
+    //     frame.setSize(250, 600); // size the frame
+    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
+    //     panel.addPanel(frame); // connect CardsPanel to the JFrame
+    //     // test filling in the data
+    //     ArrayList<Card> tempHand = new ArrayList<Card>(); // create and fill a temporary hand
+    //     tempHand.add(new Card("Captain Nemo", CardType.PERSON));
+    //     tempHand.add(new Card("Anchor", CardType.WEAPON));
+    //     tempHand.add(new Card("Propeller", CardType.WEAPON));
+    //     HumanPlayer test1 = new HumanPlayer("Captain Haddock", "cyan", 0, 18); // create temporary human player
+    //     test1.setHand(tempHand); // test hand creation
+    //     panel.addHand(test1);
+    //     // test for seen cards
+    //     // no need to create fully fledged calls to clueGame, make temporary computer
+    //     // players and read from their hand to test GUI for this instance only
+    //     if (true) { // change to false to not see this stage of GUI testing
+    //         ComputerPlayer test2 = new ComputerPlayer("Richard Parker", "green", 0, 7); // new computer player hand
+    //         tempHand = new ArrayList<Card>();
+    //         tempHand.add(new Card("Captain Haddock", CardType.PERSON));
+    //         tempHand.add(new Card("Galley", CardType.ROOM));
+    //         tempHand.add(new Card("Harpoon", CardType.WEAPON));
+    //         test2.setHand(tempHand);
+    //         panel.addSeen(test2); // add to seen for testing
+    //         ComputerPlayer test3 = new ComputerPlayer("Patrick Star", "orange", 24, 25); // new computer player hand
+    //         tempHand = new ArrayList<Card>();
+    //         tempHand.add(new Card("Richard Parker", CardType.PERSON));
+    //         tempHand.add(new Card("Swimming Pool", CardType.ROOM));
+    //         tempHand.add(new Card("Captain's Quarters", CardType.ROOM));
+    //         test3.setHand(tempHand);
+    //         panel.addSeen(test3); // add to seen for testing
+    //         ComputerPlayer test4 = new ComputerPlayer("Owen Chase", "yellow", 24, 18); // new computer player hand
+    //         tempHand = new ArrayList<Card>();
+    //         tempHand.add(new Card("Patrick Star", CardType.PERSON));
+    //         tempHand.add(new Card("Sun Deck", CardType.ROOM));
+    //         tempHand.add(new Card("Engine Room", CardType.ROOM));
+    //         test4.setHand(tempHand);
+    //         panel.addSeen(test4); // add to seen for testing
+    //         ComputerPlayer test5 = new ComputerPlayer("Captain Ahab", "magenta", 24, 8); // new computer player hand
+    //         tempHand = new ArrayList<Card>();
+    //         tempHand.add(new Card("Owen Chase", CardType.PERSON));
+    //         tempHand.add(new Card("Bridge", CardType.ROOM));
+    //         tempHand.add(new Card("Dining Hall", CardType.ROOM));
+    //         test5.setHand(tempHand);
+    //         panel.addSeen(test5); // add to seen for testing
+    //         ComputerPlayer test6 = new ComputerPlayer("Captain Nemo", "pink", 17, 0); // new computer player hand
+    //         tempHand = new ArrayList<Card>();
+    //         tempHand.add(new Card("Head", CardType.ROOM));
+    //         tempHand.add(new Card("Cutlass", CardType.WEAPON));
+    //         tempHand.add(new Card("Speargun", CardType.WEAPON));
+    //         test6.setHand(tempHand);
+    //         panel.addSeen(test6); // add to seen for testing
+    //     }
+    //     frame.setVisible(true); // make it visible
+    // }
 }
