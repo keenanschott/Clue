@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.util.*;
+import java.awt.*;
 
 /**
  * BoardCell
@@ -58,6 +59,11 @@ public class BoardCell {
             return true;
         }
         return false; // if NONE, the cell is not a doorway
+    }
+
+    public void draw(Graphics g, int x, int y, int width, int height ) {
+        g.setColor(Color.BLACK);
+        g.fillRect(x, y, width, height);
     }
 
     /**
@@ -132,4 +138,5 @@ public class BoardCell {
     public boolean getIsRoom() {
         return isRoom; // get isRoom
     }
+
 }

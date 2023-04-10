@@ -3,9 +3,14 @@ package clueGame;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.awt.*;
 
 import javax.swing.JPanel;
 
+import gui.ClueGame;
+import gui.GameControlPanel;
+
+import javax.swing.JFrame;
 /**
  * Board
  * The game board initialization; reads in the game setup and layout, populates
@@ -29,6 +34,7 @@ public class Board extends JPanel {
 	private Solution theAnswer; // the solution
 	private ArrayList<Player> players; // all players
 	private ArrayList<Card> deck; // all cards
+	private JPanel board;
 
 	/**
 	 * Board()
@@ -36,6 +42,7 @@ public class Board extends JPanel {
 	 */
 	private Board() {
 		super();
+		board = new JPanel();
 	}
 
 	/**
@@ -46,6 +53,7 @@ public class Board extends JPanel {
 		return theInstance;
 	}
 
+	
 	/**
 	 * initialize()
 	 * Set up the game board with new board cells. Then, create an adjacency list
@@ -235,6 +243,24 @@ public class Board extends JPanel {
 		} else {
 			cell.setSecretPassage(cellString.charAt(1)); // only remaining special cell option
 		}
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+
+		int cellWidth = 1000 / numColumns;
+		int cellHeight = 1000 / numRows; 
+		int yCoord;
+		int xCoord;
+
+		for (int i = 0; i < numRows; i++) {
+			yCoord = i * cellHeight;
+			for (int j = 0; j < numColumns; j++) {
+				xCoord = j * cellWidth;
+				grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight);
+			}
+		}		
 	}
 
 	/**
