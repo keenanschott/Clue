@@ -3,6 +3,7 @@ package clueGame;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.awt.*;
 
 /**
  * Player
@@ -41,6 +42,9 @@ public abstract class Player {
         seenCards = new HashSet<Card>();
     }
 
+    public void draw(Graphics g, int x, int y, int width, int height) {
+
+    }
     /**
      * updateHand()
      * Update a player's hand.

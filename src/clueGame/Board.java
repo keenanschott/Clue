@@ -254,13 +254,24 @@ public class Board extends JPanel {
 		int yCoord;
 		int xCoord;
 
+		// draw board first
 		for (int i = 0; i < numRows; i++) {
 			yCoord = i * cellHeight;
 			for (int j = 0; j < numColumns; j++) {
 				xCoord = j * cellWidth;
-				grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight);
+				grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight, grid[i][j]);
 			}
 		}		
+
+		// handle names second
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numColumns; j++) {
+				if (grid[i][j].isLabel())
+					yCoord = i * cellHeight;
+					xCoord = j * cellWidth;
+					grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight, grid[i][j]);
+			}
+		}	
 	}
 
 	/**

@@ -61,9 +61,16 @@ public class BoardCell {
         return false; // if NONE, the cell is not a doorway
     }
 
-    public void draw(Graphics g, int x, int y, int width, int height ) {
-        g.setColor(Color.BLACK);
-        g.fillRect(x, y, width, height);
+    public void draw(Graphics g, int x, int y, int width, int height, BoardCell currentCell) {
+        if (!roomLabel && !isOccupied) {
+            g.setColor(Color.BLACK);
+            g.fillRect(x, y, width, height);
+        }
+        else if (roomLabel == true){
+            Room currentRoom = Board.getInstance().getRoom(currentCell);
+            String roomTitle = currentRoom.getName();
+            g.drawString(roomTitle, x + 5, y + 5);
+        }       
     }
 
     /**
