@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
  * Game player object; players have a name, color, position on the board, seen
  * cards, and a current hand that they possess. They have the ability
  * to draw a card through the updateHand function.
- * DATE: 4/4/2023
+ * DATE: 4/10/2023
  * 
  * @author Keenan Schott
  * @author Finn Burns
@@ -44,13 +44,15 @@ public abstract class Player {
     }
 
     /**
-     * draw(Graphics g, int x, int y, int width, int height)
-     * draw the player token, which is a circle, and color code it accordingly to each player
-     * @param g graphics object
-     * @param x coordinate 
-     * @param y coordinate 
-     * @param width cell width
-     * @param height cell height
+     * draw()
+     * Draw the player token, which is a circle, and color code it accordingly to
+     * each player.
+     * 
+     * @param g      The Graphics object.
+     * @param x      The x coordinate.
+     * @param y      The y coordinate.
+     * @param width  The cell width.
+     * @param height The cell height.
      */
     public void draw(Graphics g, int x, int y, int width, int height) {
         Color color; // color object to store color we retrieve from player data
@@ -58,11 +60,11 @@ public abstract class Player {
             Field field = Class.forName("java.awt.Color").getField(getColor()); // get color from String
             color = (Color) field.get(null);
         } catch (Exception e) { // if not valid color
-            color = null; // failed to convert; return null 
+            color = null; // failed to convert; return null
         }
-        g.setColor(Color.BLACK); // border
-        g.drawOval(x, y, width, height); // draw oval with radii width and height, which are equal.
-        g.setColor(color); // filler 
+        g.setColor(Color.BLACK); // border color
+        g.drawOval(x, y, width, height); // draw oval with radii width and height
+        g.setColor(color); // filler color
         g.fillOval(x, y, width, height);
     }
 

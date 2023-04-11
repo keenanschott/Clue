@@ -6,18 +6,14 @@ import java.util.*;
 import java.awt.*;
 
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-
-import gui.ClueGame;
-import gui.GameControlPanel;
-
 import javax.swing.JFrame;
+
 /**
  * Board
  * The game board initialization; reads in the game setup and layout, populates
  * the game board, creates adjacency lists, etc. This class also implements the
  * movement algorithm.
- * DATE: 4/4/2023
+ * DATE: 4/10/2023
  * 
  * @author Keenan Schott
  * @author Finn Burns
@@ -52,7 +48,6 @@ public class Board extends JPanel {
 		return theInstance;
 	}
 
-	
 	/**
 	 * initialize()
 	 * Set up the game board with new board cells. Then, create an adjacency list
@@ -244,62 +239,67 @@ public class Board extends JPanel {
 		}
 	}
 
-	@Override
 	/**
 	 * paintComponent()
-	 * Overidden method of paintComponent to draw entire board using Swing graphics library.
-	 * Drawing of the board cells and rooms are done by the board cells and rooms, respectively.
+	 * Overidden method of paintComponent to draw entire board using Swing graphics
+	 * library. Drawing of the board cells and rooms are done by BoardCell and Room,
+	 * respectively.
+	 * 
+	 * @param g The Graphics object.
 	 */
+	@Override
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g); 
-		// dynamically resize window according to size of jpanel
+		super.paintComponent(g);
+		// dynamically resize window according to the size of the JPanel
 		int cellWidth = getWidth() / numColumns;
-		int cellHeight = getHeight() / numRows; 
+		int cellHeight = getHeight() / numRows;
 		// initialize coordinates for drawing of board cells
 		int yCoord = 0;
 		int xCoord = 0;
-		g.setColor(Color.BLACK); // base color?
-		
-		// draw rooms first, so border of room doesn't overlap into walkways
+		g.setColor(Color.BLACK); // base color
+		// draw rooms first, so borders of walkways don't get overwritten
 		for (int i = 0; i < numRows; i++) { // iterate through rows of board grid
-			yCoord = i * cellHeight; // all cells equal width, so every y coord is equally spaced and determined by numRow (i)
+			yCoord = i * cellHeight; // all cells equal height, so every yCoord is equally spaced and determined by i
 			for (int j = 0; j < numColumns; j++) { // iterate then through columns of board grid
 				if (grid[i][j].getIsRoom()) {
-					xCoord = j * cellWidth; // all cells equal width, so every x coord is equally spaced and determined by numCol (j)
-					grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight, grid[i][j]); // board cells can draw themselves, that way we can access room info
+					xCoord = j * cellWidth; // all cells equal width, so every xCoord is equally spaced and determined
+											// by j
+					grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight); // board cells can draw themselves, that
+																				// way we can access room info
 				}
 			}
-		}		
-		// other cells next (same loop structure and draw methodology)
+		}
+		// other cells next
+		// same loop structure and draw methodology for non-room cells
 		for (int i = 0; i < numRows; i++) {
 			yCoord = i * cellHeight;
 			for (int j = 0; j < numColumns; j++) {
 				if (!grid[i][j].getIsRoom()) {
 					xCoord = j * cellWidth;
-					grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight, grid[i][j]);
+					grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight);
 				}
 			}
 		}
-
-		// handle names second, as we want to overlay the entire board with names
+		// handle names next, as we want to overlay these on the board
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numColumns; j++) {
-				if (grid[i][j].isLabel()) { // if label cell, we want to draw label
+				if (grid[i][j].isLabel()) { // if label cell, draw
 					yCoord = i * cellHeight;
 					xCoord = j * cellWidth;
-					grid[i][j].drawLabel(g, xCoord, yCoord, grid[i][j]); // we'll get our label fro grid[i][j]
+					grid[i][j].drawLabel(g, xCoord, yCoord); // we'll get our label for grid[i][j]
 				} else if (grid[i][j].getDoorDirection() != DoorDirection.NONE) { // if doorway
 					yCoord = i * cellHeight;
 					xCoord = j * cellWidth;
-					grid[i][j].drawDoor(g, xCoord, yCoord, cellWidth, cellHeight, grid[i][j]); // we'll calculate offset and location for door in drawDoor
+					grid[i][j].drawDoor(g, xCoord, yCoord, cellWidth, cellHeight); // we'll calculate offset and
+																					// location for door in drawDoor
 				}
 			}
 		}
-
-		// lastly draw players using draw methof ro player. offset is calculated using width of cell and initial starting row/col
+		// lastly, draw players using draw method for a player
+		// offset is calculated using width of cell and initial starting row/col
 		for (Player player : players) {
 			player.draw(g, player.getColumn() * cellWidth, player.getRow() * cellHeight, cellWidth, cellHeight);
-		}	
+		}
 	}
 
 	/**
@@ -610,20 +610,25 @@ public class Board extends JPanel {
 		return deck; // return the deck
 	}
 
+	/**
+	 * main()
+	 * Main to test the board display.
+	 * 
+	 * @param args The list of arguments.
+	 */
 	public static void main(String[] args) {
-		// Board is singleton, get the only instances
-        Board board = Board.getInstance();
-        // set the file names to use my config files
-        board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
-        // Initialize will load config files
-        board.initialize();
-        board.deal();
+		// Board is singleton, get the only instance
+		Board board = Board.getInstance();
+		// set the file names
+		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
+		// initialize
+		board.initialize();
+		board.deal();
+		// create test frame
 		JFrame frame = new JFrame();
-		frame.setLayout(new GridLayout(0, 1));
-		frame.setSize(1500, 1000); // size the frame
+		frame.setSize(1500, 1000); // arbitrary frame size
 		frame.setContentPane(board);
-        //frame.add(board, BorderLayout.CENTER); // add cardsPanel to the JFrame
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		frame.setVisible(true);
 	}
 }
