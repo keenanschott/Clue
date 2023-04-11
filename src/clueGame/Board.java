@@ -607,20 +607,20 @@ public class Board extends JPanel {
 		return testFrame;
 	}
 
-	public static void main(String[] args) {
-		// Board is singleton, get the only instances
-        Board board = Board.getInstance();
-        // set the file names to use my config files
-        board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
-        // Initialize will load config files
-        board.initialize();
-        board.deal();
-		JFrame frame = board.getTestFrame();
-		frame.setLayout(new GridLayout(0, 1));
-		frame.setSize(1500, 1000); // size the frame
-        frame.add(board, BorderLayout.CENTER); // add cardsPanel to the JFrame
-		frame.setContentPane(board); // put the panel in the frame
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-		frame.setVisible(true);
-	}
+	// public static void main(String[] args) {
+	// 	// Board is singleton, get the only instances
+    //     Board board = Board.getInstance();
+    //     // set the file names to use my config files
+    //     board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
+    //     // Initialize will load config files
+    //     board.initialize();
+    //     board.deal();
+	// 	JFrame frame = board.getTestFrame();
+	// 	frame.setLayout(new GridLayout(0, 1));
+	// 	frame.setSize(1500, 1000); // size the frame
+    //     frame.add(board, BorderLayout.CENTER); // add cardsPanel to the JFrame
+	// 	frame.setContentPane(board); // put the panel in the frame
+    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
+	// 	frame.setVisible(true);
+	// }
 }

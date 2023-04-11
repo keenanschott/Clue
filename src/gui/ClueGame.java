@@ -18,12 +18,12 @@ public class ClueGame extends JFrame {
     }
 
     public void initialize() {
-        JPanel centerBoard = new JPanel();
+        //JPanel centerBoard = Board.getInstance();
         CardsPanel rightPanel = new CardsPanel();
         GameControlPanel bottomPanel = new GameControlPanel();
         //setLayout(new Border(2,1));
         add(rightPanel, BorderLayout.EAST);
-        add(centerBoard, BorderLayout.CENTER);
+        //add(centerBoard, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
         //setContentPane(rightPanel);
         setSize(1000, 1000);

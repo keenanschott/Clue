@@ -57,24 +57,27 @@ public class CardsPanel extends JPanel {
      */
     public CardsPanel() {
         // initialize all instance variables (see above)
-        cardsPanel = new JPanel();
+        //cardsPanel = new JPanel();
         peoplePanel = new JPanel();
         roomsPanel = new JPanel();
         weaponsPanel = new JPanel();
         // container panel
-        cardsPanel.setLayout(new GridLayout(3, 0)); // set gameControlPanel layout and other layouts
+        //cardsPanel.setLayout(new GridLayout(3, 0)); // set gameControlPanel layout and other layouts
+        setLayout(new GridLayout(3,0)); // set gameControlPanel layout and other layouts
         Border tempBorder = new LineBorder(Color.BLACK);
         TitledBorder cardsPanelBorder = new TitledBorder(tempBorder, "Known Cards");
         cardsPanelBorder.setTitleJustification(TitledBorder.CENTER);
         cardsPanelBorder.setTitlePosition(TitledBorder.TOP);
-        cardsPanel.setBorder(cardsPanelBorder);
+        //cardsPanel.setBorder(cardsPanelBorder);
+        setBorder(cardsPanelBorder);
         // three nested panels
         // people
         TitledBorder peoplePanelBorder = new TitledBorder(tempBorder, "People");
         peoplePanelBorder.setTitleJustification(TitledBorder.LEFT);
         peoplePanelBorder.setTitlePosition(TitledBorder.TOP);
         peoplePanel.setBorder(peoplePanelBorder);
-        cardsPanel.add(peoplePanel, BorderLayout.NORTH);
+        //cardsPanel.add(peoplePanel, BorderLayout.NORTH);
+        add(peoplePanel, BorderLayout.NORTH);
         // people components
         peopleHand = new JLabel("In Hand:");
         peopleHandCards = new JTextField("None");
@@ -94,7 +97,8 @@ public class CardsPanel extends JPanel {
         roomsPanelBorder.setTitleJustification(TitledBorder.LEFT);
         roomsPanelBorder.setTitlePosition(TitledBorder.TOP);
         roomsPanel.setBorder(roomsPanelBorder);
-        cardsPanel.add(roomsPanel, BorderLayout.CENTER);
+        //cardsPanel.add(roomsPanel, BorderLayout.CENTER);
+        add(roomsPanel, BorderLayout.CENTER);
         // rooms components
         roomsHand = new JLabel("In Hand:");
         roomsHandCards = new JTextField("None");
@@ -114,7 +118,8 @@ public class CardsPanel extends JPanel {
         weaponsPanelBorder.setTitleJustification(TitledBorder.LEFT);
         weaponsPanelBorder.setTitlePosition(TitledBorder.TOP);
         weaponsPanel.setBorder(weaponsPanelBorder);
-        cardsPanel.add(weaponsPanel, BorderLayout.SOUTH);
+        //cardsPanel.add(weaponsPanel, BorderLayout.SOUTH);
+        add(weaponsPanel, BorderLayout.SOUTH);        
         // weapons components
         weaponsHand = new JLabel("In Hand:");
         weaponsHandCards = new JTextField("None");
