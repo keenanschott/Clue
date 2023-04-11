@@ -76,12 +76,12 @@ public class BoardCell {
         if (isRoom) { // cell is room
             g.setColor(Color.BLACK); // border
             g.drawRect(x, y, width, height);
-            g.setColor(Color.GRAY); // filling
+            g.setColor(Color.GRAY); // filler
             g.fillRect(x, y, width, height);
         } else if (getInitial() == 'W') { // cell is walkway
             g.setColor(Color.YELLOW); // border
             g.fillRect(x, y, width, height);
-            g.setColor(Color.BLACK); // filling
+            g.setColor(Color.BLACK); // filler
             g.drawRect(x, y, width, height);
         }
         else { // cell is bad space/closet

@@ -43,17 +43,26 @@ public abstract class Player {
         seenCards = new HashSet<Card>();
     }
 
+    /**
+     * draw(Graphics g, int x, int y, int width, int height)
+     * draw the player token, which is a circle, and color code it accordingly to each player
+     * @param g graphics object
+     * @param x coordinate 
+     * @param y coordinate 
+     * @param width cell width
+     * @param height cell height
+     */
     public void draw(Graphics g, int x, int y, int width, int height) {
-        Color color;
+        Color color; // color object to store color we retrieve from player data
         try {
             Field field = Class.forName("java.awt.Color").getField(getColor()); // get color from String
             color = (Color) field.get(null);
-        } catch (Exception e) {
-            color = null; // failed to convert; return null
+        } catch (Exception e) { // if not valid color
+            color = null; // failed to convert; return null 
         }
-        g.setColor(Color.BLACK);
-        g.drawOval(x, y, width, height);
-        g.setColor(color);
+        g.setColor(Color.BLACK); // border
+        g.drawOval(x, y, width, height); // draw oval with radii width and height, which are equal.
+        g.setColor(color); // filler 
         g.fillOval(x, y, width, height);
     }
 
