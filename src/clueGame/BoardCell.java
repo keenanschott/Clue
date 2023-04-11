@@ -73,8 +73,6 @@ public class BoardCell {
      */
     public void draw(Graphics g, int x, int y, int width, int height) {
         if (isRoom) { // cell is room
-            g.setColor(Color.BLACK); // border
-            g.drawRect(x, y, width, height);
             g.setColor(Color.GRAY); // filler
             g.fillRect(x, y, width, height);
         } else if (getInitial() == 'W') { // cell is walkway
