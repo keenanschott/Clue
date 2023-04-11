@@ -201,7 +201,7 @@ public class CardsPanel extends JPanel {
      * 
      * @param human The human player.
      */
-    private void addHand(HumanPlayer human) {
+    public void addHand(HumanPlayer human) {
         for (Card currentCard : human.getHand()) { // for all of the cards in the human player's hand
             if (currentCard.getType() == CardType.PERSON) { // person
                 if (peopleHandCards.getText().equals("None")) { // first occurrence
@@ -284,10 +284,10 @@ public class CardsPanel extends JPanel {
     public static void main(String[] args) {
         JFrame frame = new JFrame(); // create the frame
         CardsPanel panel = new CardsPanel(); // create the panel
-        //frame.setContentPane(panel); // put the panel in the frame
+        frame.setContentPane(panel); // put the panel in the frame
         frame.setSize(250, 600); // size the frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-        panel.addPanel(frame); // connect CardsPanel to the JFrame
+        //panel.addPanel(frame); // connect CardsPanel to the JFrame
         // test filling in the datas
         ArrayList<Card> tempHand = new ArrayList<Card>(); // create and fill a temporary hand
         tempHand.add(new Card("Captain Nemo", CardType.PERSON));

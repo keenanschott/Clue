@@ -6,6 +6,7 @@ import java.util.*;
 import java.awt.*;
 
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import gui.ClueGame;
 import gui.GameControlPanel;
@@ -34,7 +35,6 @@ public class Board extends JPanel {
 	private Solution theAnswer; // the solution
 	private ArrayList<Player> players; // all players
 	private ArrayList<Card> deck; // all cards
-	private JFrame testFrame;
 
 	/**
 	 * Board()
@@ -42,7 +42,6 @@ public class Board extends JPanel {
 	 */
 	private Board() {
 		super();
-		testFrame = new JFrame();
 	}
 
 	/**
@@ -249,8 +248,8 @@ public class Board extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		int cellWidth = getTestFrame().getWidth() / numColumns;
-		int cellHeight = getTestFrame().getHeight() / numRows; 
+		int cellWidth = getWidth() / numColumns;
+		int cellHeight = getHeight() / numRows; 
 		int yCoord = 0;
 		int xCoord = 0;
 		g.setColor(Color.BLACK);
@@ -603,24 +602,20 @@ public class Board extends JPanel {
 		return deck; // return the deck
 	}
 
-	public JFrame getTestFrame() {
-		return testFrame;
+	public static void main(String[] args) {
+		// Board is singleton, get the only instances
+        Board board = Board.getInstance();
+        // set the file names to use my config files
+        board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
+        // Initialize will load config files
+        board.initialize();
+        board.deal();
+		JFrame frame = new JFrame();
+		frame.setLayout(new GridLayout(0, 1));
+		frame.setSize(1500, 1000); // size the frame
+		frame.setContentPane(board);
+        //frame.add(board, BorderLayout.CENTER); // add cardsPanel to the JFrame
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
+		frame.setVisible(true);
 	}
-
-	// public static void main(String[] args) {
-	// 	// Board is singleton, get the only instances
-    //     Board board = Board.getInstance();
-    //     // set the file names to use my config files
-    //     board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
-    //     // Initialize will load config files
-    //     board.initialize();
-    //     board.deal();
-	// 	JFrame frame = board.getTestFrame();
-	// 	frame.setLayout(new GridLayout(0, 1));
-	// 	frame.setSize(1500, 1000); // size the frame
-    //     frame.add(board, BorderLayout.CENTER); // add cardsPanel to the JFrame
-	// 	frame.setContentPane(board); // put the panel in the frame
-    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-	// 	frame.setVisible(true);
-	// }
 }

@@ -147,7 +147,7 @@ public class GameControlPanel extends JPanel {
      * @param inPlayer The input ComputerPlayer.
      * @param roll     The dice roll.
      */
-    private void setTurn(ComputerPlayer inPlayer, int roll) {
+    public void setTurn(ComputerPlayer inPlayer, int roll) {
         Color color;
         try {
             Field field = Class.forName("java.awt.Color").getField(inPlayer.getColor()); // get color from inPlayer
@@ -166,7 +166,7 @@ public class GameControlPanel extends JPanel {
      * 
      * @param inString The input guess.
      */
-    private void setGuess(String inString) {
+    public void setGuess(String inString) {
         bottomOneText.setText(inString); // set text
     }
 
@@ -176,7 +176,7 @@ public class GameControlPanel extends JPanel {
      * 
      * @param inString The input guess result.
      */
-    private void setGuessResult(String inString) {
+    public void setGuessResult(String inString) {
         bottomTwoText.setText(inString); // set text
     }
 
@@ -186,17 +186,16 @@ public class GameControlPanel extends JPanel {
      * 
      * @param args The list of arguments.
      */
-    // public static void main(String[] args) {
-    //     JFrame frame = new JFrame(); // create the frame
-    //     GameControlPanel panel = new GameControlPanel(); // create the panel
-    //     //frame.setContentPane(panel); // put the panel in the frame
-    //     frame.setSize(750, 180); // size the frame
-    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-    //     panel.createLayout(frame); // connect GameControlPanel to the JFrame
-    //     frame.setVisible(true); // make it visible
-    //     // test filling in the data
-    //     panel.setTurn(new ComputerPlayer("Richard Parker", "green", 0, 0), 5);
-    //     panel.setGuess("I have no guess!");
-    //     panel.setGuessResult("So you have nothing?");
-    // }
+    public static void main(String[] args) {
+        JFrame frame = new JFrame(); // create the frame
+        GameControlPanel panel = new GameControlPanel(); // create the panel
+        frame.setContentPane(panel); // put the panel in the frame
+        frame.setSize(750, 180); // size the frame
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
+        frame.setVisible(true); // make it visible
+        // test filling in the data
+        panel.setTurn(new ComputerPlayer("Richard Parker", "green", 0, 0), 5);
+        panel.setGuess("I have no guess!");
+        panel.setGuessResult("So you have nothing?");
+    }
 }
