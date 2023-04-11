@@ -24,14 +24,13 @@ import clueGame.HumanPlayer;
  * The right-hand side cards control panel; displays the cards in the human
  * player's hand and the seen cards for all card types (people, rooms, and
  * weapons).
- * DATE: 4/6/2023
+ * DATE: 4/10/2023
  * 
  * @author Keenan Schott
  * @author Finn Burns
  */
 public class CardsPanel extends JPanel {
     // outer control panel and all three nested panel
-    private JPanel cardsPanel;
     private JPanel peoplePanel;
     private JPanel roomsPanel;
     private JPanel weaponsPanel;
@@ -57,18 +56,15 @@ public class CardsPanel extends JPanel {
      */
     public CardsPanel() {
         // initialize all instance variables (see above)
-        //cardsPanel = new JPanel();
         peoplePanel = new JPanel();
         roomsPanel = new JPanel();
         weaponsPanel = new JPanel();
         // container panel
-        //cardsPanel.setLayout(new GridLayout(3, 0)); // set gameControlPanel layout and other layouts
-        setLayout(new GridLayout(3,0)); // set gameControlPanel layout and other layouts
+        setLayout(new GridLayout(3, 0)); // set gameControlPanel layout and other layouts
         Border tempBorder = new LineBorder(Color.BLACK);
         TitledBorder cardsPanelBorder = new TitledBorder(tempBorder, "Known Cards");
         cardsPanelBorder.setTitleJustification(TitledBorder.CENTER);
         cardsPanelBorder.setTitlePosition(TitledBorder.TOP);
-        //cardsPanel.setBorder(cardsPanelBorder);
         setBorder(cardsPanelBorder);
         // three nested panels
         // people
@@ -76,7 +72,6 @@ public class CardsPanel extends JPanel {
         peoplePanelBorder.setTitleJustification(TitledBorder.LEFT);
         peoplePanelBorder.setTitlePosition(TitledBorder.TOP);
         peoplePanel.setBorder(peoplePanelBorder);
-        //cardsPanel.add(peoplePanel, BorderLayout.NORTH);
         add(peoplePanel, BorderLayout.NORTH);
         // people components
         peopleHand = new JLabel("In Hand:");
@@ -97,7 +92,6 @@ public class CardsPanel extends JPanel {
         roomsPanelBorder.setTitleJustification(TitledBorder.LEFT);
         roomsPanelBorder.setTitlePosition(TitledBorder.TOP);
         roomsPanel.setBorder(roomsPanelBorder);
-        //cardsPanel.add(roomsPanel, BorderLayout.CENTER);
         add(roomsPanel, BorderLayout.CENTER);
         // rooms components
         roomsHand = new JLabel("In Hand:");
@@ -118,8 +112,7 @@ public class CardsPanel extends JPanel {
         weaponsPanelBorder.setTitleJustification(TitledBorder.LEFT);
         weaponsPanelBorder.setTitlePosition(TitledBorder.TOP);
         weaponsPanel.setBorder(weaponsPanelBorder);
-        //cardsPanel.add(weaponsPanel, BorderLayout.SOUTH);
-        add(weaponsPanel, BorderLayout.SOUTH);        
+        add(weaponsPanel, BorderLayout.SOUTH);
         // weapons components
         weaponsHand = new JLabel("In Hand:");
         weaponsHandCards = new JTextField("None");
@@ -134,17 +127,6 @@ public class CardsPanel extends JPanel {
         weaponsPanel.add(weaponsHandCards);
         weaponsPanel.add(weaponsSeen);
         weaponsPanel.add(weaponsSeenCards);
-    }
-
-    /**
-     * addPanel()
-     * Adds the cardsPanel to the JFrame to display.
-     * 
-     * @param currentFrame The current JFrame.
-     */
-    private void addPanel(JFrame currentFrame) {
-        currentFrame.setLayout(new GridLayout(0, 1));
-        currentFrame.add(cardsPanel, BorderLayout.CENTER); // add cardsPanel to the JFrame
     }
 
     /**
@@ -287,7 +269,6 @@ public class CardsPanel extends JPanel {
         frame.setContentPane(panel); // put the panel in the frame
         frame.setSize(250, 600); // size the frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-        //panel.addPanel(frame); // connect CardsPanel to the JFrame
         // test filling in the datas
         ArrayList<Card> tempHand = new ArrayList<Card>(); // create and fill a temporary hand
         tempHand.add(new Card("Captain Nemo", CardType.PERSON));
