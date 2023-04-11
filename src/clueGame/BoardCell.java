@@ -61,43 +61,73 @@ public class BoardCell {
         return false; // if NONE, the cell is not a doorway
     }
 
+    /**
+     * draw(Graphics g, int x, int y, int width, int height, BoardCell currentCell)
+     * draw in the rooms, walkways and bad spaces/closets independently. 
+     * different board spaces are color coded.
+     * @param g graphics object
+     * @param x coordinate 
+     * @param y coordinate
+     * @param width cell width
+     * @param height cell height
+     * @param currentCell cell we'll draw from
+     */
     public void draw(Graphics g, int x, int y, int width, int height, BoardCell currentCell) {
-        if (isRoom) {
-            g.setColor(Color.BLACK);
+        if (isRoom) { // cell is room
+            g.setColor(Color.BLACK); // border
             g.drawRect(x, y, width, height);
-            g.setColor(Color.GRAY);
+            g.setColor(Color.GRAY); // filler
             g.fillRect(x, y, width, height);
-        } else if (getInitial() == 'W') {
-            g.setColor(Color.YELLOW);
+        } else if (getInitial() == 'W') { // cell is walkway
+            g.setColor(Color.YELLOW); // border
             g.fillRect(x, y, width, height);
-            g.setColor(Color.BLACK);
+            g.setColor(Color.BLACK); // filler
             g.drawRect(x, y, width, height);
         }
-        else {
-            g.setColor(Color.BLACK);
+        else { // cell is bad space/closet
+            g.setColor(Color.BLACK); 
             g.drawRect(x, y, width, height);
             g.fillRect(x, y, width, height);
         }       
     }
 
+    /**
+     * drawLabel(Graphics g, int x, int y, BoardCell currentCell)
+     * display the label for each room cell 
+     * @param g graphics object
+     * @param x coordinate
+     * @param y coordinate 
+     * @param currentCell cell we'll draw label in (label cell)
+     */
     public void drawLabel(Graphics g, int x, int y, BoardCell currentCell) {
-        g.setColor(Color.BLUE);
-        g.setFont(new Font("Tahoma", Font.PLAIN, 16)); 
-        Room currentRoom = Board.getInstance().getRoom(currentCell);
+        g.setColor(Color.BLUE); // all labels are blue 
+        g.setFont(new Font("Tahoma", Font.PLAIN, 16)); // stylistic font setting 
+        Room currentRoom = Board.getInstance().getRoom(currentCell); // get room so we can access room name
         String roomTitle = currentRoom.getName();
-        g.drawString(roomTitle, x, y);  
+        g.drawString(roomTitle, x, y);  // draw label using roomTitle
     }
 
+    /**
+     * drawDoor(Graphics g, int x, int y, int width, int height, BoardCell currentCell)
+     * drawDoor method specifically draws the doorway signifiers (blue lines)
+     * doorway direction is specified by the corresponding side of the board cell it is drawn on
+     * @param g graphics object
+     * @param x coordinate 
+     * @param y coodinate 
+     * @param width cell width
+     * @param height cell height
+     * @param currentCell cell we'll draw doorway on 
+     */
     public void drawDoor(Graphics g, int x, int y, int width, int height, BoardCell currentCell) {
-        g.setColor(Color.BLUE);
+        g.setColor(Color.BLUE); // all doorways are blue
         if (currentCell.getDoorDirection() == DoorDirection.DOWN) {
-            g.fillRect(x, y + height, width, height / 5);
+            g.fillRect(x, y + height, width, height / 5); // draw in cell, then scale down height so that doorway appears on bottom edge of cell
         } else if (currentCell.getDoorDirection() == DoorDirection.UP) {
-            g.fillRect(x, y - (height / 5), width, height / 5);
+            g.fillRect(x, y - (height / 5), width, height / 5); // draw in cell, then scale down height so that doorway appears on top edge of cell
         } else if (currentCell.getDoorDirection() == DoorDirection.RIGHT) {
-            g.fillRect(x + width, y, width / 5, height);
+            g.fillRect(x + width, y, width / 5, height); // draw in cell, then scale down width so that doorway appears on right edge of cell
         } else {
-            g.fillRect(x - (width / 5), y, width / 5, height);
+            g.fillRect(x - (width / 5), y, width / 5, height); // draw in cell, then scale down width so that doorway appears on left edge of cell
         }
     }
 

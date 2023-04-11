@@ -245,25 +245,32 @@ public class Board extends JPanel {
 	}
 
 	@Override
+	/**
+	 * paintComponent()
+	 * Overidden method of paintComponent to draw entire board using Swing graphics library.
+	 * Drawing of the board cells and rooms are done by the board cells and rooms, respectively.
+	 */
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-
+		super.paintComponent(g); 
+		// dynamically resize window according to size of jpanel
 		int cellWidth = getWidth() / numColumns;
 		int cellHeight = getHeight() / numRows; 
+		// initialize coordinates for drawing of board cells
 		int yCoord = 0;
 		int xCoord = 0;
-		g.setColor(Color.BLACK);
-		// draw rooms first
-		for (int i = 0; i < numRows; i++) {
-			yCoord = i * cellHeight;
-			for (int j = 0; j < numColumns; j++) {
+		g.setColor(Color.BLACK); // base color?
+		
+		// draw rooms first, so border of room doesn't overlap into walkways
+		for (int i = 0; i < numRows; i++) { // iterate through rows of board grid
+			yCoord = i * cellHeight; // all cells equal width, so every y coord is equally spaced and determined by numRow (i)
+			for (int j = 0; j < numColumns; j++) { // iterate then through columns of board grid
 				if (grid[i][j].getIsRoom()) {
-					xCoord = j * cellWidth;
-					grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight, grid[i][j]);
+					xCoord = j * cellWidth; // all cells equal width, so every x coord is equally spaced and determined by numCol (j)
+					grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight, grid[i][j]); // board cells can draw themselves, that way we can access room info
 				}
 			}
 		}		
-		// other cells next
+		// other cells next (same loop structure and draw methodology)
 		for (int i = 0; i < numRows; i++) {
 			yCoord = i * cellHeight;
 			for (int j = 0; j < numColumns; j++) {
@@ -274,21 +281,22 @@ public class Board extends JPanel {
 			}
 		}
 
-		// handle names second
+		// handle names second, as we want to overlay the entire board with names
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numColumns; j++) {
-				if (grid[i][j].isLabel()) {
+				if (grid[i][j].isLabel()) { // if label cell, we want to draw label
 					yCoord = i * cellHeight;
 					xCoord = j * cellWidth;
-					grid[i][j].drawLabel(g, xCoord, yCoord, grid[i][j]);
-				} else if (grid[i][j].getDoorDirection() != DoorDirection.NONE) {
+					grid[i][j].drawLabel(g, xCoord, yCoord, grid[i][j]); // we'll get our label fro grid[i][j]
+				} else if (grid[i][j].getDoorDirection() != DoorDirection.NONE) { // if doorway
 					yCoord = i * cellHeight;
 					xCoord = j * cellWidth;
-					grid[i][j].drawDoor(g, xCoord, yCoord, cellWidth, cellHeight, grid[i][j]);
+					grid[i][j].drawDoor(g, xCoord, yCoord, cellWidth, cellHeight, grid[i][j]); // we'll calculate offset and location for door in drawDoor
 				}
 			}
 		}
 
+		// lastly draw players using draw methof ro player. offset is calculated using width of cell and initial starting row/col
 		for (Player player : players) {
 			player.draw(g, player.getColumn() * cellWidth, player.getRow() * cellHeight, cellWidth, cellHeight);
 		}	
