@@ -18,6 +18,7 @@ import clueGame.Card;
 import clueGame.CardType;
 import clueGame.ComputerPlayer;
 import clueGame.HumanPlayer;
+import clueGame.Player;
 
 /**
  * CardsPanel
@@ -183,7 +184,7 @@ public class CardsPanel extends JPanel {
      * 
      * @param human The human player.
      */
-    public void addHand(HumanPlayer human) {
+    public void addHand(Player human) {
         for (Card currentCard : human.getHand()) { // for all of the cards in the human player's hand
             if (currentCard.getType() == CardType.PERSON) { // person
                 if (peopleHandCards.getText().equals("None")) { // first occurrence

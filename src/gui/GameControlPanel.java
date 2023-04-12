@@ -3,7 +3,10 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +19,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import clueGame.ComputerPlayer;
+import clueGame.Player;
 
 /**
  * GameControlPanel
@@ -80,7 +84,6 @@ public class GameControlPanel extends JPanel {
         bottomOne.setLayout(new GridLayout(1, 0));
         bottomTwo.setLayout(new GridLayout(1, 0));
         // topOne details
-        topOneText.setBackground(Color.ORANGE);
         topOneText.setEditable(false);
         topOneLabel.setHorizontalAlignment(SwingConstants.CENTER);
         topOne.add(topOneLabel, BorderLayout.NORTH);
@@ -130,7 +133,7 @@ public class GameControlPanel extends JPanel {
      * @param inPlayer The input ComputerPlayer.
      * @param roll     The dice roll.
      */
-    public void setTurn(ComputerPlayer inPlayer, int roll) {
+    public void setTurn(Player inPlayer, int roll) {
         Color color;
         try {
             Field field = Class.forName("java.awt.Color").getField(inPlayer.getColor()); // get color from inPlayer
@@ -161,6 +164,11 @@ public class GameControlPanel extends JPanel {
      */
     public void setGuessResult(String inString) {
         bottomTwoText.setText(inString); // set text
+    }  
+
+    
+    public JButton getTopFour() {
+        return topFour;
     }
 
     /**
@@ -170,8 +178,10 @@ public class GameControlPanel extends JPanel {
      * @param args The list of arguments.
      */
     public static void main(String[] args) {
+        // int test = 0;
         JFrame frame = new JFrame(); // create the frame
         GameControlPanel panel = new GameControlPanel(); // create the panel
+        // panel.addListener(test); // TODO: possibly change; see above
         frame.setContentPane(panel); // put the panel in the frame
         frame.setSize(750, 180); // size the frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
