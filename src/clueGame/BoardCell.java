@@ -1,7 +1,12 @@
 package clueGame;
 
 import java.util.*;
+
+import javax.swing.JPanel;
+
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * BoardCell
@@ -14,13 +19,22 @@ import java.awt.*;
  * @author Keenan Schott
  * @author Finn Burns
  */
-public class BoardCell {
+public class BoardCell extends JPanel {
     private int row, col; // row and column identifiers for each cell
     private char initial, secretPassage; // chars
     private DoorDirection doorDirection = DoorDirection.NONE; // door direction for a given cell; default is NONE
     private boolean roomLabel = false, roomCenter = false, isRoom, isOccupied; // boolean statuses for a given cell;
                                                                                // defaults set for select booleans
     private Set<BoardCell> adjList; // adjacency list for a given cell
+    private boolean target = false;
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
 
     /**
      * BoardCell()
@@ -35,6 +49,15 @@ public class BoardCell {
         row = inputRow; // given row and column
         col = inputCol;
         initial = inputInitial; // given room initial
+        addMouseListener(new CellListener());
+    }
+
+    public void setTarget() {
+        target = true;
+    }
+
+    public void removeTarget() {
+        target = false;
     }
 
     /**
@@ -72,7 +95,12 @@ public class BoardCell {
      * @param height The cell height.
      */
     public void draw(Graphics g, int x, int y, int width, int height) {
-        if (isRoom) { // cell is room
+        if (target) {
+            g.setColor(Color.CYAN); // border
+            g.fillRect(x, y, width, height);
+            g.setColor(Color.BLACK); // filler
+            g.drawRect(x, y, width, height);
+        } else if (isRoom) { // cell is room
             g.setColor(Color.GRAY); // filler
             g.fillRect(x, y, width, height);
         } else if (getInitial() == 'W') { // cell is walkway
@@ -202,4 +230,32 @@ public class BoardCell {
     public boolean getIsRoom() {
         return isRoom; // get isRoom
     }
+
+    private class CellListener implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (target) {
+                Board instance = Board.getInstance();
+                instance.moveHuman(instance.getCell(row, col));
+                repaint();
+            } else {
+                System.out.println("INVALID");
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {}
+
+        @Override
+        public void mouseReleased(MouseEvent e) {}
+
+        @Override
+        public void mouseEntered(MouseEvent e) {}
+
+        @Override
+        public void mouseExited(MouseEvent e) {}
+        
+    }
+
 }

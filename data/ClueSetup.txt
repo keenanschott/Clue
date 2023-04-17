@@ -12,7 +12,7 @@ Room, Landing Pad, L
 Space, Unused, X
 Space, Walkway, W
 // players
-Player, Captain Haddock, cyan, Human, 0-18
+Player, Captain Haddock, white, Human, 0-18
 Player, Richard Parker, green, Computer, 0-7
 Player, Patrick Star, orange, Computer, 24-25
 Player, Owen Chase, gray, Computer, 24-18

@@ -4,8 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
+
+import gui.ClueGame;
+
 import javax.swing.JFrame;
 
 /**
@@ -31,6 +36,59 @@ public class Board extends JPanel {
 	private Solution theAnswer; // the solution
 	private ArrayList<Player> players; // all players
 	private ArrayList<Card> deck; // all cards
+
+	private int playerTurn = 0;
+	private Player currentPlayer;
+	private Random random = new Random();
+	private int currentRoll = 0;
+	private boolean turnOver = false;
+
+	public void initializeGame(ClueGame gameFrame) {
+		currentPlayer = players.get(0);
+		gameFrame.getRightPanel().addHand(currentPlayer);
+		currentRoll = randomRoll();
+		gameFrame.getBottomPanel().setTurn(currentPlayer, currentRoll);
+		gameFrame.getBottomPanel().getTopFour().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (turnOver == true) {
+					playerTurn++;
+					currentPlayer = players.get(playerTurn % players.size());
+					currentRoll = randomRoll();
+					gameFrame.getBottomPanel().setTurn(currentPlayer, currentRoll);
+				}
+			}
+        });
+	}
+
+	public void moveHuman(BoardCell targetCell) {
+		currentPlayer.setLocation(targetCell.getRow(), targetCell.getCol());
+		turnOver = true;
+		repaint();
+	}
+
+	public void runTurn(ClueGame gameFrame) {
+		turnOver = false;
+		if (currentPlayer instanceof HumanPlayer) {
+			calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll);
+			repaint();
+			while (!turnOver) {
+				
+			}
+		} else {
+
+		}
+	}
+
+	public void runGame(ClueGame gameFrame) {
+		while (true) {
+			runTurn(gameFrame);	
+		}
+	}
+
+	public int randomRoll() {
+		return random.nextInt(1, 7);
+	}
 
 	/**
 	 * Board()
@@ -453,6 +511,10 @@ public class Board extends JPanel {
 				visited.add(adjCell); // add to visited
 				if (pathLength == 1 || adjCell.isRoomCenter()) { // if no more moves or at a room center
 					targets.add(adjCell); // add to targets
+					// TODO check this
+					if (currentPlayer instanceof HumanPlayer) {
+						adjCell.setTarget();
+					}
 				} else {
 					findAllTargets(adjCell, pathLength - 1); // call recursively with one less move
 				}
