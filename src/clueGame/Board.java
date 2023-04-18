@@ -72,6 +72,7 @@ public class Board extends JPanel {
 	}
 
 	private void runTurn(ClueGame gameFrame) {
+		getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(false);
 		finished = false;
 		calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll);
 		repaint();
@@ -90,12 +91,18 @@ public class Board extends JPanel {
 
 	public void moveComputer(BoardCell targetCell) {
 		currentPlayer.setLocation(targetCell.getRow(), targetCell.getCol());
+		if (!getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
+			getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(true);
+		}
 		finished = true;
 		repaint();
 	}
 
 	public void moveHuman(BoardCell targetCell) {
 		currentPlayer.setLocation(targetCell.getRow(), targetCell.getCol());
+		if (!getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
+			getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(true);
+		}
 		finished = true;
 		removePaint();
 		repaint();
