@@ -69,10 +69,11 @@ public class ClueGame extends JFrame {
         // make new game frame and make it visible
         ClueGame gameFrame = new ClueGame();
         // add information
-        testBoard.initializeGame(gameFrame);
         gameFrame.setVisible(true);
         // display splash screen
         Splash popUp = new Splash();
         popUp.display(gameFrame);
+        // initialize game
+        testBoard.initializeGame(gameFrame);
     }
 }

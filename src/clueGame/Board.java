@@ -57,18 +57,34 @@ public class Board extends JPanel {
 					currentPlayer = players.get(playerTurn % players.size());
 					currentRoll = randomRoll();
 					gameFrame.getBottomPanel().setTurn(currentPlayer, currentRoll);
+					runTurn(gameFrame);
 				}
 			}
         });
-		runGameCont(gameFrame);
+		runTurn(gameFrame);
 	}
 
-	private void runGameCont(ClueGame gameFrame) {
+	private void runTurn(ClueGame gameFrame) {
+		finished = false;
 		calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll);
 		repaint();
 		if (currentPlayer instanceof HumanPlayer) {
-			while (finished == false) {}
+			// remember
+		} else {
+			moveComputer(chooseRandomTarget());
 		}
+	}
+
+	public BoardCell chooseRandomTarget() {
+		ArrayList<BoardCell> tempTargets = new ArrayList<BoardCell>();
+		tempTargets.addAll(targets);
+		return tempTargets.get(random.nextInt(tempTargets.size()));
+	}
+
+	public void moveComputer(BoardCell targetCell) {
+		currentPlayer.setLocation(targetCell.getRow(), targetCell.getCol());
+		finished = true;
+		repaint();
 	}
 
 	public void moveHuman(BoardCell targetCell) {
