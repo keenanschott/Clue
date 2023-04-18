@@ -118,6 +118,7 @@ public class Board extends JPanel {
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		}
+		//Board.getInstance().setLayout(new GridLayout(numRows, numColumns)); // create
 		createAdj(); // create adjacency lists for every cell
 	}
 
@@ -245,6 +246,7 @@ public class Board extends JPanel {
 																														// file
 					}
 					grid[rowCounter][colCounter] = newCell; // fill grid with newCell
+					//Board.getInstance().add(newCell); // TODO remove
 					colCounter++; // next column, same row
 				}
 			}
