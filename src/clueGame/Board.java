@@ -8,11 +8,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import gui.ClueGame;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  * Board
@@ -58,6 +61,10 @@ public class Board extends JPanel {
 					currentRoll = randomRoll();
 					gameFrame.getBottomPanel().setTurn(currentPlayer, currentRoll);
 					runTurn(gameFrame);
+				} else {
+        			JLabel label = new JLabel("<html><center>You need to complete your turn!");
+        			label.setHorizontalAlignment(SwingConstants.CENTER);
+					JOptionPane.showMessageDialog(theInstance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
 				}
 			}
         });

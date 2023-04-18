@@ -2,7 +2,10 @@ package clueGame;
 
 import java.util.*;
 
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -274,7 +277,9 @@ public class BoardCell extends JPanel {
                 instance.moveHuman(instance.getCell(row, col));
                 repaint();
             } else {
-                System.out.println("INVALID");
+                JLabel label = new JLabel("<html><center>Invalid tile!");
+        		label.setHorizontalAlignment(SwingConstants.CENTER);
+				JOptionPane.showMessageDialog(instance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
             }
         }
 
