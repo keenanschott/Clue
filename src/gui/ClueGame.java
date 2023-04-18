@@ -74,6 +74,5 @@ public class ClueGame extends JFrame {
         // display splash screen
         Splash popUp = new Splash();
         popUp.display(gameFrame);
-        testBoard.runGame(gameFrame);
     }
 }

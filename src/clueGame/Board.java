@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import gui.ClueGame;
 
@@ -41,7 +42,7 @@ public class Board extends JPanel {
 	private Player currentPlayer;
 	private Random random = new Random();
 	private int currentRoll = 0;
-	private boolean turnOver = false;
+	private boolean finished = false;
 
 	public void initializeGame(ClueGame gameFrame) {
 		currentPlayer = players.get(0);
@@ -51,7 +52,7 @@ public class Board extends JPanel {
 		gameFrame.getBottomPanel().getTopFour().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (turnOver == true) {
+				if (finished == true) {
 					playerTurn++;
 					currentPlayer = players.get(playerTurn % players.size());
 					currentRoll = randomRoll();
@@ -59,30 +60,31 @@ public class Board extends JPanel {
 				}
 			}
         });
+		runGameCont(gameFrame);
+	}
+
+	private void runGameCont(ClueGame gameFrame) {
+		calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll);
+		repaint();
+		if (currentPlayer instanceof HumanPlayer) {
+			while (finished == false) {}
+		}
 	}
 
 	public void moveHuman(BoardCell targetCell) {
 		currentPlayer.setLocation(targetCell.getRow(), targetCell.getCol());
-		turnOver = true;
+		finished = true;
+		removePaint();
 		repaint();
 	}
 
-	public void runTurn(ClueGame gameFrame) {
-		turnOver = false;
-		if (currentPlayer instanceof HumanPlayer) {
-			calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll);
-			repaint();
-			while (!turnOver) {
-				
-			}
-		} else {
+	public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
 
-		}
-	}
-
-	public void runGame(ClueGame gameFrame) {
-		while (true) {
-			runTurn(gameFrame);	
+	public void removePaint() {
+		for (BoardCell currentCell : targets) {
+			currentCell.removeTarget();
 		}
 	}
 
@@ -118,7 +120,6 @@ public class Board extends JPanel {
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		}
-		//Board.getInstance().setLayout(new GridLayout(numRows, numColumns)); // create
 		createAdj(); // create adjacency lists for every cell
 	}
 
@@ -206,6 +207,7 @@ public class Board extends JPanel {
 			numRows = allLinesLayout.size(); // number of rows is equal to size of allLinesLayout
 			numColumns = allLinesLayout.get(0).length; // number of columns is equal to size of any entry in
 														// allLinesLayout
+			Board.getInstance().setLayout(new GridLayout(numRows, numColumns)); // TODO create
 			sc.close(); // close
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -246,7 +248,7 @@ public class Board extends JPanel {
 																														// file
 					}
 					grid[rowCounter][colCounter] = newCell; // fill grid with newCell
-					//Board.getInstance().add(newCell); // TODO remove
+					Board.getInstance().add(newCell); // TODO remove
 					colCounter++; // next column, same row
 				}
 			}
@@ -324,7 +326,8 @@ public class Board extends JPanel {
 				if (grid[i][j].getIsRoom()) {
 					xCoord = j * cellWidth; // all cells equal width, so every xCoord is equally spaced and determined
 											// by j
-					grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight); // board cells can draw themselves, that
+					BoardCell.setDimensions(xCoord, yCoord, cellWidth, cellHeight);
+					grid[i][j].paintComponent(g); // board cells can draw themselves, that
 																				// way we can access room info
 				}
 			}
@@ -336,7 +339,8 @@ public class Board extends JPanel {
 			for (int j = 0; j < numColumns; j++) {
 				if (!grid[i][j].getIsRoom()) {
 					xCoord = j * cellWidth;
-					grid[i][j].draw(g, xCoord, yCoord, cellWidth, cellHeight);
+					BoardCell.setDimensions(xCoord, yCoord, cellWidth, cellHeight);
+					grid[i][j].paintComponent(g);
 				}
 			}
 		}

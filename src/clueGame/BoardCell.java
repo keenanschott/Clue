@@ -28,6 +28,18 @@ public class BoardCell extends JPanel {
     private Set<BoardCell> adjList; // adjacency list for a given cell
     private boolean target = false;
 
+    private static int x;
+    private static int y;
+    private static int width;
+    private static int height;
+
+    public static void setDimensions(int x, int y, int width, int height) {
+        BoardCell.x = x;
+        BoardCell.y = y;
+        BoardCell.width = width;
+        BoardCell.height = height;
+    }
+
     public int getRow() {
         return row;
     }
@@ -94,7 +106,29 @@ public class BoardCell extends JPanel {
      * @param width  The cell width.
      * @param height The cell height.
      */
-    public void draw(Graphics g, int x, int y, int width, int height) {
+    // public void draw(Graphics g) {
+    //     if (target) {
+    //         g.setColor(Color.CYAN); // border
+    //         g.fillRect(x, y, width, height);
+    //         g.setColor(Color.BLACK); // filler
+    //         g.drawRect(x, y, width, height);
+    //     } else if (isRoom) { // cell is room
+    //         g.setColor(Color.GRAY); // filler
+    //         g.fillRect(x, y, width, height);
+    //     } else if (getInitial() == 'W') { // cell is walkway
+    //         g.setColor(Color.YELLOW); // border
+    //         g.fillRect(x, y, width, height);
+    //         g.setColor(Color.BLACK); // filler
+    //         g.drawRect(x, y, width, height);
+    //     } else { // cell is bad space/closet
+    //         g.setColor(Color.BLACK);
+    //         g.drawRect(x, y, width, height);
+    //         g.fillRect(x, y, width, height);
+    //     }
+    // }
+
+    @Override
+    public void paintComponent(Graphics g) {
         if (target) {
             g.setColor(Color.CYAN); // border
             g.fillRect(x, y, width, height);
@@ -235,8 +269,8 @@ public class BoardCell extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (target) {
-                Board instance = Board.getInstance();
+            Board instance = Board.getInstance();
+            if (target && instance.getCurrentPlayer() instanceof HumanPlayer) {
                 instance.moveHuman(instance.getCell(row, col));
                 repaint();
             } else {
