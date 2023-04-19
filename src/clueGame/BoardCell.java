@@ -132,7 +132,13 @@ public class BoardCell extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-        if (target) {
+        if (target && roomCenter) {
+            g.setColor(Color.CYAN); // border
+            g.fillRect(x, y, width, height);
+        } else if (isRoom && Board.getInstance().getRoom(initial).getCenterCell().target) {
+            g.setColor(Color.CYAN); // border
+            g.fillRect(x, y, width, height);
+        } else if (target) {
             g.setColor(Color.CYAN); // border
             g.fillRect(x, y, width, height);
             g.setColor(Color.BLACK); // filler
