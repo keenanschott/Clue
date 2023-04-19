@@ -272,6 +272,9 @@ public class Board extends JPanel {
 		// dynamically resize window according to the size of the JPanel
 		int cellWidth = getWidth() / numColumns;
 		int cellHeight = getHeight() / numRows;
+		int size = Math.min(cellWidth,cellHeight);
+		cellWidth = size;
+		cellHeight = size;
 		// if (cellWidth > cellHeight) {
 		// 	cellWidth = cellHeight;
 		// } else {
