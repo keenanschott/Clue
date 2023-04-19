@@ -6,6 +6,8 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -52,6 +54,7 @@ public class Board extends JPanel {
 	 */
 	private Board() {
 		super();
+		addMouseListener(new CellListener());
 	}
 
 	/**
@@ -161,7 +164,6 @@ public class Board extends JPanel {
 			numRows = allLinesLayout.size(); // number of rows is equal to size of allLinesLayout
 			numColumns = allLinesLayout.get(0).length; // number of columns is equal to size of any entry in
 														// allLinesLayout
-			Board.getInstance().setLayout(new GridLayout(numRows, numColumns));
 			sc.close(); // close
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -202,7 +204,6 @@ public class Board extends JPanel {
 																														// file
 					}
 					grid[rowCounter][colCounter] = newCell; // fill grid with newCell
-					Board.getInstance().add(newCell);
 					colCounter++; // next column, same row
 				}
 			}
@@ -269,12 +270,16 @@ public class Board extends JPanel {
 		// initialize coordinates for drawing of board cells
 		int yCoord = 0;
 		int xCoord = 0;
+		int offset = 0;
 		// dynamically resize window according to the size of the JPanel
 		int cellWidth = getWidth() / numColumns;
 		int cellHeight = getHeight() / numRows;
-		// int size = Math.min(cellWidth, cellHeight);
-		// cellWidth = size;
-		// cellHeight = size;
+		if (cellWidth > cellHeight) {
+			cellWidth = cellHeight;
+			// offset = getWidth() - cellWidth * numColumns
+		}  else {
+			cellHeight = cellWidth;
+		}
 		g.setColor(Color.BLACK); // base color
 		// draw rooms first, so borders of walkways don't get overwritten
 		for (int i = 0; i < numRows; i++) { // iterate through rows of board grid
@@ -750,6 +755,64 @@ public class Board extends JPanel {
 	public ArrayList<Card> getDeck() {
 		return deck; // return the deck
 	}
+
+	/**
+     * Cell Listener
+     * This class implements the listener for the mouse when a BoardCell is pressed.
+     * DATE: 4/18/2023
+     * 
+     * @author Keenan Schott
+     * @author Finn Burns
+     */
+    private class CellListener implements MouseListener {
+        /**
+         * mouseClicked()
+         * When the mouse is clicked, a BoardCell should behave according to this logic.
+         * 
+         * @param e The mouse event.
+         */
+        @Override
+        public void mouseClicked(MouseEvent e) {
+			int cellWidth = theInstance.getWidth() / numColumns;
+			int cellHeight = theInstance.getHeight() / numRows;
+			int size = Math.min(cellWidth, cellHeight);
+			cellWidth = size;
+			cellHeight = size;
+			int col = e.getX() / cellWidth;
+			int row = e.getY() / cellHeight;
+			BoardCell pressedCell = getCell(row, col);
+            if (pressedCell.isTarget() && theInstance.getCurrentPlayer() instanceof HumanPlayer) { // if a target cell
+                theInstance.moveHuman(theInstance.getCell(row, col)); // move the human player
+                repaint();
+            } else if (pressedCell.getIsRoom() && theInstance.getRoom(pressedCell.getInitial()).getCenterCell().isTarget()
+                    && theInstance.getCurrentPlayer() instanceof HumanPlayer) {
+                // if a room cell with a center cell as a target
+                theInstance.moveHuman(theInstance.getRoom(pressedCell.getInitial()).getCenterCell()); // move the human player
+                repaint();
+            } else {
+                JLabel label = new JLabel("<html><center>Invalid tile!"); // option pane to warn the player
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+                JOptionPane.showMessageDialog(theInstance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+
+        // following methods not needed but have to be implemented
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+    }
 
 	/**
 	 * main()

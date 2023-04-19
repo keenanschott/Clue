@@ -2,14 +2,7 @@ package clueGame;
 
 import java.util.*;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 /**
  * BoardCell
@@ -22,7 +15,7 @@ import java.awt.event.MouseListener;
  * @author Keenan Schott
  * @author Finn Burns
  */
-public class BoardCell extends JPanel {
+public class BoardCell {
     private int row, col; // row and column identifiers for each cell
     private char initial, secretPassage; // chars
     private DoorDirection doorDirection = DoorDirection.NONE; // door direction for a given cell; default is NONE
@@ -48,7 +41,6 @@ public class BoardCell extends JPanel {
         row = inputRow; // given row and column
         col = inputCol;
         initial = inputInitial; // given room initial
-        addMouseListener(new CellListener());
     }
 
     /**
@@ -81,10 +73,7 @@ public class BoardCell extends JPanel {
      * 
      * @param g The Graphics object.
      */
-    @Override
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        setOpaque(false); // draw over top action layer
         if ((target && roomCenter) || (isRoom && Board.getInstance().getRoom(initial).getCenterCell().target)) {
             g.setColor(Color.CYAN); // room related target
             g.fillRect(x, y, width, height);
@@ -258,54 +247,7 @@ public class BoardCell extends JPanel {
         target = inTarget;
     }
 
-    /**
-     * Cell Listener
-     * This class implements the listener for the mouse when a BoardCell is pressed.
-     * DATE: 4/18/2023
-     * 
-     * @author Keenan Schott
-     * @author Finn Burns
-     */
-    private class CellListener implements MouseListener {
-        /**
-         * mouseClicked()
-         * When the mouse is clicked, a BoardCell should behave according to this logic.
-         * 
-         * @param e The mouse event.
-         */
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            Board instance = Board.getInstance();
-            if (target && instance.getCurrentPlayer() instanceof HumanPlayer) { // if a target cell
-                instance.moveHuman(instance.getCell(row, col)); // move the human player
-                repaint();
-            } else if (isRoom && instance.getRoom(initial).getCenterCell().target
-                    && instance.getCurrentPlayer() instanceof HumanPlayer) {
-                // if a room cell with a center cell as a target
-                instance.moveHuman(instance.getRoom(initial).getCenterCell()); // move the human player
-                repaint();
-            } else {
-                JLabel label = new JLabel("<html><center>Invalid tile!"); // option pane to warn the player
-                label.setHorizontalAlignment(SwingConstants.CENTER);
-                JOptionPane.showMessageDialog(instance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
-            }
-        }
-
-        // following methods not needed but have to be implemented
-        @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-        }
+    public boolean isTarget() {
+        return target;
     }
 }
