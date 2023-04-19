@@ -10,8 +10,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import org.junit.runner.Computer;
-
 import gui.ClueGame;
 
 import javax.swing.JFrame;
@@ -268,20 +266,12 @@ public class Board extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		// initialize coordinates for drawing of board cells
+		int yCoord;
+		int xCoord;
 		// dynamically resize window according to the size of the JPanel
-		// int offset;
 		int cellWidth = getWidth() / numColumns;
 		int cellHeight = getHeight() / numRows;
-		// if (cellWidth > cellHeight) {
-		// 	offset = (cellWidth - cellHeight) / 2;
-		// 	cellWidth = cellHeight;
-		// } else {
-		// 	offset = (cellHeight - cellWidth) / 2;
-		// 	cellHeight = cellWidth;
-		// }
-		// initialize coordinates for drawing of board cells
-		int yCoord = 0;
-		int xCoord = 0;
 		g.setColor(Color.BLACK); // base color
 		// draw rooms first, so borders of walkways don't get overwritten
 		for (int i = 0; i < numRows; i++) { // iterate through rows of board grid
