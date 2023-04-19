@@ -47,6 +47,8 @@ public class Board extends JPanel {
 	private Random random = new Random();
 	private int currentRoll = 0; // the roll
 	private boolean finished = false; // turn conclusion flag
+	private int offsetX = 0;
+	private int offsetY = 0;
 
 	/**
 	 * Board()
@@ -270,61 +272,68 @@ public class Board extends JPanel {
 		// initialize coordinates for drawing of board cells
 		int yCoord = 0;
 		int xCoord = 0;
-		int offset = 0;
 		// dynamically resize window according to the size of the JPanel
 		int cellWidth = getWidth() / numColumns;
 		int cellHeight = getHeight() / numRows;
 		if (cellWidth > cellHeight) {
 			cellWidth = cellHeight;
-			// offset = getWidth() - cellWidth * numColumns
+			this.offsetX = (getWidth() - cellWidth * numColumns) / 2;
 		}  else {
 			cellHeight = cellWidth;
+			this.offsetY = (getHeight() - cellHeight * numRows) / 2;
 		}
+		xCoord = -cellWidth;
+		yCoord = -cellHeight;
 		g.setColor(Color.BLACK); // base color
 		// draw rooms first, so borders of walkways don't get overwritten
 		for (int i = 0; i < numRows; i++) { // iterate through rows of board grid
-			yCoord = i * cellHeight; // all cells equal height, so every yCoord is equally spaced and determined by i
+			yCoord += cellHeight; // all cells equal height, so every yCoord is equally spaced and determined by i
 			for (int j = 0; j < numColumns; j++) { // iterate then through columns of board grid
-				if (grid[i][j].getIsRoom()) {
-					xCoord = j * cellWidth; // all cells equal width, so every xCoord is equally spaced and determined
+				xCoord += cellWidth; // all cells equal width, so every xCoord is equally spaced and determined
 											// by j
-					BoardCell.setDimensions(xCoord, yCoord, cellWidth, cellHeight);
+				if (grid[i][j].getIsRoom()) {
+					BoardCell.setDimensions(xCoord + offsetX, yCoord + offsetY, cellWidth, cellHeight);
 					grid[i][j].paintComponent(g); // board cells can draw themselves, that
 													// way we can access room info
 				}
 			}
+			xCoord = -cellWidth;
 		}
 		// other cells next
+		xCoord = -cellWidth;
+		yCoord = -cellHeight;
 		// same loop structure and draw methodology for non-room cells
 		for (int i = 0; i < numRows; i++) {
-			yCoord = i * cellHeight;
+			yCoord += cellHeight;
 			for (int j = 0; j < numColumns; j++) {
+				xCoord += cellWidth;
 				if (!grid[i][j].getIsRoom()) {
-					xCoord = j * cellWidth;
-					BoardCell.setDimensions(xCoord, yCoord, cellWidth, cellHeight);
+					BoardCell.setDimensions(xCoord + offsetX, yCoord + offsetY, cellWidth, cellHeight);
 					grid[i][j].paintComponent(g);
 				}
 			}
+			xCoord = -cellWidth;
 		}
+		xCoord = -cellWidth;
+		yCoord = -cellHeight;
 		// handle names next, as we want to overlay these on the board
 		for (int i = 0; i < numRows; i++) {
+			yCoord += cellHeight;
 			for (int j = 0; j < numColumns; j++) {
+				xCoord += cellWidth;
 				if (grid[i][j].isLabel()) { // if label cell, draw
-					yCoord = i * cellHeight;
-					xCoord = j * cellWidth;
-					grid[i][j].drawLabel(g, xCoord, yCoord); // we'll get our label for grid[i][j]
+					grid[i][j].drawLabel(g, xCoord + offsetX, yCoord + offsetY); // we'll get our label for grid[i][j]
 				} else if (grid[i][j].getDoorDirection() != DoorDirection.NONE) { // if doorway
-					yCoord = i * cellHeight;
-					xCoord = j * cellWidth;
-					grid[i][j].drawDoor(g, xCoord, yCoord, cellWidth, cellHeight); // we'll calculate offset and
+					grid[i][j].drawDoor(g, xCoord + offsetX, yCoord + offsetY, cellWidth, cellHeight); // we'll calculate offset and
 																					// location for door in drawDoor
 				}
 			}
+			xCoord = -cellWidth;
 		}
 		// lastly, draw players using draw method for a player
 		// offset is calculated using width of cell and initial starting row/col
 		for (Player player : players) {
-			player.draw(g, player.getColumn() * cellWidth, player.getRow() * cellHeight, cellWidth, cellHeight,
+			player.draw(g, player.getColumn() * cellWidth + offsetX, player.getRow() * cellHeight + offsetY, cellWidth, cellHeight,
 					players);
 		}
 	}
@@ -756,6 +765,14 @@ public class Board extends JPanel {
 		return deck; // return the deck
 	}
 
+	public int getOffsetX() {
+		return offsetX;
+	}
+
+	public int getOffsetY() {
+		return offsetY;
+	}
+
 	/**
      * Cell Listener
      * This class implements the listener for the mouse when a BoardCell is pressed.
@@ -775,25 +792,35 @@ public class Board extends JPanel {
         public void mouseClicked(MouseEvent e) {
 			int cellWidth = theInstance.getWidth() / numColumns;
 			int cellHeight = theInstance.getHeight() / numRows;
-			int size = Math.min(cellWidth, cellHeight);
-			cellWidth = size;
-			cellHeight = size;
-			int col = e.getX() / cellWidth;
-			int row = e.getY() / cellHeight;
-			BoardCell pressedCell = getCell(row, col);
-            if (pressedCell.isTarget() && theInstance.getCurrentPlayer() instanceof HumanPlayer) { // if a target cell
-                theInstance.moveHuman(theInstance.getCell(row, col)); // move the human player
-                repaint();
-            } else if (pressedCell.getIsRoom() && theInstance.getRoom(pressedCell.getInitial()).getCenterCell().isTarget()
-                    && theInstance.getCurrentPlayer() instanceof HumanPlayer) {
-                // if a room cell with a center cell as a target
-                theInstance.moveHuman(theInstance.getRoom(pressedCell.getInitial()).getCenterCell()); // move the human player
-                repaint();
-            } else {
-                JLabel label = new JLabel("<html><center>Invalid tile!"); // option pane to warn the player
-                label.setHorizontalAlignment(SwingConstants.CENTER);
-                JOptionPane.showMessageDialog(theInstance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
-            }
+			if (cellWidth > cellHeight) {
+				cellWidth = cellHeight;
+				theInstance.offsetX = (theInstance.getWidth() - cellWidth * numColumns) / 2;
+			}  else {
+				cellHeight = cellWidth;
+				theInstance.offsetY = (theInstance.getHeight() - cellHeight * numRows) / 2;
+			}
+			int col = (e.getX() - theInstance.offsetX) / cellWidth;
+			int row = (e.getY() - theInstance.offsetY) / cellHeight;
+			if (e.getX() > theInstance.offsetX && e.getY() > theInstance.offsetY && e.getX() < theInstance.offsetX + (cellWidth * numColumns) && e.getY() < theInstance.offsetY + (cellHeight * numRows)) {
+				BoardCell pressedCell = getCell(row, col);
+				if (pressedCell.isTarget() && theInstance.getCurrentPlayer() instanceof HumanPlayer) { // if a target cell
+					theInstance.moveHuman(theInstance.getCell(row, col)); // move the human player
+					repaint();
+				} else if (pressedCell.getIsRoom() && theInstance.getRoom(pressedCell.getInitial()).getCenterCell().isTarget()
+						&& theInstance.getCurrentPlayer() instanceof HumanPlayer) {
+					// if a room cell with a center cell as a target
+					theInstance.moveHuman(theInstance.getRoom(pressedCell.getInitial()).getCenterCell()); // move the human player
+					repaint();
+				} else {
+					JLabel label = new JLabel("<html><center>Invalid tile!"); // option pane to warn the player
+					label.setHorizontalAlignment(SwingConstants.CENTER);
+					JOptionPane.showMessageDialog(theInstance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
+				}
+			} else {
+				JLabel label = new JLabel("<html><center>Invalid tile!"); // option pane to warn the player
+				label.setHorizontalAlignment(SwingConstants.CENTER);
+				JOptionPane.showMessageDialog(theInstance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
+			}
         }
 
         // following methods not needed but have to be implemented
