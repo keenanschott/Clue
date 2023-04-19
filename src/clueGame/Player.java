@@ -17,8 +17,8 @@ import java.lang.reflect.Field;
  * @author Finn Burns
  */
 public abstract class Player {
-    private String name;
-    private String color;
+    private String name; 
+    private String color; // TODO: implement color as a color object and not string method.
     private int row;
     private int column;
     private ArrayList<Card> hand;
