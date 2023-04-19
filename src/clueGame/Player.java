@@ -2,6 +2,7 @@ package clueGame;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 import java.awt.*;
 import java.lang.reflect.Field;
@@ -23,6 +24,7 @@ public abstract class Player {
     private int column;
     private ArrayList<Card> hand;
     private Set<Card> seenCards;
+    private static Random random = new Random();
 
     /**
      * Player()
@@ -54,7 +56,7 @@ public abstract class Player {
      * @param width  The cell width.
      * @param height The cell height.
      */
-    public void draw(Graphics g, int x, int y, int width, int height) {
+    public void draw(Graphics g, int x, int y, int width, int height, ArrayList<Player> players) {
         Color color; // color object to store color we retrieve from player data
         try {
             Field field = Class.forName("java.awt.Color").getField(getColor()); // get color from String
@@ -62,6 +64,15 @@ public abstract class Player {
         } catch (Exception e) { // if not valid color
             color = null; // failed to convert; return null
         }
+
+        for (Player otherPlayer : players) {
+            if (otherPlayer.getRow() == row && otherPlayer.getColumn() == column && otherPlayer != this) {
+                x = x + (width / 5) * random.nextInt(5); 
+                y = y + (height / 5) * random.nextInt(5); 
+                break;
+            }
+        }
+
         g.setColor(Color.BLACK); // border color
         g.drawOval(x, y, width, height); // draw oval with radii width and height
         g.setColor(color); // filler color
