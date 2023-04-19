@@ -98,7 +98,7 @@ public class BoardCell extends JPanel {
             g.setColor(Color.lightGray); // secret passage
             g.fillRect(x, y, width, height);
             g.setColor(Color.BLUE);
-            g.setFont(new Font("Tahoma", Font.PLAIN, 16));
+            g.setFont(new Font("Tahoma", Font.PLAIN, Board.getInstance().getWidth() / 80));
             g.drawString(String.valueOf(secretPassage), x + (width / 2) - 4, y + (height / 2) + 6); // necessary offset
         } else if (getInitial() == 'W') { // cell is walkway
             g.setColor(Color.YELLOW); // filler
@@ -122,7 +122,7 @@ public class BoardCell extends JPanel {
      */
     public void drawLabel(Graphics g, int x, int y) {
         g.setColor(Color.BLUE); // all labels are blue
-        g.setFont(new Font("Tahoma", Font.PLAIN, 16)); // stylistic font
+        g.setFont(new Font("Tahoma", Font.PLAIN, Board.getInstance().getWidth() / 80)); // stylistic font
         Room currentRoom = Board.getInstance().getRoom(this); // get room so we can access room name
         String roomTitle = currentRoom.getName();
         g.drawString(roomTitle, x, y); // draw label using roomTitle
