@@ -25,6 +25,8 @@ public abstract class Player {
     private ArrayList<Card> hand;
     private Set<Card> seenCards;
     private static Random random = new Random();
+    private int x;
+    private int y;
 
     /**
      * Player()
@@ -45,6 +47,7 @@ public abstract class Player {
         seenCards = new HashSet<Card>();
     }
 
+
     /**
      * draw()
      * Draw the player token, which is a circle, and color code it accordingly to
@@ -57,6 +60,8 @@ public abstract class Player {
      * @param height The cell height.
      */
     public void draw(Graphics g, int x, int y, int width, int height, ArrayList<Player> players) {
+        this.x = x;
+        this.y = y;
         Color color; // color object to store color we retrieve from player data
         try {
             Field field = Class.forName("java.awt.Color").getField(getColor()); // get color from String
@@ -64,19 +69,20 @@ public abstract class Player {
         } catch (Exception e) { // if not valid color
             color = null; // failed to convert; return null
         }
-
-        for (Player otherPlayer : players) {
-            if (otherPlayer.getRow() == row && otherPlayer.getColumn() == column && otherPlayer != this) {
-                x = x + (width / 5) * random.nextInt(5); 
-                y = y + (height / 5) * random.nextInt(5); 
+        for (Player aPlayer : players) {
+            if (aPlayer.x == this.x && aPlayer.y == this.y && this != aPlayer) {
+                this.x = x + (width / 10) * random.nextInt(10); 
+                this.y = y + (height / 10) * random.nextInt(10); 
                 break;
             }
         }
+        
+
 
         g.setColor(Color.BLACK); // border color
-        g.drawOval(x, y, width, height); // draw oval with radii width and height
+        g.drawOval(this.x, this.y, width, height); // draw oval with radii width and height
         g.setColor(color); // filler color
-        g.fillOval(x, y, width, height);
+        g.fillOval(this.x, this.y, width, height);
     }
 
     /**

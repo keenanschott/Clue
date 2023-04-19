@@ -75,11 +75,20 @@ public class Board extends JPanel {
 		getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(false);
 		finished = false;
 		calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll);
-		repaint();
-		if (currentPlayer instanceof HumanPlayer) {
-			// remember
+		if (targets.size() == 0) {
+			finished = true;
+			if (currentPlayer instanceof HumanPlayer) {
+				JLabel label = new JLabel("<html><center>There are no valid tiles to move to; skipping turn!");
+        		label.setHorizontalAlignment(SwingConstants.CENTER);
+				JOptionPane.showMessageDialog(Board.getInstance(), label, "Warning!", JOptionPane.WARNING_MESSAGE);
+			}
 		} else {
-			moveComputer(chooseRandomTarget());
+			repaint();
+			if (currentPlayer instanceof HumanPlayer) {
+				// remember
+			} else {
+				moveComputer(chooseRandomTarget());
+			}
 		}
 	}
 
