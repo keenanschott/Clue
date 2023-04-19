@@ -272,6 +272,11 @@ public class Board extends JPanel {
 		// dynamically resize window according to the size of the JPanel
 		int cellWidth = getWidth() / numColumns;
 		int cellHeight = getHeight() / numRows;
+		// if (cellWidth > cellHeight) {
+		// 	cellWidth = cellHeight;
+		// } else {
+		// 	cellHeight = cellWidth;
+		// }
 		g.setColor(Color.BLACK); // base color
 		// draw rooms first, so borders of walkways don't get overwritten
 		for (int i = 0; i < numRows; i++) { // iterate through rows of board grid
