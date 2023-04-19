@@ -1,5 +1,182 @@
-I, Keenan Schott, certify that I participated equitably in the creation of assignment C23A - Clue Board GUI (Clue Pair), dated 4/10/2023.
-I, William Burns, certify that I participated equitably in the creation of assignment C23A - Clue Board GUI (Clue Pair), dated 4/10/2023.
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C24A Clue - Moving the Players (Clue Pair), dated 4/19/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C24A Clue - Moving the Players (Clue Pair), dated 4/19/2023.
+
+commit ef38ad83b49de7eafe53a1aa735efcb6fe3ffbcf
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 14:21:57 2023 -0600
+
+    Final changes for C24A
+
+commit 2bde1af651ed4564476047172acf7becbd9e826d
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Apr 19 12:05:44 2023 -0600
+
+    dynamic resizing now retaining square boardcell shape
+
+commit 8558c4e8d3883c74fb2da1e803a211990849dd11
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 11:32:09 2023 -0600
+
+    Offset players within room correctly
+
+commit eb16233c309b70a331e1c15321693fb7daabc76e
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 18 23:37:27 2023 -0600
+
+    Refactored Board to be square experimentation
+
+commit be4f2e4e0529f93b4710578a1b6f4c8e3212b759
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 18 23:16:52 2023 -0600
+
+    Refactored text sizing in GUI
+
+commit 02b1132cf4c38c8c4b8c9b2d58a6128d900c6c9d
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 18 22:52:30 2023 -0600
+
+    Further refactoring; changed Board's drawing scheme
+
+commit 665052f90916f5a769ed28c321a3987ec11d9062
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 18 22:23:53 2023 -0600
+
+    Refactored Board to correct method order
+
+commit 82ca2b8d629ccdeb1f88d2a6d19d426b65565ef1
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 18 20:34:53 2023 -0600
+
+    Highlighted room functionality
+
+commit d26b78ff85a68083e329777682c737a2d772cbb3
+Merge: 572076b ce1ddae
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 18 20:26:45 2023 -0600
+
+    Merge branch 'main' of https://github.com/squilliamb/Clue
+
+commit 572076b58a6420eb0a68392851e21f40c2cd5049
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 18 20:26:40 2023 -0600
+
+    Highlighted rooms
+
+commit ce1ddaea2caf666fedf57fb553f6c7387860ded1
+Merge: 4b976de d382846
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 18 20:25:51 2023 -0600
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit 4b976de3798fa312d3b3deccca42af87c3476df2
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 18 20:25:41 2023 -0600
+
+    added labeling for secret passages
+
+commit d382846dcc5e0076134153bb7c5bf128bb315813
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 18 20:18:42 2023 -0600
+
+    Handled no movement possible
+
+commit 532443f79d0c654793557a7b96ed7f9ed1432256
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 18 20:09:58 2023 -0600
+
+    room offset done
+
+commit 427a3fe12465223612b5263f64c6cd854533c84b
+Merge: 8a6f794 2815ee7
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 18 19:09:07 2023 -0600
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit 8a6f794e936ecf8ba3a984e5145c6b1e65f15b55
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 18 19:09:01 2023 -0600
+
+    useless
+
+commit 2815ee7bec33d57b12cf311fc455681097332d73
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 18 19:06:44 2023 -0600
+
+    Room offset
+
+commit e81fd94842aa11e5e30d8f65d8163b6b03f54e6c
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 18 12:09:08 2023 -0600
+
+    Figuring out cell occupation
+
+commit 5fdf6f2bc7c095d05c87d8869bd482c7b5fd8577
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 18 10:43:19 2023 -0600
+
+    Nearly there
+
+commit 88928a79e6309b3013c5d76cfd3fa3cfec408dd5
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 18 10:32:02 2023 -0600
+
+    Its starting to work oh my god
+
+commit 054f4c80a7fdf1efbbd735dbb52b5c2f3ac95a42
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Apr 17 23:10:11 2023 -0600
+
+    Close to getting characters moving
+
+commit c65e250d41512896b495ab6d8b65248b4169beb7
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Apr 17 21:49:52 2023 -0600
+
+    last working state
+
+commit d117d010601e8e898523424bbf58c5bb501684b6
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Apr 17 16:05:04 2023 -0600
+
+    Made some progress on movement
+
+commit fd7e52ed908599768dc55387c5dc2a44765f2b46
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Thu Apr 13 03:40:33 2023 -0600
+
+    edited checklist
+
+commit 687477c543d91d032a6b8d799fcabb5063482e24
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 11 18:08:15 2023 -0600
+
+    code review checklist
+
+commit 789cea611aadcff4134ff8e066dc3a30abbebf3a
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 11 18:02:45 2023 -0600
+
+    temporarily working next button
+
+commit 008415cc9f6ff1d3b2a83e30cc6a7361ba61d70f
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 11 15:38:49 2023 -0600
+
+    updated tests
+
+commit ec69cca6a0775a6238ee22c790f46e7c14a31549
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 11 09:59:55 2023 -0600
+
+    Small changes in class
+
+commit bb5ffa01a338068039655758c1fd22d0b663ceb6
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Apr 10 22:28:07 2023 -0600
+
+    Current work
 
 commit 6420e3f52a4da042430b7eb1c43aeb7e8991d458
 Author: Keenan Schott <keenanmschott28@gmail.com>
