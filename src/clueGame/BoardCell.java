@@ -143,10 +143,20 @@ public class BoardCell extends JPanel {
             g.fillRect(x, y, width, height);
             g.setColor(Color.BLACK); // filler
             g.drawRect(x, y, width, height);
-        } else if (isRoom) { // cell is room
+        } else if (isRoom && secretPassage == '\0') { // cell is room
             g.setColor(Color.GRAY); // filler
             g.fillRect(x, y, width, height);
-        } else if (getInitial() == 'W') { // cell is walkway
+        } else if (secretPassage != '\0') {
+            g.setColor(Color.lightGray);
+            g.fillRect(x,y,width,height);
+            g.setColor(Color.BLACK);
+            g.drawRect(x,y,width,height);
+            g.setColor(Color.BLUE);
+            g.setFont(new Font("Tahoma", Font.PLAIN, 16));
+            String sp = String.valueOf(secretPassage);
+            g.drawString(sp,x + (width / 2) - 4, y + (height / 2) + 6);
+        }
+        else if (getInitial() == 'W') { // cell is walkway
             g.setColor(Color.YELLOW); // border
             g.fillRect(x, y, width, height);
             g.setColor(Color.BLACK); // filler
