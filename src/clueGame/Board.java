@@ -392,7 +392,7 @@ public class Board extends JPanel {
 		// lastly, draw players using draw method for a player
 		// offset is calculated using width of cell and initial starting row/col
 		for (Player player : players) {
-			player.draw(g, player.getColumn() * cellWidth, player.getRow() * cellHeight, cellWidth, cellHeight);
+			player.draw(g, player.getColumn() * cellWidth, player.getRow() * cellHeight, cellWidth, cellHeight, players);
 		}
 	}
 
