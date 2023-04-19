@@ -87,10 +87,9 @@ public class ComputerPlayer extends Player {
      * 
      * @return The BoardCell to move to.
      */
-    public BoardCell selectTarget(int diceRoll) {
+    public BoardCell selectTarget() { 
         Board board = Board.getInstance(); // obtain the board instance
         Random random = new Random();
-        board.calcTargets(board.getCell(getRow(), getColumn()), diceRoll); // calculate targets
         Set<BoardCell> targets = board.getTargets(); // all targets
         ArrayList<BoardCell> smartTargets = new ArrayList<>(); // list of rooms we have yet to see, need to set to
                                                                // ArrayList for retrieval purposes
@@ -110,12 +109,10 @@ public class ComputerPlayer extends Player {
             }
         }
         if (!smartTargets.isEmpty()) { // if targets exist in rooms we have yet to visit
-            diceRoll = random.nextInt(smartTargets.size()); // access random index of smartTargets
-            return smartTargets.get(diceRoll);
+            return smartTargets.get(random.nextInt(smartTargets.size())); // access random index of smartTargets
         } else { // if no new rooms to travel to
-            diceRoll = random.nextInt(targets.size());
             ArrayList<BoardCell> accessibleTargets = new ArrayList<>(targets);
-            return accessibleTargets.get(diceRoll); // go to any random target
+            return accessibleTargets.get(random.nextInt(targets.size())); // go to any random target
         }
     }
 

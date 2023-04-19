@@ -9,7 +9,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
+
+import org.junit.runner.Computer;
 
 import gui.ClueGame;
 
@@ -22,7 +23,7 @@ import javax.swing.JOptionPane;
  * The game board initialization; reads in the game setup and layout, populates
  * the game board, creates adjacency lists, etc. This class also implements the
  * movement algorithm.
- * DATE: 4/10/2023
+ * DATE: 4/18/2023
  * 
  * @author Keenan Schott
  * @author Finn Burns
@@ -40,96 +41,12 @@ public class Board extends JPanel {
 	private Solution theAnswer; // the solution
 	private ArrayList<Player> players; // all players
 	private ArrayList<Card> deck; // all cards
-
-	private int playerTurn = 0;
-	private Player currentPlayer;
+	// game flow logic variables
+	private int playerTurn = 0; // current player turn
+	private Player currentPlayer; // the current player
 	private Random random = new Random();
-	private int currentRoll = 0;
-	private boolean finished = false;
-
-	public void initializeGame(ClueGame gameFrame) {
-		currentPlayer = players.get(0);
-		gameFrame.getRightPanel().addHand(currentPlayer);
-		currentRoll = randomRoll();
-		gameFrame.getBottomPanel().setTurn(currentPlayer, currentRoll);
-		gameFrame.getBottomPanel().getTopFour().addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (finished == true) {
-					playerTurn++;
-					currentPlayer = players.get(playerTurn % players.size());
-					currentRoll = randomRoll();
-					gameFrame.getBottomPanel().setTurn(currentPlayer, currentRoll);
-					runTurn(gameFrame);
-				} else {
-        			JLabel label = new JLabel("<html><center>You need to complete your turn!");
-        			label.setHorizontalAlignment(SwingConstants.CENTER);
-					JOptionPane.showMessageDialog(theInstance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
-				}
-			}
-        });
-		runTurn(gameFrame);
-	}
-
-	private void runTurn(ClueGame gameFrame) {
-		getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(false);
-		finished = false;
-		calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll);
-		if (targets.size() == 0) {
-			finished = true;
-			if (currentPlayer instanceof HumanPlayer) {
-				JLabel label = new JLabel("<html><center>There are no valid tiles to move to; skipping turn!");
-        		label.setHorizontalAlignment(SwingConstants.CENTER);
-				JOptionPane.showMessageDialog(Board.getInstance(), label, "Warning!", JOptionPane.WARNING_MESSAGE);
-			}
-		} else {
-			repaint();
-			if (currentPlayer instanceof HumanPlayer) {
-				// remember
-			} else {
-				moveComputer(chooseRandomTarget());
-			}
-		}
-	}
-
-	public BoardCell chooseRandomTarget() {
-		ArrayList<BoardCell> tempTargets = new ArrayList<BoardCell>();
-		tempTargets.addAll(targets);
-		return tempTargets.get(random.nextInt(tempTargets.size()));
-	}
-
-	public void moveComputer(BoardCell targetCell) {
-		currentPlayer.setLocation(targetCell.getRow(), targetCell.getCol());
-		if (!getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
-			getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(true);
-		}
-		finished = true;
-		repaint();
-	}
-
-	public void moveHuman(BoardCell targetCell) {
-		currentPlayer.setLocation(targetCell.getRow(), targetCell.getCol());
-		if (!getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
-			getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(true);
-		}
-		finished = true;
-		removePaint();
-		repaint();
-	}
-
-	public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-	public void removePaint() {
-		for (BoardCell currentCell : targets) {
-			currentCell.removeTarget();
-		}
-	}
-
-	public int randomRoll() {
-		return random.nextInt(1, 7);
-	}
+	private int currentRoll = 0; // the roll
+	private boolean finished = false; // turn conclusion flag
 
 	/**
 	 * Board()
@@ -246,7 +163,7 @@ public class Board extends JPanel {
 			numRows = allLinesLayout.size(); // number of rows is equal to size of allLinesLayout
 			numColumns = allLinesLayout.get(0).length; // number of columns is equal to size of any entry in
 														// allLinesLayout
-			Board.getInstance().setLayout(new GridLayout(numRows, numColumns)); // TODO create
+			Board.getInstance().setLayout(new GridLayout(numRows, numColumns));
 			sc.close(); // close
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -287,7 +204,7 @@ public class Board extends JPanel {
 																														// file
 					}
 					grid[rowCounter][colCounter] = newCell; // fill grid with newCell
-					Board.getInstance().add(newCell); // TODO remove
+					Board.getInstance().add(newCell);
 					colCounter++; // next column, same row
 				}
 			}
@@ -352,8 +269,16 @@ public class Board extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		// dynamically resize window according to the size of the JPanel
+		// int offset;
 		int cellWidth = getWidth() / numColumns;
 		int cellHeight = getHeight() / numRows;
+		// if (cellWidth > cellHeight) {
+		// 	offset = (cellWidth - cellHeight) / 2;
+		// 	cellWidth = cellHeight;
+		// } else {
+		// 	offset = (cellHeight - cellWidth) / 2;
+		// 	cellHeight = cellWidth;
+		// }
 		// initialize coordinates for drawing of board cells
 		int yCoord = 0;
 		int xCoord = 0;
@@ -367,7 +292,7 @@ public class Board extends JPanel {
 											// by j
 					BoardCell.setDimensions(xCoord, yCoord, cellWidth, cellHeight);
 					grid[i][j].paintComponent(g); // board cells can draw themselves, that
-																				// way we can access room info
+													// way we can access room info
 				}
 			}
 		}
@@ -401,7 +326,8 @@ public class Board extends JPanel {
 		// lastly, draw players using draw method for a player
 		// offset is calculated using width of cell and initial starting row/col
 		for (Player player : players) {
-			player.draw(g, player.getColumn() * cellWidth, player.getRow() * cellHeight, cellWidth, cellHeight, players);
+			player.draw(g, player.getColumn() * cellWidth, player.getRow() * cellHeight, cellWidth, cellHeight,
+					players);
 		}
 	}
 
@@ -556,9 +482,8 @@ public class Board extends JPanel {
 				visited.add(adjCell); // add to visited
 				if (pathLength == 1 || adjCell.isRoomCenter()) { // if no more moves or at a room center
 					targets.add(adjCell); // add to targets
-					// TODO check this
 					if (currentPlayer instanceof HumanPlayer) {
-						adjCell.setTarget();
+						adjCell.setTarget(true); // set drawing flag to true
 					}
 				} else {
 					findAllTargets(adjCell, pathLength - 1); // call recursively with one less move
@@ -662,6 +587,118 @@ public class Board extends JPanel {
 		return null;
 	}
 
+	/**
+	 * initializeGame()
+	 * Initialize game flow logic and listeners to enable that.
+	 * 
+	 * @param gameFrame The outer frame we need to reference.
+	 */
+	public void initializeGame(ClueGame gameFrame) {
+		currentPlayer = players.get(0); // initialize current player to the human player
+		gameFrame.getRightPanel().addHand(currentPlayer); // add hand to cards panel
+		currentRoll = randomRoll();
+		gameFrame.getBottomPanel().setTurn(currentPlayer, currentRoll);
+		gameFrame.getBottomPanel().getTopFour().addActionListener(new ActionListener() { // add listener to "NEXT!"
+																							// button
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (finished == true) { // if the current turn has concluded
+					playerTurn++;
+					currentPlayer = players.get(playerTurn % players.size());
+					currentRoll = randomRoll();
+					gameFrame.getBottomPanel().setTurn(currentPlayer, currentRoll);
+					runTurn(gameFrame); // run the next turn
+				} else { // prompt player to end their turn
+					JLabel label = new JLabel("<html><center>You need to complete your turn!");
+					label.setHorizontalAlignment(SwingConstants.CENTER);
+					JOptionPane.showMessageDialog(theInstance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
+		runTurn(gameFrame); // run first turn manually
+	}
+
+	/**
+	 * runTurn()
+	 * Run a player's turn.
+	 * 
+	 * @param gameFrame The outer frame we need to reference.
+	 */
+	private void runTurn(ClueGame gameFrame) {
+		getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(false); // deoccupy current cell
+																						// inhabited
+		finished = false; // turn not over
+		calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll); // calculate targets
+		if (targets.size() == 0) { // no valid spaces to move to
+			finished = true; // skip turn
+			if (currentPlayer instanceof HumanPlayer) { // tell player their turn is being skipped
+				JLabel label = new JLabel("<html><center>There are no valid tiles to move to; skipping turn!");
+				label.setHorizontalAlignment(SwingConstants.CENTER);
+				JOptionPane.showMessageDialog(Board.getInstance(), label, "Warning!", JOptionPane.WARNING_MESSAGE);
+			}
+		} else {
+			repaint();
+			if (currentPlayer instanceof ComputerPlayer) {
+				moveComputer(((ComputerPlayer)currentPlayer).selectTarget()); // automate computer movement
+			}
+		}
+	}
+
+	/**
+	 * moveComputer()
+	 * Simulate the computer's movement.
+	 * 
+	 * @param targetCell The cell to move to.
+	 */
+	public void moveComputer(BoardCell targetCell) {
+		currentPlayer.setLocation(targetCell.getRow(), targetCell.getCol()); // set new location
+		if (!getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
+			getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(true); // if not a room center, set
+																							// new location to be
+																							// occupied
+		}
+		finished = true; // turn over
+		repaint();
+	}
+
+	/**
+	 * moveHuman()
+	 * Process the human's movement.
+	 * 
+	 * @param targetCell The cell to move to.
+	 */
+	public void moveHuman(BoardCell targetCell) {
+		currentPlayer.setLocation(targetCell.getRow(), targetCell.getCol()); // set new location
+		if (!getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
+			getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(true); // if not a room center, set
+																							// new location to be
+																							// occupied
+		}
+		finished = true; // turn over
+		removePaint(); // remove drawing flags
+		repaint();
+	}
+
+	/**
+	 * removePaint()
+	 * Remove the drawing flag off of all of the targets.
+	 */
+	public void removePaint() {
+		for (BoardCell currentCell : targets) {
+			currentCell.setTarget(false); // remove flag
+		}
+	}
+
+	/**
+	 * randomRoll()
+	 * Return a random dice roll.
+	 * 
+	 * @return The random roll.
+	 */
+	public int randomRoll() {
+		return random.nextInt(1, 7); // dice roll
+	}
+
 	// all getters and setters
 	public Room getRoom(char roomType) {
 		return roomMap.get(roomType); // return a room by character input
@@ -701,6 +738,10 @@ public class Board extends JPanel {
 
 	public ArrayList<Player> getPlayersList() {
 		return players; // return the players list
+	}
+
+	public Player getCurrentPlayer() {
+		return currentPlayer;
 	}
 
 	public Player getPlayer(String name) {

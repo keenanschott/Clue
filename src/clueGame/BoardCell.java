@@ -29,27 +29,11 @@ public class BoardCell extends JPanel {
     private boolean roomLabel = false, roomCenter = false, isRoom, isOccupied; // boolean statuses for a given cell;
                                                                                // defaults set for select booleans
     private Set<BoardCell> adjList; // adjacency list for a given cell
-    private boolean target = false;
-
-    private static int x;
+    private boolean target = false; // flag for target drawing
+    private static int x; // static dimensions during drawing
     private static int y;
     private static int width;
     private static int height;
-
-    public static void setDimensions(int x, int y, int width, int height) {
-        BoardCell.x = x;
-        BoardCell.y = y;
-        BoardCell.width = width;
-        BoardCell.height = height;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getCol() {
-        return col;
-    }
 
     /**
      * BoardCell()
@@ -65,14 +49,6 @@ public class BoardCell extends JPanel {
         col = inputCol;
         initial = inputInitial; // given room initial
         addMouseListener(new CellListener());
-    }
-
-    public void setTarget() {
-        target = true;
-    }
-
-    public void removeTarget() {
-        target = false;
     }
 
     /**
@@ -100,66 +76,34 @@ public class BoardCell extends JPanel {
     }
 
     /**
-     * draw()
+     * paintComponent()
      * Draw in the rooms, walkways, and bad spaces/closets independently.
      * 
-     * @param g      The Graphics object.
-     * @param x      The x coordinate.
-     * @param y      The y coordinate.
-     * @param width  The cell width.
-     * @param height The cell height.
+     * @param g The Graphics object.
      */
-    // public void draw(Graphics g) {
-    //     if (target) {
-    //         g.setColor(Color.CYAN); // border
-    //         g.fillRect(x, y, width, height);
-    //         g.setColor(Color.BLACK); // filler
-    //         g.drawRect(x, y, width, height);
-    //     } else if (isRoom) { // cell is room
-    //         g.setColor(Color.GRAY); // filler
-    //         g.fillRect(x, y, width, height);
-    //     } else if (getInitial() == 'W') { // cell is walkway
-    //         g.setColor(Color.YELLOW); // border
-    //         g.fillRect(x, y, width, height);
-    //         g.setColor(Color.BLACK); // filler
-    //         g.drawRect(x, y, width, height);
-    //     } else { // cell is bad space/closet
-    //         g.setColor(Color.BLACK);
-    //         g.drawRect(x, y, width, height);
-    //         g.fillRect(x, y, width, height);
-    //     }
-    // }
-
     @Override
     public void paintComponent(Graphics g) {
-        if (target && roomCenter) {
-            g.setColor(Color.CYAN); // border
-            g.fillRect(x, y, width, height);
-        } else if (isRoom && Board.getInstance().getRoom(initial).getCenterCell().target) {
-            g.setColor(Color.CYAN); // border
+        if ((target && roomCenter) || (isRoom && Board.getInstance().getRoom(initial).getCenterCell().target)) {
+            g.setColor(Color.CYAN); // room related target
             g.fillRect(x, y, width, height);
         } else if (target) {
-            g.setColor(Color.CYAN); // border
+            g.setColor(Color.CYAN); // standard target
             g.fillRect(x, y, width, height);
-            g.setColor(Color.BLACK); // filler
+            g.setColor(Color.BLACK); // border
             g.drawRect(x, y, width, height);
-        } else if (isRoom && secretPassage == '\0') { // cell is room
-            g.setColor(Color.GRAY); // filler
+        } else if (isRoom && secretPassage == '\0') {
+            g.setColor(Color.GRAY); // room
             g.fillRect(x, y, width, height);
         } else if (secretPassage != '\0') {
-            g.setColor(Color.lightGray);
-            g.fillRect(x,y,width,height);
-            g.setColor(Color.BLACK);
-            g.drawRect(x,y,width,height);
+            g.setColor(Color.lightGray); // secret passage
+            g.fillRect(x, y, width, height);
             g.setColor(Color.BLUE);
             g.setFont(new Font("Tahoma", Font.PLAIN, 16));
-            String sp = String.valueOf(secretPassage);
-            g.drawString(sp,x + (width / 2) - 4, y + (height / 2) + 6);
-        }
-        else if (getInitial() == 'W') { // cell is walkway
-            g.setColor(Color.YELLOW); // border
+            g.drawString(String.valueOf(secretPassage), x + (width / 2) - 4, y + (height / 2) + 6); // necessary offset
+        } else if (getInitial() == 'W') { // cell is walkway
+            g.setColor(Color.YELLOW); // filler
             g.fillRect(x, y, width, height);
-            g.setColor(Color.BLACK); // filler
+            g.setColor(Color.BLACK); // border
             g.drawRect(x, y, width, height);
         } else { // cell is bad space/closet
             g.setColor(Color.BLACK);
@@ -231,7 +175,31 @@ public class BoardCell extends JPanel {
         }
     }
 
+    /**
+     * setDimensions()
+     * Set the dimensions from Board for the drawing.
+     * 
+     * @param x      The x coordinate.
+     * @param y      The y coordinate.
+     * @param width  The cell width.
+     * @param height The cell height.
+     */
+    public static void setDimensions(int x, int y, int width, int height) {
+        BoardCell.x = x;
+        BoardCell.y = y;
+        BoardCell.width = width;
+        BoardCell.height = height;
+    }
+
     // all getters and setters
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
     public Set<BoardCell> getAdjList() {
         return adjList;
     }
@@ -284,36 +252,58 @@ public class BoardCell extends JPanel {
         return isRoom; // get isRoom
     }
 
-    private class CellListener implements MouseListener {
+    public void setTarget(boolean inTarget) {
+        target = inTarget;
+    }
 
+    /**
+     * Cell Listener
+     * This class implements the listener for the mouse when a BoardCell is pressed.
+     * DATE: 4/18/2023
+     * 
+     * @author Keenan Schott
+     * @author Finn Burns
+     */
+    private class CellListener implements MouseListener {
+        /**
+         * mouseClicked()
+         * When the mouse is clicked, a BoardCell should behave according to this logic.
+         * 
+         * @param e The mouse event.
+         */
         @Override
         public void mouseClicked(MouseEvent e) {
             Board instance = Board.getInstance();
-            if (target && instance.getCurrentPlayer() instanceof HumanPlayer) {
-                instance.moveHuman(instance.getCell(row, col));
+            if (target && instance.getCurrentPlayer() instanceof HumanPlayer) { // if a target cell
+                instance.moveHuman(instance.getCell(row, col)); // move the human player
                 repaint();
-            } else if (isRoom && instance.getRoom(initial).getCenterCell().target) {
-                instance.moveHuman(instance.getRoom(initial).getCenterCell());
+            } else if (isRoom && instance.getRoom(initial).getCenterCell().target
+                    && instance.getCurrentPlayer() instanceof HumanPlayer) {
+                // if a room cell with a center cell as a target
+                instance.moveHuman(instance.getRoom(initial).getCenterCell()); // move the human player
                 repaint();
             } else {
-                JLabel label = new JLabel("<html><center>Invalid tile!");
-        		label.setHorizontalAlignment(SwingConstants.CENTER);
-				JOptionPane.showMessageDialog(instance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
+                JLabel label = new JLabel("<html><center>Invalid tile!"); // option pane to warn the player
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+                JOptionPane.showMessageDialog(instance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
             }
         }
 
+        // following methods not needed but have to be implemented
         @Override
-        public void mousePressed(MouseEvent e) {}
+        public void mousePressed(MouseEvent e) {
+        }
 
         @Override
-        public void mouseReleased(MouseEvent e) {}
+        public void mouseReleased(MouseEvent e) {
+        }
 
         @Override
-        public void mouseEntered(MouseEvent e) {}
+        public void mouseEntered(MouseEvent e) {
+        }
 
         @Override
-        public void mouseExited(MouseEvent e) {}
-        
+        public void mouseExited(MouseEvent e) {
+        }
     }
-
 }

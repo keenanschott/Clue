@@ -156,7 +156,7 @@ public class ComputerAITest {
             trackTargets.put(iterator.next(), 0); // populate trackTargets with each possible target and a count of 0
         }
         for (int i = 0; i < 1000; i++) {
-            sampleTarget = testPlayer.selectTarget(1); // choose a target
+            sampleTarget = testPlayer.selectTarget(); // choose a target
             trackTargets.put(sampleTarget, trackTargets.get(sampleTarget) + 1); // add 1 to target for each occurrence
         }
         for (BoardCell key : trackTargets.keySet()) {
@@ -167,12 +167,12 @@ public class ComputerAITest {
         testPlayer = (ComputerPlayer) board.getPlayer("Richard Parker");
         board.calcTargets(board.getCell(testPlayer.getRow(), testPlayer.getColumn()), 3); // (2, 2) is nearest room
         testPlayer.setSeenCards(currentSeenCards); // no seen cards
-        assertEquals(testPlayer.selectTarget(3), board.getCell(2, 2)); // should be (2, 2)
+        assertEquals(testPlayer.selectTarget(), board.getCell(2, 2)); // should be (2, 2)
         currentSeenCards.clear();
         testPlayer = (ComputerPlayer) board.getPlayer("Owen Chase"); // check a different player
         board.calcTargets(board.getCell(testPlayer.getRow(), testPlayer.getColumn()), 6); // (21, 22) is nearest room
         testPlayer.setSeenCards(currentSeenCards); // no seen cards
-        assertEquals(testPlayer.selectTarget(6), board.getCell(21, 22)); // should be (21, 22)
+        assertEquals(testPlayer.selectTarget(), board.getCell(21, 22)); // should be (21, 22)
         currentSeenCards.clear();
         // if room in list that has been seen, each target (room included) selected
         // randomly
@@ -190,7 +190,7 @@ public class ComputerAITest {
             trackTargets.put(iterator.next(), 0); // populate trackTargets with each possible target and a count of 0
         }
         for (int i = 0; i < 1000; i++) {
-            sampleTarget = testPlayer.selectTarget(3); // choose a target
+            sampleTarget = testPlayer.selectTarget(); // choose a target
             trackTargets.put(sampleTarget, trackTargets.get(sampleTarget) + 1); // add 1 to target
         }
         for (BoardCell key : trackTargets.keySet()) {

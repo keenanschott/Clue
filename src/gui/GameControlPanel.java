@@ -3,10 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -166,7 +163,10 @@ public class GameControlPanel extends JPanel {
         bottomTwoText.setText(inString); // set text
     }  
 
-    
+    /**
+     * getTopFour()
+     * Return the "NEXT!" button to add listeners to in flow logic elsewhere. 
+     */
     public JButton getTopFour() {
         return topFour;
     }
@@ -178,10 +178,8 @@ public class GameControlPanel extends JPanel {
      * @param args The list of arguments.
      */
     public static void main(String[] args) {
-        // int test = 0;
         JFrame frame = new JFrame(); // create the frame
         GameControlPanel panel = new GameControlPanel(); // create the panel
-        // panel.addListener(test); // TODO: possibly change; see above
         frame.setContentPane(panel); // put the panel in the frame
         frame.setSize(750, 180); // size the frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close

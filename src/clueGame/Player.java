@@ -18,15 +18,15 @@ import java.lang.reflect.Field;
  * @author Finn Burns
  */
 public abstract class Player {
-    private String name; 
-    private String color; // TODO: implement color as a color object and not string method.
+    private String name;
+    private String color;
     private int row;
     private int column;
+    private int x;
+    private int y;
     private ArrayList<Card> hand;
     private Set<Card> seenCards;
     private static Random random = new Random();
-    private int x;
-    private int y;
 
     /**
      * Player()
@@ -47,7 +47,6 @@ public abstract class Player {
         seenCards = new HashSet<Card>();
     }
 
-
     /**
      * draw()
      * Draw the player token, which is a circle, and color code it accordingly to
@@ -60,7 +59,7 @@ public abstract class Player {
      * @param height The cell height.
      */
     public void draw(Graphics g, int x, int y, int width, int height, ArrayList<Player> players) {
-        this.x = x;
+        this.x = x; // update physical locations on the board
         this.y = y;
         Color color; // color object to store color we retrieve from player data
         try {
@@ -69,16 +68,12 @@ public abstract class Player {
         } catch (Exception e) { // if not valid color
             color = null; // failed to convert; return null
         }
-        for (Player aPlayer : players) {
-            if (aPlayer.x == this.x && aPlayer.y == this.y && this != aPlayer) {
-                this.x = x + (width / 10) * random.nextInt(10); 
-                this.y = y + (height / 10) * random.nextInt(10); 
-                break;
+        for (Player aPlayer : players) { // loop through players
+            if (aPlayer.x == this.x && aPlayer.y == this.y && this != aPlayer) { // if physical locations the same
+                this.x = x + (width / 10) * random.nextInt(10); // offset by random amounts
+                this.y = y + (height / 10) * random.nextInt(10);
             }
         }
-        
-
-
         g.setColor(Color.BLACK); // border color
         g.drawOval(this.x, this.y, width, height); // draw oval with radii width and height
         g.setColor(color); // filler color
