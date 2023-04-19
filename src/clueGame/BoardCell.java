@@ -292,6 +292,9 @@ public class BoardCell extends JPanel {
             if (target && instance.getCurrentPlayer() instanceof HumanPlayer) {
                 instance.moveHuman(instance.getCell(row, col));
                 repaint();
+            } else if (isRoom && instance.getRoom(initial).getCenterCell().target) {
+                instance.moveHuman(instance.getRoom(initial).getCenterCell());
+                repaint();
             } else {
                 JLabel label = new JLabel("<html><center>Invalid tile!");
         		label.setHorizontalAlignment(SwingConstants.CENTER);
