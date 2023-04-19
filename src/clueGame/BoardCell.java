@@ -83,6 +83,8 @@ public class BoardCell extends JPanel {
      */
     @Override
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        setOpaque(false); // draw over top action layer
         if ((target && roomCenter) || (isRoom && Board.getInstance().getRoom(initial).getCenterCell().target)) {
             g.setColor(Color.CYAN); // room related target
             g.fillRect(x, y, width, height);

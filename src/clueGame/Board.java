@@ -267,19 +267,14 @@ public class Board extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		// initialize coordinates for drawing of board cells
-		int yCoord;
-		int xCoord;
+		int yCoord = 0;
+		int xCoord = 0;
 		// dynamically resize window according to the size of the JPanel
 		int cellWidth = getWidth() / numColumns;
 		int cellHeight = getHeight() / numRows;
-		int size = Math.min(cellWidth,cellHeight);
-		cellWidth = size;
-		cellHeight = size;
-		// if (cellWidth > cellHeight) {
-		// 	cellWidth = cellHeight;
-		// } else {
-		// 	cellHeight = cellWidth;
-		// }
+		// int size = Math.min(cellWidth, cellHeight);
+		// cellWidth = size;
+		// cellHeight = size;
 		g.setColor(Color.BLACK); // base color
 		// draw rooms first, so borders of walkways don't get overwritten
 		for (int i = 0; i < numRows; i++) { // iterate through rows of board grid
