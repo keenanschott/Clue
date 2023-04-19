@@ -2,7 +2,6 @@ package clueGame;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 import java.awt.*;
 import java.lang.reflect.Field;
@@ -26,7 +25,6 @@ public abstract class Player {
     private int y;
     private ArrayList<Card> hand;
     private Set<Card> seenCards;
-    private static Random random = new Random();
 
     /**
      * Player()
@@ -68,11 +66,12 @@ public abstract class Player {
         } catch (Exception e) { // if not valid color
             color = null; // failed to convert; return null
         }
-        for (Player aPlayer : players) { // loop through players
-            if (aPlayer.x == this.x && aPlayer.y == this.y && this != aPlayer) { // if physical locations the same
-                this.x = x + (width / 10) * random.nextInt(10); // offset by random amounts
-                this.y = y + (height / 10) * random.nextInt(10);
-            }
+        // if the player is in a room, offset them to the right and up depending on location in list
+        if (Board.getInstance().getCell(this.getRow(), this.getColumn()).isRoomCenter()) {
+            this.x = x + (width / 12) * players.indexOf(this) * 2; // always offset to the right
+            if (players.indexOf(this) % 2 == 0) { // if at an even location in the list
+                this.y = y + (height / 6); // offset up
+            } 
         }
         g.setColor(Color.BLACK); // border color
         g.drawOval(this.x, this.y, width, height); // draw oval with radii width and height
