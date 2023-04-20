@@ -640,45 +640,28 @@ public class Board extends JPanel {
 		} else {
 			repaint();
 			if (currentPlayer instanceof ComputerPlayer) {
-				moveComputer(((ComputerPlayer)currentPlayer).selectTarget()); // automate computer movement
+				move(((ComputerPlayer)currentPlayer).selectTarget(), currentPlayer); // automate computer movement
 			}
 		}
 	}
 
 	/**
-	 * moveComputer()
-	 * Simulate the computer's movement.
+	 * move()
+	 * Simulate the player's movement; both computer and player.
 	 * 
 	 * @param targetCell The cell to move to.
 	 */
-	public void moveComputer(BoardCell targetCell) {
+	public void move(BoardCell targetCell, Player currentPlayer) {
 		currentPlayer.setLocation(targetCell.getRow(), targetCell.getCol()); // set new location
 		if (!getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
-			getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(true); // if not a room center, set
-																							// new location to be
-																							// occupied
+			// if not a room center, set new location to be occupied
+			getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(true); 
 		}
 		finished = true; // turn over
+		if (currentPlayer instanceof HumanPlayer) removePaint();
 		repaint();
 	}
 
-	/**
-	 * moveHuman()
-	 * Process the human's movement.
-	 * 
-	 * @param targetCell The cell to move to.
-	 */
-	public void moveHuman(BoardCell targetCell) {
-		currentPlayer.setLocation(targetCell.getRow(), targetCell.getCol()); // set new location
-		if (!getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
-			getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(true); // if not a room center, set
-																							// new location to be
-																							// occupied
-		}
-		finished = true; // turn over
-		removePaint(); // remove drawing flags
-		repaint();
-	}
 
 	/**
 	 * removePaint()
@@ -797,11 +780,11 @@ public class Board extends JPanel {
 			if (e.getX() > theInstance.offsetX && e.getY() > theInstance.offsetY && e.getX() < theInstance.offsetX + (cellWidth * numColumns) && e.getY() < theInstance.offsetY + (cellHeight * numRows)) {
 				BoardCell pressedCell = getCell(row, col); // the pressed cell 
 				if (pressedCell.isTarget() && theInstance.getCurrentPlayer() instanceof HumanPlayer) { // if a target cell
-					theInstance.moveHuman(theInstance.getCell(row, col)); // move the human player
+					theInstance.move(theInstance.getCell(row, col), theInstance.getCurrentPlayer()); // move the human player
 					repaint();
 				} else if (pressedCell.getIsRoom() && theInstance.getRoom(pressedCell.getInitial()).getCenterCell().isTarget() && theInstance.getCurrentPlayer() instanceof HumanPlayer) {
 					// if a room cell with a center cell as a target
-					theInstance.moveHuman(theInstance.getRoom(pressedCell.getInitial()).getCenterCell()); // move the human player
+					theInstance.move(theInstance.getRoom(pressedCell.getInitial()).getCenterCell(), theInstance.getCurrentPlayer()); // move the human player
 					repaint();
 				} else {
 					JLabel label = new JLabel("<html><center>Invalid tile!"); // option pane to warn the player
