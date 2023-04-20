@@ -21,8 +21,6 @@ public abstract class Player {
     private String color;
     private int row;
     private int column;
-    private int x;
-    private int y;
     private ArrayList<Card> hand;
     private Set<Card> seenCards;
 
@@ -57,8 +55,6 @@ public abstract class Player {
      * @param height The cell height.
      */
     public void draw(Graphics g, int x, int y, int width, int height, ArrayList<Player> players) {
-        this.x = x; // update physical locations on the board
-        this.y = y;
         Color color; // color object to store color we retrieve from player data
         try {
             Field field = Class.forName("java.awt.Color").getField(getColor()); // get color from String
@@ -68,15 +64,15 @@ public abstract class Player {
         }
         // if the player is in a room, offset them to the right and up depending on location in list
         if (Board.getInstance().getCell(this.getRow(), this.getColumn()).isRoomCenter()) {
-            this.x = x + (width / 12) * players.indexOf(this) * 2; // always offset to the right
+            x += (width / 12) * players.indexOf(this) * 2; // always offset to the right
             if (players.indexOf(this) % 2 == 0) { // if at an even location in the list
-                this.y = y + (height / 6); // offset up
+                y += (height / 6); // offset up
             } 
         }
         g.setColor(Color.BLACK); // border color
-        g.drawOval(this.x, this.y, width, height); // draw oval with radii width and height
+        g.drawOval(x, y, width, height); // draw oval with radii width and height
         g.setColor(color); // filler color
-        g.fillOval(this.x, this.y, width, height);
+        g.fillOval(x, y, width, height);
     }
 
     /**
