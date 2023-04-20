@@ -49,8 +49,7 @@ public class Solution {
             return false; // if not a Solution instance; false
         }
         Solution c = (Solution) o; // cast
-        return (getRoom().equals(c.getRoom()) && getPerson().equals(c.getPerson())
-                && getWeapon().equals(c.getWeapon())); // compare instance variables
+        return (getRoom().equals(c.getRoom()) && getPerson().equals(c.getPerson()) && getWeapon().equals(c.getWeapon())); // compare instance variables
     }
 
     // all getters and setters
