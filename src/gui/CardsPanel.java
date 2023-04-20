@@ -3,7 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -131,24 +130,6 @@ public class CardsPanel extends JPanel {
     }
 
     /**
-     * getColor()
-     * Converts a computer player's color String to the Color type.
-     * 
-     * @param computer A computer player.
-     * @return The converted Color type.
-     */
-    private Color getColor(ComputerPlayer computer) {
-        Color color;
-        try {
-            Field field = Class.forName("java.awt.Color").getField(computer.getColor()); // get color from String
-            color = (Color) field.get(null);
-        } catch (Exception e) {
-            color = null; // failed to convert; return null
-        }
-        return color;
-    }
-
-    /**
      * generateNewFieldHand()
      * Generates a new text field for the hand.
      * 
@@ -234,24 +215,24 @@ public class CardsPanel extends JPanel {
             if (currentCard.getType() == CardType.PERSON) { // person
                 if (peopleSeenCards.getText().equals("None")) { // first occurrence
                     peopleSeenCards.setText(currentCard.getName()); // change text
-                    peopleSeenCards.setBackground(getColor(computer)); // change background color
+                    peopleSeenCards.setBackground(computer.getColor()); // change background color
                 } else {
-                    generateNewFieldSeen(getColor(computer), peoplePanel, currentCard.getName()); // generate a new
+                    generateNewFieldSeen(computer.getColor(), peoplePanel, currentCard.getName()); // generate a new
                                                                                                   // field
                 }
             } else if (currentCard.getType() == CardType.ROOM) { // room
                 if (roomsSeenCards.getText().equals("None")) { // first occurrence
                     roomsSeenCards.setText(currentCard.getName()); // change text
-                    roomsSeenCards.setBackground(getColor(computer)); // change background color
+                    roomsSeenCards.setBackground(computer.getColor()); // change background color
                 } else {
-                    generateNewFieldSeen(getColor(computer), roomsPanel, currentCard.getName()); // generate a new field
+                    generateNewFieldSeen(computer.getColor(), roomsPanel, currentCard.getName()); // generate a new field
                 }
             } else { // weapon
                 if (weaponsSeenCards.getText().equals("None")) { // first occurrence
                     weaponsSeenCards.setText(currentCard.getName()); // change text
-                    weaponsSeenCards.setBackground(getColor(computer)); // change background color
+                    weaponsSeenCards.setBackground(computer.getColor()); // change background color
                 } else {
-                    generateNewFieldSeen(getColor(computer), weaponsPanel, currentCard.getName()); // generate a new
+                    generateNewFieldSeen(computer.getColor(), weaponsPanel, currentCard.getName()); // generate a new
                                                                                                    // field
                 }
             }

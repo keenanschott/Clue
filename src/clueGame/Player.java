@@ -18,7 +18,7 @@ import java.lang.reflect.Field;
  */
 public abstract class Player {
     private String name;
-    private String color;
+    private Color color;
     private int row;
     private int column;
     private ArrayList<Card> hand;
@@ -36,7 +36,12 @@ public abstract class Player {
     public Player(String inName, String inColor, int inRow, int inColumn) {
         super();
         name = inName;
-        color = inColor;
+        try {
+            Field field = Class.forName("java.awt.Color").getField(inColor); // get color from String
+            color = (Color) field.get(null);
+        } catch (Exception e) {
+            color = null; // failed to convert; return null
+        }
         row = inRow;
         column = inColumn;
         hand = new ArrayList<Card>(); // allocate space
@@ -55,13 +60,6 @@ public abstract class Player {
      * @param height The cell height.
      */
     public void draw(Graphics g, int x, int y, int width, int height, ArrayList<Player> players) {
-        Color color; // color object to store color we retrieve from player data
-        try {
-            Field field = Class.forName("java.awt.Color").getField(getColor()); // get color from String
-            color = (Color) field.get(null);
-        } catch (Exception e) { // if not valid color
-            color = null; // failed to convert; return null
-        }
         // if the player is in a room, offset them to the right and up depending on location in list
         if (Board.getInstance().getCell(this.getRow(), this.getColumn()).isRoomCenter()) {
             x += (width / 12) * players.indexOf(this) * 2; // always offset to the right
@@ -108,7 +106,7 @@ public abstract class Player {
         return name;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
