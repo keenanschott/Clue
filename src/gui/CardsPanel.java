@@ -217,8 +217,7 @@ public class CardsPanel extends JPanel {
                     peopleSeenCards.setText(currentCard.getName()); // change text
                     peopleSeenCards.setBackground(computer.getColor()); // change background color
                 } else {
-                    generateNewFieldSeen(computer.getColor(), peoplePanel, currentCard.getName()); // generate a new
-                                                                                                  // field
+                    generateNewFieldSeen(computer.getColor(), peoplePanel, currentCard.getName()); // generate a new field
                 }
             } else if (currentCard.getType() == CardType.ROOM) { // room
                 if (roomsSeenCards.getText().equals("None")) { // first occurrence
@@ -232,8 +231,7 @@ public class CardsPanel extends JPanel {
                     weaponsSeenCards.setText(currentCard.getName()); // change text
                     weaponsSeenCards.setBackground(computer.getColor()); // change background color
                 } else {
-                    generateNewFieldSeen(computer.getColor(), weaponsPanel, currentCard.getName()); // generate a new
-                                                                                                   // field
+                    generateNewFieldSeen(computer.getColor(), weaponsPanel, currentCard.getName()); // generate a new field
                 }
             }
         }

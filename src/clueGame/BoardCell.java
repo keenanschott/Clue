@@ -73,32 +73,42 @@ public class BoardCell {
      */
     public void draw(Graphics g, int x, int y, int width, int height) {
         if ((target && roomCenter) || (isRoom && Board.getInstance().getRoom(initial).getCenterCell().target)) {
-            g.setColor(Color.CYAN); // room related target
-            g.fillRect(x, y, width, height);
+            fill(g, Color.CYAN, x, y, width, height); // target room
         } else if (target) {
-            g.setColor(Color.CYAN); // standard target
-            g.fillRect(x, y, width, height);
-            g.setColor(Color.BLACK); // border
+            fill(g, Color.CYAN, x, y, width, height); // standard target
+            g.setColor(Color.BLACK); 
             g.drawRect(x, y, width, height);
         } else if (isRoom && secretPassage == '\0') {
-            g.setColor(Color.GRAY); // room
-            g.fillRect(x, y, width, height);
+            fill(g, Color.GRAY, x, y, width, height); // standard room cell
         } else if (secretPassage != '\0') {
-            g.setColor(Color.lightGray); // secret passage
-            g.fillRect(x, y, width, height);
+            fill(g, Color.LIGHT_GRAY, x, y, width, height); // secret passage
             g.setColor(Color.BLUE);
             g.setFont(new Font("Tahoma", Font.PLAIN, selectFont()));
             g.drawString(String.valueOf(secretPassage), x + (width / 3), y + (height * 2 / 3)); // necessary offset
-        } else if (getInitial() == 'W') { // cell is walkway
-            g.setColor(Color.YELLOW); // filler
-            g.fillRect(x, y, width, height);
-            g.setColor(Color.BLACK); // border
+        } else if (getInitial() == 'W') { // walkway
+            fill(g, Color.YELLOW, x, y, width, height);
+            g.setColor(Color.BLACK); 
             g.drawRect(x, y, width, height);
-        } else { // cell is bad space/closet
-            g.setColor(Color.BLACK);
+        } else {
+            fill(g, Color.BLACK, x, y, width, height); // cell is bad space/closet
             g.drawRect(x, y, width, height);
-            g.fillRect(x, y, width, height);
         }
+    }
+
+    /**
+     * fill()
+     * Fill the rectangle with the given color.
+     * 
+     * @param g The Graphics object.
+     * @param color The given color.
+     * @param x The x coordinate.
+     * @param y The y coordinate. 
+     * @param width The cell width.
+     * @param height The cell height.
+     */
+    private void fill(Graphics g, Color color, int x, int y, int width, int height) {
+        g.setColor(color);
+        g.fillRect(x, y, width, height);
     }
 
     /**

@@ -344,8 +344,7 @@ public class Board extends JPanel {
 				if (grid[i][j].getSecretPassage() != '\0') {
 					// connect other room's center cell by adding it to the current room's center
 					// cell's adjacency list
-					roomMap.get(grid[i][j].getInitial()).getCenterCell()
-							.addAdjacency(roomMap.get(grid[i][j].getSecretPassage()).getCenterCell());
+					roomMap.get(grid[i][j].getInitial()).getCenterCell().addAdjacency(roomMap.get(grid[i][j].getSecretPassage()).getCenterCell());
 				}
 				// if the cell is not a room cell in any capacity and not an unused space -
 				// create a generic adjacency list
@@ -402,49 +401,25 @@ public class Board extends JPanel {
 	 */
 	private void doorwayAdjacencies(int row, int col) {
 		if (grid[row][col].getDoorDirection() == DoorDirection.UP) {
-			grid[row][col].addAdjacency(roomMap.get(grid[row - 1][col].getInitial()).getCenterCell()); // add the room's
-																										// center cell
-																										// to the
-																										// doorway's
-																										// adj. list.
-			roomMap.get(grid[row - 1][col].getInitial()).getCenterCell().addAdjacency(grid[row][col]); // add the
-																										// doorway to
-																										// the room's
-																										// center cell's
-																										// adj. list
+			grid[row][col].addAdjacency(roomMap.get(grid[row - 1][col].getInitial()).getCenterCell()); 
+			// add the room's center cell to the doorway's adj. list.
+			roomMap.get(grid[row - 1][col].getInitial()).getCenterCell().addAdjacency(grid[row][col]); 
+			// add the doorway to the room's center cell's adj. list
 		} else if (grid[row][col].getDoorDirection() == DoorDirection.DOWN) {
-			grid[row][col].addAdjacency(roomMap.get(grid[row + 1][col].getInitial()).getCenterCell()); // add the room's
-																										// center cell
-																										// to the
-																										// doorway's
-																										// adj. list.
-			roomMap.get(grid[row + 1][col].getInitial()).getCenterCell().addAdjacency(grid[row][col]); // add the
-																										// doorway to
-																										// the room's
-																										// center cell's
-																										// adj. list
+			grid[row][col].addAdjacency(roomMap.get(grid[row + 1][col].getInitial()).getCenterCell());
+			// add the room's center cell to the doorway's adj. list.
+			roomMap.get(grid[row + 1][col].getInitial()).getCenterCell().addAdjacency(grid[row][col]); 
+			// add the doorway to the room's center cell's adj. list
 		} else if (grid[row][col].getDoorDirection() == DoorDirection.LEFT) {
-			grid[row][col].addAdjacency(roomMap.get(grid[row][col - 1].getInitial()).getCenterCell()); // add the room's
-																										// center cell
-																										// to the
-																										// doorway's
-																										// adj. list.
-			roomMap.get(grid[row][col - 1].getInitial()).getCenterCell().addAdjacency(grid[row][col]); // add the
-																										// doorway to
-																										// the room's
-																										// center cell's
-																										// adj. list
+			grid[row][col].addAdjacency(roomMap.get(grid[row][col - 1].getInitial()).getCenterCell());
+			// add the room's center cell to the doorway's adj. list.
+			roomMap.get(grid[row][col - 1].getInitial()).getCenterCell().addAdjacency(grid[row][col]);
+			// add the doorway to the room's center cell's adj. list
 		} else if (grid[row][col].getDoorDirection() == DoorDirection.RIGHT) {
-			grid[row][col].addAdjacency(roomMap.get(grid[row][col + 1].getInitial()).getCenterCell()); // add the room's
-																										// center cell
-																										// to the
-																										// doorway's
-																										// adj. list.
-			roomMap.get(grid[row][col + 1].getInitial()).getCenterCell().addAdjacency(grid[row][col]); // add the
-																										// doorway to
-																										// the room's
-																										// center cell's
-																										// adj. list
+			grid[row][col].addAdjacency(roomMap.get(grid[row][col + 1].getInitial()).getCenterCell()); 
+			// add the room's center cell to the doorway's adj. list.
+			roomMap.get(grid[row][col + 1].getInitial()).getCenterCell().addAdjacency(grid[row][col]);
+			// add the doorway to the room's center cell's adj. list
 		}
 	}
 
@@ -479,8 +454,7 @@ public class Board extends JPanel {
 			 * - is not occupied and is a walkway OR
 			 * - is a room center
 			 */
-			if ((!visited.contains(adjCell) && !adjCell.getIsOccupied() && adjCell.getInitial() == 'W')
-					|| (!visited.contains(adjCell) && adjCell.isRoomCenter())) { // see above
+			if ((!visited.contains(adjCell) && !adjCell.getIsOccupied() && adjCell.getInitial() == 'W') || (!visited.contains(adjCell) && adjCell.isRoomCenter())) { // see above
 				visited.add(adjCell); // add to visited
 				if (pathLength == 1 || adjCell.isRoomCenter()) { // if no more moves or at a room center
 					targets.add(adjCell); // add to targets
@@ -650,6 +624,7 @@ public class Board extends JPanel {
 	 * Simulate the player's movement; both computer and player.
 	 * 
 	 * @param targetCell The cell to move to.
+	 * @param currentPlayer The current player.
 	 */
 	public void move(BoardCell targetCell, Player currentPlayer) {
 		currentPlayer.setLocation(targetCell.getRow(), targetCell.getCol()); // set new location
