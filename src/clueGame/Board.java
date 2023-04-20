@@ -76,12 +76,14 @@ public class Board extends JPanel {
 	 */
 	public void initialize() {
 		try {
-			loadSetupConfig(); // try to load files
+			// try to load files
+			loadSetupConfig(); 
 			loadLayoutConfig();
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		}
-		createAdj(); // create adjacency lists for every cell
+		// create adjacency lists for every cell
+		createAdj(); 
 	}
 
 	/**
@@ -103,45 +105,60 @@ public class Board extends JPanel {
 	 * @throws BadConfigFormatException
 	 */
 	public void loadSetupConfig() throws BadConfigFormatException {
-		roomMap = new HashMap<Character, Room>(); // allocate space for our map
-		players = new ArrayList<Player>(); // allocate space for player list
-		deck = new ArrayList<Card>(); // allocate space for the deck
-		File file = new File(setupConfigFile); // file object
-		String currentLine; // current line
-		String[] lineArray; // array of words in current line
+		roomMap = new HashMap<Character, Room>();
+		players = new ArrayList<Player>(); 
+		deck = new ArrayList<Card>(); 
+		File file = new File(setupConfigFile); 
+		String currentLine;
+		// array of words in current line
+		String[] lineArray;
 		try {
-			Scanner scan = new Scanner(file); // open
+			Scanner scan = new Scanner(file); 
 			while (scan.hasNext()) {
-				currentLine = scan.nextLine(); // get entire line
-				lineArray = currentLine.split(", "); // split by comma
-				if (lineArray.length == 3 && lineArray[0].equals("Room")) { // valid line for a room
-					Room newRoom = new Room(lineArray[1], null, null); // do not insert center or label yet
-					roomMap.put(lineArray[2].charAt(0), newRoom); // put into map
-					deck.add(new Card(lineArray[1], CardType.ROOM)); // add to deck as a room
-				} else if (lineArray.length == 3 && lineArray[0].equals("Space")) { // valid line for a space
-					Room newRoom = new Room(lineArray[1], null, null); // do not insert center or label yet
-					roomMap.put(lineArray[2].charAt(0), newRoom); // put into map as a room
-				} else if (lineArray.length == 5 && lineArray[0].equals("Player")) { // valid line for a player
+				// get entire line
+				currentLine = scan.nextLine(); 
+				lineArray = currentLine.split(", "); 
+				// valid line for a room
+				if (lineArray.length == 3 && lineArray[0].equals("Room")) {
+					// do not insert center or label yet
+					Room newRoom = new Room(lineArray[1], null, null);
+					// put into map
+					roomMap.put(lineArray[2].charAt(0), newRoom); 
+					// add to deck as a room
+					deck.add(new Card(lineArray[1], CardType.ROOM)); 
+				// valid line for a space
+				} else if (lineArray.length == 3 && lineArray[0].equals("Space")) { 
+					// do not insert center or label yet
+					Room newRoom = new Room(lineArray[1], null, null); 
+					// put into map as a room
+					roomMap.put(lineArray[2].charAt(0), newRoom); 
+				// valid line for a player
+				} else if (lineArray.length == 5 && lineArray[0].equals("Player")) { 
 					if (lineArray[3].equals("Human")) { // human
 						players.add(new HumanPlayer(lineArray[1], lineArray[2],
-								Integer.parseInt(lineArray[4].split("-")[0]),
-								Integer.parseInt(lineArray[4].split("-")[1]))); // new human player
+						// new human player
+							Integer.parseInt(lineArray[4].split("-")[0]),
+							Integer.parseInt(lineArray[4].split("-")[1])));
 					} else { // computer
+						// new computer player
 						players.add(new ComputerPlayer(lineArray[1], lineArray[2],
-								Integer.parseInt(lineArray[4].split("-")[0]),
-								Integer.parseInt(lineArray[4].split("-")[1]))); // new computer player
+							Integer.parseInt(lineArray[4].split("-")[0]),
+							Integer.parseInt(lineArray[4].split("-")[1]))); 
 					}
-					deck.add(new Card(lineArray[1], CardType.PERSON)); // add to deck as a player
-				} else if (lineArray.length == 2 && lineArray[0].equals("Weapon")) { // valid line for a weapon
-					deck.add(new Card(lineArray[1], CardType.WEAPON)); // add to deck as a weapon
+					// add to deck as a player
+					deck.add(new Card(lineArray[1], CardType.PERSON));
+					// valid line for a weapon
+				} else if (lineArray.length == 2 && lineArray[0].equals("Weapon")) { 
+					// add to deck as a weapon
+					deck.add(new Card(lineArray[1], CardType.WEAPON));
 				} else {
-					if (!lineArray[0].substring(0, 2).equals("//")) { // if not a comment
-						scan.close(); // close before exception
+					if (!lineArray[0].substring(0, 2).equals("//")) { // if not a comment, close before exception
+						scan.close();
 						throw new BadConfigFormatException();
 					}
 				}
 			}
-			scan.close(); // close
+			scan.close(); 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -154,9 +171,9 @@ public class Board extends JPanel {
 	 * @throws BadConfigFormatException
 	 */
 	public void loadLayoutConfig() throws BadConfigFormatException {
-		ArrayList<String[]> allLinesLayout = new ArrayList<String[]>(); // new ArrayList of Strings
-		File file = new File(layoutConfigFile); // file object
-		String currentLine; // current line
+		ArrayList<String[]> allLinesLayout = new ArrayList<String[]>(); 
+		File file = new File(layoutConfigFile); 
+		String currentLine; 
 		String[] lineArray; // array of words in current line
 		try {
 			Scanner sc = new Scanner(file); // open
@@ -165,9 +182,10 @@ public class Board extends JPanel {
 				lineArray = currentLine.split(",");
 				allLinesLayout.add(lineArray);
 			}
-			numRows = allLinesLayout.size(); // number of rows is equal to size of allLinesLayout
-			numColumns = allLinesLayout.get(0).length; // number of columns is equal to size of any entry in
-														// allLinesLayout
+			// number of rows is equal to size of allLinesLayout
+			numRows = allLinesLayout.size(); 
+			// number of columns is equal to size of any entry in allLinesLayout
+			numColumns = allLinesLayout.get(0).length;
 			sc.close(); // close
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -185,41 +203,39 @@ public class Board extends JPanel {
 	 */
 	private void fillGrid(ArrayList<String[]> layout) throws BadConfigFormatException {
 		grid = new BoardCell[numRows][numColumns];
-		int rowCounter = 0; // count rows
-		int colCounter = 0; // count columns
+		int rowCounter = 0; 
+		int colCounter = 0; 
 		for (String[] row : layout) {
 			for (String cell : row) { // for a given cell String
 				if (cell.length() < 1 || cell.length() > 2) {
-					throw new BadConfigFormatException("Layout file contains configuration errors!"); // invalid length
-																										// of String;
-																										// invalid cell
+					// invalid length of String; invalid cell
+					throw new BadConfigFormatException("Layout file contains configuration errors!"); 
 				} else {
-					BoardCell newCell = new BoardCell(rowCounter, colCounter, cell.charAt(0)); // new cell
-					if (roomMap.containsKey(cell.charAt(0))) { // a valid cell with regards to our map
-						fillGridCellHelper(newCell); // set cell booleans depending on the initial; see
-														// fillGridCellHelper
-						if (cell.length() == 2) { // if a cell with special behavior
-							fillGridRoomHelper(cell, newCell); // see fillGridRoomHelper
+					BoardCell newCell = new BoardCell(rowCounter, colCounter, cell.charAt(0)); 
+					// a valid cell with regards to our mapv
+					if (roomMap.containsKey(cell.charAt(0))) {
+						// set cell booleans depending on the initial; see fillGridCellHelper
+						fillGridCellHelper(newCell); 
+						// if a cell with special behavior see fillGridRoomHelper
+						if (cell.length() == 2) { 
+							fillGridRoomHelper(cell, newCell); 
 						}
 					} else {
-						throw new BadConfigFormatException("Layout file specifies a room that is not in the legend!"); // not
-																														// in
-																														// setup
-																														// file
+						// not in setup file
+						throw new BadConfigFormatException("Layout file specifies a room that is not in the legend!");
 					}
-					grid[rowCounter][colCounter] = newCell; // fill grid with newCell
-					colCounter++; // next column, same row
+					// fill grid with newCell
+					grid[rowCounter][colCounter] = newCell; 
+					colCounter++;
 				}
 			}
-			rowCounter++; // iterate to the next row
+			rowCounter++; 
 			if (colCounter != numColumns) {
-				throw new BadConfigFormatException(
-						"Layout file that does not have the same number of columns for each row!"); // invalid row; did
-																									// not have a
-																									// matching column
-																									// count
+				// invalid row; did not have a matching column count
+				throw new BadConfigFormatException("Layout file that does not have the same number of columns for each row!"); 
 			}
-			colCounter = 0; // reset column count to start from left for the next row
+			// reset column count to start from left for the next row
+			colCounter = 0; 
 		}
 	}
 
@@ -231,9 +247,11 @@ public class Board extends JPanel {
 	 */
 	private void fillGridCellHelper(BoardCell cell) {
 		if (cell.getInitial() != 'W' && cell.getInitial() != 'X') {
-			cell.setIsRoom(true); // if not W or X, the cell is a room
+			// if not W or X, the cell is a room
+			cell.setIsRoom(true); 
 		} else if (cell.getInitial() == 'X') {
-			cell.setOccupied(true); // if X, set the cell to be occupied
+			// if X, set the cell to be occupied
+			cell.setOccupied(true); 
 		}
 	}
 
@@ -246,7 +264,8 @@ public class Board extends JPanel {
 	 * @param cell       The corresponding BoardCell.
 	 */
 	private void fillGridRoomHelper(String cellString, BoardCell cell) {
-		Room changeRoom = roomMap.get(cellString.charAt(0)); // temporary Room object to change the room within the map
+		 // temporary Room object to change the room within the map
+		Room changeRoom = roomMap.get(cellString.charAt(0)); 
 		if (cellString.charAt(1) == '#') { // label cell
 			cell.setLabel(true);
 			changeRoom.setLabelCell(cell);
@@ -256,7 +275,8 @@ public class Board extends JPanel {
 		} else if (cellString.charAt(0) == 'W') { // doorway cell
 			cell.setDoorDirection(cellString.charAt(1));
 		} else {
-			cell.setSecretPassage(cellString.charAt(1)); // only remaining special cell option
+			// only remaining special cell option
+			cell.setSecretPassage(cellString.charAt(1)); 
 		}
 	}
 
@@ -279,18 +299,20 @@ public class Board extends JPanel {
 		cellHeight = getHeight() / numRows;
 		if (cellWidth > cellHeight) {
 			cellWidth = cellHeight;
-			offsetX = (getWidth() - cellWidth * numColumns) / 2; // get offset in x
+			offsetX = (getWidth() - cellWidth * numColumns) / 2; 
 		}  else {
 			cellHeight = cellWidth;
-			offsetY = (getHeight() - cellHeight * numRows) / 2; // get offset in y
+			offsetY = (getHeight() - cellHeight * numRows) / 2; 
 		}
-		xCoord = -cellWidth; // set coordinates to be iterated
+		// set coordinates to be iteratedimage.png
+		xCoord = -cellWidth; 
 		yCoord = -cellHeight;
 		g.setColor(Color.BLACK); // base color
 		// draw rooms first, so borders of walkways don't get overwritten
 		for (int i = 0; i < numRows; i++) { // iterate through rows of board grid
 			yCoord += cellHeight; 
-			for (int j = 0; j < numColumns; j++) { // iterate then through columns of board grid
+			// iterate then through columns of board grid
+			for (int j = 0; j < numColumns; j++) { 
 				xCoord += cellWidth; 
 				if (grid[i][j].getIsRoom()) {
 					grid[i][j].draw(g, xCoord + offsetX, yCoord + offsetY, cellWidth, cellHeight); // board cells draw themselves
@@ -298,7 +320,8 @@ public class Board extends JPanel {
 			}
 			xCoord = -cellWidth; // reset xCoord
 		}
-		xCoord = -cellWidth; // reset coordinates to be iterated
+		// reset coordinates to be iterated
+		xCoord = -cellWidth; 
 		yCoord = -cellHeight;
 		// same loop structure and draw methodology for non-room cells
 		for (int i = 0; i < numRows; i++) {
@@ -318,8 +341,10 @@ public class Board extends JPanel {
 			yCoord += cellHeight;
 			for (int j = 0; j < numColumns; j++) {
 				xCoord += cellWidth;
-				if (grid[i][j].isLabel()) { // if label cell, draw
-					grid[i][j].drawLabel(g, xCoord + offsetX, yCoord + offsetY); // we'll get our label for grid[i][j]
+				// if label cell, draw
+				if (grid[i][j].isLabel()) { 
+					// we'll get our label for grid[i][j]
+					grid[i][j].drawLabel(g, xCoord + offsetX, yCoord + offsetY); 
 				} else if (grid[i][j].getDoorDirection() != DoorDirection.NONE) { // if doorway
 					grid[i][j].drawDoor(g, xCoord + offsetX, yCoord + offsetY, cellWidth, cellHeight);
 				}
@@ -350,10 +375,11 @@ public class Board extends JPanel {
 				// create a generic adjacency list
 				else if (!grid[i][j].getIsRoom() && grid[i][j].getInitial() != 'X') {
 					if (grid[i][j].getDoorDirection() != DoorDirection.NONE) {
-						doorwayAdjacencies(i, j); // special rules apply to center cells in relation to doorways; see
-													// doorwayAdjacencies
+						// special rules apply to center cells in relation to doorways; see doorwayAdjacencies
+						doorwayAdjacencies(i, j); 
 					}
-					genericAdjacencies(i, j); // generic adjacency checking; see genericAdjacencies
+					// generic adjacency checking; see genericAdjacencies
+					genericAdjacencies(i, j); 
 				}
 			}
 		}
@@ -405,21 +431,37 @@ public class Board extends JPanel {
 			// add the room's center cell to the doorway's adj. list.
 			roomMap.get(grid[row - 1][col].getInitial()).getCenterCell().addAdjacency(grid[row][col]); 
 			// add the doorway to the room's center cell's adj. list
+			// add the room's center cell to the doorway's adj. list.
+			grid[row][col].addAdjacency(roomMap.get(grid[row - 1][col].getInitial()).getCenterCell()); 
+			// add the doorway to the room's center cell's adj. list
+			roomMap.get(grid[row - 1][col].getInitial()).getCenterCell().addAdjacency(grid[row][col]); 
 		} else if (grid[row][col].getDoorDirection() == DoorDirection.DOWN) {
 			grid[row][col].addAdjacency(roomMap.get(grid[row + 1][col].getInitial()).getCenterCell());
 			// add the room's center cell to the doorway's adj. list.
 			roomMap.get(grid[row + 1][col].getInitial()).getCenterCell().addAdjacency(grid[row][col]); 
 			// add the doorway to the room's center cell's adj. list
+			// add the room's center cell to the doorway's adj. list.
+			grid[row][col].addAdjacency(roomMap.get(grid[row + 1][col].getInitial()).getCenterCell()); 
+			// add the doorway to the room's center cell's adj. list
+			roomMap.get(grid[row + 1][col].getInitial()).getCenterCell().addAdjacency(grid[row][col]); 
 		} else if (grid[row][col].getDoorDirection() == DoorDirection.LEFT) {
 			grid[row][col].addAdjacency(roomMap.get(grid[row][col - 1].getInitial()).getCenterCell());
 			// add the room's center cell to the doorway's adj. list.
 			roomMap.get(grid[row][col - 1].getInitial()).getCenterCell().addAdjacency(grid[row][col]);
 			// add the doorway to the room's center cell's adj. list
+			 // add the room's center cell to the doorway's adj. list.
+			grid[row][col].addAdjacency(roomMap.get(grid[row][col - 1].getInitial()).getCenterCell());
+			// add the doorway to the room's center cell's adj. list
+			roomMap.get(grid[row][col - 1].getInitial()).getCenterCell().addAdjacency(grid[row][col]); 
 		} else if (grid[row][col].getDoorDirection() == DoorDirection.RIGHT) {
 			grid[row][col].addAdjacency(roomMap.get(grid[row][col + 1].getInitial()).getCenterCell()); 
 			// add the room's center cell to the doorway's adj. list.
 			roomMap.get(grid[row][col + 1].getInitial()).getCenterCell().addAdjacency(grid[row][col]);
 			// add the doorway to the room's center cell's adj. list
+			// add the room's center cell to the doorway's adj. list.
+			grid[row][col].addAdjacency(roomMap.get(grid[row][col + 1].getInitial()).getCenterCell());
+			// add the doorway to the room's center cell's adj. list
+			roomMap.get(grid[row][col + 1].getInitial()).getCenterCell().addAdjacency(grid[row][col]); 
 		}
 	}
 
@@ -432,10 +474,12 @@ public class Board extends JPanel {
 	 * @param pathLength The roll/how many moves we have.
 	 */
 	public void calcTargets(BoardCell startCell, int pathLength) {
-		visited = new HashSet<BoardCell>(); // allocate space for our sets
+		// allocate space for our sets
+		visited = new HashSet<BoardCell>(); 
 		targets = new HashSet<BoardCell>();
-		visited.add(startCell); // can never move back to the start cell
-		findAllTargets(startCell, pathLength); // call helper function
+		// can never move back to the start cell
+		visited.add(startCell); 
+		findAllTargets(startCell, pathLength); 
 	}
 
 	/**
@@ -447,7 +491,8 @@ public class Board extends JPanel {
 	 * @param pathLength The roll/how many moves we have.
 	 */
 	private void findAllTargets(BoardCell startCell, int pathLength) {
-		for (BoardCell adjCell : startCell.getAdjList()) { // all adjacent cells to the start cell
+		// all adjacent cells to the start cell
+		for (BoardCell adjCell : startCell.getAdjList()) { 
 			/*
 			 * What we need to check (all conditions below need to be met):
 			 * - not in visited AND
@@ -459,12 +504,15 @@ public class Board extends JPanel {
 				if (pathLength == 1 || adjCell.isRoomCenter()) { // if no more moves or at a room center
 					targets.add(adjCell); // add to targets
 					if (currentPlayer instanceof HumanPlayer) {
-						adjCell.setTarget(true); // set drawing flag to true
+						// set drawing flag to true
+						adjCell.setTarget(true); 
 					}
 				} else {
-					findAllTargets(adjCell, pathLength - 1); // call recursively with one less move
+					// call recursively with one less move
+					findAllTargets(adjCell, pathLength - 1); 
 				}
-				visited.remove(adjCell); // remove from visited
+				// remove from visited
+				visited.remove(adjCell);
 			}
 		}
 	}
@@ -494,16 +542,19 @@ public class Board extends JPanel {
 			deckCopy.remove(temp);
 			if (solutionPlayer == false && temp.getType() == CardType.PERSON) {
 				solutionPlayer = true;
-				theAnswer.setPerson(temp); // set solution person to first random person
+				 // set solution person to first random person
+				theAnswer.setPerson(temp);
 			} else if (solutionWeapon == false && temp.getType() == CardType.WEAPON) {
 				solutionWeapon = true;
-				theAnswer.setWeapon(temp); // set solution weapon to first random weapon
+				// set solution weapon to first random weapon
+				theAnswer.setWeapon(temp); 
 			} else if (solutionRoom == false && temp.getType() == CardType.ROOM) {
 				solutionRoom = true;
-				theAnswer.setRoom(temp); // set solution room to first random room
+				// set solution room to first random room
+				theAnswer.setRoom(temp); 
 			} else {
-				players.get(player_counter % players.size()).updateHand(temp); // iterate through the players and add
-																				// the current card
+				// iterate through the players and add the current card
+				players.get(player_counter % players.size()).updateHand(temp); 
 				players.get(player_counter % players.size()).updateSeen(temp);
 				player_counter++; // next player
 			}
@@ -530,11 +581,13 @@ public class Board extends JPanel {
 	 */
 	public Card handleSuggestion(Player origin, Solution suggestion) {
 		Card evidence;
-		for (Player aPlayer : players) { // cycle through all of the players
-			if (aPlayer != origin) { // the player of origin cannot be used here
+		for (Player aPlayer : players) { 
+			// the player of origin cannot be used here
+			if (aPlayer != origin) { 
 				evidence = aPlayer.disproveSuggestion(suggestion);
 				if (evidence != null) {
-					return evidence; // return the card if a player can disprove it
+					// return the card if a player can disprove it
+					return evidence; 
 				}
 			}
 		}
@@ -552,11 +605,12 @@ public class Board extends JPanel {
 	 */
 	public Player handleSuggestionTestReturn(Player origin, Solution suggestion) {
 		Card evidence;
-		for (Player aPlayer : players) { // cycle through all of the players
-			if (aPlayer != origin) { // the player of origin cannot be used here
+		for (Player aPlayer : players) { 
+			if (aPlayer != origin) { 
 				evidence = aPlayer.disproveSuggestion(suggestion);
 				if (evidence != null) {
-					return aPlayer; // return the player that disproved the suggestion
+					// return the player that disproved the suggestion
+					return aPlayer;
 				}
 			}
 		}
@@ -577,7 +631,8 @@ public class Board extends JPanel {
 		gameFrame.getBottomPanel().getTopFour().addActionListener(new ActionListener() { // add listener to "NEXT!" button
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (finished == true) { // if the current turn has concluded
+				// if the current turn has concluded
+				if (finished == true) { 
 					playerTurn++;
 					currentPlayer = players.get(playerTurn % players.size());
 					currentRoll = randomRoll();
@@ -600,13 +655,13 @@ public class Board extends JPanel {
 	 * @param gameFrame The outer frame we need to reference.
 	 */
 	private void runTurn() {
-		getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(false); // deoccupy current cell
-																						// inhabited
+		getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(false); // deoccupy current cell inhabited
 		finished = false; // turn not over
-		calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll); // calculate targets
-		if (targets.isEmpty()) { // no valid spaces to move to
+		calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll);
+		if (targets.isEmpty()) { 
 			finished = true; // skip turn
-			if (currentPlayer instanceof HumanPlayer) { // tell player their turn is being skipped
+			// tell player their turn is being skipped
+			if (currentPlayer instanceof HumanPlayer) { 
 				JLabel label = new JLabel("<html><center>There are no valid tiles to move to; skipping turn!");
 				label.setHorizontalAlignment(SwingConstants.CENTER);
 				JOptionPane.showMessageDialog(Board.getInstance(), label, "Warning!", JOptionPane.WARNING_MESSAGE);

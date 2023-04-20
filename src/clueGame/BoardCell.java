@@ -165,7 +165,7 @@ public class BoardCell {
              // draw in next cell over, then scale down width so that doorway appears on left edge of cell
         }
     }
-
+    
     /**
      * setDoorDirection()
      * Set the direction of the doorway for a given cell.
