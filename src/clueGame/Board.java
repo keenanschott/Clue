@@ -277,30 +277,27 @@ public class Board extends JPanel {
 		int cellHeight = getHeight() / numRows;
 		if (cellWidth > cellHeight) {
 			cellWidth = cellHeight;
-			this.offsetX = (getWidth() - cellWidth * numColumns) / 2;
+			this.offsetX = (getWidth() - cellWidth * numColumns) / 2; // get offset in x
 		}  else {
 			cellHeight = cellWidth;
-			this.offsetY = (getHeight() - cellHeight * numRows) / 2;
+			this.offsetY = (getHeight() - cellHeight * numRows) / 2;  // get offset in y
 		}
-		xCoord = -cellWidth;
+		xCoord = -cellWidth; // set coordinates to be iterated
 		yCoord = -cellHeight;
 		g.setColor(Color.BLACK); // base color
 		// draw rooms first, so borders of walkways don't get overwritten
 		for (int i = 0; i < numRows; i++) { // iterate through rows of board grid
-			yCoord += cellHeight; // all cells equal height, so every yCoord is equally spaced and determined by i
+			yCoord += cellHeight; 
 			for (int j = 0; j < numColumns; j++) { // iterate then through columns of board grid
-				xCoord += cellWidth; // all cells equal width, so every xCoord is equally spaced and determined
-											// by j
+				xCoord += cellWidth; 
 				if (grid[i][j].getIsRoom()) {
 					BoardCell.setDimensions(xCoord + offsetX, yCoord + offsetY, cellWidth, cellHeight);
-					grid[i][j].paintComponent(g); // board cells can draw themselves, that
-													// way we can access room info
+					grid[i][j].paintComponent(g); // board cells draw themselves
 				}
 			}
-			xCoord = -cellWidth;
+			xCoord = -cellWidth; // reset xCoord
 		}
-		// other cells next
-		xCoord = -cellWidth;
+		xCoord = -cellWidth; // reset coordinates to be iterated
 		yCoord = -cellHeight;
 		// same loop structure and draw methodology for non-room cells
 		for (int i = 0; i < numRows; i++) {
@@ -314,7 +311,7 @@ public class Board extends JPanel {
 			}
 			xCoord = -cellWidth;
 		}
-		xCoord = -cellWidth;
+		xCoord = -cellWidth; // reset coordinates to be iterated
 		yCoord = -cellHeight;
 		// handle names next, as we want to overlay these on the board
 		for (int i = 0; i < numRows; i++) {
@@ -324,8 +321,7 @@ public class Board extends JPanel {
 				if (grid[i][j].isLabel()) { // if label cell, draw
 					grid[i][j].drawLabel(g, xCoord + offsetX, yCoord + offsetY); // we'll get our label for grid[i][j]
 				} else if (grid[i][j].getDoorDirection() != DoorDirection.NONE) { // if doorway
-					grid[i][j].drawDoor(g, xCoord + offsetX, yCoord + offsetY, cellWidth, cellHeight); // we'll calculate offset and
-																					// location for door in drawDoor
+					grid[i][j].drawDoor(g, xCoord + offsetX, yCoord + offsetY, cellWidth, cellHeight);
 				}
 			}
 			xCoord = -cellWidth;
@@ -333,8 +329,7 @@ public class Board extends JPanel {
 		// lastly, draw players using draw method for a player
 		// offset is calculated using width of cell and initial starting row/col
 		for (Player player : players) {
-			player.draw(g, player.getColumn() * cellWidth + offsetX, player.getRow() * cellHeight + offsetY, cellWidth, cellHeight,
-					players);
+			player.draw(g, player.getColumn() * cellWidth + offsetX, player.getRow() * cellHeight + offsetY, cellWidth, cellHeight, players);
 		}
 	}
 
@@ -354,7 +349,7 @@ public class Board extends JPanel {
 				}
 				// if the cell is not a room cell in any capacity and not an unused space -
 				// create a generic adjacency list
-				else if (!grid[i][j].getIsRoom() && !(grid[i][j].getInitial() == 'X')) {
+				else if (!grid[i][j].getIsRoom() && grid[i][j].getInitial() != 'X') {
 					if (grid[i][j].getDoorDirection() != DoorDirection.NONE) {
 						doorwayAdjacencies(i, j); // special rules apply to center cells in relation to doorways; see
 													// doorwayAdjacencies
@@ -561,9 +556,9 @@ public class Board extends JPanel {
 	 */
 	public Card handleSuggestion(Player origin, Solution suggestion) {
 		Card evidence;
-		for (Player currentPlayer : players) { // cycle through all of the players
-			if (currentPlayer != origin) { // the player of origin cannot be used here
-				evidence = currentPlayer.disproveSuggestion(suggestion);
+		for (Player aPlayer : players) { // cycle through all of the players
+			if (aPlayer != origin) { // the player of origin cannot be used here
+				evidence = aPlayer.disproveSuggestion(suggestion);
 				if (evidence != null) {
 					return evidence; // return the card if a player can disprove it
 				}
@@ -583,11 +578,11 @@ public class Board extends JPanel {
 	 */
 	public Player handleSuggestionTestReturn(Player origin, Solution suggestion) {
 		Card evidence;
-		for (Player currentPlayer : players) { // cycle through all of the players
-			if (currentPlayer != origin) { // the player of origin cannot be used here
-				evidence = currentPlayer.disproveSuggestion(suggestion);
+		for (Player aPlayer : players) { // cycle through all of the players
+			if (aPlayer != origin) { // the player of origin cannot be used here
+				evidence = aPlayer.disproveSuggestion(suggestion);
 				if (evidence != null) {
-					return currentPlayer; // return the player that disproved the suggestion
+					return aPlayer; // return the player that disproved the suggestion
 				}
 			}
 		}
@@ -605,8 +600,7 @@ public class Board extends JPanel {
 		gameFrame.getRightPanel().addHand(currentPlayer); // add hand to cards panel
 		currentRoll = randomRoll();
 		gameFrame.getBottomPanel().setTurn(currentPlayer, currentRoll);
-		gameFrame.getBottomPanel().getTopFour().addActionListener(new ActionListener() { // add listener to "NEXT!"
-																							// button
+		gameFrame.getBottomPanel().getTopFour().addActionListener(new ActionListener() { // add listener to "NEXT!" button
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (finished == true) { // if the current turn has concluded
@@ -614,7 +608,7 @@ public class Board extends JPanel {
 					currentPlayer = players.get(playerTurn % players.size());
 					currentRoll = randomRoll();
 					gameFrame.getBottomPanel().setTurn(currentPlayer, currentRoll);
-					runTurn(gameFrame); // run the next turn
+					runTurn(); // run the next turn
 				} else { // prompt player to end their turn
 					JLabel label = new JLabel("<html><center>You need to complete your turn!");
 					label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -622,7 +616,7 @@ public class Board extends JPanel {
 				}
 			}
 		});
-		runTurn(gameFrame); // run first turn manually
+		runTurn(); // run first turn manually
 	}
 
 	/**
@@ -631,12 +625,12 @@ public class Board extends JPanel {
 	 * 
 	 * @param gameFrame The outer frame we need to reference.
 	 */
-	private void runTurn(ClueGame gameFrame) {
+	private void runTurn() {
 		getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(false); // deoccupy current cell
 																						// inhabited
 		finished = false; // turn not over
 		calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll); // calculate targets
-		if (targets.size() == 0) { // no valid spaces to move to
+		if (targets.isEmpty()) { // no valid spaces to move to
 			finished = true; // skip turn
 			if (currentPlayer instanceof HumanPlayer) { // tell player their turn is being skipped
 				JLabel label = new JLabel("<html><center>There are no valid tiles to move to; skipping turn!");
@@ -790,24 +784,22 @@ public class Board extends JPanel {
          */
         @Override
         public void mouseClicked(MouseEvent e) {
-			int cellWidth = theInstance.getWidth() / numColumns;
+			int cellWidth = theInstance.getWidth() / numColumns; // calculate width and height
 			int cellHeight = theInstance.getHeight() / numRows;
 			if (cellWidth > cellHeight) {
 				cellWidth = cellHeight;
-				theInstance.offsetX = (theInstance.getWidth() - cellWidth * numColumns) / 2;
 			}  else {
 				cellHeight = cellWidth;
-				theInstance.offsetY = (theInstance.getHeight() - cellHeight * numRows) / 2;
 			}
-			int col = (e.getX() - theInstance.offsetX) / cellWidth;
+			int col = (e.getX() - theInstance.offsetX) / cellWidth;  // calculate row and column with offset
 			int row = (e.getY() - theInstance.offsetY) / cellHeight;
+			// if click was in range
 			if (e.getX() > theInstance.offsetX && e.getY() > theInstance.offsetY && e.getX() < theInstance.offsetX + (cellWidth * numColumns) && e.getY() < theInstance.offsetY + (cellHeight * numRows)) {
-				BoardCell pressedCell = getCell(row, col);
+				BoardCell pressedCell = getCell(row, col); // the pressed cell 
 				if (pressedCell.isTarget() && theInstance.getCurrentPlayer() instanceof HumanPlayer) { // if a target cell
 					theInstance.moveHuman(theInstance.getCell(row, col)); // move the human player
 					repaint();
-				} else if (pressedCell.getIsRoom() && theInstance.getRoom(pressedCell.getInitial()).getCenterCell().isTarget()
-						&& theInstance.getCurrentPlayer() instanceof HumanPlayer) {
+				} else if (pressedCell.getIsRoom() && theInstance.getRoom(pressedCell.getInitial()).getCenterCell().isTarget() && theInstance.getCurrentPlayer() instanceof HumanPlayer) {
 					// if a room cell with a center cell as a target
 					theInstance.moveHuman(theInstance.getRoom(pressedCell.getInitial()).getCenterCell()); // move the human player
 					repaint();

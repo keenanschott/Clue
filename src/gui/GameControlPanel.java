@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -182,7 +183,7 @@ public class GameControlPanel extends JPanel {
         GameControlPanel panel = new GameControlPanel(); // create the panel
         frame.setContentPane(panel); // put the panel in the frame
         frame.setSize(750, 180); // size the frame
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // allow it to close
         frame.setVisible(true); // make it visible
         // test filling in the data
         panel.setTurn(new ComputerPlayer("Richard Parker", "green", 0, 0), 5);

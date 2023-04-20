@@ -91,7 +91,7 @@ public class BoardCell {
             g.setColor(Color.BLUE);
             int fontX = Board.getInstance().getWidth() / 80;
             int fontY = Board.getInstance().getHeight() / 60;
-            int font = Math.min(fontX, fontY);
+            int font = Math.min(fontX, fontY); // select minimum font
             g.setFont(new Font("Tahoma", Font.PLAIN, font));
             g.drawString(String.valueOf(secretPassage), x + (width / 3), y + (height * 2 / 3)); // necessary offset
         } else if (getInitial() == 'W') { // cell is walkway
@@ -118,7 +118,7 @@ public class BoardCell {
         g.setColor(Color.BLUE); // all labels are blue
         int fontX = Board.getInstance().getWidth() / 80;
         int fontY = Board.getInstance().getHeight() / 60;
-        int font = Math.min(fontX, fontY);
+        int font = Math.min(fontX, fontY); // select minimum font
         g.setFont(new Font("Tahoma", Font.PLAIN, font)); // stylistic font
         Room currentRoom = Board.getInstance().getRoom(this); // get room so we can access room name
         String roomTitle = currentRoom.getName();
