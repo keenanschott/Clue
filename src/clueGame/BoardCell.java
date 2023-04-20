@@ -10,7 +10,7 @@ import java.awt.*;
  * filled with these cells, and each cell has an adjacency list of adjacent
  * cells. Each cell has identifiers correlated to row, column, room initial,
  * secret passage, door direction, etc.
- * DATE: 4/10/2023
+ * DATE: 4/18/2023
  * 
  * @author Keenan Schott
  * @author Finn Burns
@@ -19,8 +19,7 @@ public class BoardCell {
     private int row, col; // row and column identifiers for each cell
     private char initial, secretPassage; // chars
     private DoorDirection doorDirection = DoorDirection.NONE; // door direction for a given cell; default is NONE
-    private boolean roomLabel = false, roomCenter = false, isRoom, isOccupied; // boolean statuses for a given cell;
-                                                                               // defaults set for select booleans
+    private boolean roomLabel = false, roomCenter = false, isRoom, isOccupied; // boolean statuses for a given cell; defaults set for select booleans
     private Set<BoardCell> adjList; // adjacency list for a given cell
     private boolean target = false; // flag for target drawing
 
@@ -53,8 +52,7 @@ public class BoardCell {
      * isDoorway()
      * Whether or not a cell is a doorway.
      * 
-     * @return Return the doorway status boolean; derived from the DoorDirection
-     *         enum.
+     * @return Return the doorway status boolean; derived from the DoorDirection enum.
      */
     public boolean isDoorway() {
         if (doorDirection != DoorDirection.NONE) {
@@ -103,6 +101,12 @@ public class BoardCell {
         }
     }
 
+    /**
+     * selectFont()
+     * Select the font depending on width and height.
+     * 
+     * @return The desired font size. 
+     */
     private int selectFont() {
         int fontX = Board.getInstance().getWidth() / 80;
         int fontY = Board.getInstance().getHeight() / 60;
@@ -113,7 +117,7 @@ public class BoardCell {
      * drawLabel()
      * Display the label as a String for each room.
      * 
-     * @param g The Graphics object
+     * @param g The Graphics object.
      * @param x The x coordinate.
      * @param y The y coordinate.
      */
@@ -138,17 +142,17 @@ public class BoardCell {
     public void drawDoor(Graphics g, int x, int y, int width, int height) {
         g.setColor(Color.BLUE); // all doorways are blue
         if (this.getDoorDirection() == DoorDirection.DOWN) {
-            g.fillRect(x, y + height, width, height / 5); // draw in cell next cell up, then scale down height so that
-                                                          // doorway appears on bottom edge of cell
+            g.fillRect(x, y + height, width, height / 5); 
+            // draw in cell next cell up, then scale down height so that doorway appears on bottom edge of cell
         } else if (this.getDoorDirection() == DoorDirection.UP) {
-            g.fillRect(x, y - (height / 5), width, height / 5); // draw in next cell up, then scale down height so that
-                                                                // doorway appears on top edge of cell
+            g.fillRect(x, y - (height / 5), width, height / 5); 
+            // draw in next cell up, then scale down height so that doorway appears on top edge of cell
         } else if (this.getDoorDirection() == DoorDirection.RIGHT) {
-            g.fillRect(x + width, y, width / 5, height); // draw in next cell over, then scale down width so that
-                                                         // doorway appears on right edge of cell
+            g.fillRect(x + width, y, width / 5, height);
+            // draw in next cell over, then scale down width so that doorway appears on right edge of cell
         } else {
-            g.fillRect(x - (width / 5), y, width / 5, height); // draw in next cell over, then scale down width so that
-                                                               // doorway appears on left edge of cell
+            g.fillRect(x - (width / 5), y, width / 5, height);
+             // draw in next cell over, then scale down width so that doorway appears on left edge of cell
         }
     }
 

@@ -8,7 +8,7 @@ import java.util.Set;
  * ComputerPlayer
  * Extension of the Player class with room for later computer functionality
  * implementation.
- * DATE: 4/4/2023
+ * DATE: 4/18/2023
  * 
  * @author Keenan Schott
  * @author Finn Burns
@@ -38,11 +38,8 @@ public class ComputerPlayer extends Player {
     public Solution createSuggestion(Room currentRoom) {
         Solution newSuggestion = new Solution(); // new solution
         Board board = Board.getInstance(); // access the board instance
-        newSuggestion.setRoom(new Card(board.getRoom(board.getCell(getRow(), getColumn())).getName(), CardType.ROOM)); // set
-                                                                                                                       // room
-                                                                                                                       // to
-                                                                                                                       // current
-                                                                                                                       // room
+        newSuggestion.setRoom(new Card(board.getRoom(board.getCell(getRow(), getColumn())).getName(), CardType.ROOM)); 
+        // set room to current room
         ArrayList<Card> deckCopy = new ArrayList<Card>();
         deckCopy.addAll(board.getDeck()); // deep copy the deck
         boolean weapon = false, person = false; // necessary initializations
@@ -53,25 +50,12 @@ public class ComputerPlayer extends Player {
             randomInt = random.nextInt(deckCopy.size());
             randomCard = deckCopy.get(randomInt); // get a random card and then remove it from the deck
             deckCopy.remove(randomInt);
-            if (weapon == false && randomCard.getType() == CardType.WEAPON && !getSeenCards().contains(randomCard)) { // if
-                                                                                                                      // no
-                                                                                                                      // weapon
-                                                                                                                      // card
-                                                                                                                      // found
-                                                                                                                      // yet
-                                                                                                                      // and
-                                                                                                                      // seen
-                                                                                                                      // cards
-                                                                                                                      // does
-                                                                                                                      // not
-                                                                                                                      // contain
-                                                                                                                      // the
-                                                                                                                      // card
+            if (weapon == false && randomCard.getType() == CardType.WEAPON && !getSeenCards().contains(randomCard)) { 
+                // if no weapon card found yet and seen cards does not contain the card
                 newSuggestion.setWeapon(randomCard);
                 weapon = true;
-            } else if (person == false && randomCard.getType() == CardType.PERSON
-                    && !getSeenCards().contains(randomCard)) { // if no person card found yet and seen cards does not
-                                                               // contain the card
+            } else if (person == false && randomCard.getType() == CardType.PERSON && !getSeenCards().contains(randomCard)) { 
+                // if no person card found yet and seen cards does not contain the card
                 newSuggestion.setPerson(randomCard);
                 person = true;
             }
@@ -91,21 +75,16 @@ public class ComputerPlayer extends Player {
         Board board = Board.getInstance(); // obtain the board instance
         Random random = new Random();
         Set<BoardCell> targets = board.getTargets(); // all targets
-        ArrayList<BoardCell> smartTargets = new ArrayList<>(); // list of rooms we have yet to see, need to set to
-                                                               // ArrayList for retrieval purposes
-        ArrayList<Card> seenTemp = new ArrayList<Card>(getSeenCards()); // convert seen cards to an ArrayList to avoid
-                                                                        // hash code comparison
+        ArrayList<BoardCell> smartTargets = new ArrayList<>(); 
+        // list of rooms we have yet to see, need to set to ArrayList for retrieval purposes
+        ArrayList<Card> seenTemp = new ArrayList<Card>(getSeenCards()); 
+        // convert seen cards to an ArrayList to avoid hash code comparison
         // iterate through list of targets
         for (BoardCell currentCell : targets) {
-            if (currentCell.isRoomCenter()
-                    && !seenTemp.contains(new Card(board.getRoom(currentCell).getName(), CardType.ROOM))) { // if it's a
-                                                                                                            // room and
-                                                                                                            // we have
-                                                                                                            // not seen
-                                                                                                            // this room
-                                                                                                            // card yet
-                smartTargets.add(currentCell); // we now consider this a priority target because we have yet to travel
-                                               // there
+            if (currentCell.isRoomCenter() && !seenTemp.contains(new Card(board.getRoom(currentCell).getName(), CardType.ROOM))) {
+                // if it's a room and we have not seen this room card yet
+                smartTargets.add(currentCell); 
+                // we now consider this a priority target because we have yet to travel there
             }
         }
         if (!smartTargets.isEmpty()) { // if targets exist in rooms we have yet to visit
