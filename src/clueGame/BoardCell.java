@@ -89,8 +89,11 @@ public class BoardCell {
             g.setColor(Color.lightGray); // secret passage
             g.fillRect(x, y, width, height);
             g.setColor(Color.BLUE);
-            g.setFont(new Font("Tahoma", Font.PLAIN, Board.getInstance().getWidth() / 80));
-            g.drawString(String.valueOf(secretPassage), x + (width / 2) - 4, y + (height / 2) + 6); // necessary offset
+            int fontX = Board.getInstance().getWidth() / 80;
+            int fontY = Board.getInstance().getHeight() / 60;
+            int font = Math.min(fontX, fontY); // select minimum font
+            g.setFont(new Font("Tahoma", Font.PLAIN, font));
+            g.drawString(String.valueOf(secretPassage), x + (width / 3), y + (height * 2 / 3)); // necessary offset
         } else if (getInitial() == 'W') { // cell is walkway
             g.setColor(Color.YELLOW); // filler
             g.fillRect(x, y, width, height);
@@ -113,7 +116,10 @@ public class BoardCell {
      */
     public void drawLabel(Graphics g, int x, int y) {
         g.setColor(Color.BLUE); // all labels are blue
-        g.setFont(new Font("Tahoma", Font.PLAIN, Board.getInstance().getWidth() / 80)); // stylistic font
+        int fontX = Board.getInstance().getWidth() / 80;
+        int fontY = Board.getInstance().getHeight() / 60;
+        int font = Math.min(fontX, fontY); // select minimum font
+        g.setFont(new Font("Tahoma", Font.PLAIN, font)); // stylistic font
         Room currentRoom = Board.getInstance().getRoom(this); // get room so we can access room name
         String roomTitle = currentRoom.getName();
         g.drawString(roomTitle, x, y); // draw label using roomTitle

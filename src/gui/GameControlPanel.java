@@ -3,7 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.lang.reflect.Field;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -131,15 +131,8 @@ public class GameControlPanel extends JPanel {
      * @param roll     The dice roll.
      */
     public void setTurn(Player inPlayer, int roll) {
-        Color color;
-        try {
-            Field field = Class.forName("java.awt.Color").getField(inPlayer.getColor()); // get color from inPlayer
-            color = (Color) field.get(null);
-        } catch (Exception e) {
-            color = null;
-        }
         topOneText.setText(inPlayer.getName()); // set player text and color
-        topOneText.setBackground(color);
+        topOneText.setBackground(inPlayer.getColor());
         topTwoText.setText(Integer.toString(roll)); // set roll text
     }
 
@@ -182,7 +175,7 @@ public class GameControlPanel extends JPanel {
         GameControlPanel panel = new GameControlPanel(); // create the panel
         frame.setContentPane(panel); // put the panel in the frame
         frame.setSize(750, 180); // size the frame
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // allow it to close
         frame.setVisible(true); // make it visible
         // test filling in the data
         panel.setTurn(new ComputerPlayer("Richard Parker", "green", 0, 0), 5);

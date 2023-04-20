@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 import clueGame.Board;
 import java.awt.BorderLayout;
@@ -35,7 +36,7 @@ public class ClueGame extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
         add(centerBoard, BorderLayout.CENTER);
         setSize(1240, 1000); // set arbitrary size
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // splash screen
     }
 

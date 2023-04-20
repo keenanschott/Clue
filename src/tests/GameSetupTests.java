@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -74,8 +75,8 @@ public class GameSetupTests {
         assertTrue(board.getPlayersList().get(5).getRow() == 17);
         assertTrue(board.getPlayersList().get(5).getColumn() == 0);
         // test a few colors
-        assertTrue(board.getPlayersList().get(0).getColor().equals("white"));
-        assertTrue(board.getPlayersList().get(2).getColor().equals("orange"));
+        assertTrue(board.getPlayersList().get(0).getColor().equals(Color.WHITE));
+        assertTrue(board.getPlayersList().get(2).getColor().equals(Color.ORANGE));
         // test for five computer players and one human player
         int human = 0, computer = 0;
         for (Player player : board.getPlayersList()) {
