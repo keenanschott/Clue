@@ -151,7 +151,7 @@ public class BoardCell {
                                                                // doorway appears on left edge of cell
         }
     }
-
+    
     /**
      * setDoorDirection()
      * Set the direction of the doorway for a given cell.
