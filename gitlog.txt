@@ -1,5 +1,117 @@
-I, Keenan Schott, certify that I participated equitably in the creation of assignment C24A Clue - Moving the Players (Clue Pair), dated 4/19/2023.
-I, William Burns, certify that I participated equitably in the creation of assignment C24A Clue - Moving the Players (Clue Pair), dated 4/19/2023.
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C25A-2 Refactoring II (Clue Pair), dated 4/19/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C25A-2 Refactoring II (Clue Pair), dated 4/19/2023.
+
+commit 5ab9ad2173e52f1d2539e6404df23c9d03608382
+Merge: 1a2a1de 68f8b15
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 22:26:12 2023 -0600
+
+    Merge branch 'main' of https://github.com/squilliamb/Clue
+
+commit 1a2a1de8f58f20a50a818ea0cd063badb33d583e
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 22:22:58 2023 -0600
+
+    Refactored BoardCell drawing and Player drawing
+
+commit 68f8b1596b8a22d54b0b1f5161bcff041609e13a
+Merge: 8c48fc5 2318847
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Apr 19 22:05:28 2023 -0600
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit 8c48fc57db1132765408945e57c50fd25e1e9add
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Apr 19 22:05:20 2023 -0600
+
+    refactored comments in board.java
+
+commit 2318847677b883b5c4b9cbab3e616b293cffd44b
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 21:57:40 2023 -0600
+
+    Added comments to BoardCell, ComputerPlayer, etc.
+
+commit badfd4c7027bf17c5dfbb64cb5988e54648fac81
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 21:40:27 2023 -0600
+
+    Refactored BoardCell drawing
+
+commit 15ec0f3dcd02b915c337eeab222560ba6dad5f28
+Merge: 6d9ed37 45c0684
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Apr 19 21:21:21 2023 -0600
+
+    pulled down keenan's refactoring, merged properly updating with my move function
+
+commit 6d9ed371ca69aec663745c79f42dbdae5979835e
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Apr 19 21:20:24 2023 -0600
+
+    refactored moveHuman and moveComputer; consolidated into one function called move b/c computer and human player have almost identical movement behavior.
+
+commit 45c0684b96a4ec0d183e6b54f685d6c9fc4046cb
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 21:14:02 2023 -0600
+
+    Refactored mouseClicked
+
+commit 9bc97f8d07a2b7e8d6805a81dbf6ec452c4adad1
+Merge: 43e2141 2e444a0
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Apr 19 21:02:49 2023 -0600
+
+    merged with keenan preliminary refactoring on board.java
+
+commit 2e444a087d49afe2a45adf7b84364cb3021c7432
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 20:44:12 2023 -0600
+
+    Player color changed from String to Color type
+
+commit 75974b2c15ce503c803ba317f3071a03ddc7bba0
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 20:33:05 2023 -0600
+
+    Removed useless instance variable in Player
+
+commit 66fdccb8fd5b4bac0eb0d625a6769a51bc5d794d
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 20:26:53 2023 -0600
+
+    Refactoring starting point
+
+commit 119fa8626eb1c2b75521af8eda12f57716f03f67
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 20:01:04 2023 -0600
+
+    Final 24A stuff
+
+commit 0369a3c2a76964ed348d5be261c4eb39023319e1
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 16:54:49 2023 -0600
+
+    Board is now square
+
+commit 43e2141d7a9e0fe2cb5017b40a80c3eab03f250c
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Wed Apr 19 15:50:59 2023 -0600
+
+    looks good
+
+commit b3f68861b084c5e185a47ec35ef863128959b483
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 15:49:08 2023 -0600
+
+    MouseListener refactored
+
+commit 423e766ed5ae706dd09b424459f8a5dc3baeaa3c
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 14:27:27 2023 -0600
+
+    Final version: C24A
 
 commit ef38ad83b49de7eafe53a1aa735efcb6fe3ffbcf
 Author: keenanschott <keenanmschott28@gmail.com>
