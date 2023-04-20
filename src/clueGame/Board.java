@@ -815,21 +815,24 @@ public class Board extends JPanel {
 			}
         }
 
-        // following methods not needed but have to be implemented
         @Override
         public void mousePressed(MouseEvent e) {
+			// not needed 
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
+			// not needed 
         }
 
         @Override
         public void mouseEntered(MouseEvent e) {
+			// not needed 
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
+			// not needed 
         }
     }
 
