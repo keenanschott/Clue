@@ -138,4 +138,8 @@ public abstract class Player {
         this.row = row;
         this.column = col;
     }
+
+    public boolean isInRoom() {
+        return Board.getInstance().getCell(row, column).isRoomCenter();
+    }
 }

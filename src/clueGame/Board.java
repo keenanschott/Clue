@@ -12,7 +12,9 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import gui.AccusationDialog;
 import gui.ClueGame;
+import gui.SuggestionDialog;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -629,6 +631,8 @@ public class Board extends JPanel {
 		currentRoll = randomRoll();
 		gameFrame.getBottomPanel().setTurn(currentPlayer, currentRoll);
 		gameFrame.getBottomPanel().getTopFour().addActionListener(new ActionListener() { // add listener to "NEXT!" button
+		AccusationDialog accusationWindow = new AccusationDialog();
+		// TODO get Accusation Button from game control panel from gameFrame, and add ActionListener
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// if the current turn has concluded
@@ -686,6 +690,11 @@ public class Board extends JPanel {
 		if (!getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
 			// if not a room center, set new location to be occupied
 			getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(true); 
+		}
+		else if (currentPlayer instanceof HumanPlayer && getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter() ) {
+			SuggestionDialog suggestionWinow = new SuggestionDialog(roomMap.get(getCell(currentPlayer.getRow(), currentPlayer.getColumn()).getInitial()));
+			// TODO: need to add action listener to suggestionWindow
+
 		}
 		finished = true; // turn over
 		if (currentPlayer instanceof HumanPlayer) removePaint();

@@ -157,6 +157,13 @@ public class GameControlPanel extends JPanel {
     }  
 
     /**
+     * getTopThree()
+     * @return topThree JButton; accusation button 
+     */
+    public JButton getTopThree() {
+        return topThree;
+    }
+    /**
      * getTopFour()
      * Return the "NEXT!" button to add listeners to in flow logic elsewhere. 
      */
