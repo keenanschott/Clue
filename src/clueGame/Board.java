@@ -293,8 +293,7 @@ public class Board extends JPanel {
 			for (int j = 0; j < numColumns; j++) { // iterate then through columns of board grid
 				xCoord += cellWidth; 
 				if (grid[i][j].getIsRoom()) {
-					BoardCell.setDimensions(xCoord + offsetX, yCoord + offsetY, cellWidth, cellHeight);
-					grid[i][j].paintComponent(g); // board cells draw themselves
+					grid[i][j].draw(g, xCoord + offsetX, yCoord + offsetY, cellWidth, cellHeight); // board cells draw themselves
 				}
 			}
 			xCoord = -cellWidth; // reset xCoord
@@ -307,8 +306,7 @@ public class Board extends JPanel {
 			for (int j = 0; j < numColumns; j++) {
 				xCoord += cellWidth;
 				if (!grid[i][j].getIsRoom()) {
-					BoardCell.setDimensions(xCoord + offsetX, yCoord + offsetY, cellWidth, cellHeight);
-					grid[i][j].paintComponent(g);
+					grid[i][j].draw(g, xCoord + offsetX, yCoord + offsetY, cellWidth, cellHeight);
 				}
 			}
 			xCoord = -cellWidth;

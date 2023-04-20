@@ -23,10 +23,6 @@ public class BoardCell {
                                                                                // defaults set for select booleans
     private Set<BoardCell> adjList; // adjacency list for a given cell
     private boolean target = false; // flag for target drawing
-    private static int x; // static dimensions during drawing
-    private static int y;
-    private static int width;
-    private static int height;
 
     /**
      * BoardCell()
@@ -68,12 +64,16 @@ public class BoardCell {
     }
 
     /**
-     * paintComponent()
+     * draw()
      * Draw in the rooms, walkways, and bad spaces/closets independently.
      * 
      * @param g The Graphics object.
+     * @param x The x coordinate.
+     * @param y The y coordinate. 
+     * @param width The cell width.
+     * @param height The cell height.
      */
-    public void paintComponent(Graphics g) {
+    public void draw(Graphics g, int x, int y, int width, int height) {
         if ((target && roomCenter) || (isRoom && Board.getInstance().getRoom(initial).getCenterCell().target)) {
             g.setColor(Color.CYAN); // room related target
             g.fillRect(x, y, width, height);
@@ -89,10 +89,7 @@ public class BoardCell {
             g.setColor(Color.lightGray); // secret passage
             g.fillRect(x, y, width, height);
             g.setColor(Color.BLUE);
-            int fontX = Board.getInstance().getWidth() / 80;
-            int fontY = Board.getInstance().getHeight() / 60;
-            int font = Math.min(fontX, fontY); // select minimum font
-            g.setFont(new Font("Tahoma", Font.PLAIN, font));
+            g.setFont(new Font("Tahoma", Font.PLAIN, selectFont()));
             g.drawString(String.valueOf(secretPassage), x + (width / 3), y + (height * 2 / 3)); // necessary offset
         } else if (getInitial() == 'W') { // cell is walkway
             g.setColor(Color.YELLOW); // filler
@@ -106,6 +103,12 @@ public class BoardCell {
         }
     }
 
+    private int selectFont() {
+        int fontX = Board.getInstance().getWidth() / 80;
+        int fontY = Board.getInstance().getHeight() / 60;
+        return Math.min(fontX, fontY); // select minimum font between the two
+    }
+
     /**
      * drawLabel()
      * Display the label as a String for each room.
@@ -116,10 +119,7 @@ public class BoardCell {
      */
     public void drawLabel(Graphics g, int x, int y) {
         g.setColor(Color.BLUE); // all labels are blue
-        int fontX = Board.getInstance().getWidth() / 80;
-        int fontY = Board.getInstance().getHeight() / 60;
-        int font = Math.min(fontX, fontY); // select minimum font
-        g.setFont(new Font("Tahoma", Font.PLAIN, font)); // stylistic font
+        g.setFont(new Font("Tahoma", Font.PLAIN, selectFont())); // stylistic font
         Room currentRoom = Board.getInstance().getRoom(this); // get room so we can access room name
         String roomTitle = currentRoom.getName();
         g.drawString(roomTitle, x, y); // draw label using roomTitle
@@ -170,22 +170,6 @@ public class BoardCell {
         } else {
             this.doorDirection = DoorDirection.NONE; // any other character is NONE
         }
-    }
-
-    /**
-     * setDimensions()
-     * Set the dimensions from Board for the drawing.
-     * 
-     * @param x      The x coordinate.
-     * @param y      The y coordinate.
-     * @param width  The cell width.
-     * @param height The cell height.
-     */
-    public static void setDimensions(int x, int y, int width, int height) {
-        BoardCell.x = x;
-        BoardCell.y = y;
-        BoardCell.width = width;
-        BoardCell.height = height;
     }
 
     // all getters and setters
