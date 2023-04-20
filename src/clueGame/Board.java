@@ -47,8 +47,10 @@ public class Board extends JPanel {
 	private Random random = new Random();
 	private int currentRoll = 0; // the roll
 	private boolean finished = false; // turn conclusion flag
-	private int offsetX = 0;
-	private int offsetY = 0;
+	private static int offsetX = 0;
+	private static int offsetY = 0;
+	private static int cellWidth;
+	private static int cellHeight;
 
 	/**
 	 * Board()
@@ -270,17 +272,17 @@ public class Board extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		// initialize coordinates for drawing of board cells
-		int yCoord = 0;
 		int xCoord = 0;
+		int yCoord = 0;
 		// dynamically resize window according to the size of the JPanel
-		int cellWidth = getWidth() / numColumns;
-		int cellHeight = getHeight() / numRows;
+		cellWidth = getWidth() / numColumns;
+		cellHeight = getHeight() / numRows;
 		if (cellWidth > cellHeight) {
 			cellWidth = cellHeight;
-			this.offsetX = (getWidth() - cellWidth * numColumns) / 2; // get offset in x
+			offsetX = (getWidth() - cellWidth * numColumns) / 2; // get offset in x
 		}  else {
 			cellHeight = cellWidth;
-			this.offsetY = (getHeight() - cellHeight * numRows) / 2;  // get offset in y
+			offsetY = (getHeight() - cellHeight * numRows) / 2; // get offset in y
 		}
 		xCoord = -cellWidth; // set coordinates to be iterated
 		yCoord = -cellHeight;
@@ -742,14 +744,6 @@ public class Board extends JPanel {
 		return deck; // return the deck
 	}
 
-	public int getOffsetX() {
-		return offsetX;
-	}
-
-	public int getOffsetY() {
-		return offsetY;
-	}
-
 	/**
      * Cell Listener
      * This class implements the listener for the mouse when a BoardCell is pressed.
@@ -767,35 +761,25 @@ public class Board extends JPanel {
          */
         @Override
         public void mouseClicked(MouseEvent e) {
-			int cellWidth = theInstance.getWidth() / numColumns; // calculate width and height
-			int cellHeight = theInstance.getHeight() / numRows;
-			if (cellWidth > cellHeight) {
-				cellWidth = cellHeight;
-			}  else {
-				cellHeight = cellWidth;
-			}
-			int col = (e.getX() - theInstance.offsetX) / cellWidth;  // calculate row and column with offset
-			int row = (e.getY() - theInstance.offsetY) / cellHeight;
-			// if click was in range
-			if (e.getX() > theInstance.offsetX && e.getY() > theInstance.offsetY && e.getX() < theInstance.offsetX + (cellWidth * numColumns) && e.getY() < theInstance.offsetY + (cellHeight * numRows)) {
+			int col = (e.getX() - offsetX) / cellWidth;  // calculate row and column with offset
+			int row = (e.getY() - offsetY) / cellHeight;
+			// if click is in range
+			if (e.getX() > offsetX && e.getY() > offsetY && e.getX() < offsetX + (cellWidth * numColumns) && e.getY() < offsetY + (cellHeight * numRows)) {
 				BoardCell pressedCell = getCell(row, col); // the pressed cell 
 				if (pressedCell.isTarget() && theInstance.getCurrentPlayer() instanceof HumanPlayer) { // if a target cell
 					theInstance.move(theInstance.getCell(row, col), theInstance.getCurrentPlayer()); // move the human player
 					repaint();
+					return;
 				} else if (pressedCell.getIsRoom() && theInstance.getRoom(pressedCell.getInitial()).getCenterCell().isTarget() && theInstance.getCurrentPlayer() instanceof HumanPlayer) {
 					// if a room cell with a center cell as a target
 					theInstance.move(theInstance.getRoom(pressedCell.getInitial()).getCenterCell(), theInstance.getCurrentPlayer()); // move the human player
 					repaint();
-				} else {
-					JLabel label = new JLabel("<html><center>Invalid tile!"); // option pane to warn the player
-					label.setHorizontalAlignment(SwingConstants.CENTER);
-					JOptionPane.showMessageDialog(theInstance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
-				}
-			} else {
-				JLabel label = new JLabel("<html><center>Invalid tile!"); // option pane to warn the player
-				label.setHorizontalAlignment(SwingConstants.CENTER);
-				JOptionPane.showMessageDialog(theInstance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
-			}
+					return;
+				} 
+			} 
+			JLabel label = new JLabel("<html><center>Invalid tile!"); // option pane to warn the player
+			label.setHorizontalAlignment(SwingConstants.CENTER);
+			JOptionPane.showMessageDialog(theInstance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
         }
 
         @Override
