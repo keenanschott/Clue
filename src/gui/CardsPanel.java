@@ -237,6 +237,31 @@ public class CardsPanel extends JPanel {
         }
     }
 
+    public void addSeen(Card evidence, Color bgColor) {
+        if (evidence.getType() == CardType.PERSON) { // person
+            if (peopleSeenCards.getText().equals("None")) { // first occurrence
+                peopleSeenCards.setText(evidence.getName()); // change text
+                peopleSeenCards.setBackground(bgColor); // change background color
+            } else {
+                generateNewFieldSeen(bgColor, peoplePanel, evidence.getName()); // generate a new field
+            }
+        } else if (evidence.getType() == CardType.ROOM) { // room
+            if (roomsSeenCards.getText().equals("None")) { // first occurrence
+                roomsSeenCards.setText(evidence.getName()); // change text
+                roomsSeenCards.setBackground(bgColor); // change background color
+            } else {
+                generateNewFieldSeen(bgColor, roomsPanel, evidence.getName()); // generate a new field
+            }
+        } else { // weapon
+            if (weaponsSeenCards.getText().equals("None")) { // first occurrence
+                weaponsSeenCards.setText(evidence.getName()); // change text
+                weaponsSeenCards.setBackground(bgColor); // change background color
+            } else {
+                generateNewFieldSeen(bgColor, weaponsPanel, evidence.getName()); // generate a new field
+            }
+        }
+    }
+
     /**
      * main()
      * Main to test the panel.

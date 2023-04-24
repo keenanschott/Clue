@@ -46,7 +46,7 @@ public class Board extends JPanel {
 	// game flow logic variables
 	private int playerTurn = 0; // current player turn
 	private Player currentPlayer; // the current player
-	private Random random = new Random();
+	private Random random = new Random(System.currentTimeMillis());
 	private int currentRoll = 0; // the roll
 	private boolean finished = false; // turn conclusion flag
 	private static int offsetX = 0;
@@ -532,7 +532,7 @@ public class Board extends JPanel {
 		// temporary card to look at
 		Card temp;
 		// RNG
-		Random rand = new Random();
+		Random rand = new Random(System.currentTimeMillis());
 		int int_random;
 		// solution booleans
 		boolean solutionPlayer = false, solutionWeapon = false, solutionRoom = false;
@@ -589,6 +589,8 @@ public class Board extends JPanel {
 				evidence = aPlayer.disproveSuggestion(suggestion);
 				if (evidence != null) {
 					// return the card if a player can disprove it
+					ClueGame.getBottomPanel().setGuessResultText(evidence.getName());
+					ClueGame.getBottomPanel().setGuessResultColor(aPlayer.getColor());
 					return evidence; 
 				}
 			}
@@ -627,12 +629,10 @@ public class Board extends JPanel {
 	 */
 	public void initializeGame(ClueGame gameFrame) {
 		currentPlayer = players.get(0); // initialize current player to the human player
-		gameFrame.getRightPanel().addHand(currentPlayer); // add hand to cards panel
+		ClueGame.getRightPanel().addHand(currentPlayer); // add hand to cards panel
 		currentRoll = randomRoll();
-		gameFrame.getBottomPanel().setTurn(currentPlayer, currentRoll);
-		gameFrame.getBottomPanel().getTopFour().addActionListener(new ActionListener() { // add listener to "NEXT!" button
-		AccusationDialog accusationWindow = new AccusationDialog();
-		// TODO get Accusation Button from game control panel from gameFrame, and add ActionListener
+		ClueGame.getBottomPanel().setTurn(currentPlayer, currentRoll);
+		ClueGame.getBottomPanel().getTopFour().addActionListener(new ActionListener() { // add listener to "NEXT!" button
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// if the current turn has concluded
@@ -640,7 +640,7 @@ public class Board extends JPanel {
 					playerTurn++;
 					currentPlayer = players.get(playerTurn % players.size());
 					currentRoll = randomRoll();
-					gameFrame.getBottomPanel().setTurn(currentPlayer, currentRoll);
+					ClueGame.getBottomPanel().setTurn(currentPlayer, currentRoll);
 					runTurn(); // run the next turn
 				} else { // prompt player to end their turn
 					JLabel label = new JLabel("<html><center>You need to complete your turn!");
@@ -648,6 +648,23 @@ public class Board extends JPanel {
 					JOptionPane.showMessageDialog(theInstance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
 				}
 			}
+		});
+		ClueGame.getBottomPanel().getTopThree().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (finished == false && currentPlayer instanceof HumanPlayer) {
+					AccusationDialog accusationWindow = new AccusationDialog();
+					accusationWindow.setSize(getWidth() / 4, getHeight() / 4);
+					accusationWindow.setLocationRelativeTo(theInstance);
+					accusationWindow.setModal(true);
+					accusationWindow.setVisible(true);
+				} else {
+					JLabel label = new JLabel("<html><center>It is not your turn!"); 
+					label.setHorizontalAlignment(SwingConstants.CENTER);
+                	JOptionPane.showMessageDialog(theInstance, label, "Message", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+			
 		});
 		runTurn(); // run first turn manually
 	}
@@ -659,6 +676,9 @@ public class Board extends JPanel {
 	 * @param gameFrame The outer frame we need to reference.
 	 */
 	private void runTurn() {
+		ClueGame.getBottomPanel().setGuessResultText(null);
+		ClueGame.getBottomPanel().setGuessResultColor(null);
+		ClueGame.getBottomPanel().setGuess(null, null);
 		getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(false); // deoccupy current cell inhabited
 		finished = false; // turn not over
 		calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll);
@@ -673,7 +693,26 @@ public class Board extends JPanel {
 		} else {
 			repaint();
 			if (currentPlayer instanceof ComputerPlayer) {
+				if (currentPlayer.getSeenCards().size() == deck.size() - 3) {
+					JLabel label = new JLabel("<html><center>The computer just won, answer is " + theAnswer.getPerson().getName() + ", " + theAnswer.getRoom().getName() + ", " + theAnswer.getWeapon().getName() + ".");
+					label.setHorizontalAlignment(SwingConstants.CENTER);
+					JOptionPane.showMessageDialog(Board.getInstance(), label, "Message", JOptionPane.INFORMATION_MESSAGE);
+					System.exit(0);
+				}
 				move(((ComputerPlayer)currentPlayer).selectTarget(), currentPlayer); // automate computer movement
+				if (getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
+					Solution computerSuggestion = ((ComputerPlayer)currentPlayer).createSuggestion(roomMap.get(getCell(currentPlayer.getRow(), currentPlayer.getColumn()).getInitial()));
+					Card evidence = handleSuggestion(currentPlayer, computerSuggestion);
+					ClueGame.getBottomPanel().setGuess(computerSuggestion.getPerson().getName() + ", " + computerSuggestion.getRoom().getName() + ", " + computerSuggestion.getWeapon().getName(), currentPlayer.getColor());
+					if (evidence == null) {
+						ClueGame.getBottomPanel().setGuessResultText("No new clue");
+						ClueGame.getBottomPanel().setGuessResultColor(null);
+					} else {
+						ClueGame.getBottomPanel().setGuessResultText("Suggestion disproven!");
+					}
+					currentPlayer.updateSeen(evidence);
+
+				}
 			}
 		}
 	}
@@ -687,6 +726,9 @@ public class Board extends JPanel {
 	 */
 	public void move(BoardCell targetCell, Player currentPlayer) {
 		currentPlayer.setLocation(targetCell.getRow(), targetCell.getCol()); // set new location
+		finished = true; // turn over
+		if (currentPlayer instanceof HumanPlayer) removePaint();
+		repaint();
 		if (!getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
 			// if not a room center, set new location to be occupied
 			getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(true); 
@@ -694,11 +736,11 @@ public class Board extends JPanel {
 		else if (currentPlayer instanceof HumanPlayer && getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter() ) {
 			SuggestionDialog suggestionWinow = new SuggestionDialog(roomMap.get(getCell(currentPlayer.getRow(), currentPlayer.getColumn()).getInitial()));
 			// TODO: need to add action listener to suggestionWindow
-
+			suggestionWinow.setSize(getWidth() / 4, getHeight() / 4);
+			suggestionWinow.setLocationRelativeTo(theInstance);
+			suggestionWinow.setModal(true);
+			suggestionWinow.setVisible(true);
 		}
-		finished = true; // turn over
-		if (currentPlayer instanceof HumanPlayer) removePaint();
-		repaint();
 	}
 
 
@@ -779,6 +821,36 @@ public class Board extends JPanel {
 
 	public ArrayList<Card> getDeck() {
 		return deck; // return the deck
+	}
+
+	public ArrayList<String> getPeopleCards() {
+		ArrayList<String> people = new ArrayList<String>();
+		for (Card aCard : deck) {
+			if (aCard.getType() == CardType.PERSON) {
+				people.add(aCard.getName());
+			}
+		}
+		return people;
+	}
+
+	public ArrayList<String> getRoomCards() {
+		ArrayList<String> rooms = new ArrayList<String>();
+		for (Card aCard : deck) {
+			if (aCard.getType() == CardType.ROOM) {
+				rooms.add(aCard.getName());
+			}
+		}
+		return rooms;
+	}
+
+	public ArrayList<String> getWeaponCards() {
+		ArrayList<String> weapons = new ArrayList<String>();
+		for (Card aCard : deck) {
+			if (aCard.getType() == CardType.WEAPON) {
+				weapons.add(aCard.getName());
+			}
+		}
+		return weapons;
 	}
 
 	/**

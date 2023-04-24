@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import clueGame.*;
+import gui.ClueGame;
 
 /**
  * GameSolutionTest
@@ -30,6 +31,7 @@ public class GameSolutionTest {
         // Initialize will load config files
         board.initialize();
         board.deal();
+        ClueGame testFrame = new ClueGame();
         badPerson = new Card("badPerson", CardType.PERSON); // create dummy cards for our tests
         badWeapon = new Card("badWeapon", CardType.WEAPON);
         badRoom = new Card("badRoom", CardType.ROOM);

@@ -46,15 +46,16 @@ public class ComputerPlayer extends Player {
         Random random = new Random();
         int randomInt;
         Card randomCard;
+        ArrayList<Card> seenCopy = new ArrayList<Card>(getSeenCards());
         while (weapon == false || person == false) {
             randomInt = random.nextInt(deckCopy.size());
             randomCard = deckCopy.get(randomInt); // get a random card and then remove it from the deck
             deckCopy.remove(randomInt);
-            if (weapon == false && randomCard.getType() == CardType.WEAPON && !getSeenCards().contains(randomCard)) { 
+            if (weapon == false && randomCard.getType() == CardType.WEAPON && !seenCopy.contains(randomCard)) { 
                 // if no weapon card found yet and seen cards does not contain the card
                 newSuggestion.setWeapon(randomCard);
                 weapon = true;
-            } else if (person == false && randomCard.getType() == CardType.PERSON && !getSeenCards().contains(randomCard)) { 
+            } else if (person == false && randomCard.getType() == CardType.PERSON && !seenCopy.contains(randomCard)) { 
                 // if no person card found yet and seen cards does not contain the card
                 newSuggestion.setPerson(randomCard);
                 person = true;

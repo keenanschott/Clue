@@ -16,8 +16,8 @@ import java.awt.BorderLayout;
  * @author Finn Burns
  */
 public class ClueGame extends JFrame {
-    private CardsPanel rightPanel; // the cards panel
-    private GameControlPanel bottomPanel; // the control panel
+    private static CardsPanel rightPanel; // the cards panel
+    private static GameControlPanel bottomPanel; // the control panel
 
     /**
      * ClueGame()
@@ -41,11 +41,11 @@ public class ClueGame extends JFrame {
     }
 
     // all getters and setters
-    public CardsPanel getRightPanel() {
+    public static CardsPanel getRightPanel() {
         return rightPanel;
     }
 
-    public GameControlPanel getBottomPanel() {
+    public static GameControlPanel getBottomPanel() {
         return bottomPanel;
     }
 

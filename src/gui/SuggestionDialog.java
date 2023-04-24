@@ -6,13 +6,21 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
+import org.junit.runner.Computer;
+
+import clueGame.Board;
+import clueGame.Card;
+import clueGame.ComputerPlayer;
 import clueGame.Room;
+import clueGame.Solution;
+import clueGame.Board;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class SuggestionDialog extends JDialog {
@@ -21,25 +29,52 @@ public class SuggestionDialog extends JDialog {
     JLabel leftThree;
     JButton leftFour;
     JTextField rightOne;
-    JComboBox<Integer> rightTwo;
-    JComboBox<Integer> rightThree;
+    JComboBox<String> rightTwo;
+    JComboBox<String> rightThree;
     JButton rightFour;
 
     public SuggestionDialog(Room currentRoom) {
         super();
-        Integer[] testArray = {1,2,3,4};
-
         setTitle("Make a Suggestion");
         setLayout(new GridLayout(4, 5));
         leftOne = new JLabel("Current room");
         leftTwo = new JLabel("Person");
         leftThree = new JLabel("Weapon");
         leftFour = new JButton("Submit");
-        rightOne = new JTextField(currentRoom.getName());
-        rightTwo = new JComboBox<>(testArray);
-        rightThree = new JComboBox<>(testArray);
+        rightOne = new JTextField(currentRoom.getName()); 
+        rightTwo = new JComboBox<>(Board.getInstance().getPeopleCards().toArray(new String[0]));
+        rightThree = new JComboBox<>(Board.getInstance().getWeaponCards().toArray(new String[0]));
         rightOne.setEditable(false);
         rightFour = new JButton("Cancel");
+        rightFour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+            
+        });
+        leftFour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Solution suggestion = new Solution(rightOne.getText(), (String)rightTwo.getSelectedItem(), (String)rightThree.getSelectedItem());
+                Card evidence = Board.getInstance().handleSuggestion(Board.getInstance().getCurrentPlayer(), suggestion);
+                ClueGame.getBottomPanel().setGuess(suggestion.getPerson().getName() + ", " + suggestion.getRoom().getName() + ", " + suggestion.getWeapon().getName(), Board.getInstance().getCurrentPlayer().getColor());
+                ComputerPlayer returnPlayer = (ComputerPlayer)Board.getInstance().handleSuggestionTestReturn(Board.getInstance().getCurrentPlayer(), suggestion);
+                if (evidence == null) {
+                    ClueGame.getBottomPanel().setGuessResultColor(Board.getInstance().getCurrentPlayer().getColor());
+                    ClueGame.getBottomPanel().setGuessResultText("Suggestion proven!");
+                } else {
+                    ClueGame.getBottomPanel().setGuessResultColor(returnPlayer.getColor());
+                    ClueGame.getBottomPanel().setGuessResultText(evidence.getName());
+                }
+                ArrayList<Card> seenCopy = new ArrayList<Card>(Board.getInstance().getCurrentPlayer().getSeenCards());
+                if (!seenCopy.contains(evidence)) {
+                    ClueGame.getRightPanel().addSeen(evidence, returnPlayer.getColor());
+                }
+                Board.getInstance().getCurrentPlayer().getSeenCards().add(evidence);
+                dispose();
+            }
+        });
         add(leftOne, BorderLayout.WEST);
         add(rightOne, BorderLayout.EAST);
         add(leftTwo, BorderLayout.WEST);

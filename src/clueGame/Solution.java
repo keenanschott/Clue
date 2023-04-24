@@ -38,6 +38,21 @@ public class Solution {
     }
 
     /**
+     * Solution()
+     * Paramaterized constructor.
+     * 
+     * @param inRoom   The requested room card.
+     * @param inPerson The requested person card.
+     * @param inWeapon The requested weapon card.
+     */
+    public Solution(String inRoom, String inPerson, String inWeapon) {
+        super();
+        room = new Card(inRoom, CardType.ROOM);
+        person = new Card(inPerson, CardType.PERSON);
+        weapon = new Card(inWeapon, CardType.WEAPON);
+    }
+
+    /**
      * equals()
      * Compare two Solution instances.
      * 
