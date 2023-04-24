@@ -729,7 +729,7 @@ public class Board extends JPanel {
 						ClueGame.getBottomPanel().setGuessResultText("Suggestion disproven!");
 					}
 					currentPlayer.updateSeen(evidence);
-
+					// commit comment
 				}
 			}
 		}
