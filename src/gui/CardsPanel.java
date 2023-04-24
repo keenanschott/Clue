@@ -49,6 +49,7 @@ public class CardsPanel extends JPanel {
     private JTextField weaponsHandCards;
     private JLabel weaponsSeen;
     private JTextField weaponsSeenCards;
+    private static Color bgColor;
 
     /**
      * CardsPanel()
@@ -260,6 +261,14 @@ public class CardsPanel extends JPanel {
                 generateNewFieldSeen(bgColor, weaponsPanel, evidence.getName()); // generate a new field
             }
         }
+    }
+
+    public static Color getBgColor() {
+        return bgColor;
+    }
+
+    public static void setBgColor(Color bgColor) {
+        CardsPanel.bgColor = bgColor;
     }
 
     /**

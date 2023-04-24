@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import gui.AccusationDialog;
+import gui.CardsPanel;
 import gui.ClueGame;
 import gui.SuggestionDialog;
 
@@ -591,6 +592,7 @@ public class Board extends JPanel {
 					// return the card if a player can disprove it
 					ClueGame.getBottomPanel().setGuessResultText(evidence.getName());
 					ClueGame.getBottomPanel().setGuessResultColor(aPlayer.getColor());
+					CardsPanel.setBgColor(aPlayer.getColor());
 					return evidence; 
 				}
 			}

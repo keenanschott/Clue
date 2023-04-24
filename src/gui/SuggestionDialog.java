@@ -59,17 +59,15 @@ public class SuggestionDialog extends JDialog {
                 Solution suggestion = new Solution(rightOne.getText(), (String)rightTwo.getSelectedItem(), (String)rightThree.getSelectedItem());
                 Card evidence = Board.getInstance().handleSuggestion(Board.getInstance().getCurrentPlayer(), suggestion);
                 ClueGame.getBottomPanel().setGuess(suggestion.getPerson().getName() + ", " + suggestion.getRoom().getName() + ", " + suggestion.getWeapon().getName(), Board.getInstance().getCurrentPlayer().getColor());
-                ComputerPlayer returnPlayer = (ComputerPlayer)Board.getInstance().handleSuggestionTestReturn(Board.getInstance().getCurrentPlayer(), suggestion);
                 if (evidence == null) {
-                    ClueGame.getBottomPanel().setGuessResultColor(Board.getInstance().getCurrentPlayer().getColor());
-                    ClueGame.getBottomPanel().setGuessResultText("Suggestion proven!");
+                    ClueGame.getBottomPanel().setGuessResultColor(null);
+                    ClueGame.getBottomPanel().setGuessResultText("No new clue");
                 } else {
-                    ClueGame.getBottomPanel().setGuessResultColor(returnPlayer.getColor());
                     ClueGame.getBottomPanel().setGuessResultText(evidence.getName());
                 }
                 ArrayList<Card> seenCopy = new ArrayList<Card>(Board.getInstance().getCurrentPlayer().getSeenCards());
-                if (!seenCopy.contains(evidence)) {
-                    ClueGame.getRightPanel().addSeen(evidence, returnPlayer.getColor());
+                if (!seenCopy.contains(evidence) && evidence != null) {
+                    ClueGame.getRightPanel().addSeen(evidence, CardsPanel.getBgColor());
                 }
                 Board.getInstance().getCurrentPlayer().getSeenCards().add(evidence);
                 dispose();
