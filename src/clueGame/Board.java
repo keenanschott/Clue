@@ -684,6 +684,16 @@ public class Board extends JPanel {
 		getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(false); // deoccupy current cell inhabited
 		finished = false; // turn not over
 		calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll);
+		if (currentPlayer.getMoved()) {
+			currentPlayer.setMoved(false);
+			targets.add(getCell(currentPlayer.getRow(), currentPlayer.getColumn()));
+			if (currentPlayer instanceof HumanPlayer) {
+				getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setTarget(true);
+			}
+			repaint();
+		}
+
+
 		if (targets.isEmpty()) { 
 			finished = true; // skip turn
 			// tell player their turn is being skipped
@@ -695,7 +705,7 @@ public class Board extends JPanel {
 		} else {
 			repaint();
 			if (currentPlayer instanceof ComputerPlayer) {
-				if (currentPlayer.getSeenCards().size() == deck.size() - 3) {
+				if (currentPlayer.getSeenCards().size() == deck.size() - 3 || ((ComputerPlayer)currentPlayer).getKnowsAnswer()) {
 					JLabel label = new JLabel("<html><center>The computer just won, answer is " + theAnswer.getPerson().getName() + ", " + theAnswer.getRoom().getName() + ", " + theAnswer.getWeapon().getName() + ".");
 					label.setHorizontalAlignment(SwingConstants.CENTER);
 					JOptionPane.showMessageDialog(Board.getInstance(), label, "Message", JOptionPane.INFORMATION_MESSAGE);
@@ -704,11 +714,17 @@ public class Board extends JPanel {
 				move(((ComputerPlayer)currentPlayer).selectTarget(), currentPlayer); // automate computer movement
 				if (getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
 					Solution computerSuggestion = ((ComputerPlayer)currentPlayer).createSuggestion(roomMap.get(getCell(currentPlayer.getRow(), currentPlayer.getColumn()).getInitial()));
+					if (!computerSuggestion.getPerson().equals(new Card(currentPlayer.getName(), CardType.PERSON))) {
+						moveSuggestedPlayer(currentPlayer, computerSuggestion);
+					}
 					Card evidence = handleSuggestion(currentPlayer, computerSuggestion);
 					ClueGame.getBottomPanel().setGuess(computerSuggestion.getPerson().getName() + ", " + computerSuggestion.getRoom().getName() + ", " + computerSuggestion.getWeapon().getName(), currentPlayer.getColor());
 					if (evidence == null) {
 						ClueGame.getBottomPanel().setGuessResultText("No new clue");
 						ClueGame.getBottomPanel().setGuessResultColor(null);
+						if (!currentPlayer.getHand().contains(computerSuggestion.getRoom())) {
+							((ComputerPlayer)currentPlayer).setKnowsAnswer(true);
+						}
 					} else {
 						ClueGame.getBottomPanel().setGuessResultText("Suggestion disproven!");
 					}
@@ -743,6 +759,21 @@ public class Board extends JPanel {
 			suggestionWinow.setModal(true);
 			suggestionWinow.setVisible(true);
 		}
+	}
+
+	public void moveSuggestedPlayer(Player origin, Solution suggestion) {
+		String playerName = suggestion.getPerson().getName();
+		Player targetPlayer = null;
+		for (Player aPlayer: players) {
+			if (aPlayer.getName().equals(playerName)) {
+				targetPlayer = aPlayer;
+				break;
+			}
+		}
+		getCell(targetPlayer.getRow(), targetPlayer.getColumn()).setOccupied(false);
+		targetPlayer.setLocation(origin.getRow(), origin.getColumn());
+		targetPlayer.setMoved(true);
+		repaint();
 	}
 
 

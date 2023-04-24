@@ -23,6 +23,7 @@ public abstract class Player {
     private int column;
     private ArrayList<Card> hand;
     private Set<Card> seenCards;
+    private boolean moved = false;
 
     /**
      * Player()
@@ -141,5 +142,13 @@ public abstract class Player {
 
     public boolean isInRoom() {
         return Board.getInstance().getCell(row, column).isRoomCenter();
+    }
+
+    public boolean getMoved() {
+        return moved;
+    }
+
+    public void setMoved(boolean moved) {
+        this.moved = moved;
     }
 }

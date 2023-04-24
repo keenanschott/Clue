@@ -14,6 +14,7 @@ import java.util.Set;
  * @author Finn Burns
  */
 public class ComputerPlayer extends Player {
+    private boolean knowsAnswer = false;
 
     /**
      * ComputerPlayer()
@@ -96,6 +97,8 @@ public class ComputerPlayer extends Player {
         }
     }
 
+    
+
     /**
      * disproveSuggestion()
      * Disprove a suggestion.
@@ -125,5 +128,13 @@ public class ComputerPlayer extends Player {
             return matching.get(randomInt);
         }
         return null; // otherwise, return null
+    }
+
+    public boolean getKnowsAnswer() {
+        return knowsAnswer;
+    }
+
+    public void setKnowsAnswer(boolean knowsAnswer) {
+        this.knowsAnswer = knowsAnswer;
     }
 }

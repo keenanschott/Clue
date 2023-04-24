@@ -11,6 +11,7 @@ import org.junit.runner.Computer;
 
 import clueGame.Board;
 import clueGame.Card;
+import clueGame.CardType;
 import clueGame.ComputerPlayer;
 import clueGame.Room;
 import clueGame.Solution;
@@ -57,6 +58,9 @@ public class SuggestionDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Solution suggestion = new Solution(rightOne.getText(), (String)rightTwo.getSelectedItem(), (String)rightThree.getSelectedItem());
+                if (!suggestion.getPerson().equals(new Card(Board.getInstance().getCurrentPlayer().getName(), CardType.PERSON))) {
+                    Board.getInstance().moveSuggestedPlayer(Board.getInstance().getCurrentPlayer(), suggestion);
+                }
                 Card evidence = Board.getInstance().handleSuggestion(Board.getInstance().getCurrentPlayer(), suggestion);
                 ClueGame.getBottomPanel().setGuess(suggestion.getPerson().getName() + ", " + suggestion.getRoom().getName() + ", " + suggestion.getWeapon().getName(), Board.getInstance().getCurrentPlayer().getColor());
                 if (evidence == null) {
