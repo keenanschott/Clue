@@ -80,8 +80,10 @@ public class SuggestionDialog extends JDialog {
                 ArrayList<Card> seenCopy = new ArrayList<Card>(Board.getInstance().getCurrentPlayer().getSeenCards());
                 if (!seenCopy.contains(evidence) && evidence != null) {
                     ClueGame.getRightPanel().addSeen(evidence, CardsPanel.getBgColor()); // add to cards panel
+                    ClueGame.getRightPanel().revalidate();
                 }
                 Board.getInstance().getCurrentPlayer().getSeenCards().add(evidence);
+                Board.getInstance().revalidate();
                 dispose(); // close window
             }
         });

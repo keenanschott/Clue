@@ -624,6 +624,8 @@ public class Board extends JPanel {
 	public void initializeGame(ClueGame gameFrame) {
 		currentPlayer = players.get(0); // initialize current player to the human player
 		ClueGame.getRightPanel().addHand(currentPlayer); // add hand to cards panel
+		ClueGame.getRightPanel().revalidate();
+		revalidate();
 		currentRoll = randomRoll();
 		ClueGame.getBottomPanel().setTurn(currentPlayer, currentRoll);
 		ClueGame.getBottomPanel().getTopFour().addActionListener(new ActionListener() { // add listener to "NEXT!" button
