@@ -168,7 +168,7 @@ public class BoardCell {
             // draw in next cell over, then scale down width so that doorway appears on right edge of cell
         } else {
             g.fillRect(x - (width / 5), y, width / 5, height);
-             // draw in next cell over, then scale down width so that doorway appears on left edge of cell
+            // draw in next cell over, then scale down width so that doorway appears on left edge of cell
         }
     }
     

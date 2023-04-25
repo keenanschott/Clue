@@ -37,6 +37,10 @@ public class SuggestionDialog extends JDialog {
     JComboBox<String> rightThree;
     JButton rightFour;
 
+    /**
+     * SuggestionDialog()
+     * Constructor for the dialog, it does 90% of the work.
+     */
     public SuggestionDialog(Room currentRoom) {
         super();
         setTitle("Make a Suggestion");
@@ -69,14 +73,13 @@ public class SuggestionDialog extends JDialog {
                 if (evidence == null) {
                     ClueGame.getBottomPanel().setGuessResultColor(null);
                     ClueGame.getBottomPanel().setGuessResultText("No new clue");
-                // display guess result as evidence
                 } else {
                     ClueGame.getBottomPanel().setGuessResultText(evidence.getName());
                 }
                 // update seen
                 ArrayList<Card> seenCopy = new ArrayList<Card>(Board.getInstance().getCurrentPlayer().getSeenCards());
                 if (!seenCopy.contains(evidence) && evidence != null) {
-                    ClueGame.getRightPanel().addSeen(evidence, CardsPanel.getBgColor());
+                    ClueGame.getRightPanel().addSeen(evidence, CardsPanel.getBgColor()); // add to cards panel
                 }
                 Board.getInstance().getCurrentPlayer().getSeenCards().add(evidence);
                 dispose(); // close window

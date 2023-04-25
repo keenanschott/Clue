@@ -467,8 +467,7 @@ public class Board extends JPanel {
 	 * calcTargets()
 	 * Calculate all valid targets to move to.
 	 * 
-	 * @param startCell  The starting cell to examine as it pertains to the
-	 *                   pathLength.
+	 * @param startCell  The starting cell to examine as it pertains to the pathLength.
 	 * @param pathLength The roll/how many moves we have.
 	 */
 	public void calcTargets(BoardCell startCell, int pathLength) {
@@ -484,8 +483,7 @@ public class Board extends JPanel {
 	 * findAllTargets()
 	 * Find all valid targets to move to.
 	 * 
-	 * @param startCell  The starting cell to examine as it pertains to the
-	 *                   pathLength.
+	 * @param startCell  The starting cell to examine as it pertains to the pathLength.
 	 * @param pathLength The roll/how many moves we have.
 	 */
 	private void findAllTargets(BoardCell startCell, int pathLength) {
@@ -597,8 +595,7 @@ public class Board extends JPanel {
 
 	/**
 	 * handleSuggestionTestReturn()
-	 * handleSuggestion()'s helper function to test the player that returns the
-	 * card.
+	 * handleSuggestion()'s helper function to test the player that returns the card (used exclusively in safe testing).
 	 * 
 	 * @param origin     The player the suggestion originates from.
 	 * @param suggestion The suggestion itself.
@@ -662,7 +659,6 @@ public class Board extends JPanel {
                 	JOptionPane.showMessageDialog(theInstance, label, "Message", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
-			
 		});
 		runTurn(); // run first turn manually
 	}
@@ -674,36 +670,20 @@ public class Board extends JPanel {
 	 * @param gameFrame The outer frame we need to reference.
 	 */
 	private void runTurn() {
-		ClueGame.getBottomPanel().setGuessResultText(null); // reset panel colors
-		ClueGame.getBottomPanel().setGuessResultColor(null);
-		ClueGame.getBottomPanel().setGuess(null, null);
+		ClueGame.getBottomPanel().reset(); // reset all fields
 		getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(false); // deoccupy current cell inhabited
 		finished = false; // turn not over
 		calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll);
 		if (currentPlayer.getMoved()) { // if moved by another player since last turn
-			currentPlayer.setMoved(false);
-			targets.add(getCell(currentPlayer.getRow(), currentPlayer.getColumn())); // add current location to targets
-			if (currentPlayer instanceof HumanPlayer) {
-				getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setTarget(true); // set paint flag to true if Human Player
-			}
-			repaint();
+			handlePlayerMoved();
 		}
 		if (targets.isEmpty()) { 
-			finished = true; // skip turn
-			// tell player their turn is being skipped
-			if (currentPlayer instanceof HumanPlayer) { 
-				JLabel label = new JLabel("<html><center>There are no valid tiles to move to; skipping turn!");
-				label.setHorizontalAlignment(SwingConstants.CENTER);
-				JOptionPane.showMessageDialog(Board.getInstance(), label, "Warning!", JOptionPane.WARNING_MESSAGE);
-			}
+			targetsEmpty();
 		} else {
 			repaint();
 			if (currentPlayer instanceof ComputerPlayer) {
 				if (currentPlayer.getSeenCards().size() == deck.size() - 3 || ((ComputerPlayer)currentPlayer).getKnowsAnswer()) { // valid conditions for computer accusation
-					JLabel label = new JLabel("<html><center>The computer just won, answer is " + theAnswer.getPerson().getName() + ", " + theAnswer.getRoom().getName() + ", " + theAnswer.getWeapon().getName() + ".");
-					label.setHorizontalAlignment(SwingConstants.CENTER);
-					JOptionPane.showMessageDialog(Board.getInstance(), label, "Message", JOptionPane.INFORMATION_MESSAGE);
-					System.exit(0); // quit game, computer won
+					computerAccusation();
 				}
 				move(((ComputerPlayer)currentPlayer).selectTarget(), currentPlayer); // automate computer movement
 				if (getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) { // if at a room center
@@ -729,6 +709,44 @@ public class Board extends JPanel {
 	}
 
 	/**
+	 * computerAccusation()
+	 * Actions needed when a computer player has won the game.
+	 */
+	public void computerAccusation() {
+		JLabel label = new JLabel("<html><center>The computer just won, answer is " + theAnswer.getPerson().getName() + ", " + theAnswer.getRoom().getName() + ", " + theAnswer.getWeapon().getName() + ".");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		JOptionPane.showMessageDialog(Board.getInstance(), label, "Message", JOptionPane.INFORMATION_MESSAGE);
+		System.exit(0); // quit game, computer won
+	}
+
+	/**
+	 * targetsEmpty()
+	 * Actions needed when targets is empty.
+	 */
+	public void targetsEmpty() {
+		finished = true; // skip turn
+		// tell player their turn is being skipped
+		if (currentPlayer instanceof HumanPlayer) { 
+			JLabel label = new JLabel("<html><center>There are no valid tiles to move to; skipping turn!");
+			label.setHorizontalAlignment(SwingConstants.CENTER);
+			JOptionPane.showMessageDialog(Board.getInstance(), label, "Warning!", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+
+	/**
+	 * handlePlayerMoved()
+	 * Actions needed to handle current player's movement if moved previously by a suggestion.
+	 */
+	public void handlePlayerMoved() {
+		currentPlayer.setMoved(false);
+		targets.add(getCell(currentPlayer.getRow(), currentPlayer.getColumn())); // add current location to targets
+		if (currentPlayer instanceof HumanPlayer) {
+			getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setTarget(true); // set paint flag to true if Human Player
+		}
+		repaint();
+	}
+
+	/**
 	 * move()
 	 * Simulate the player's movement; both computer and player.
 	 * 
@@ -744,7 +762,7 @@ public class Board extends JPanel {
 			// if not a room center, set new location to be occupied
 			getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(true); 
 		}
-		else if (currentPlayer instanceof HumanPlayer && getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
+		else if (currentPlayer instanceof HumanPlayer) {
 			SuggestionDialog suggestionWinow = new SuggestionDialog(roomMap.get(getCell(currentPlayer.getRow(), currentPlayer.getColumn()).getInitial()));
 			suggestionWinow.setSize(getWidth() / 4, getHeight() / 4);
 			suggestionWinow.setLocationRelativeTo(theInstance);
@@ -769,7 +787,7 @@ public class Board extends JPanel {
 				break;
 			}
 		}
-		getCell(targetPlayer.getRow(), targetPlayer.getColumn()).setOccupied(false); // open previous location
+		getCell(targetPlayer.getRow(), targetPlayer.getColumn()).setOccupied(false); // open up previous location
 		targetPlayer.setLocation(origin.getRow(), origin.getColumn());
 		targetPlayer.setMoved(true); // moved flag
 		repaint();

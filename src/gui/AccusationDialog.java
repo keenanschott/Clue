@@ -29,7 +29,8 @@ public class AccusationDialog extends JDialog {
     JButton rightFour;
 
     /**
-     * 
+     * AccusationDialog()
+     * Constructor for the dialog, it does 90% of the work.
      */
     public AccusationDialog() {
         super();

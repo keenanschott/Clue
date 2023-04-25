@@ -242,8 +242,8 @@ public class CardsPanel extends JPanel {
      * addSeen()
      * Populates the seen text fields.
      * 
-     * @param computer A computer player.
-     * @param bcGolor The target color.
+     * @param evidence The card that serves as evidence against a suggestion.
+     * @param bgColor The target color.
      */
     public void addSeen(Card evidence, Color bgColor) {
         if (evidence.getType() == CardType.PERSON) { // person
@@ -270,6 +270,7 @@ public class CardsPanel extends JPanel {
         }
     }
 
+    // all getters and setters
     public static Color getBgColor() {
         return bgColor;
     }

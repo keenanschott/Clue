@@ -137,10 +137,22 @@ public class GameControlPanel extends JPanel {
     }
 
     /**
+     * reset()
+     * Reset all fields.
+     */
+    public void reset() {
+        bottomOneText.setText(null); 
+        bottomOneText.setBackground(null);
+        bottomTwoText.setText(null);
+        bottomTwoText.setBackground(null);
+    }    
+
+    /**
      * setGuess()
-     * Set the guess text field.
+     * Set the guess text field and color.
      * 
      * @param inString The input guess.
+     * @param bgColor The input color.
      */
     public void setGuess(String inString, Color bgColor) {
         bottomOneText.setText(inString); // set text
@@ -148,7 +160,7 @@ public class GameControlPanel extends JPanel {
     }
 
     /**
-     * setGuessResult()
+     * setGuessResultText()
      * Set the guess result text field.
      * 
      * @param inString The input guess result.
@@ -158,10 +170,10 @@ public class GameControlPanel extends JPanel {
     }
 
     /**
-     * setGuessResult()
-     * Set the guess result text field.
+     * setGuessResultColor()
+     * Set the guess result field color.
      * 
-     * @param inString The input guess result.
+     * @param bgColor The target color.
      */
     public void setGuessResultColor(Color bgColor) {
         bottomTwoText.setBackground(bgColor);
@@ -169,14 +181,14 @@ public class GameControlPanel extends JPanel {
 
     /**
      * getTopThree()
-     * @return topThree JButton; accusation button 
+     * @return topThree JButton; accusation button.
      */
     public JButton getTopThree() {
         return topThree;
     }
     /**
      * getTopFour()
-     * Return the "NEXT!" button to add listeners to in flow logic elsewhere. 
+     * Return the "NEXT!" button to add listeners to game flow logic elsewhere. 
      */
     public JButton getTopFour() {
         return topFour;

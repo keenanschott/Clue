@@ -22,8 +22,7 @@ public class Splash extends JOptionPane {
      * Constructor for pop up.
      */
     public Splash() {
-        label = new JLabel("<html><center>You are " + Board.getInstance().getPlayersList().get(0).getName()
-                + ".<br>Can you find the solution before the Computer players?"); // display human name in pop up
+        label = new JLabel("<html><center>You are " + Board.getInstance().getPlayersList().get(0).getName() + ".<br>Can you find the solution before the Computer players?"); // display human name in pop up
         label.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
