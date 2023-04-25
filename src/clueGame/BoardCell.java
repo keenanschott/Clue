@@ -63,7 +63,7 @@ public class BoardCell {
 
     /**
      * draw()
-     * Draw in the rooms, walkways, and bad spaces/closets independently.
+     * Draw in the rooms, walkways, and bad spaces/closets independently. Also handles drawing of target cells.
      * 
      * @param g The Graphics object.
      * @param x The x coordinate.
@@ -72,25 +72,31 @@ public class BoardCell {
      * @param height The cell height.
      */
     public void draw(Graphics g, int x, int y, int width, int height) {
+        // if target is a room, fill target cell CYAN
         if ((target && roomCenter) || (isRoom && Board.getInstance().getRoom(initial).getCenterCell().target)) {
-            fill(g, Color.CYAN, x, y, width, height); // target room
+            fill(g, Color.CYAN, x, y, width, height); 
+        // if standard target, fill target cell CYAN
         } else if (target) {
-            fill(g, Color.CYAN, x, y, width, height); // standard target
+            fill(g, Color.CYAN, x, y, width, height);
             g.setColor(Color.BLACK); 
             g.drawRect(x, y, width, height);
+        // draw standard room cell
         } else if (isRoom && secretPassage == '\0') {
-            fill(g, Color.GRAY, x, y, width, height); // standard room cell
+            fill(g, Color.GRAY, x, y, width, height); 
+        // draw secret passage cell 
         } else if (secretPassage != '\0') {
-            fill(g, Color.LIGHT_GRAY, x, y, width, height); // secret passage
+            fill(g, Color.LIGHT_GRAY, x, y, width, height); 
             g.setColor(Color.BLUE);
             g.setFont(new Font("Tahoma", Font.PLAIN, selectFont()));
             g.drawString(String.valueOf(secretPassage), x + (width / 3), y + (height * 2 / 3)); // necessary offset
-        } else if (getInitial() == 'W') { // walkway
+        // draw walkway
+        } else if (getInitial() == 'W') {
             fill(g, Color.YELLOW, x, y, width, height);
             g.setColor(Color.BLACK); 
             g.drawRect(x, y, width, height);
+        // cell is bad space/closet
         } else {
-            fill(g, Color.BLACK, x, y, width, height); // cell is bad space/closet
+            fill(g, Color.BLACK, x, y, width, height); 
             g.drawRect(x, y, width, height);
         }
     }

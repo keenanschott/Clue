@@ -10,6 +10,9 @@ import javax.swing.*;
 import clueGame.Board;
 import clueGame.Solution;
 
+/**
+ * 
+ */
 public class AccusationDialog extends JDialog {
     JLabel leftOne;
     JLabel leftTwo;
@@ -20,6 +23,9 @@ public class AccusationDialog extends JDialog {
     JComboBox<String> rightThree;
     JButton rightFour;
 
+    /**
+     * 
+     */
     public AccusationDialog() {
         super();
         setTitle("Make an Accusation");
@@ -67,8 +73,10 @@ public class AccusationDialog extends JDialog {
     }
 
     /**
-     * testing main 
-     * @param args
+     * main()
+     * Main to test the panel.
+     * 
+     * @param args The list of arguments.
      */
     public static void main(String[] args) {
         AccusationDialog test = new AccusationDialog();

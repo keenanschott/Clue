@@ -88,6 +88,12 @@ public class SuggestionDialog extends JDialog {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
+    /**
+     * main()
+     * Main to test the panel.
+     * 
+     * @param args The list of arguments.
+     */
     public static void main(String[] args) {
         SuggestionDialog test = new SuggestionDialog(new Room("Kitchen", null, null));
         test.setSize(500, 500);
