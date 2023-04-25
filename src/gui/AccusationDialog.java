@@ -28,6 +28,9 @@ public class AccusationDialog extends JDialog {
     JComboBox<String> rightThree;
     JButton rightFour;
 
+    /**
+     * 
+     */
     public AccusationDialog() {
         super();
         setTitle("Make an Accusation");
