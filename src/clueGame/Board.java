@@ -50,6 +50,7 @@ public class Board extends JPanel {
 	private Random random = new Random(System.currentTimeMillis());
 	private int currentRoll = 0; // the roll
 	private boolean finished = false; // turn conclusion flag
+	// drawing variables
 	private static int offsetX = 0;
 	private static int offsetY = 0;
 	private static int cellWidth;
