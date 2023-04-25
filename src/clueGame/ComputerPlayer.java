@@ -97,8 +97,6 @@ public class ComputerPlayer extends Player {
         }
     }
 
-    
-
     /**
      * disproveSuggestion()
      * Disprove a suggestion.

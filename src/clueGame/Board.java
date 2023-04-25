@@ -50,6 +50,7 @@ public class Board extends JPanel {
 	private Random random = new Random(System.currentTimeMillis());
 	private int currentRoll = 0; // the roll
 	private boolean finished = false; // turn conclusion flag
+	// drawing variables
 	private static int offsetX = 0;
 	private static int offsetY = 0;
 	private static int cellWidth;
@@ -138,15 +139,10 @@ public class Board extends JPanel {
 				// valid line for a player
 				} else if (lineArray.length == 5 && lineArray[0].equals("Player")) { 
 					if (lineArray[3].equals("Human")) { // human
-						players.add(new HumanPlayer(lineArray[1], lineArray[2],
-						// new human player
-							Integer.parseInt(lineArray[4].split("-")[0]),
-							Integer.parseInt(lineArray[4].split("-")[1])));
+						players.add(new HumanPlayer(lineArray[1], lineArray[2], Integer.parseInt(lineArray[4].split("-")[0]), Integer.parseInt(lineArray[4].split("-")[1]))); // new human player
 					} else { // computer
 						// new computer player
-						players.add(new ComputerPlayer(lineArray[1], lineArray[2],
-							Integer.parseInt(lineArray[4].split("-")[0]),
-							Integer.parseInt(lineArray[4].split("-")[1]))); 
+						players.add(new ComputerPlayer(lineArray[1], lineArray[2], Integer.parseInt(lineArray[4].split("-")[0]), Integer.parseInt(lineArray[4].split("-")[1]))); 
 					}
 					// add to deck as a player
 					deck.add(new Card(lineArray[1], CardType.PERSON));
@@ -302,12 +298,12 @@ public class Board extends JPanel {
 		cellHeight = getHeight() / numRows;
 		if (cellWidth > cellHeight) {
 			cellWidth = cellHeight;
-			offsetX = (getWidth() - cellWidth * numColumns) / 2; 
+			offsetX = (getWidth() - cellWidth * numColumns) / 2; // calculate offsets to center board
 		}  else {
 			cellHeight = cellWidth;
 			offsetY = (getHeight() - cellHeight * numRows) / 2; 
 		}
-		// set coordinates to be iteratedimage.png
+		// set coordinates to be iterated
 		xCoord = -cellWidth; 
 		yCoord = -cellHeight;
 		g.setColor(Color.BLACK); // base color
@@ -368,10 +364,9 @@ public class Board extends JPanel {
 	private void createAdj() {
 		for (int i = 0; i < numRows; i++) { // create an adjacency list for every cell
 			for (int j = 0; j < numColumns; j++) {
-				// checking if its a secret passage (\u0000 is null val)
+				// checking if its a secret passage
 				if (grid[i][j].getSecretPassage() != '\0') {
-					// connect other room's center cell by adding it to the current room's center
-					// cell's adjacency list
+					// connect other room's center cell by adding it to the current room's center cell's adjacency list
 					roomMap.get(grid[i][j].getInitial()).getCenterCell().addAdjacency(roomMap.get(grid[i][j].getSecretPassage()).getCenterCell());
 				}
 				// if the cell is not a room cell in any capacity and not an unused space -
@@ -639,29 +634,30 @@ public class Board extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// if the current turn has concluded
 				if (finished == true) { 
-					playerTurn++;
+					playerTurn++; 
 					currentPlayer = players.get(playerTurn % players.size());
 					currentRoll = randomRoll();
 					ClueGame.getBottomPanel().setTurn(currentPlayer, currentRoll);
 					runTurn(); // run the next turn
-				} else { // prompt player to end their turn
+				} else { 
+					// prompt player to end their turn
 					JLabel label = new JLabel("<html><center>You need to complete your turn!");
 					label.setHorizontalAlignment(SwingConstants.CENTER);
 					JOptionPane.showMessageDialog(theInstance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
-		ClueGame.getBottomPanel().getTopThree().addActionListener(new ActionListener() {
+		ClueGame.getBottomPanel().getTopThree().addActionListener(new ActionListener() { // add listener to accusation button
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (finished == false && currentPlayer instanceof HumanPlayer) {
+				if (finished == false && currentPlayer instanceof HumanPlayer) { // valid time to make an accusation
 					AccusationDialog accusationWindow = new AccusationDialog();
 					accusationWindow.setSize(getWidth() / 4, getHeight() / 4);
 					accusationWindow.setLocationRelativeTo(theInstance);
 					accusationWindow.setModal(true);
-					accusationWindow.setVisible(true);
+					accusationWindow.setVisible(true); // accusation window
 				} else {
-					JLabel label = new JLabel("<html><center>It is not your turn!"); 
+					JLabel label = new JLabel("<html><center>It is not your turn!"); // not a valid time to make an accusation
 					label.setHorizontalAlignment(SwingConstants.CENTER);
                 	JOptionPane.showMessageDialog(theInstance, label, "Message", JOptionPane.INFORMATION_MESSAGE);
 				}
@@ -678,22 +674,20 @@ public class Board extends JPanel {
 	 * @param gameFrame The outer frame we need to reference.
 	 */
 	private void runTurn() {
-		ClueGame.getBottomPanel().setGuessResultText(null);
+		ClueGame.getBottomPanel().setGuessResultText(null); // reset panel colors
 		ClueGame.getBottomPanel().setGuessResultColor(null);
 		ClueGame.getBottomPanel().setGuess(null, null);
 		getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(false); // deoccupy current cell inhabited
 		finished = false; // turn not over
 		calcTargets(getCell(currentPlayer.getRow(), currentPlayer.getColumn()), currentRoll);
-		if (currentPlayer.getMoved()) {
+		if (currentPlayer.getMoved()) { // if moved by another player since last turn
 			currentPlayer.setMoved(false);
-			targets.add(getCell(currentPlayer.getRow(), currentPlayer.getColumn()));
+			targets.add(getCell(currentPlayer.getRow(), currentPlayer.getColumn())); // add current location to targets
 			if (currentPlayer instanceof HumanPlayer) {
-				getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setTarget(true);
+				getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setTarget(true); // set paint flag to true if Human Player
 			}
 			repaint();
 		}
-
-
 		if (targets.isEmpty()) { 
 			finished = true; // skip turn
 			// tell player their turn is being skipped
@@ -705,31 +699,30 @@ public class Board extends JPanel {
 		} else {
 			repaint();
 			if (currentPlayer instanceof ComputerPlayer) {
-				if (currentPlayer.getSeenCards().size() == deck.size() - 3 || ((ComputerPlayer)currentPlayer).getKnowsAnswer()) {
+				if (currentPlayer.getSeenCards().size() == deck.size() - 3 || ((ComputerPlayer)currentPlayer).getKnowsAnswer()) { // valid conditions for computer accusation
 					JLabel label = new JLabel("<html><center>The computer just won, answer is " + theAnswer.getPerson().getName() + ", " + theAnswer.getRoom().getName() + ", " + theAnswer.getWeapon().getName() + ".");
 					label.setHorizontalAlignment(SwingConstants.CENTER);
 					JOptionPane.showMessageDialog(Board.getInstance(), label, "Message", JOptionPane.INFORMATION_MESSAGE);
-					System.exit(0);
+					System.exit(0); // quit game, computer won
 				}
 				move(((ComputerPlayer)currentPlayer).selectTarget(), currentPlayer); // automate computer movement
-				if (getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
+				if (getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) { // if at a room center
 					Solution computerSuggestion = ((ComputerPlayer)currentPlayer).createSuggestion(roomMap.get(getCell(currentPlayer.getRow(), currentPlayer.getColumn()).getInitial()));
 					if (!computerSuggestion.getPerson().equals(new Card(currentPlayer.getName(), CardType.PERSON))) {
-						moveSuggestedPlayer(currentPlayer, computerSuggestion);
+						moveSuggestedPlayer(currentPlayer, computerSuggestion); // if not suggesting self, move suggested player
 					}
-					Card evidence = handleSuggestion(currentPlayer, computerSuggestion);
+					Card evidence = handleSuggestion(currentPlayer, computerSuggestion); // disproving card
 					ClueGame.getBottomPanel().setGuess(computerSuggestion.getPerson().getName() + ", " + computerSuggestion.getRoom().getName() + ", " + computerSuggestion.getWeapon().getName(), currentPlayer.getColor());
-					if (evidence == null) {
+					if (evidence == null) { // guess was correct
 						ClueGame.getBottomPanel().setGuessResultText("No new clue");
 						ClueGame.getBottomPanel().setGuessResultColor(null);
 						if (!currentPlayer.getHand().contains(computerSuggestion.getRoom())) {
-							((ComputerPlayer)currentPlayer).setKnowsAnswer(true);
+							((ComputerPlayer)currentPlayer).setKnowsAnswer(true); // computer now knows answer
 						}
 					} else {
-						ClueGame.getBottomPanel().setGuessResultText("Suggestion disproven!");
+						ClueGame.getBottomPanel().setGuessResultText("Suggestion disproven!"); // guess was incorrect
 					}
 					currentPlayer.updateSeen(evidence);
-					// commit comment
 				}
 			}
 		}
@@ -751,31 +744,36 @@ public class Board extends JPanel {
 			// if not a room center, set new location to be occupied
 			getCell(currentPlayer.getRow(), currentPlayer.getColumn()).setOccupied(true); 
 		}
-		else if (currentPlayer instanceof HumanPlayer && getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter() ) {
+		else if (currentPlayer instanceof HumanPlayer && getCell(currentPlayer.getRow(), currentPlayer.getColumn()).isRoomCenter()) {
 			SuggestionDialog suggestionWinow = new SuggestionDialog(roomMap.get(getCell(currentPlayer.getRow(), currentPlayer.getColumn()).getInitial()));
-			// TODO: need to add action listener to suggestionWindow
 			suggestionWinow.setSize(getWidth() / 4, getHeight() / 4);
 			suggestionWinow.setLocationRelativeTo(theInstance);
 			suggestionWinow.setModal(true);
-			suggestionWinow.setVisible(true);
+			suggestionWinow.setVisible(true); // new suggestion window
 		}
 	}
 
+	/**
+	 * moveSuggestedPlayer()
+	 * Move the suggested player from the suggestion.
+	 * 
+	 * @param origin The suggester.
+	 * @param suggestion The suggestion.
+	 */
 	public void moveSuggestedPlayer(Player origin, Solution suggestion) {
-		String playerName = suggestion.getPerson().getName();
+		String playerName = suggestion.getPerson().getName(); 
 		Player targetPlayer = null;
 		for (Player aPlayer: players) {
 			if (aPlayer.getName().equals(playerName)) {
-				targetPlayer = aPlayer;
+				targetPlayer = aPlayer; // found suggested player
 				break;
 			}
 		}
-		getCell(targetPlayer.getRow(), targetPlayer.getColumn()).setOccupied(false);
+		getCell(targetPlayer.getRow(), targetPlayer.getColumn()).setOccupied(false); // open previous location
 		targetPlayer.setLocation(origin.getRow(), origin.getColumn());
-		targetPlayer.setMoved(true);
+		targetPlayer.setMoved(true); // moved flag
 		repaint();
 	}
-
 
 	/**
 	 * removePaint()
@@ -845,8 +843,7 @@ public class Board extends JPanel {
 	public Player getPlayer(String name) {
 		for (Player player : players) {
 			if (player.getName().equals(name)) {
-				return player; // return a player from the players list if the name matches (used exclusively
-								// in safe testing)
+				return player; // return a player from the players list if the name matches (used exclusively in safe testing)
 			}
 		}
 		return null;
@@ -860,7 +857,7 @@ public class Board extends JPanel {
 		ArrayList<String> people = new ArrayList<String>();
 		for (Card aCard : deck) {
 			if (aCard.getType() == CardType.PERSON) {
-				people.add(aCard.getName());
+				people.add(aCard.getName()); // get all people cards from the deck
 			}
 		}
 		return people;
@@ -870,7 +867,7 @@ public class Board extends JPanel {
 		ArrayList<String> rooms = new ArrayList<String>();
 		for (Card aCard : deck) {
 			if (aCard.getType() == CardType.ROOM) {
-				rooms.add(aCard.getName());
+				rooms.add(aCard.getName()); // get all room cards from the deck
 			}
 		}
 		return rooms;
@@ -880,7 +877,7 @@ public class Board extends JPanel {
 		ArrayList<String> weapons = new ArrayList<String>();
 		for (Card aCard : deck) {
 			if (aCard.getType() == CardType.WEAPON) {
-				weapons.add(aCard.getName());
+				weapons.add(aCard.getName()); // get all weapon cards from the deck
 			}
 		}
 		return weapons;
