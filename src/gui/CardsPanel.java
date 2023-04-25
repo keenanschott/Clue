@@ -238,6 +238,13 @@ public class CardsPanel extends JPanel {
         }
     }
 
+    /**
+     * addSeen()
+     * Populates the seen text fields.
+     * 
+     * @param computer A computer player.
+     * @param bcGolor The target color.
+     */
     public void addSeen(Card evidence, Color bgColor) {
         if (evidence.getType() == CardType.PERSON) { // person
             if (peopleSeenCards.getText().equals("None")) { // first occurrence
