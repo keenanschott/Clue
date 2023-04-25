@@ -52,8 +52,8 @@ public class SuggestionDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
-            
         });
+
         leftFour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
