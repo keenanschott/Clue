@@ -7,19 +7,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import org.junit.runner.Computer;
-
 import clueGame.Board;
 import clueGame.Card;
 import clueGame.CardType;
-import clueGame.ComputerPlayer;
 import clueGame.Room;
 import clueGame.Solution;
-import clueGame.Board;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
