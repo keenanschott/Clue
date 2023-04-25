@@ -50,6 +50,7 @@ public class CardsPanel extends JPanel {
     private JLabel weaponsSeen;
     private JTextField weaponsSeenCards;
     private static Color bgColor;
+    Card secondCard = null;
 
     /**
      * CardsPanel()
@@ -167,40 +168,71 @@ public class CardsPanel extends JPanel {
      * @param human The human player.
      */
     public void addHand(Player human) {
+        int people = 0, weapons = 0, rooms = 0; // card counters
         for (Card currentCard : human.getHand()) { // for all of the cards in the human player's hand
             if (currentCard.getType() == CardType.PERSON) { // person
-                if (peopleHandCards.getText().equals("None")) { // first occurrence
+                if (people == 0) { // first occurrence
                     peopleHandCards.setText(currentCard.getName()); // change text
-                } else {
+                } else if (people == 1) {
+                    secondCard = currentCard;
                     peoplePanel.removeAll(); // reconstruct panel
                     peoplePanel.add(peopleHand);
                     peoplePanel.add(peopleHandCards);
                     generateNewFieldHand(peoplePanel, currentCard.getName()); // generate new text field
                     peoplePanel.add(peopleSeen);
                     peoplePanel.add(peopleSeenCards);
-                }
-            } else if (currentCard.getType() == CardType.ROOM) { // room
-                if (roomsHandCards.getText().equals("None")) { // first occurrence
-                    roomsHandCards.setText(currentCard.getName()); // change text
                 } else {
+                    peoplePanel.removeAll();
+                    peoplePanel.add(peopleHand);
+                    peoplePanel.add(peopleHandCards);
+                    generateNewFieldHand(peoplePanel, secondCard.getName()); 
+                    generateNewFieldHand(peoplePanel, currentCard.getName()); // generate new text field
+                    peoplePanel.add(peopleSeen);
+                    peoplePanel.add(peopleSeenCards);
+                }
+                people++;
+            } else if (currentCard.getType() == CardType.ROOM) { // room
+                if (rooms == 0) { // first occurrence
+                    roomsHandCards.setText(currentCard.getName()); // change text
+                } else if (rooms == 1) {
+                    secondCard = currentCard;
                     roomsPanel.removeAll(); // reconstruct panel
                     roomsPanel.add(roomsHand);
                     roomsPanel.add(roomsHandCards);
                     generateNewFieldHand(roomsPanel, currentCard.getName()); // generate new text field
                     roomsPanel.add(roomsSeen);
                     roomsPanel.add(roomsSeenCards);
-                }
-            } else { // weapon
-                if (weaponsHandCards.getText().equals("None")) { // first occurrence
-                    weaponsHandCards.setText(currentCard.getName()); // change text
                 } else {
+                    roomsPanel.removeAll(); // reconstruct panel
+                    roomsPanel.add(roomsHand);
+                    roomsPanel.add(roomsHandCards);
+                    generateNewFieldHand(roomsPanel, secondCard.getName()); 
+                    generateNewFieldHand(roomsPanel, currentCard.getName()); // generate new text field
+                    roomsPanel.add(roomsSeen);
+                    roomsPanel.add(roomsSeenCards);
+                }
+                rooms++;
+            } else { // weapon
+                if (weapons == 0) { // first occurrence
+                    weaponsHandCards.setText(currentCard.getName()); // change text
+                } else if (weapons == 1) {
+                    secondCard = currentCard;
                     weaponsPanel.removeAll(); // reconstruct panel
                     weaponsPanel.add(weaponsHand);
                     weaponsPanel.add(weaponsHandCards);
                     generateNewFieldHand(weaponsPanel, currentCard.getName()); // generate new text field
                     weaponsPanel.add(weaponsSeen);
                     weaponsPanel.add(weaponsSeenCards);
+                } else {
+                    weaponsPanel.removeAll(); // reconstruct panel
+                    weaponsPanel.add(weaponsHand);
+                    weaponsPanel.add(weaponsHandCards);
+                    generateNewFieldHand(weaponsPanel, secondCard.getName()); 
+                    generateNewFieldHand(weaponsPanel, currentCard.getName()); // generate new text field
+                    weaponsPanel.add(weaponsSeen);
+                    weaponsPanel.add(weaponsSeenCards);
                 }
+                weapons++;
             }
         }
     }
