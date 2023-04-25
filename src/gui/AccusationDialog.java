@@ -10,6 +10,14 @@ import javax.swing.*;
 import clueGame.Board;
 import clueGame.Solution;
 
+/**
+ * AccusationDialog
+ * The game's dialog for a human player's accusation.
+ * DATE: 4/25/2023
+ * 
+ * @author Keenan Schott
+ * @author Finn Burns
+ */
 public class AccusationDialog extends JDialog {
     JLabel leftOne;
     JLabel leftTwo;
@@ -42,11 +50,10 @@ public class AccusationDialog extends JDialog {
         add(leftFour, BorderLayout.WEST);
         add(rightFour, BorderLayout.EAST);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
         rightFour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                dispose(); // "Cancel" button; close window
             }
         });
         leftFour.addActionListener(new ActionListener() {
@@ -55,22 +62,28 @@ public class AccusationDialog extends JDialog {
                 Solution suggestion = new Solution((String)rightOne.getSelectedItem(), (String)rightTwo.getSelectedItem(), (String)rightThree.getSelectedItem());
                 JLabel label = null;
                 if (Board.getInstance().getTheAnswer().equals(suggestion)) {
-                    label = new JLabel("<html><center>Congratulations, that's correct! You win!"); 
+                    label = new JLabel("<html><center>Congratulations, that's correct! You win!"); // won the game 
                 } else {
-                    label = new JLabel("<html><center>Sorry, not correct! You lose!");
+                    label = new JLabel("<html><center>Sorry, not correct! You lose!"); // lose the game
                 }
                 label.setHorizontalAlignment(SwingConstants.CENTER);
                 JOptionPane.showMessageDialog(Board.getInstance(), label, "Message", JOptionPane.INFORMATION_MESSAGE);
-                System.exit(0);
+                System.exit(0); // close program
             }
         });
     }
 
     /**
-     * testing main 
-     * @param args
+     * main()
+     * Main to test the panel.
+     * 
+     * @param args The list of arguments.
      */
     public static void main(String[] args) {
+        Board testBoard = Board.getInstance(); // initialize board
+        testBoard.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
+        testBoard.initialize();
+        testBoard.deal();
         AccusationDialog test = new AccusationDialog();
         test.setSize(500, 500);
         test.setVisible(true);
