@@ -925,25 +925,15 @@ public class Board extends JPanel {
 			JOptionPane.showMessageDialog(theInstance, label, "Warning!", JOptionPane.WARNING_MESSAGE);
         }
 
+		// methods need to be prototyped to implement MouseListener
         @Override
-        public void mousePressed(MouseEvent e) {
-			// not needed 
-        }
-
+        public void mousePressed(MouseEvent e) {}
         @Override
-        public void mouseReleased(MouseEvent e) {
-			// not needed 
-        }
-
+        public void mouseReleased(MouseEvent e) {};
         @Override
-        public void mouseEntered(MouseEvent e) {
-			// not needed 
-        }
-
+        public void mouseEntered(MouseEvent e) {};
         @Override
-        public void mouseExited(MouseEvent e) {
-			// not needed 
-        }
+        public void mouseExited(MouseEvent e) {};
     }
 
 	/**

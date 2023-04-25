@@ -66,6 +66,10 @@ public class AccusationDialog extends JDialog {
         });
     }
 
+    /**
+     * testing main 
+     * @param args
+     */
     public static void main(String[] args) {
         AccusationDialog test = new AccusationDialog();
         test.setSize(500, 500);
