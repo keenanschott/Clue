@@ -1,0 +1,1 @@
+Our extension is a playable .jar file, labeled "Clue.jar" in the root directory.
