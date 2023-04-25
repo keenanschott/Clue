@@ -67,8 +67,8 @@ public class BoardTestsExp {
         Assert.assertTrue(targets.contains(board.getCell(0, 2))); // all cells two moves away
         Assert.assertTrue(targets.contains(board.getCell(1, 1)));
         Assert.assertTrue(targets.contains(board.getCell(2, 0)));
-        Assert.assertFalse(targets.contains(board.getCell(1, 0))); // these cells should not be present; would require
-                                                                   // to move back to a previously visited square
+        Assert.assertFalse(targets.contains(board.getCell(1, 0))); 
+        // these cells should not be present; would require to move back to a previously visited square
         Assert.assertFalse(targets.contains(board.getCell(0, 1)));
         Assert.assertFalse(targets.contains(board.getCell(0, 0)));
     }

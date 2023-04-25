@@ -31,7 +31,7 @@ public class GameSolutionTest {
         // Initialize will load config files
         board.initialize();
         board.deal();
-        ClueGame testFrame = new ClueGame();
+        ClueGame testFrame = new ClueGame(); // initialize simply to have the instance
         badPerson = new Card("badPerson", CardType.PERSON); // create dummy cards for our tests
         badWeapon = new Card("badWeapon", CardType.WEAPON);
         badRoom = new Card("badRoom", CardType.ROOM);
@@ -67,8 +67,7 @@ public class GameSolutionTest {
     // matching card
     @Test
     public void testDisproveSuggestion() {
-        HumanPlayer test = (HumanPlayer) board.getPlayersList().get(0); // get "PlayerName1", simply for the sake of
-                                                                        // testing
+        HumanPlayer test = (HumanPlayer) board.getPlayersList().get(0); // get "PlayerName1", simply for the sake of testing
         Card randomCard = test.getHand().get(0); // get a random card in the player's hand for comparison
         // if player has no matching cards, null is returned (as of now, ComputerPlayer
         // and HumanPlayer disproveSuggestion() are the exact same)
@@ -111,23 +110,19 @@ public class GameSolutionTest {
     @Test
     public void testHandleSuggestion() {
         // get a random origin player
-        ComputerPlayer testPlayer = (ComputerPlayer) board.getPlayersList().get(1); // get "PlayerName2", simply for the
-                                                                                    // sake of testing
+        ComputerPlayer testPlayer = (ComputerPlayer) board.getPlayersList().get(1); // get "PlayerName2", simply for the sake of testing
         // if suggestion no one can disprove returns null
         Solution badSolution = new Solution(badRoom, badPerson, badWeapon); // bad suggestion, null should be returned
         assertEquals(board.handleSuggestion(testPlayer, badSolution), null);
         // suggestion only suggesting player can disprove returns null
-        badSolution.setRoom(testPlayer.getHand().get(0)); // set badSolution room to be an arbitrary Card in the origin
-                                                          // player's hand
+        badSolution.setRoom(testPlayer.getHand().get(0)); // set badSolution room to be an arbitrary Card in the origin player's hand
         assertEquals(board.handleSuggestion(testPlayer, badSolution), null); // should still be null
         // suggestion only human can disprove returns answer (i.e., card that disproves
         // suggestion)
         badSolution.setRoom(badRoom); // reset badSolution
         Card randomCard = board.getPlayersList().get(0).getHand().get(0); // save card
-        board.getPlayersList().get(0).getHand().set(0, badRoom); // change only the human player's hand to include the
-                                                                 // disproven Card
-        assertEquals(board.handleSuggestion(testPlayer, badSolution), badRoom); // assert that a computer player can
-                                                                                // have that Card returned
+        board.getPlayersList().get(0).getHand().set(0, badRoom); // change only the human player's hand to include the disproven Card
+        assertEquals(board.handleSuggestion(testPlayer, badSolution), badRoom); // assert that a computer player can have that Card returned
         board.getPlayersList().get(0).getHand().set(0, randomCard); // return card
         // suggestion that two players can disprove, correct player (based on starting
         // with next player in list) returns answer
@@ -136,26 +131,11 @@ public class GameSolutionTest {
         nextPlayer1.getHand().set(0, badPerson); // set hands to contain badPerson
         nextPlayer2.getHand().set(0, badPerson);
         testPlayer.getHand().set(0, badPerson);
-        assertEquals(board.handleSuggestionTestReturn((Player) testPlayer, badSolution), nextPlayer1); // after
-                                                                                                       // testPlayer
-                                                                                                       // comes
-                                                                                                       // nextPlayer1,
-                                                                                                       // ensure
-                                                                                                       // nextPlayer1
-                                                                                                       // returns the
-                                                                                                       // proof
-        testPlayer = (ComputerPlayer) board.getPlayersList().get(3); // get "PlayerName4", simply for the sake of
-                                                                     // testing
-        board.getPlayersList().get(1).getHand().set(0, randomCard); // remove the former testPlayer badPerson card using
-                                                                    // an arbitrary card
+        assertEquals(board.handleSuggestionTestReturn((Player) testPlayer, badSolution), nextPlayer1); // after comes nextPlayer1, ensure nextPlayer1 returns the proof
+        testPlayer = (ComputerPlayer) board.getPlayersList().get(3); // get "PlayerName4", simply for the sake of testing
+        board.getPlayersList().get(1).getHand().set(0, randomCard); // remove the former testPlayer badPerson card using an arbitrary card
         testPlayer.getHand().set(0, badPerson); // set hand to contain badPerson
-        assertEquals(board.handleSuggestionTestReturn((Player) testPlayer, badSolution), nextPlayer1); // now, after
-                                                                                                       // testPlayer
-                                                                                                       // comes
-                                                                                                       // nextPlayer2,
-                                                                                                       // ensure
-                                                                                                       // nextPlayer2
-                                                                                                       // returns the
-                                                                                                       // proof
+        assertEquals(board.handleSuggestionTestReturn((Player) testPlayer, badSolution), nextPlayer1); 
+        // now, after testPlayer comes nextPlayer2, ensure nextPlayer2 returns the proof
     }
 }

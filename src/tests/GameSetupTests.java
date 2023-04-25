@@ -90,8 +90,7 @@ public class GameSetupTests {
         assertEquals(computer, 5);
     }
 
-    // ensure the deck is of correct size and is populated correctly>>>>>>>
-    // e47437e04655c315fd2a3b23b4cf786b291200fb
+    // ensure the deck is of correct size and is populated correctly
     @Test
     public void testDeck() {
         // test deck size
@@ -122,16 +121,13 @@ public class GameSetupTests {
                 testUniqueness.add(testCard); // continue checking for uniqueness
                 // keep a counter
                 if (testCard.getType() == CardType.PERSON) {
-                    assertFalse(testCard.equals(board.getTheAnswer().getPerson())); // assert that no hand has the
-                                                                                    // answer person
+                    assertFalse(testCard.equals(board.getTheAnswer().getPerson())); // assert that no hand has the answer person
                     people++;
                 } else if (testCard.getType() == CardType.WEAPON) {
-                    assertFalse(testCard.equals(board.getTheAnswer().getWeapon())); // assert that no hand has the
-                                                                                    // answer weapon
+                    assertFalse(testCard.equals(board.getTheAnswer().getWeapon())); // assert that no hand has the answer weapon
                     weapons++;
                 } else {
-                    assertFalse(testCard.equals(board.getTheAnswer().getRoom())); // assert that no hand has the answer
-                                                                                  // room
+                    assertFalse(testCard.equals(board.getTheAnswer().getRoom())); // assert that no hand has the answer room
                     rooms++;
                 }
             }

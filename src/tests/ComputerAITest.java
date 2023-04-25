@@ -45,16 +45,10 @@ public class ComputerAITest {
         ComputerPlayer testPlayer = (ComputerPlayer) board.getPlayer("Richard Parker");
         testPlayer.setLocation(2, 2); // set to middle of the room
         Room currentRoom = board.getRoom(board.getCell(2, 2)); // get the room we're currently in
-        Solution testSuggestion = testPlayer
-                .createSuggestion(board.getRoom(board.getCell(testPlayer.getRow(), testPlayer.getColumn()))); // create
-                                                                                                              // suggestion
-                                                                                                              // based
-                                                                                                              // off of
-                                                                                                              // current
-                                                                                                              // room
-        assertEquals(board.getRoom(testSuggestion.getRoom()), currentRoom); // assert suggestion room is equal to
-                                                                            // current room
-        // if only one weapon/person not seen, it's selected
+        Solution testSuggestion = testPlayer.createSuggestion(board.getRoom(board.getCell(testPlayer.getRow(), testPlayer.getColumn()))); 
+        // create suggestion based off of current room
+        assertEquals(board.getRoom(testSuggestion.getRoom()), currentRoom); 
+        // assert suggestion room is equal to current room if only one weapon/person not seen, it's selected
         Set<Card> currentSeenCards = new HashSet<Card>(); // create a new set of seen cards
         int i = 0;
         Card targetCard = new Card(null, null); // create weapon card to be missing
@@ -67,8 +61,7 @@ public class ComputerAITest {
             }
         }
         testPlayer.setSeenCards(currentSeenCards); // set seen cards
-        assertEquals(testPlayer.createSuggestion(currentRoom).getWeapon(), targetCard); // suggestion should contain
-                                                                                        // "Poison"
+        assertEquals(testPlayer.createSuggestion(currentRoom).getWeapon(), targetCard); // suggestion should contain "Poison"
         currentSeenCards = new HashSet<Card>(); // create a new set of seen cards
         i = 0;
         targetCard = new Card(null, null); // create person card to be missing
@@ -81,8 +74,7 @@ public class ComputerAITest {
             }
         }
         testPlayer.setSeenCards(currentSeenCards); // set seen cards
-        assertEquals(testPlayer.createSuggestion(currentRoom).getPerson(), targetCard); // suggestion should contain
-                                                                                        // "Captain Nemo"
+        assertEquals(testPlayer.createSuggestion(currentRoom).getPerson(), targetCard); // suggestion should contain "Captain Nemo"
         // if multiple weapons not seen, one is randomly selected
         ArrayList<Card> twoCards = new ArrayList<Card>();
         currentSeenCards = new HashSet<Card>(); // create a new set of seen cards
@@ -116,8 +108,7 @@ public class ComputerAITest {
         i = 0;
         targetCard = new Card(null, null); // create person cards to be missing
         for (Card card : board.getDeck()) {
-            if (card.getType() == CardType.PERSON && i < 4) { // include all weapons except "Captain Ahab" and "Captain
-                                                              // Nemo"
+            if (card.getType() == CardType.PERSON && i < 4) { // include all weapons except "Captain Ahab" and "Captain Nemo"
                 currentSeenCards.add(card);
                 i++;
             } else if (i == 4 && card.getType() == CardType.PERSON) {
@@ -146,10 +137,8 @@ public class ComputerAITest {
     public void testSelectTargets() {
         // if no rooms in list, select randomly
         ComputerPlayer testPlayer = (ComputerPlayer) board.getPlayer("Richard Parker"); // copy over player
-        board.calcTargets(board.getCell(testPlayer.getRow(), testPlayer.getColumn()), 1); // no target from (0, 7) that
-                                                                                          // is a room with a roll of 1
-        Map<BoardCell, Integer> trackTargets = new Hashtable<>(); // map to track targets and occurences for random
-                                                                  // confirmation
+        board.calcTargets(board.getCell(testPlayer.getRow(), testPlayer.getColumn()), 1); // no target from (0, 7) that is a room with a roll of 1
+        Map<BoardCell, Integer> trackTargets = new Hashtable<>(); // map to track targets and occurences for random confirmation
         Iterator<BoardCell> iterator = board.getTargets().iterator(); // iterate over set of targets
         BoardCell sampleTarget;
         while (iterator.hasNext()) {
@@ -180,11 +169,8 @@ public class ComputerAITest {
         trackTargets.clear();
         testPlayer = (ComputerPlayer) board.getPlayer("Richard Parker");
         testPlayer.setSeenCards(currentSeenCards);
-        board.calcTargets(board.getCell(testPlayer.getRow(), testPlayer.getColumn()), 3); // (2, 2) is the nearest
-                                                                                          // reachable room, but other
-                                                                                          // targets should be chosen
-                                                                                          // randomly since it's been
-                                                                                          // seen
+        board.calcTargets(board.getCell(testPlayer.getRow(), testPlayer.getColumn()), 3); 
+        // (2, 2) is the nearest reachable room, but other targets should be chosen randomly since it's been seen
         iterator = board.getTargets().iterator();
         while (iterator.hasNext()) {
             trackTargets.put(iterator.next(), 0); // populate trackTargets with each possible target and a count of 0
@@ -194,8 +180,7 @@ public class ComputerAITest {
             trackTargets.put(sampleTarget, trackTargets.get(sampleTarget) + 1); // add 1 to target
         }
         for (BoardCell key : trackTargets.keySet()) {
-            assertTrue(trackTargets.get(key) > 150); // five possible targets over 1000 simulations; each should be
-                                                     // above 150
+            assertTrue(trackTargets.get(key) > 150); // five possible targets over 1000 simulations; each should be above 150
         }
     }
 }
