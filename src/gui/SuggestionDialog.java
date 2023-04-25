@@ -62,13 +62,16 @@ public class SuggestionDialog extends JDialog {
                     Board.getInstance().moveSuggestedPlayer(Board.getInstance().getCurrentPlayer(), suggestion);
                 }
                 Card evidence = Board.getInstance().handleSuggestion(Board.getInstance().getCurrentPlayer(), suggestion);
+                // guess is concatenation of person name, room, weapon and we pass in color of that player
                 ClueGame.getBottomPanel().setGuess(suggestion.getPerson().getName() + ", " + suggestion.getRoom().getName() + ", " + suggestion.getWeapon().getName(), Board.getInstance().getCurrentPlayer().getColor());
                 if (evidence == null) {
                     ClueGame.getBottomPanel().setGuessResultColor(null);
                     ClueGame.getBottomPanel().setGuessResultText("No new clue");
+                // display guess result as evidence
                 } else {
                     ClueGame.getBottomPanel().setGuessResultText(evidence.getName());
                 }
+                // update seen
                 ArrayList<Card> seenCopy = new ArrayList<Card>(Board.getInstance().getCurrentPlayer().getSeenCards());
                 if (!seenCopy.contains(evidence) && evidence != null) {
                     ClueGame.getRightPanel().addSeen(evidence, CardsPanel.getBgColor());
