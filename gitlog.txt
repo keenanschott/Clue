@@ -1,5 +1,166 @@
-I, Keenan Schott, certify that I participated equitably in the creation of assignment C25A-2 Refactoring II (Clue Pair), dated 4/19/2023.
-I, William Burns, certify that I participated equitably in the creation of assignment C25A-2 Refactoring II (Clue Pair), dated 4/19/2023.
+I, Keenan Schott, certify that I participated equitably in the creation of assignment C26A Clue Game - Finishing Clue (Clue Pair), dated 4/25/2023.
+I, William Burns, certify that I participated equitably in the creation of assignment C26A Clue Game - Finishing Clue (Clue Pair), dated 4/25/2023.
+
+commit 1db145bf98f1825c556a5c5353fda428c1ea6925
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 25 16:08:07 2023 -0600
+
+    .jar file
+
+commit c8456eeb809ee6aa42e15983291673b763c1831a
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 25 15:51:30 2023 -0600
+
+    Fixed issue of dealing three cards of same type on initialization
+
+commit 303cbd5829b8581622a3440b4230047931e75ee4
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 25 15:15:52 2023 -0600
+
+    Fixed cards sizing issue
+
+commit fc9ac33c16a4d26116b45c92619c0fba3133ec02
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Tue Apr 25 15:00:05 2023 -0600
+
+    Some more refactoring
+
+commit e8b7648d72042c3bea24f3ee608e73dee00f023a
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 25 11:04:12 2023 -0600
+
+    Comments done; refactoring starting point
+
+commit f2f7ac3b7455f488a096cd30fa8bddc638475438
+Merge: 5588851 5e7a382
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 25 10:47:27 2023 -0600
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit 558885184490a3bb119c9affc1c988b1cb075ba3
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 25 10:47:20 2023 -0600
+
+    suggestion dialog comments
+
+commit 5e7a382c54230d77326c47c8fe06733838c8484d
+Merge: 18a237e 87c7360
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 25 10:40:34 2023 -0600
+
+    Merge branch 'main' of https://github.com/squilliamb/Clue
+
+commit 18a237ea8c84fdc842656df834d0623791723317
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 25 10:40:28 2023 -0600
+
+    More comments
+
+commit 87c7360200fff96621349f7036c0c20ffb3c3403
+Merge: 9048bde ef3e50e
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 25 10:39:51 2023 -0600
+
+    merged with keenanaccusationdialog comments
+
+commit 9048bde74d6d166c514b4c0f70c66977e18f4f59
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 25 10:39:15 2023 -0600
+
+    commenting
+
+commit ef3e50e5ce9069cfd905519864b80144a98273b9
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 25 10:38:48 2023 -0600
+
+    more comments
+
+commit a0408cf2d2871eb8803464c52802834f73b16094
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 25 10:33:32 2023 -0600
+
+    Accusation Dialog comments
+
+commit ffd4df262bbd5a3b95d0d86c3988439a730a224c
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 25 10:23:11 2023 -0600
+
+    Board commented out
+
+commit e37e8175c24e591daf25700feef3246f1198b8ea
+Merge: 9e56e99 55bfe59
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 25 09:59:35 2023 -0600
+
+    Merge branch 'main' of https://github.com/squilliamb/Clue
+
+commit 9e56e99ce72473aefab3a7028d80f40edda5fa0f
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 25 09:59:31 2023 -0600
+
+    Some Board refactoring
+
+commit 55bfe59dc0fb7a106f65fd7341a5390f7edaeb0e
+Merge: dead0df 57f95d3
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 25 09:59:09 2023 -0600
+
+    Merge branch 'main' of github.com:squilliamb/Clue
+
+commit dead0df314b4de15557be715a08524b41de3291e
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Tue Apr 25 09:58:58 2023 -0600
+
+    restructured celllistener in board
+
+commit 57f95d3c700aad7b9c7a904a86aec58a0f43a27c
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Tue Apr 25 09:54:29 2023 -0600
+
+    Refactored tests
+
+commit 5e24a2aa491e6506200902c31be8e2fdcdb9832a
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Apr 24 16:07:23 2023 -0600
+
+    refactoring starting point
+
+commit 757cbaba29adfec20c8d3f940e9c8fab45462380
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Mon Apr 24 15:45:45 2023 -0600
+
+    Almost there; check ED post
+
+commit 6a632cbe80739791e91aaf299d36cb8b98b78265
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Apr 23 22:41:27 2023 -0600
+
+    More functionality!
+
+commit dd3021ecbf747792dcccdab7f8e6d65d80880ca3
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Sun Apr 23 20:31:01 2023 -0600
+
+    Most functionality done
+
+commit d3ab2975fda5868969e7bca47c7fd7516e56ec6e
+Author: finn <90734575+squilliamb@users.noreply.github.com>
+Date:   Thu Apr 20 10:52:09 2023 -0600
+
+    initialized dialog windows in board, and began to implement logic. TODO: add action listeners...
+
+commit 613e1fc497b4a2a32f615a5e01811b1723e4546e
+Author: keenanschott <keenanmschott28@gmail.com>
+Date:   Thu Apr 20 10:17:27 2023 -0600
+
+    Began dialog panels
+
+commit 859563e4e4228b558d6117d8b308709b3580b368
+Author: Keenan Schott <keenanmschott28@gmail.com>
+Date:   Wed Apr 19 23:25:14 2023 -0600
+
+    Ready for next assignment
 
 commit 5ab9ad2173e52f1d2539e6404df23c9d03608382
 Merge: 1a2a1de 68f8b15
