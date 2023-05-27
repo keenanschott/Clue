@@ -1,0 +1,2 @@
+# Clue
+This was written for the Software Engineering class at Colorado School of Mines; a project that took several months. It's by no means the cleanest written code, but it was a fairly large project so, at the time and continuing today, I'm proud of its magnitude and scale. For a glimpse into the gameplay, `Clue.jar` is the playable file.
