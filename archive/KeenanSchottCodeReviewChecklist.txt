@@ -1,7 +1,0 @@
-Keenan Schott Code Review Checklist
-
-- header blocks present and thorough; comments should tell a story
-- intuitive naming of variables and functions; can I understand its purpose just by looking at the name?
-- check instance variable scope; is it protected or private?
-- is graphics code clean and easy to follow?
-- do classes follow the SRP for the most part?
